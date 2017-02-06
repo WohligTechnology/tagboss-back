@@ -1,0 +1,60 @@
+<section class="coupon-code body-main">
+  <div class="container-fluid">
+    <div class="details">
+      <div class="row">
+        <div class="col-md-2 pull-right">
+          <div class="input-group add-btn pull-right">
+            <a ng-click="openedit('Add');">
+              <label class="view">Add</label>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Coupon Code</th>
+                  <th>Max Used</th>
+                  <th>Start &amp; End date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>City</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <div ng-if="allCoupon.length==0">
+                  <h3 class="text-center">No data Found</h3>
+                </div>
+                <div ng-if="allCoupon==undefined">
+                  <h3 class="text-center">Loading...</h3>
+                </div>
+                <tr ng-repeat="coupon in allCoupon">
+                  <td>{{coupon.code}}</td>
+                  <td>{{coupon.maxUsed}}</td>
+                  <td>{{coupon.createdAt | date : "dd-MM-y"}} to {{coupon.endDate | date : "dd-MM-y"}}</td>
+                  <td>{{coupon.type}}</td>
+                  <td>{{coupon.amount}}</td>
+                  <td>{{coupon.city.toString()}}</td>
+                  <td>
+                    <div class="text-center">
+                      <span ng-click="openedit('Edit',coupon._id);">Edit</span>
+                      <span>|</span>
+                      <span ui-sref="orders({type:'coupon',id:coupon.code})">View</span>
+                      <span>|</span>
+                      <span ng-click="deleteCoupon(coupon._id);">Delete</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllCoupon()"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<section>
+    <div class="inspec">
+        <div class="close-img" ng-click="$close();">
+            <img src="img/closebtn.png" alt="">
+        </div>
+        <div class="modal-header">
+            <h3 class="modal-title text-center txt-head">Select Payment Date</h3>
+        </div>
+        <div class="modal-body">
+            
+             <div class="input-group date date1">
+                <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
+                  uib-datepicker-popup="dd-MMMM-yyyy" ng-change="dateSelection(dt)" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
+                  ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
+                <!--<div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html"
+                  class="ng-not-empty ng-invalid ng-invalid-date-disabled" style="">
+                 </div>-->
+                <span class="input-group-btn">
+                                <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                              </span>
+              </div>
+        </div>
+        <!--<div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>-->
+    </div>
+</section>

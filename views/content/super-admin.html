@@ -1,0 +1,254 @@
+<section class="body-main super-admin">
+  <div class="container-fluid">
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group status">
+              <label for="sel1">status</label>
+              <select class="form-control" id="sel1">
+                <option value="India">Not due</option>
+                <option value="2">Not due yet</option>
+                <option value="3">Pending</option>
+                <option value="4">Payment Processing</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="date-to">
+              <label>Order Date From</label>
+              <div class="input-group search-top">
+                  <input type="date" class="form-control">
+              </div>
+
+              <label>To</label>
+              <div class="input-group search-top">
+                  <input type="date" class="form-control">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="date-to">
+              <label>Payment due on / before</label>
+              <div class="input-group search-top">
+                <div class="input-group date">
+                    <input type="text" class="form-control cal-input ng-pristine ng-isolate-scope ng-valid-required ng-touched ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-date" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required"><div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html" class="ng-pristine ng-untouched ng-valid ng-scope ng-empty"><!-- ngIf: isOpen -->
+</div><div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html" class="ng-invalid ng-invalid-date-disabled ng-pristine ng-untouched ng-valid ng-empty" style=""><!-- ngIf: isOpen -->
+</div>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                    </span>
+                  </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <div class="date-to">
+              <label>Order Date From</label>
+              <div class="input-group search-top">
+                  <input type="date" class="form-control">
+              </div>
+
+              <label>To</label>
+              <div class="input-group search-top">
+                  <input type="date" class="form-control">
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+
+
+
+    <div class="details">
+
+
+   <div>
+
+     <div class="head-text">
+         <div class="row">
+           <div class="col-md-12">
+             <div class="magic-form">
+               <div class="magic-resize">
+                 <input class="magic-checkbox" type="checkbox" name="layout" id="2" value="option1">
+                   <label class="text" for="2">
+                     <h2>sb002 - rajesh traders</h2>
+                   </label>
+               </div>
+             </div>
+           </div>
+       </div>
+     </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="head">
+          <tr>
+            <th></th>
+            <th></th>
+            <th>total order value</th>
+            <th>total payable</th>
+            <th>total due</th>
+            <th>total paid</th>
+            <th>total pending</th>
+          </tr>
+        </thead>
+        <tbody class="info">
+          <tr>
+            <td></td>
+            <td></td>
+            <td>21053</td>
+            <td>20000</td>
+            <td>20000</td>
+            <td></td>
+            <td>20000</td>
+          </tr>
+          <tr>
+            <td>Order id</td>
+            <td>Date</td>
+            <td>Order value</td>
+            <td>Net payable</td>
+            <td>Payment amount</td>
+            <td>Payment due date</td>
+            <td>Payment remarks</td>
+          </tr>
+          <tr>
+            <td>XYZ001</td>
+            <td>20-06-16</td>
+            <td>21053</td>
+            <td>20000</td>
+            <td>15000</td>
+            <td>30-06-16</td>
+            <td>75% Payment on dispatch</td>
+          </tr>
+          <tr>
+            <td>XYZ001</td>
+            <td>20-06-16</td>
+            <td>21053</td>
+            <td>20000</td>
+            <td>15000</td>
+            <td>01-07-16</td>
+            <td>25% Payment on completion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+
+  <div>
+
+    <div class="head-text">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="2" value="option1">
+                  <label class="text" for="2">
+                    <h2>sb009 - om traders</h2>
+                  </label>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+   <div class="table-responsive">
+     <table class="table">
+       <thead class="head">
+         <tr>
+           <th></th>
+           <th></th>
+           <th>total order value</th>
+           <th>total payable</th>
+           <th>total due</th>
+           <th>total paid</th>
+           <th>total pending</th>
+         </tr>
+       </thead>
+       <tbody class="info">
+         <tr>
+           <td></td>
+           <td></td>
+           <td>25947</td>
+           <td>18000</td>
+           <td>15300</td>
+           <td>8000</td>
+           <td>7300</td>
+         </tr>
+         <tr>
+           <td>Order id</td>
+           <td>Date</td>
+           <td>Order value</td>
+           <td>Net payable</td>
+           <td>Payment amount</td>
+           <td>Payment due date</td>
+           <td>Payment remarks</td>
+         </tr>
+         <tr>
+           <td>ABC001</td>
+           <td>02-07-16</td>
+           <td>10526</td>
+           <td>10000</td>
+           <td>2500</td>
+           <td></td>
+           <td>25% Payment on completion</td>
+         </tr>
+         <tr>
+           <td>ABC001</td>
+           <td>02-07-16</td>
+           <td>10526</td>
+           <td>10000</td>
+           <td>7500</td>
+           <td>11-07-16</td>
+           <td>75% Payment on dispatch</td>
+         </tr>
+         <tr>
+           <td>ABC003</td>
+           <td>30-06-16</td>
+           <td>7000</td>
+           <td>0</td>
+           <td>-200</td>
+           <td>08-07-16</td>
+           <td>Order cancellation fee</td>
+         </tr>
+         <tr>
+           <td>ABC005</td>
+           <td>11-07-16</td>
+           <td>8421</td>
+           <td>8000</td>
+           <td>6000</td>
+           <td>02-07-16</td>
+           <td>75% Payment on dispatch</td>
+         </tr>
+         <tr>
+           <td>ABC005</td>
+           <td>11-07-16</td>
+           <td>8421</td>
+           <td>8000</td>
+           <td>2000</td>
+           <td>06-07-16</td>
+           <td>25% Payment on completion</td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+
+ </div>
+
+
+
+
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,100 @@
+<section class="body-main buyers">
+  <div class="container-fluid">
+    <div class="buyer">
+      <div class="search-content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group search-top">
+              <input type="text" ng-model="filter.text" ng-change="getAllBuyer()" class="form-control" placeholder="Search by Seller ID or Name">
+              <span ng-click="getAllBuyer()" class="input-group-btn">
+                <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="filter pull-left">
+              <p class="total">Total Buyers - <span>{{totalItems}}</span></p>
+            </div>
+            <div class="more-opt1 sort-by">
+              <div class="magic-form dropdown">
+                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                  <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">-->
+                  <label class="">Sort by</label>
+                  <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-click="getAllBuyer('All');"><a>All</a></li>
+                    <li ng-click="getAllBuyer('Amount');"><a>Amount</a></li>
+                    <li ng-click="getAllBuyer('TotalPurchase');"><a>Total Purchase</a></li>
+                    <li ng-click="getAllBuyer('NoOfOrders');"><a>No. of Orders</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="AllBuyer.length==0">
+        <h3 class="text-center">No data Found</h3>
+        </div>
+        
+    <div ng-repeat="buyer in AllBuyer">
+      <div class="buyer-details ">
+        <!--<div class="magic-form">
+          <div class="magic-resize">
+            <input class="magic-checkbox" type="checkbox" name="layout" id="add-two" value="option1">
+            <label class="detail-heading" for="add-two">
+                TBS001 MIRAGE STEEL LTD.
+              </label>
+          </div>
+        </div>
+        <div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+        <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
+      </div>
+      <table class="table table-bordered buyer-table">
+        <thead>
+          <tr>
+            <th><strong>SR. NO.</strong></th>
+            <th><strong>NAME</strong></th>
+            <th><strong>TOTAL ORDERS</strong></th>
+            <th><strong>TOTAL SALES</strong></th>
+            <th><strong>PENDING PAYMENT</strong></th>
+            <th><strong>ACTION</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              TBB{{buyer.userId}}
+            </td>
+            <td>
+              <span>{{buyer.firstName}} {{buyer.lastName}}</span>
+              <span></span>
+              <span></span>
+            </td>
+            <td>
+              <span>{{buyer.totalOrders}}</span>
+              <span></span>
+              <span></span>
+            </td>
+            <td>
+              <span>{{buyer.totalSales| currency:'&#8377;'}}</span>
+              <span></span>
+              <span></span>
+              <span class="result"></span>
+            </td>
+            <td>
+              <span>{{buyer.pendingPayment| currency:'&#8377;'}}</span>
+            </td>
+            <td>
+              <span></span>
+              <span></span>
+              <span><br><a ui-sref="view-buyers({id:buyer._id})" class="pull-right"><label class="view">VIEW</label></a></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getAllBuyer()" class="pagination-sm" ></ul>
+  </div>
+</section>

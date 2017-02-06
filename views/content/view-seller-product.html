@@ -1,0 +1,317 @@
+<section class="body-main request-buyers">
+    <div class="container-fluid">
+        <div class="request-buyer">
+            <div class="search-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group search-top">
+                            <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+                            <span class="input-group-btn"><i class="btn btn-default fa fa-search" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="more-opt pull-right">
+                            <div class="magic-form dropdown">
+                                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                                    <label class="">Filter by Status</label>
+                                    <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Pending Verification</a></li>
+                                        <li><a href="#">Verified</a></li>
+                                        <li><a href="#">Rejected</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div clas="view-products" ng-show="showSell">
+                <div class="view-categ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <select name="" id="" class="form-control">
+                                        <option ng-repeat="cat in allCategory" value="cat._id">{{cat.name}}</option>
+                                        <!--<option value="Plates/Sheets">Plates/Sheets</option>
+                                        <option value="Coil">Coil</option>
+                                        <option value="Roundbar">Roundbar  </option>-->
+                                    </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="" id="" class="form-control">
+                                        <option ng-repeat="moc in allMoc" value="{{moc.name}}">{{moc.name}}</option>
+                                         </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div ng-repeat="(sel,product) in allSellerProducts | groupBy:'seller.firmName'">
+                    <div class="buy-head">
+                        <h3 class="order-head subhead ng-scope">{{sel}}</h3>
+                    </div>
+                    <div class="view-seller-product">
+                        <!--<div class="magic-form">
+                    <div class="magic-resize">
+                        <input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">
+                        <label class="detail-heading" for="add-one">ORDER ID TB00_1</label>
+                    </div>
+                </div>-->
+                        <!--<div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+                    <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
+                    </div>
+                    <table class="table table-bordered request-buyer-table w-auto">
+                        <thead>
+                            <tr>
+                                <th><strong>SR. NO.</strong></th>
+                                <th><strong>Product NAME</strong></th>
+                                <!--<th><strong>GRADE</strong></th>-->
+                                <!--<th><strong>SIZE</strong></th>
+                            <th><strong>SCH</strong></th>
+                            <th><strong>THICKNESS (MM)</strong></th>-->
+                                <th>PRICE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="products in product">
+                                <td>TB{{products.category.name}}{{products.product.productId}}</td>
+                                <td>
+                                    <div class="item-info-detail pro-name" ng-if="products.category.name == 'Pipes'">
+                                        {{products.moc.name}} {{products.type.name}} {{products.category.name}}<br/> {{products.gradesstandards.name}}
+                                        {{products.odInches}} NB (Inches) x {{products.sch}}
+                                    </div>
+                                    <div class="item-info-detail pro-name" ng-if="products.category.name == 'Plates/Sheets'">
+                                        {{products.moc.name}} {{products.category.name}} <br/> {{products.gradesstandards.name}}
+                                        {{products.thickness}} MM Thick x {{products.width}} MM Width x {{products.length}}
+                                        MM Length
+                                    </div>
+                                    <div class="item-info-detail pro-name" ng-if="products.category.name == 'Roundbar'">
+                                        {{products.moc.name}} {{products.category.name}}<br/> {{products.gradesstandards.name}}
+                                        Dia {{products.diameter}} MM
+                                    </div>
+                                    <div class="item-info-detail pro-name" ng-if="products.category.name == 'Coil'">
+                                        {{products.moc.name}} {{products.category.name}}<br/> {{products.gradesstandards.name}}
+                                        {{products.thickness}} MM Thick x {{products.width}} MM Width x Length Coil
+                                    </div>
+                                </td>
+                                <!--<td>{{pro.gradesstandards.name}}</td>-->
+                                <!--<td>25.4 mm</td>
+                            <td>{{pro.sch}}</td>
+                            <td>{{pro.thickness}}</td>-->
+                                <!--<td><span ng-if="products.category.name==='Pipes' || products.category.name==='Roundbar'">{{products.totalQty}}</span>
+                                    <span ng-if="products.category.name==='Coil' || products.category.name==='Plates/Sheets'">{{products.quantityInNos}}</span>
+                                </td>-->
+                                <td>
+                                    <span ng-if="products.category.name==='Pipes' || products.category.name==='Roundbar'">{{products.finalPrice}} per meter</span>
+                                    <span ng-if="products.category.name==='Coil' || products.category.name==='Plates/Sheets'">{{products.finalPrice}} per kg</span>
+                                </td>
+                                <td class="view-td">
+                                    <!--<label class="stat">VERIFIED</label>-->
+                                    <label class="stat">{{products.status}}</label>
+                                    <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
+                                    <a ng-click="showProduct(products.product)"><label class="view">VIEW</label></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<div class="view-sell-stock">
+                <div class="checkin favour orders sellorders myproduct">
+                    <div class="table-invent mycart-table">
+                        <div class="item-detail invent-head">
+                            <div class="item-info-detail pull-left">
+                                <h3 class="font-karla-bold">Stock</h3>
+                            </div>
+                            <div class="item-info-detail pull-right backcursor">
+                                <p class="font-karla-bold">
+                                    <span class="arrow font-karla"> < </span> Back to my products</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                     
+                        <div class="pull-left">
+                            <h3 class="font-karla-bold pop-up"><span>Stainless Steel</span><span>Seamless</span><span>Pipes</span></h3>
+                            <h3 class="font-karla-bold pop-up"><span>ASTM A-312</span><span>1/4 NB (Inches)</span><span>x</span><span>SCH 10</span></h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <table class="table mycart">
+                            <thead class="font-karla">
+                                <tr>
+                                    <th class="text-center">Stock Id</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Available Stock</th>
+                                    <th class="text-center">City</th>
+                                    <th class="text-center">MTC</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border-left text-center">
+                                        <div class="item-detail">
+                                            <div class="item-info-detail">
+                                                <h3 class="">ABC_001</h3>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail">
+                                            <h3 class="font-karla">26 June 2016</h3>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail">
+                                            <h3 class="">200</h3>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="text-center">
+                                            <span class="font-karla">Mumbai</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="chpass text-center">
+                                            <span class="">View</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail status ">
+                                            <h3 class="text-uppercase ">Approved</h3>
+                                    
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla  border-right">
+                                        <div class="chpass backcursor">
+                                            <span ui-sref="viewstock" class="">View Stock</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border-left text-center">
+                                        <div class="item-detail">
+                                            <div class="item-info-detail">
+                                                <h3 class="">ABC_001</h3>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail">
+                                            <h3 class="font-karla">26 June 2016</h3>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail">
+                                            <h3 class="">200</h3>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="text-center">
+                                            <span class="font-karla">Mumbai</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="chpass text-center">
+                                            <span class="">View</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla">
+                                        <div class="item-info-detail status ">
+                                           
+                                            <h3 class="text-uppercase ">Pending</h3>
+                                           showSeller
+                                        </div>
+                                    </td>
+                                    <td class="text-center font-karla  border-right">
+                                        <div class="chpass backcursor">
+                                            <span ui-sref="viewstock" class="">View Stock</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>-->
+            <div class="view-sell-prod" ng-show="showProd">
+                <div class="invent-head">
+                    <div class="info-detail pull-left">
+                        <h3 class="font-karla-bold">Stock</h3>
+                    </div>
+                    <div class="item-info-detail pull-right backcursor" ng-click="showSellerProduct()">
+                        <p class="font-karla-bold"><span class="arrow font-karla">&lt;</span> Back to Seller Products</p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="pull-left" ng-if="allStock[0].category.name == 'Pipes'">
+                        <!--<h3 class="font-karla-bold pop-up"><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                        <h3 class="font-karla-bold pop-up"><span>{{allStock[0].odMm}}</span><span>{{allStock[0].odInches}} (Inches)</span><span>x</span><span>{{allStock[0].sch}}</span></h3>-->
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span>{{allStock[0].odInches}} NB (Inches)</span><span>x</span><span>SCH {{allStock[0].sch}}</span></h3>
+                    </div>
+                    <div class="pull-left " ng-if="allStock[0].category.name == 'Plates/Sheets'">
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span>x</span><span>{{allStock[0].length}} MM Length</span></h3>
+                    </div>
+                    <div class="pull-left " ng-if="allStock[0].category.name == 'Coil'">
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span> </span><span>Length Coil</span></h3>
+                    </div>
+                    <div class="pull-left " ng-if="allStock[0].category.name == 'Roundbar'">
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span></span><span>Dia {{allStock[0].diameter}} MM</span></h3>
+                    </div>
+                </div>
+                <table class="table table-bordered request-buyer-table view-prod text-center">
+                    <thead>
+                        <tr>
+                            <th><strong>STOCK</strong></th>
+                            <th><strong>DATE</strong></th>
+                            <th><strong>AVAILABLE STOCK</strong></th>
+                            <th><strong>Warehouse</strong></th>
+                            <th><strong>MTC</strong></th>
+                            <th>STATUS</th>
+                            <!--<th></th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="stock in allStock">
+                            <td>TBI{{stock.inventoryId}}</td>
+                            <td>{{stock.createdAt | date:'mediumDate'}}</td>
+                            <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
+                                <span ng-if="stock.category.name==='Coil'">1</span>
+                                <span ng-if="stock.category.name==='Plates/Sheets'">{{stock.quantityInNos}}</span>
+                            </td>
+                            <td>{{stock.seller.warehouseAddress}}, {{stock.seller.warehouseCity}}, {{stock.seller.warehousePincode}}</td>
+                            <td class="text-center font-karla " ng-if="stock.mtcStatus != 'Notavailable'">
+                                <div class="item-info-detail">
+                                    <h5 class="mgn0" ng-if="stock.mtcStatus == 'Original'">MTC Certified</h5>
+                                    <h5 class="mgn0" ng-if="stock.mtcStatus == 'Photocopy'">MTC Certified (Photocopy)</h5>
+                                </div>
+                                <div class="chpass text-center ">
+                                    <a fancybox-box ng-href="{{stock.mtcImage | uploadpath}}" rel="fancybox" target="_blank">
+                                        <span class="view1">View</span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="text-center font-karla " ng-if="stock.mtcStatus == 'Notavailable'">
+                                <div class="item-info-detail">
+                                    <h3>Not MTC Certified</h3>
+                                </div>
+                            </td>
+                            <td>{{stock.status}}</td>
+                            <!--<td class="view-td">
+                                <a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

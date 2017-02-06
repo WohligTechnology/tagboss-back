@@ -1,0 +1,68 @@
+<section>
+    <div class="inspec">
+        <div class="close-img" ng-click="$close();">
+            <img src="img/closebtn.png" alt="">
+        </div>
+        <div class="modal-header">
+            <h3 class="modal-title text-center txt-head">Edit Testimonial</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Id</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Image</label>
+                    <div class="col-sm-9">
+                        <div class="filename">
+                            <p>image.jpg</p>
+                            <span><i class="fa fa-upload" aria-hidden="true"></i></span>
+                            <!--<div class="input-group-addon">.00</div>-->
+                        </div>
+                        <!--<div><i class="fa fa-upload" aria-hidden="true"></i></div>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Description Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Description</label>
+                    <div class="col-sm-9">
+                        <textarea ui-tinymce="openTestimonial" ng-model="tinymceModel"></textarea>
+                        <!--<input type="text" class="form-control" id="text">-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Order</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Status</label>
+                    <div class="col-sm-9">
+                        <select name="" id="" class="form-control">
+                        <option value="">Enable</option>
+                        <option value="">Diasable</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <button class="btn btn-primary" ng-click="ok()">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>-->
+    </div>
+</section>

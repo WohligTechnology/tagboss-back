@@ -1,0 +1,52 @@
+<section>
+    <div class="inspec">
+        <div class="close-img" ng-click="$close();">
+            <img src="img/closebtn.png" alt="">
+        </div>
+        <div class="modal-header">
+            <h3 class="modal-title text-center txt-head">Refund Request Details</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Status</label>
+                    <div class="col-sm-9">
+                        <select ng-model="requestData.status" name="" id="" class="form-control">
+                        <option value="Attended">Attended</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword3">Reason</label>
+                    <div class="col-sm-10">
+                        <textarea rows="4" cols="51" class="txt-area" ng-model="requestData.reason"> </textarea>
+                        <!--<div class="txt-area">{{requestData.reason}}
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum molestias provident inventore
+                                omnis eligendi maxime nemo perferendis rerum, dolorum sapiente asperiores porro repellendus
+                                eius, amet quia doloremque voluptatibus reprehenderit repudiandae.</p>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="inputPassword3">TagBoss Reply</label>
+                    <div class="col-sm-10">
+                        <textarea rows="4" cols="51" class="txt-area" ng-model="requestData.comment">  </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <button class="btn btn-primary" ng-click="updateRefundRequest(requestData)">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>-->
+    </div>
+</section>

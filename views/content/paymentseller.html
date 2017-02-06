@@ -1,0 +1,315 @@
+<section class="body-main payment-to-sellers">
+  <div class="container-fluid">
+    <div class="payment-to-seller">
+      <!--<div class="search-content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group search-top">
+              <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+              <span class="input-group-btn">
+                <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+               </span>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <div class="received-sent hide">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="received">
+              PAYMENT RECEIVED IN LAST 30 DAYS<br>
+              <i class="fa fa-inr" aria-hidden="true"></i> 28,80,000
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="sent">
+              PAYMENT SENT TO SELLER IN LAST 30 DAYS<br>
+              <i class="fa fa-inr" aria-hidden="true"></i> 20,00,000
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix received-sent-details">
+        <div class="pull-left">
+          <div class="magic-form">
+            <div class="magic-resize">
+              <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
+              <label class="detail-heading" for="add-one">
+                Payment Master
+              </label>
+            </div>
+          </div>
+        </div>
+        <!--<div class="pull-right">
+          <div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+          <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>
+        </div>-->
+      </div>
+   
+      <uib-tabset active="activeJustified" justified="true">
+        <uib-tab index="0" heading="Payment Master">
+          <div class="over-table">
+            <table class="table payment-to-sellers-table table-bordered">
+              <thead class="sell-pay">
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Order ID</th>
+                  <th>Order Date</th>
+                  <th>Seller ID</th>
+                  <th>Order Value</th>
+                  <th>Net Payable</th>
+                  <th>Payment Amount</th>
+                  <th>Payment Due Date</th>
+                  <th>Payment Remarks</th>
+                  <th>Status</th>
+                  <th>Payment ID</th>
+                </tr>
+              </thead>
+              <tbody class="sell-pay">
+                <tr ng-repeat="data in all">
+                  <td>TBT{{data.transacId}}</td>
+                  <td>TBO{{data.order.orderId}}</td>
+                  <td>{{data.orderDate | date:'mediumDate'}}</td>
+                  <td>TBS{{data.seller.userId}}</td>
+                  <td>{{data.orderValue| currency:'&#8377;'}}</td>
+                  <td>{{data.netPayable | currency:'&#8377;'}}</td>
+                  <td>{{data.paymentAmount | currency:'&#8377;'}}</td>
+                  <td> {{data.paymentDueDate| date:'mediumDate'}}</td>
+                  <td>{{data.paymentRemarks}}</td>
+                  <td>{{data.status}}</td>
+                  <td></td>
+                </tr>
+               
+              </tbody>
+            </table>
+            <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllPayments()"></ul>
+          </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Pending Transaction">
+          <div class="notify-head">
+            <div class="row">
+              <div class="col-md-6">
+                <form>
+                  <!--<div class="form-group">
+                    <label for="text">Pending Transactions:</label>
+                    <label for="text"></label>
+                  </div>-->
+                </form>
+              </div>
+              <div class="col-md-6">
+                <form>
+                  <div ng-click="convertToPayments()" class="form-group">
+                    <button class="btn btn-default convert">Convert to Payments</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <form>
+                  <div class="form-group label-head">
+                    <label for="text">Total Pending:</label>
+                    <label for="text">{{totalpendingItems}}</label>
+                  </div>
+                  <!--<div class="form-group label-head">
+                    <label for="text">Total Payments Being Processed:</label>
+                    <label for="text"></label>
+                  </div>-->
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="over-table">
+            <table class="table payment-to-sellers-table table-bordered">
+              <thead class="sell-pay">
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Seller ID</th>
+                  <th>Order Value</th>
+                  <th>Net Payable</th>
+                  <th>Payment Amount</th>
+                  <th>Payment Due Date</th>
+                  <th>Payment Remarks</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="sell-pay">
+                <tr ng-repeat="data in allPending">
+                  <td>TBT{{data.transacId}}</td>
+                  <td>TBO{{data.order.orderId}}</td>
+                  <td>{{data.orderDate | date:'mediumDate'}}</td>
+                  <td>TBS{{data.seller.userId}}</td>
+                  <td>{{data.orderValue}}</td>
+                  <td>{{data.netPayable}}</td>
+                  <td>{{data.paymentAmount| currency:'&#8377;'}}</td>
+                  <td>{{data.paymentDueDate| date:'mediumDate'}}</td>
+                  <td>{{data.paymentRemarks}}</td>
+                  <td>{{data.status}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ul ng-if="totalpendingItems>10" uib-pagination total-items="totalpendingItems" ng-model="filterpending.page" ng-change="getAllPendingPayments()"></ul>
+          </div>
+        </uib-tab>
+        <uib-tab index="2" heading="Payments Processing">
+          <div class="notify-head">
+            <div class="row">
+              <div class="col-md-6">
+                <form>
+                  <!--<div class="form-group">
+                    <label for="text">Pending Payments:</label>
+                    <label for="text">595</label>
+                  </div>-->
+                </form>
+              </div>
+              <div class="col-md-6">
+                <form>
+                  <div ng-click="exportExcel()" class="form-group">
+                    <button class="btn btn-default convert">Download</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!--<form>
+                  <div class="form-group label-head">
+                    <label for="text">Total Amount To Be Paid:</label>
+                    <label for="text">27100</label>
+                  </div>
+                  <div class="form-group label-head">
+                    <div class="lbl-head">
+                      <label for="text">Total Payments Being Processed:</label>
+                    </div>
+                    <div class="lbl-head">
+                      <select name="" id="" class="form-control">
+                              <option value="To be paid">To Be Paid</option>
+                                <option value="Send to bank" >Send To Bank</option>
+                                <option value="Paid">Paid</option>
+                              </select>
+                    </div>
+                  </div>
+                </form>-->
+              </div>
+            </div>
+          </div>
+          <div class="over-table">
+            <!--<div class="row" ng-if="allTransaction.length==0">
+              <h4>Data Not Found</h4>
+            </div>-->
+            <table class="table payment-to-sellers-table table-bordered">
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th>Payment ID</th>
+                  <th>Seller ID</th>
+                  <th>Amount</th>
+                  <th>Transaction Reference</th>
+                  <th>Status</th>
+                  <th>Payment Date</th>
+                  <th>NEFT Reference</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="data in allTransaction">
+                  <td>
+                    <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
+                    {{$index +1}}</td>
+                  <td>{{data.paymentId}}</td>
+                  <td>TBS{{data.seller.userId}}</td>
+                  <td>{{data.amount| currency:'&#8377;'}}</td>
+                  <td>{{data.transactionNumberReference.toString()}}</td>
+                  <td>
+                    <span ng-if="showText==true && myindex!=$index">{{data.status}}</span>
+                    <div ng-if="showData==true && myindex==$index" class="lbl-heads">
+                      <select ng-model="data.status" name="" id="{{$index}}" class="form-control">
+                                <option value="To be paid">To Be Paid</option>
+                                <option value="Sent to bank" >Sent To Bank</option>
+                                <option value="Paid">Paid</option>
+                              </select>
+                    </div>
+                  </td>
+                  <td>
+                    <label ng-if="showText==true && myindex!=$index"><span >{{data.createdAt | date:'mediumDate'}}</span></label>
+                    <p ng-if="showData==true && myindex==$index" class="input-group">
+                      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.paymentDate" is-open="popup1.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                      <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1($index)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                    </p>
+                  </td>
+                  <td>
+                    <label  ng-if="showText==true && myindex!=$index"><span>{{data.neftReference}}</span></label>
+                    <span ng-if="showData==true && myindex==$index"><input ng-model="data.neftReference" type="text"/></span>
+                  </td>
+                  <td>
+                    <label ng-if="myindex!=$index" for="" ng-click="showConverted($index);">Edit</label>
+                    <label ng-if="myindex==$index" ng-click="editPaymentStatus(data,$index);">Save</label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ul ng-if="totalallItems>10" uib-pagination total-items="totalallItems" ng-model="filterall.page" ng-change="getAllTransactionPayment()"></ul>
+          </div>
+        </uib-tab>
+        <uib-tab index="3" data-ng-init="getAllTransactionPayment('Paid')" heading="Converted Payments">
+          <div class="notify-head">
+            <div class="row">
+              <div class="col-md-6">
+                <form>
+                  <div class="form-group label-head">
+                    <!--<label for="text">Total Amount Paid:</label>
+                    <label for="text">27100 </label>-->
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="over-table">
+            <table class="table payment-to-sellers-table table-bordered">
+              <thead class="sell-pay">
+                <thead>
+                  <tr>
+                    <th>Sr. No.</th>
+                    <th>Payment ID</th>
+                    <th>Seller ID</th>
+                    <th>Amount</th>
+                    <th>Transaction Reference</th>
+                    <th>Status</th>
+                    <th>Payment Date</th>
+                    <th>NEFT Reference</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in allPaidTransaction">
+                    <td>
+                      <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
+                      {{$index +1}}</td>
+                    <td>{{data.paymentId}}</td>
+                    <td>TBS{{data.seller.userId}}</td>
+                    <td>{{data.amount| currency:'&#8377;'}}</td>
+                    <td>{{data.transactionNumberReference.toString()}}</td>
+                    <td>
+                      {{data.status}}
+                    </td>
+                    <td>
+                      {{data.paymentDate | date:'mediumDate'}}
+                    </td>
+                    <td>
+                      {{data.neftReference}}
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+               <ul ng-if="totalallItems>10" uib-pagination total-items="totalallItems" ng-model="filterall.page" ng-change="getAllTransactionPayment('Paid')"></ul>
+        
+          </div>
+        </uib-tab>
+      </uib-tabset>
+    </div>
+  </div>
+</section>

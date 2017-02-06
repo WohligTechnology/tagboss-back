@@ -1,0 +1,100 @@
+<section class="body-main refund-to-buyers">
+    <div class="container-fluid">
+        <div class="refund-to-buyer">
+            <div class="search-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group search-top">
+                            <input type="text" ng-model="keyword" class="form-control" placeholder="Search by Buyer ID or Name">
+                            <span ng-click="getAllRefundRequest(keyword);" class="input-group-btn">
+                <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+              </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="more-opt pull-right">
+                            <div class="magic-form dropdown">
+                                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                                    <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">-->
+                                    <label class="">Filter by Status</label>
+                                    <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="getAllRefundRequest(keyword,'Attended');"><a>Attended</a></li>
+                    <li ng-click="getAllRefundRequest(keyword,'Pending');"><a>Pending</a></li>
+                    <li ng-click="getAllRefundRequest(keyword,'Resolved');"><a>Resolved</a></li>
+                    <li ng-click="getAllRefundRequest(keyword,'rejected');"><a>Accepted</a></li>
+                    <li ng-click="getAllRefundRequest(keyword,'incomplete');"><a>Rejected</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="bar">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-offset-2 col-md-8">
+                            <highchart id="chart1" style="width:100%;height:152px;" config="barChartConfig"></highchart>
+                            <p>TOTAL REQUEST</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-offset-2 col-md-8">
+                            <highchart id="chart1" style="width:100%;height:152px;" config="barChartConfig"></highchart>
+                            <p>PENDING REQUEST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div ng-repeat="request in allRefundRequest">
+            <div class="refund-to-buyer-details ">
+                <div class="magic-form">
+                    <div class="magic-resize">
+                        <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
+                        <label class="detail-heading" for="add-one">
+             TBB{{request.orderBillId}} {{request.buyer.firstName}} {{request.buyer.lastName}}
+            </label>
+                    </div>
+                </div>
+                 <div class="date pull-right">Date: {{request.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+            </div>
+            <table class="table table-bordered refund-to-buyer-table">
+                <thead>
+                    <tr>
+                        <th><strong>REFUND ID</strong></th>
+                        <th><strong>ORDER ID</strong></th>
+                        <th><strong>SELLER</strong></th>
+                        <th><strong>TOTAL AMOUNT</strong></th>
+                        <th><strong>REASON</strong></th>
+                        <th><strong>STATUS</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>REF{{request.returnRequestId}}</td>
+                        <td><a ui-sref="view-orders">TBO{{request.order.orderId}}</a></td>
+                        <td>{{request.seller.firmName}}</td>
+                        <td>{{request.totalAmount | currency:'&#8377;'}}</td>
+                        <td class="last-td">
+                            <div class="reason">
+                                <div class="reason-data" ng-bind-html="request.reason"></div>
+                                <!--<div class="reason-view"> <a href="" ng-click="openView();"><label class="view pull-right">VIEW</label></a></div>-->
+                            </div>
+                        </td>
+                        <td class="view-td">
+                            <label class="stat">{{request.status}}</label><br>
+                            <!--<label class="stat">REJECTED</label>-->
+                            <a><label class="view" ng-click="openstandard(request._id);">EDIT</label></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+              <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllRefundRequest()"></ul>
+     
+           
+        </div>
+    </div>
+</section>

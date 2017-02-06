@@ -1,0 +1,85 @@
+<section class="body-main material-construct">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div ng-if="allData.length==0">
+            <h3 class="text-center">No data Found</h3>
+        </div>
+        <div ng-if="allData==undefined">
+            <h3 class="text-center">Loading...</h3>
+        </div>
+        <div class="details">
+            <div class="head">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="magic-form">
+                            <div class="magic-resize">
+                                <label class="text">
+                                    <h2>Thickness</h2>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="add-ctrl">
+                                    <div class="form-group">
+                                        <label for="">Select Thickness</label>
+                                        <div class="add-select-ctrl">
+                                            <select name="" id="" class="form-control">
+                                                <option value="">abc</option>
+                                                <option value="">abc</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product-category">
+                                    <ul>
+                                        <li class="add-prod-cate wd100">
+                                            <form name="addmocform{{$index}}">
+                                                <div class="form-group">
+                                                    <div class="input-group edit-categ">
+                                                        <input id="{{$index}}" required type="text" class="form-control" name="add{{$index}}" ng-model="formdata.mocname" placeholder="Add Schedule"
+                                                            aria-describedby="basic-addon2">
+                                                        <div class="error-msg" ng-if="errmsg==true && myindex==$index">Please Enter Thickness</div>
+                                                        <span class="input-group-addon" ng-click="addMoc(formdata,value[0].category._id, $index);" id="basic-addon2{{$index}}">add</span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info info-edit">
+                <div class="row" ng-repeat="data in allData">
+                    <div style="" class="col-md-12 rounded-mid">
+                        <div class="rounded-pipes" ng-hide="hidetext">
+                            <h3>{{data.name}}</h3>
+                        </div>
+                        <div class="rounded-pipes" ng-hide="showtext">
+                            <input class="moc-edit" ng-if="indexid==$index" name="edit{{$index}}" type="text" ng-model="data.name" />
+                            <h3 ng-if="indexid!=$index">{{data.name}}</h3>
+                        </div>
+                        <div class="pull-right edit-type">
+                            <p>
+                                <span ng-if="indexid!=$index" ng-click="showEditData($index);">Edit</span>
+                                <span ng-if="indexid==$index" ng-click="editMoc(moc,value[0].category._id,$index);">Save</span>
+                                <span>|</span> <span ng-click="deleteMoc(moc._id);"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                <!--<span>|</span>
+                                <span ui-sref="grades-standards({id:moc._id})">Grade</span></p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

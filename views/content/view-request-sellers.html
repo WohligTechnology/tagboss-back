@@ -1,0 +1,515 @@
+<section class="body-main view-request-sellers">
+  <div class="container-fluid">
+    <div ng-if="sellerData==undefined">
+      <h3 class="text-center">Loading</h3>
+    </div>
+    <div ng-if="sellerData" class="view-request-seller">
+      <!--<div class="search-content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group search-top">
+              <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+              <span class="input-group-btn">
+                      <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+                
+                    </span>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <div class="request-seller-details ">
+        <div class="magic-form">
+          <div class="magic-resize">
+            <label class="detail-heading" for="add-more">
+                     TBS{{sellerData.userId}}  {{sellerData.firmName}}
+                   </label>
+          </div>
+        </div>
+        <div class="date pull-right">Date: {{sellerData.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+      </div>
+      <table class="table table-bordered view-request-seller-table">
+        <thead>
+          <tr>
+            <th><strong>ADDRESS</strong></th>
+            <th><strong>WAREHOUSE ADDRESS</strong></th>
+            <!--<th><strong>REFERENCES</strong></th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{sellerData.companyAddress}}
+            </td>
+            <td>
+              <div ng-if="sellerData.warehouse.length>0">{{sellerData.warehouse[0].warehouseFirmName}},<br> {{sellerData.warehouse[0].warehouseAddress}},<br> {{sellerData.warehouse[0].warehouseCity}},
+                {{sellerData.warehouse[0].warehousePincode}}
+                <br/>{{sellerData.warehouse[0].warehouseState.name}}, {{sellerData.warehouse[0].warehouseCountry}}
+              </div>
+            </td>
+            <!--<td>TBS005<br> Dhanera Steel Ltd<br> TBB045
+              <br> Raj Steel and Accessories</td>-->
+          </tr>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+          <div class="alloted-bar">
+            <div class="progress">
+              <div class="progress-bar">
+                <div class="circles">
+                  <span>0%</span>
+                </div>
+                <div class="bar-color lgcolor"></div>
+                <div class="circle">
+                  <span>25%</span>
+                </div>
+              </div>
+              <div class="progress-bar">
+                <div class="bar-color lgcolors"></div>
+                <div class="circle">
+                  <span>50%</span>
+                </div>
+              </div>
+              <div class="progress-bar">
+                <div class="bar-color lgcolor"></div>
+                <div class="circle blue-color">
+                  <span>75%</span>
+                </div>
+              </div>
+              <div class="progress-bar">
+                <div class="bar-color"></div>
+                <div class="circle blue-color">
+                  <span>100%</span>
+                </div>
+              </div>
+              <!-- <div class="progress-bar">
+                               <div class="bar-color"></div>
+                               <div class="circle">
+                                   <span>5</span>
+                               </div>
+
+                           </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comp-details">
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <div ng-hide="sellerHide" class="company view-profile">
+              <h4 class="font-karla-bold text-uppercase h-bottom ">Company Details</h4>
+              <!--<p class="font-karla f-size ">Fields marked <span class="strike">*</span> are mandatory</p>-->
+              <form>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="name ">Contact Person</label>
+                      <input class="form-control " type="text " id="name " placeholder="Enter Contact Person" ng-model="sellerData.contactPerson"
+                        readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="Registered ">Registered Name</label>
+                      <input class="form-control " type="text " id="Registered " placeholder="Enter Registered Name" ng-model="sellerData.firmName"
+                        readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="Email ">Email</label>
+                      <input class="form-control " type="email " id="Email " placeholder="Enter Email" ng-model="sellerData.email" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="AEmail ">Alternate Email</label>
+                      <input class="form-control " type="email " id="AEmail " placeholder="Enter Alternate Email" ng-model="sellerData.alternateEmail"
+                        readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="tele ">Telephone</label>
+                      <input class="form-control " type="tel " id="tele " placeholder="Enter Telephone Number" ng-model="sellerData.telephone"
+                        readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="mobile ">Mobile No.</label>
+                      <input class="form-control " type="tel " id="mobile " placeholder="Enter Mobile Number" ng-model="sellerData.mobile" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="Address ">Registered Address</label>
+                      <input class="form-control " type="text " id="Address " placeholder="Enter Company Address" ng-model="sellerData.companyAddress"
+                        readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="City ">City</label>
+                      <input class="form-control " type="text " id="City " placeholder="Enter City" ng-model="sellerData.city" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="Pincode ">Pincode</label>
+                      <input class="form-control " type="text " id="Pincode " placeholder="Enter Pincode" ng-model="sellerData.pincode" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="State ">State</label>
+                      <input class="form-control " type="text " id="State " placeholder="Enter State" ng-model="sellerData.state.name" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="Country ">Country</label>
+                      <select class="form-control " name=" " id="Country " placeholder="Enter Country" disabled>
+                                                        <option value="India ">India</option>
+                                                    </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="div ">Brief Profile(Optional)</label>
+                      <textarea class="form-control " name="name " rows="3 " placeholder="Enter Brief Profile" ng-model="sellerData.briefProfile"
+                        readonly></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="com ">Company PAN No.</label>
+                      <div class="input-group attach">
+                        <input class="form-control " type="text " id="com " placeholder="Enter PAN No. " ng-model="sellerData.panNo" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="vat ">VAT TIN No.</label>
+                      <div class="input-group attach">
+                        <input class="form-control " ng-model="sellerData.vatTinNo" type="text " id="vat " placeholder="Enter VAT TIN No. " readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="cst ">CST TIN No.</label>
+                      <div class="input-group attach">
+                        <input class="form-control " ng-model="sellerData.cstTinNo" type="text " id="cst " placeholder="Enter CST TIN No. " readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <h4 class="font-karla-bold text-uppercase spacing ">Excise Details</h4>
+                </div>
+                <div class="row excise-block">
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="reg ">Registration No. (ECC)</label>
+                      <div class="input-group attach">
+                        <input class="form-control " ng-model="sellerData.registrationNo" type="text " id="reg " placeholder="Enter Registration No. "
+                          readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="range ">Range</label>
+                      <input class="form-control " ng-model="sellerData.range" type="text " id="range " placeholder="Enter Range " readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="commissionerate ">Commissionerate</label>
+                      <input class="form-control " ng-model="sellerData.commissioneRate" type="text " id="commissionerate " placeholder="Enter Commissionerate "
+                        readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-4 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Division</label>
+                      <input class="form-control " ng-model="sellerData.division" type="text " id="div " placeholder="Enter Division" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-8 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Division Address</label>
+                      <textarea class="form-control " name="name " rows="3 " ng-model="sellerData.exciseAddress" placeholder="Enter Division Address "
+                        readonly></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <h4 class="font-karla-bold text-uppercase spacing ">Bank Details</h4>
+                </div>
+                <div class="row ">
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="acc ">Bank Account No.</label>
+                      <input class="form-control " type="text " id="acc " ng-model="sellerData.bankAccountNo" placeholder="Enter Bank Account No. "
+                        readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="bank ">Bank Name</label>
+                      <input class="form-control " type="text " id="bank " ng-model="sellerData.bankName" placeholder="Enter Bank Name " readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold " for="branch ">Branch</label>
+                      <input class="form-control " type="text " id="branch " ng-model="sellerData.branch" placeholder="Enter Branch" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-4 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">IFSC Code</label>
+                      <input class="form-control " type="text " id="div " ng-model="sellerData.ifscCode" placeholder="Enter IFSC Code" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 ">
+                    <div class="form-group ">
+                      <label class="font-karla-bold "></label>
+                      <div class="input-group cheque attach">
+                        <input class="form-control " type="text " ng-model="sellerData.cancelledCheque" placeholder="Enter Cancelled Cheque No."
+                          readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <h4 class="font-karla-bold text-uppercase spacing">Import-export</h4>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group export"><label class="font-karla-bold" for="code">Import-export code</label>
+                      <div class="input-group attach"><input class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="sellerData.importExportCode"
+                          type="text" id="code" placeholder="Enter Import-export code" readonly="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="certifications">
+        <div class="certification-header">
+          <p>CERTIFICATIONS</p>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-1">
+            <div class="abc">
+              <div>
+                <p class="img-head">VAT NO. {{sellerData.vatTinNo}}</p>
+                <!--<p>{{sellerData.imageOfVatTinNo}}</p>-->
+              </div>
+              <div ng-if="!imageOfVatTinNoIsPdf">
+                 
+                <a id="fbplus_01" href="{{sellerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive">
+                </a>
+
+                </div>
+              <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
+                
+                  <a  href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
+             
+              </div>
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.vatTinNoVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-2">
+            <div class="abc">
+              <div>
+                <p class="img-head">CST NO. {{sellerData.cstTinNo}}</p>
+              </div>
+              <div ng-if="!imageOfCstTinNoIsPdf">
+                <a id="fbplus_02" href="{{sellerData.imageOfCstTinNo|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
+                </a>
+              </div>
+                <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
+                
+                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
+             
+              </div>
+              <!--<div class="verified"><p>VERIFIED</p></div>
+                      <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.cstTinNoVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-3">
+            <div class="abc">
+              <div>
+                <p class="img-head">PAN NO. {{sellerData.panNo}}</p>
+              </div>
+              <div ng-if="!imageOfPanNoIsPdf">
+                <a id="fbplus_03" href="{{sellerData.imageOfPanNo|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageOfPanNo|uploadpath}}" alt=" " class="get-center img-responsive ">
+                </a>
+              </div>
+               <div class="text-center" ng-if="imageOfPanNoIsPdf">
+                
+                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
+             
+              </div>
+              <!--<div class="hide verified"><p>VERIFIED</p></div>
+                        <div class="pending"><p>VERIFICATION PENDING</p></div>-->
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.panNoVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 col-1">
+            <div class="abc">
+              <div>
+                <p class="img-head">Registration No. (ECC) {{sellerData.registrationNo}}</p>
+              </div>
+              <divng-if="!imageOfregistrationNoIsPdf">
+                <a id="fbplus_01" href="{{sellerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                </a>
+              </div>
+               <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
+                
+                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
+             
+              </div>
+              <!--<div class="verified"><p>VERIFIED</p></div>
+                      <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+              <div class="col-md-4 col-2">
+            <div class="abc">
+              <div>
+                <p class="img-head">Cancelled Cheque {{sellerData.cancelledCheque}}</p>
+              </div>
+              <div ng-if="!imageCancelledChequeIsPdf">
+                <a id="fbplus_02" href="{{sellerData.imageCancelledCheque|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageCancelledCheque|uploadpath}}" alt=" " class="get-center img-responsive ">
+                </a>
+              </div>
+                <div class="text-center" ng-if="imageCancelledChequeIsPdf">
+                
+                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
+             
+              </div>
+              <!--<div class="verified"><p>VERIFIED</p></div>
+                      <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.cancelledChequeVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-3">
+            <div class="abc">
+              <div>
+                <p class="img-head">Import Export Code {{sellerData.importExportCode}}</p>
+              </div>
+              <div>
+                <a id="fbplus_03" href="{{sellerData.imageImportExportCode|uploadpath}}" fancybox-box>
+                  <img ng-src="{{sellerData.imageImportExportCode|uploadpath}}" alt=" " class="get-center img-responsive ">
+                </a>
+              </div>
+              <!--<div class="hide verified"><p>VERIFIED</p></div>
+                        <div class="pending"><p>VERIFICATION PENDING</p></div>-->
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.importExportCodeVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
+            </div>
+          </div>
+          </div>
+        
+        </div>
+
+       <div class="row ">
+          <div class="col-md-3 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Payment Date</label>
+                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit">
+                    </div>
+                  </div>
+                    <div class="col-md-3 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Transaction Id</label>
+                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
+                    </div>
+                  </div>
+                  <div class="col-md-3 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Bank Name</label>
+                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit">
+                    </div>
+                  </div>
+                  <div class="col-md-3 ">
+                    <div class="form-group div ">
+                      <label class="font-karla-bold " for="div ">Security Deposit</label>
+                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositComment" placeholder="Enter Security Deposit Comment">
+                    </div>
+                  </div>
+                
+       </div>
+
+
+      <div class="row comment-area">
+        <div class="col-md-offset-3 col-md-6 form-group form-inline">
+          <label class="comment pull-left" for="comment">Comment</label>
+          <textarea class="form-control" ng-model="sellerData.comment" rows="5" id="comment"></textarea>
+        </div>
+      </div>
+      <div class="accept-reject">
+        <button type="button" ng-if="sellerData.status==='incomplete'" ng-disabled="sellerData.status==='incomplete'" ng-click="acceptSeller(sellerData);"
+          class="btn btn-primary"> Profile Incomplete</button>
+        <button type="button" ng-if="sellerData.status!=='incomplete'" ng-click="acceptSeller(sellerData);" class="btn btn-primary">ACCEPT</button>
+        <button type="button" ng-disabled="sellerData.status==='incomplete'" ng-click="rejectSeller(sellerData);" class="btn btn-primary">REJECT</button>
+      </div>
+    </div>
+  </div>
+</section>

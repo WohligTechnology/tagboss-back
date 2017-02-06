@@ -1,0 +1,118 @@
+<section class="body-main sellers">
+	<div class="container-fluid">
+		<div class="seller">
+			<div class="search-content">
+				<div class="row">
+					<!--<div class="col-md-6">
+						<div class="input-group search-top">
+							<input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+							<span class="input-group-btn">
+                                <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+                            </span>
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<!--<div ng-if="allData.length==0">
+                <h3 class="text-center">No data Found</h3>
+            </div>
+            <div ng-if="allData==undefined">
+                <h3 class="text-center">Loading...</h3>
+            </div>-->
+			<div>
+				<div class="seller-details">
+				</div>
+				<table class="table table-bordered seller-table price-range">
+					<thead>
+						<tr>
+							<th><strong>Name</strong></th>
+							<th><strong>Value</strong></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Discount
+							</td>
+							<td>
+								<div class="text-center inp-type">
+									<div class="form-group">
+										<form name="updateprice" class="cpr">
+											<input  ng-model="setting.discount" type="text" only-Decimal maxlength="5" name="Discount" required>
+											<!--<div class="error-msg1">Please Enter Percentage.</div>-->
+											<button ng-click="updateSetting(setting.discount, setting._id,'discount')" type="submit" class="btn btn-default">Update</button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Commission Charges
+							</td>
+							<td>
+								<div class="text-center inp-type">
+									<div class="form-group">
+										<form name="updateprice" class="cpr">
+											<input type="text" ng-model="setting.commissionCharges" only-Decimal maxlength="5" name="commissionCharges" required>
+											<!--<div class="error-msg1">Please Enter Percentage.</div>-->
+											<button ng-click="updateSetting(setting.commissionCharges, setting._id,'commissionCharges')"  type="submit" class="btn btn-default">Update</button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Service Tax
+							</td>
+							<td>
+								<div class="text-center inp-type">
+									<div class="form-group">
+										<form name="updateprice" class="cpr">
+											<input type="text" ng-model="setting.serviceTax" only-Decimal maxlength="5" name="serviceTax" required>
+											<!--<div class="error-msg1">Please Enter Percentage.</div>-->
+											<button ng-click="updateSetting(setting.serviceTax, setting._id,'serviceTax')" type="submit" class="btn btn-default">Update</button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Swachh Bharat Cess
+							</td>
+							<td>
+								<div class="text-center inp-type">
+									<div class="form-group">
+										<form name="updateprice" class="cpr">
+											<input type="text"  ng-model="setting.swachhBharatCess" only-Decimal maxlength="5" name="swachhBharatCess" required>
+											<!--<div class="error-msg1">Please Enter Percentage.</div>-->
+											<button ng-click="updateSetting(setting.swachhBharatCess, setting._id,'swachhBharatCess')" type="submit" class="btn btn-default">Update</button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Krishi Kalyan Cess
+							</td>
+							<td>
+								<div class="text-center inp-type">
+									<div class="form-group">
+										<form name="updateprice" class="cpr">
+											<input type="text" ng-model="setting.krishiKalyanCess" only-Decimal maxlength="5" name="krishiKalyanCess" required>
+											<!--<div class="error-msg1">Please Enter Percentage.</div>-->
+											<button ng-click="updateSetting(setting.krishiKalyanCess,setting._id,'krishiKalyanCess')" type="submit" class="btn btn-default">Update</button>
+										</form>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+</section>

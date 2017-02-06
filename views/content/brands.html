@@ -1,0 +1,96 @@
+<section class="body-main brands">
+    <div class="container-fluid">
+        <div class="search-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group search-top">
+                        <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+                        <span class="input-group-btn"><i class="btn btn-default fa fa-search" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="more-opt pull-right">
+                        <div class="magic-form dropdown">
+                            <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                                <label class="">Filter by Status</label>
+                                <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Pending Verification</a></li>
+                                    <li><a href="#">Verified</a></li>
+                                    <li><a href="#">Rejected</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="addagency pull-right">
+                        <label ng-click="openBrand();">Add Brand</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="view-seller-product">
+        </div>
+        <div class="details">
+            <div class="info info-edit">
+                <div class="row">
+                    <div class="col-md-12 rounded-mid perfo-tot">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Order Id</th>
+                                        <th>Brand/Manufacturer Name</th>
+                                         <th>Logo</th>
+                                        <th>Show on Homepage</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <div ng-if="allBrands.length==0">
+                                        <h3 class="text-center">No data Found</h3>
+                                    </div>
+                                    <div ng-if="allBrands==undefined">
+                                        <h3 class="text-center">Loading...</h3>
+                                    </div>
+                                    <tr ng-repeat="brand in allBrands">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{brand.name}}</td>
+                                        <td>
+                                            <div class="logo">
+                                                <img src="{{brand.image | uploadpath}}" alt="">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p ng-if="brand.flag==true">
+                                            Yes</p>
+                                            <p ng-if="brand.flag==false">
+                                            No</p>
+                                        </td>
+                                        <td>
+                                              <p ng-if="brand.status==true">
+                                            Yes</p>
+                                            <p ng-if="brand.status==false">
+                                            No</p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <span ng-click="openBrand();">Edit</span>
+                                                <span>|</span>
+                                                <span>x</span>
+                                                <span>|</span>
+                                                <span ng-click="deleteBrand(brand._id);">Delete</span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                             <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllCoupon()"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

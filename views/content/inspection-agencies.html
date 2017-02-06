@@ -1,0 +1,346 @@
+<section class="body-main inspection-agencies">
+  <div class="container-fluid">
+    <div class="search-content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group search-top">
+            <input type="text" class="form-control" placeholder="Search by Inspector's Name or ID">
+            <span class="input-group-btn">
+            <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+            <!-- <button class="btn btn-default" type="button">Go!</button> -->
+          </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!--<div class="more-opt pull-right">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">
+                <label class="detail-heading" for="add-one">
+                     More
+                   </label>
+              </div>
+            </div>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </div>-->
+          <div class="addagency pull-right">
+            <label ng-click="openInspection('Add');">Add Agency</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="details" ng-if="allAgency.length==0">
+      <h3 class="text-center">No Data Found</h3>
+    </div>
+
+
+    <div class="details" ng-if="allAgency.length>0" ng-repeat="agency in  allAgency | orderBy: '-_id'">
+      <div class="head">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="{{$index}}" value="option1">
+                <label class="text" for="{{$index}}">
+                <h2>{{agency.agencyName}}</h2>
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="location">
+              {{agency.city}} | {{agency.state}}
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="product-category">
+              <ul>
+                <!-- <li class="add-prod-cate">
+              <div class="input-group <edit>  </edit>-categ">
+                <input type="text" class="form-control" placeholder="Add Product Category" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">add</span>
+              </div>
+            </li> -->
+                <li>
+                  <div class="input-group edit-btn" ng-click="openInspection('Edit', agency._id);">
+                    <a href="" class="pull-right">
+                      <label class="view">Edit</label>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div ng-click="deleteAgency(agency._id)" class="input-group trash-icon">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info info-edit">
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>{{agency.contactname}}</h4>
+            </div>
+            <!--<div class="pull-right edit-assign-type" style="">
+                <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
+            </div>-->
+          </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>{{agency.telephone}}</h4>
+            </div>
+            <!--<div class="pull-right edit-assign-type" style="">
+              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
+          </div>-->
+          </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>{{agency.mobile}}</h4>
+            </div>
+            <!--<div class="pull-right edit-assign-type" style="">
+              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
+          </div>-->
+          </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>{{agency.email}}</h4>
+            </div>
+            <!--<div class="pull-right edit-assign-type" style="">
+              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
+          </div>-->
+          </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>{{agency.address}}</h4>
+            </div>
+            <!--<div class="pull-right edit-assign-type" style="">
+              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
+            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+
+    <!--<div class="details">
+      <div class="head">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="2" value="option1">
+                <label class="text" for="2">
+                <h2>TBI001 AYESHA CORP.</h2>
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="location">
+              Kolkata | India
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="product-category">
+              <ul>
+                     <li>
+                  <div class="input-group edit-btn" ng-click="openInspection();">
+                    <a href="" class="pull-right">
+                      <label class="view">Edit</label>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="input-group trash-icon">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>openInspection
+          </div>
+        </div>
+      </div>
+      <div class="info info-edit">
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>Ayesha Banerjee</h4>
+            </div>
+                   </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>+9122 25896314</h4>
+            </div>
+               </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>+91 9951485255</h4>
+            </div>
+                  </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>ayeshabanerjee@gmail.com</h4>
+            </div>
+                     </div>
+        </div>
+        <div class="row">
+          <div style="" class="col-md-12 rounded-mid">
+            <div class="rounded-pipes" style="">
+              <h4>21/23 Rhythm House, M.G.Road</h4>
+            </div>
+                  </div>
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="details">
+      <div class="head">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="3" value="option1">
+                <label class="text" for="3">
+                        <h2>TBI002 SIDDHARTH CO.</h2>
+                      </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="location">
+              Mumbai | India
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="product-category">
+              <ul>
+                       <li>
+                  <div class="input-group edit-btn">
+                    <a href="#" class="pull-right">
+                      <label class="view">Edit</label>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="input-group trash-icon">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details">
+      <div class="head">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="4" value="option1">
+                <label class="text" for="4">
+                <h2>TBI003 RISHI AGENCY</h2>
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="location">
+              Delhi | India
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="product-category">
+              <ul>-->
+    <!-- <li class="add-prod-cate">
+              <div class="input-group edit-categ">
+                <input type="text" class="form-control" placeholder="Add Product Category" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">add</span>
+              </div>
+            </li> -->
+    <!--<li>
+                  <div class="input-group edit-btn">
+                    <a href="#" class="pull-right">
+                      <label class="view">Edit</label>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="input-group trash-icon">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details">
+      <div class="head">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="magic-form">
+              <div class="magic-resize">
+                <input class="magic-checkbox" type="checkbox" name="layout" id="5" value="option1">
+                <label class="text" for="5">
+                <h2>TBI004 HASARAM RIJUMAL LTD.</h2>
+              </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="location">
+              Ahmedabad | India
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="product-category">
+              <ul>-->
+    <!-- <li class="add-prod-cate">
+              <div class="input-group edit-categ">
+                <input type="text" class="form-control" placeholder="Add Product Category" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">add</span>
+              </div>
+            </li> -->
+    <!--<li>
+                  <div class="input-group edit-btn">
+                    <a href="#" class="pull-right">
+                      <label class="view">Edit</label>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div class="input-group trash-icon">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>-->
+  </div>
+  </div>
+</section>

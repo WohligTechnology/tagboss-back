@@ -1,0 +1,221 @@
+<section class="body-main dashboard">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="details" ui-sref="orders">
+          <div class="head">
+            <h2>orders</h2>
+          </div>
+          <div class="info">
+            <ol>
+              <li ng-repeat="order in allOrders">
+                <p>{{order.buyer.firstName}} {{order.buyer.lastName}}, {{order.buyer.city}}
+                  <br/> {{order.totalAmount | currency:'&#8377;'}}
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details" ui-sref="paymentseller">
+          <div class="head">
+            <h2>payments</h2>
+          </div>
+          <div class="info">
+            <ol>
+              <li ng-repeat="payment in latestBuyerPayments">
+                <p>{{payment.buyer.firstName}} {{payment.buyer.lastName}}, {{payment.buyer.city}}
+                  <br/> {{payment.totalAmount | currency:'&#8377;'}}
+                </p>
+              </li>
+             
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details" ui-sref="paymentseller">
+          <div class="head">
+            <h2>pending payments</h2>
+          </div>
+          <div class="info">
+            <ol>
+              <li ng-repeat="pendingpayment in latestBuyerPendingPayments">
+                <p>{{pendingpayment.buyer.firstName}} {{pendingpayment.buyer.lastName}}, {{pendingpayment.buyer.city}}
+                  <br/> {{pendingpayment.totalAmount | currency:'&#8377;'}}
+                </p>
+              </li>
+              
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="details" style="height:50%;">
+          <div class="head">
+            <h2>buyers and sellers</h2>
+          </div>
+          <div class="info buynsell">
+            <ul class="list-unstyled list-inline">
+              <li ui-sref="buyers" >{{buyers}}<br> Buyers</li>
+              <li ui-sref="sellers">{{sellers}}<br> Sellers</li>
+            </ul>
+          </div>
+        </div>
+        <div class="details" style="height:50%;">
+          <div class="head">
+            <h2>sales</h2>
+          </div>
+          <div class="info">
+            <highchart id="chart" config="chartConfig"></highchart>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>order status</h2>
+          </div>
+          <div class="info">
+            <highchart id="chart1" config="chartConfig1"></highchart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>top 5 sellers</h2>
+          </div>
+          <div class="info">
+            <ol>
+             <li ng-repeat="seller in topFiveSellers">
+                <p>{{seller.firmName}} , {{seller.city}}
+                  <br/> {{seller.totalSoldAmount | currency:'&#8377;'}}
+                  <br/>  <br/>Total Sales: {{seller.total}}
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>top 5 buyers</h2>
+          </div>
+          <div class="info">
+            <ol>
+            <li ng-repeat="buyer in topFiveBuyers">
+                <p>{{buyer.firstName}} {{buyer.lastName}}, {{buyer.city}}
+                  <br/> {{buyer.totalBoughtAmount | currency:'&#8377;'}}
+                   <br/>  <br/>Total Orders: {{buyer.total}}
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>payment to sellers</h2>
+          </div>
+          <div class="info">
+            <ol>
+               <li ng-repeat="sellerPayment in latestPaymentToSellers">
+                <p>{{sellerPayment.seller.firmName}}, {{sellerPayment.seller.city}}
+                  <br/> {{sellerPayment.paymentAmount | currency:'&#8377;'}}
+                </p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>category wise sales</h2>
+          </div>
+          <div class="info">
+            <ol>
+              <li ng-repeat="data in categoryWiseSales">
+                <p>{{data._id}} - <span>{{data.totalSales | currency:'&#8377;'}}</span>
+                </p>
+              </li>
+              
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>Average order delivery time</h2>
+          </div>
+          <div class="info text-center avg-time">
+            <p><span>{{avgOrderDelivered}} </span1>Days</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="details">
+          <div class="head">
+            <h2>new customer</h2>
+          </div>
+           <div class="info text-center avg-time">
+            <p><span>{{newCustomer}} / {{buyers}}</span1></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  <div class="row">
+      <div class="col-md-8">
+        <div class="details">
+          <div class="head">
+            <h2>coupon codes</h2>
+          </div>
+          <div class="info">
+            <label>VIEW COUPON</label>
+            <div class="add-new">
+              <label>+Add new</label>
+              <label><span>Edit</span> | <span>Delete</span></label>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>DISCOUNT COUPON CODE</th>
+                  <th>VALUE</th>
+                  <th>TYPE</th>
+                  <th>FOR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1. NBA 1234</td>
+                  <td>20</td>
+                  <td><i class="fa fa-percent" aria-hidden="true"></i></td>
+                  <td>All<i class="fa fa-check-circle-o" aria-hidden="true"></i></td>
+                </tr>
+                <tr>
+                  <td>2. Diwali 16</td>
+                  <td>3000</td>
+                  <td><i class="fa fa-inr" aria-hidden="true"></i></td>
+                  <td>Pipes<i class="fa fa-times-circle-o" aria-hidden="true"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  </div>
+</section>

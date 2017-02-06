@@ -1,0 +1,179 @@
+<section class="body-main request-buyers">
+  <div class="container-fluid">
+    <div class="request-buyer">
+      <div class="search-content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group search-top">
+              <input type="text" ng-model="keyword" ng-change="getAllBuyer(keyword);" class="form-control" placeholder="Search by buyer ID or Name">
+              <span ng-click="getAllBuyer(keyword);" class="input-group-btn">
+            <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+            <!-- <button class="btn btn-default" type="button">Go!</button> -->
+          </span>
+            </div>
+          </div>
+
+          <!--<div class="col-md-6">
+            <div class="more-opt pull-right">
+              <div class="magic-form">
+                <div class="magic-resize">
+                  <input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">
+                  <label class="detail-heading" for="add-more">
+                      More
+                    </label>
+                </div>
+              </div>
+              <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+            </div>
+          </div>-->
+          <div class="col-md-6">
+            <div class="more-opt pull-right">
+              <div class="magic-form dropdown">
+                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                  <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">-->
+                  <label class="">Filter by Status</label>
+                  <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-click="getAllBuyer(keyword,'All');"><a>All</a></li>
+                    <li ng-click="getAllBuyer(keyword,'pending');"><a>Pending Verification</a></li>
+                    <!--<li ng-click="getAllBuyer('verified');"><a>Verified</a></li>-->
+                    <li ng-click="getAllBuyer(keyword,'rejected');"><a>Rejected</a></li>
+                    <li ng-click="getAllBuyer(keyword,'incomplete');"><a>Profile Incomplete</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+       <div ng-if="AllBuyer.length==0">
+        <h3 class="text-center">No data Found</h3>
+        </div>
+        <div ng-if="AllBuyer==undefined">
+        <h3 class="text-center">Loading...</h3>
+        </div>
+      <div ng-repeat="buyer in AllBuyer">
+        <div class="request-buyer-details ">
+          <div class="magic-form">
+            <div class="magic-resize">
+              <label class="detail-heading" for="add-one{{$index}}">
+              TBS{{buyer.userId}} {{buyer.firstName}} {{buyer.lastName}}.
+            </label>
+            </div>
+          </div>
+           <div class="date pull-right">Date: {{buyer.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+        </div>
+        <table class="table table-bordered request-buyer-table">
+          <thead>
+            <tr>
+              <th><strong>ADDRESS</strong></th>
+              <th><strong>REFERENCE</strong></th>
+              <th><strong>WAREHOUSE ADD</strong></th>
+              <th><strong>CERTIFICATIONS</strong></th>
+              <th><strong>STATUS</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{buyer.companyAddress}}
+              </td>
+              <td>TBS{{buyer.userId}}</td>
+              <td>
+                <div ng-if="buyer.warehouse.length>0">{{buyer.warehouse[0].warehouseFirmName}},<br>{{buyer.warehouse[0].warehouseAddress}},<br>                  {{buyer.warehouse[0].warehouseCity}}, {{buyer.warehouse[0].warehousePincode}}<br/>{{buyer.warehouse[0].warehouseState}},
+                  {{buyer.warehouse[0].warehouseCountry}}
+                </div>
+              </td>
+              <td>CST NO. {{buyer.cstTinNo}}<br> VAT NO. {{buyer.vatTinNo}}</td>
+              <td class="view-td">
+                <!--<label class="stat">VERIFIED</label>-->
+                <label class="stat" style="text-transform:capitalize;">{{buyer.status}}</label>
+                <a ui-sref="view-request-buyers({'id':buyer._id})"><label class="view">VIEW</label></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+         <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllBuyer()"></ul>
+     
+
+      <!--<div class="request-buyer-details ">
+        <div class="magic-form">
+          <div class="magic-resize">
+            <input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">
+            <label class="detail-heading" for="add-one">
+              ORDER ID TB00_1
+            </label>
+          </div>
+        </div>
+        <div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+        <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>
+      </div>-->
+      <!--<table class="table table-bordered request-buyer-table">
+        <thead>
+          <tr>
+            <th><strong>ADDRESS</strong></th>
+            <th><strong>REFERENCE</strong></th>
+            <th><strong>WAREHOUSE ADD</strong></th>
+            <th><strong>CERTIFICATIONS</strong></th>
+            <th><strong>STATUS</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>15/18 Rhythm House, Kaala Ghoda, Fort, Mumbai - 400005 India
+            </td>
+            <td>TBS005</td>
+            <td>15/18 Rhythm House, Kaala Ghoda, Fort, Mumbai - 400005 India
+            </td>
+            <td>CST NO. XXXXXX<br> VAT NO. XXXXXX</td>
+            <td class="view-td">
+             
+              <label class="stat">REJECTED</label>
+              <a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>-->
+      <!--<div class="request-buyer-details ">
+        <div class="magic-form">
+          <div class="magic-resize">
+            <input class="magic-checkbox" type="checkbox" name="layout" id="add-two" value="option1">
+            <label class="detail-heading" for="add-two">
+                  ORDER ID TB00_2
+                </label>
+          </div>
+        </div>
+        <div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+        <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>
+      </div>
+      <table class="table table-bordered request-buyer-table">
+        <thead>
+          <tr>
+            <th><strong>ADDRESS</strong></th>
+            <th><strong>REFERENCE</strong></th>
+            <th><strong>WAREHOUSE ADD</strong></th>
+            <th><strong>CERTIFICATIONS</strong></th>
+            <th><strong>STATUS</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>15/18 Rhythm House, Kaala Ghoda, Fort, Mumbai - 400005 India
+            </td>
+            <td>TBS005</td>
+            <td>15/18 Rhythm House, Kaala Ghoda, Fort, Mumbai - 400005 India
+            </td>
+            <td>CST NO. XXXXXX<br> VAT NO. XXXXXX</td>
+            <td class="view-td">
+              <label class="stat">VERIFIED</label>
+              <a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>-->
+
+    </div>
+  </div>
+</section>

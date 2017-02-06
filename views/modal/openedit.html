@@ -1,0 +1,248 @@
+<section class="coupon-code">
+  <div class="container-fluid">
+    <form name="frmcoupon" ng-submit="addCoupon(coupon)">
+      <h4>
+        {{title}} Coupon Code
+      </h4>
+      <div class="details-1">
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Coupon Name</label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-size">
+                  <input type="text" name="name" required ng-model="coupon.name" class="form-control">
+                </div>
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.name.$invalid && frmcoupon.name.$touched">Please Enter Coupon Name.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Coupon Code</label>
+              </div>
+              <div class="col-md-6">
+                <div class="input-size">
+                  <input type="text" name="code" required ng-model="coupon.code" class="form-control">
+                </div>
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.code.$invalid && frmcoupon.code.$touched">Please Enter Coupon Code.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Type</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <select class="" name="type" required ng-model="coupon.type">
+           <option value="">Select</option>
+          <option value="Percentage">Percentage</option>
+          <option value="Amount">Amount</option>
+        </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.type.$invalid && frmcoupon.type.$touched">Please Enter Coupon Type.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Amount</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input type="text" name="amount" only-Digits required ng-model="coupon.amount" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$touched">Please Enter Amount.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Min Order Amount</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input type="text" name="minOrderAmount" required only-Digits ng-model="coupon.minOrderAmount" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.minOrderAmount.$invalid && frmcoupon.minOrderAmount.$touched">Please Enter Min Order Amount.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Max Discount Value</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input type="text" name="maxOrderAmount" only-Digits required ng-model="coupon.maxDiscountValue" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.maxOrderAmount.$invalid && frmcoupon.maxOrderAmount.$touched">Please Enter Max Order Amount.</div>
+            </div>
+          </div>
+        </div>
+
+         <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Max Use</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input type="text" name="maxUsed" only-Digits required ng-model="coupon.maxUsed" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.maxUsed.$invalid && frmcoupon.maxUsed.$touched">Please Enter Max Use.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>For</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <select class="" name="for" required ng-model="coupon.for" name="">
+          <option value="">Select</option>
+          <option value="All">All</option>
+          <option value="Pipes">Pipes</option>
+          <option value="Plates/Sheets">Plates / Sheets</option>
+          <option value="Coils">Coils</option>
+          <option value="Roundbar">Roundbar</option>
+        </select>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.for.$invalid && frmcoupon.for.$touched">Please Enter Coupon For.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Start date</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input name="startDate" ng-model="coupon.startDate" required type="date" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.startDate.$invalid && frmcoupon.startDate.$touched">Please Enter Start Date.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>End date</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input name="endDate" ng-model="coupon.endDate" required type="date" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.endDate.$invalid && frmcoupon.endDate.$touched">Please Enter End Date.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>City</label>
+              </div>
+              <div class="col-md-6">
+                <div class="">
+                  <input ng-model="coupon.city" type="text" name="city" class="form-control">
+                </div>
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.city.$invalid && frmcoupon.city.$touched">Please Enter City.</div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="no-border head-1">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Pincode</label>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                  <input required type="text" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="">
+                  <input required type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-->
+        <!--<div class="head-1">
+          <div class="row">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-6">
+              <div class="">
+                <p class="or">OR</p>
+                <input required type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>-->
+      </div>
+      <div class="no-border head-1">
+        <div class="row">
+          <div class="col-md-2 pull-right">
+            <div class="input-group add-btn pull-right">
+              <!--<a href="">
+          <label class="view">Add</label>
+        </a>-->
+              <button type="submit" class="btn btn-primary coupon-add">{{title}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </form>
+</section>

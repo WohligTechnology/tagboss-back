@@ -1,0 +1,96 @@
+<section class="body-main sellers">
+    <div class="container-fluid">
+        <div class="seller">
+            <div class="search-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group search-top">
+                            <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
+                            <span class="input-group-btn">
+                                <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-6">
+                        <div class="more-opt pull-right">
+                            <div class="magic-form dropdown">
+                                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                                    <label class="">Filter by</label>
+                                    <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Pending Verification</a></li>
+                                        <li><a href="#">Verified</a></li>
+                                        <li><a href="#">Rejected</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <div ng-if="allData.length==0">
+                <h3 class="text-center">No data Found</h3>
+            </div>
+            <div ng-if="allData==undefined">
+                <h3 class="text-center">Loading...</h3>
+            </div>
+            <div ng-repeat="(cat, value) in allData | groupBy: 'category.name'">
+                <div class="seller-details">
+                </div>
+                <!--<div class="magic-form">
+          <div class="magic-resize">
+            <input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">
+            <label class="detail-heading" for="add-more">
+                       TBS001 MIRAGE STEEL LTD.
+                     </label>
+          </div>
+        </div>
+        <div class="starred pull-right"><i class="fa fa-star" aria-hidden="true"></i></div>
+        <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
+                <table class="table table-bordered seller-table price-range">
+                    <thead>
+                        <tr>
+                            <th><strong>SR. NO.</strong></th>
+                            <th><strong>Category</strong></th>
+                            <th><strong>MOC</strong></th>
+                            <th><strong>% Variation of all sizes</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="moc in value">
+                            <td>
+                                {{$index + 1}}
+                            </td>
+                            <td>
+                                <span>{{cat}}</span>
+                                <span></span>
+                                <span></span>
+                            </td>
+                            <td>
+                                <span>{{moc.name}}</span>
+                                <span></span>
+                                <span></span>
+                            </td>
+                            <td>
+                                <div class="text-center inp-type">
+                                    <div class="form-group">
+                                        <form name="updateprice" ng-submit="updatePercentage(moc);" class="cpr">
+                                            <input type="text" only-Decimal maxlength="5" name="pricepercentage" required ng-model="moc.pricePercentage">
+                                            <div class="error-msg1" ng-if="updateprice.pricepercentage.$invalid && updateprice.pricepercentage.$touched">Please Enter Percentage.</div>
+                                            <button type="submit" class="btn btn-default">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <!--<td></td>
+                        <td>
+                            <span></span>
+                            <span></span>
+                            <span><br><a ui-sref="view-sellers" class="pull-right"><label class="view">VIEW</label></a></span>
+                        </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</section>
