@@ -34,7 +34,7 @@
             <div ng-show="hideEdit">
                 <div class="assign-agency-details">
                     <label class="detail-heading">INSPECTION AND APPROVAL</label>
-                        </div>
+                </div>
                 <table class="table table-bordered assign-agency-table">
                     <thead>
                         <tr>
@@ -79,28 +79,30 @@
                                         <button type="button" class="btn btn-primary assign-btn" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                 </td>
-                                <td>{{inventory.quantityInNos}}</td>
+                                <td ng-if="inventory.category.name == 'Plates/Sheets'">{{inventory.quantityInNos}}</td>
+                                <td ng-if="inventory.category.name == 'Pipes' || inventory.category.name == 'Roundbar'">{{inventory.totalQty}}</td>
+                                <td ng-if="inventory.category.name == 'Coil'">{{inventory.coilQty}}</td>
                                 <td class="feed-col">
                                     <!--<select ng-model="myid">
                    <option  ng-repeat="agency in getAllAgency" value="{{agency._id}}">{{agency.agencyName}}</option>
                        </select>-->
-                       <div ng-if="inventory.seller.status==='verified'">
-                                    <p>
-                                        <div class="form-group" ng-if="inventory.status==='Pending'">
-                                            <select required name="status{{$index}}" ng-model="inventory.agentIDTemp">
+                                    <div ng-if="inventory.seller.status==='verified'">
+                                        <p>
+                                            <div class="form-group" ng-if="inventory.status==='Pending'">
+                                                <select required name="status{{$index}}" ng-model="inventory.agentIDTemp">
                       <option  value="">Select Agency</option>
                    <option  ng-repeat="agency in getAllAgency" value="{{agency._id}}">{{agency.agencyName}}</option>
-                 
+                  
                 </select>
-                                            <div class="error-msg1" ng-if="errmsg==true && myindex==$index && inventory.status==='Pending'">Please Select Agency Name.</div>
-                                        </div>
-                                    </p>
-                                    <p ng-if="inventory.status!=='Pending'" class="upload-date">
-                                        {{inventory.agencyid.agencyName}}
-                                    </p>
-                                    <p ng-if="inventory.status!=='Pending'">
-                                        Due On : {{inventory.duedate | date:'mediumDate'}}
-                                    </p>
+                                                <div class="error-msg1" ng-if="errmsg==true && myindex==$index && inventory.status==='Pending'">Please Select Agency Name.</div>
+                                            </div>
+                                        </p>
+                                        <p ng-if="inventory.status!=='Pending'" class="upload-date">
+                                            {{inventory.agencyid.agencyName}}
+                                        </p>
+                                        <p ng-if="inventory.status!=='Pending'">
+                                            Due On : {{inventory.duedate | date:'mediumDate'}}
+                                        </p>
                                     </div>
                                 </td>
                                 <td class="text-center feed-col">
@@ -123,24 +125,28 @@
                   </div>-->
                                     <div>
                                         <div>
-                                            <p>Status: {{inventory.status}}</p>
-                                            <button ng-if="inventory.status==='Pending'" ng-click="assignInspection(inventory, $index)" type="button" class="btn btn-primary assign-btn">ASSIGN</button>
+                                            <p ng-if="inventory.status!='Assigned'">Status: {{inventory.status}}</p>
+                                            <p ng-if="inventory.status=='Assigned'">Status: {{inventory.status}} to {{inventory.agencyid.agencyName}}</p>
+                                            <button ng-if="inventory.status==='Pending' && agency.agencyName == null && inventory.seller.status==='verified'" ng-click="assignInspection(inventory, $index)"
+                                                type="button" class="btn btn-primary assign-btn">ASSIGN</button>
                                         </div>
-                                        <div ng-if="inventory.seller.status!=='verified'">
+                                        <div ng-if="inventory.seller.status!='verified' && inventory.status!='Verified'">
                                             <p>Seller Not Verified</p>
-                                            </div>
+                                        </div>
                                         <div ng-if="inventory.seller.status==='verified'">
-                                        <div ng-if="inventory.status==='Inspected' || inventory.status==='Assigned' || inventory.status==='Pending' || inventory.status==='Rejected'">
-                                            <span ng-if="inventory.report"> <a href="{{pdfURL}}={{inventory.report}}" target="_blank"><img src="img/pdf-image.png"></a></span>
-                                            <div class="">
-                                                <button type="button" ng-click="acceptReport(inventory);" class="btn btn-primary accept">ACCEPT</button>
-                                                <button type="button" ng-click="rejectReport(inventory);" class="btn btn-primary reject">REJECT</button>
+                                            <div ng-if="inventory.status==='Inspected' || inventory.status==='Assigned' || inventory.status==='Pending' || inventory.status==='Rejected'">
+                                                <span ng-if="inventory.report"> <a href="{{pdfURL}}={{inventory.report}}" target="_blank"><img src="img/pdf-image.png"></a></span>
+                                                <p ng-if="inventory.remark">{{inventory.remark}}</p>
+                                                <div class="">
+                                                    <button type="button" ng-click="acceptReport(inventory);" class="btn btn-primary accept">ACCEPT</button>
+                                                    <button type="button" ng-click="rejectReport(inventory);" class="btn btn-primary reject">REJECT</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div ng-if="inventory.status==='Verified' || inventory.status==='Rejected'">
-                                            <span ng-if="inventory.report"> <a href="{{pdfURL}}={{inventory.report}}" target="_blank"><img src="img/pdf-image.png"></a></span>
-                                            <p ng-if="inventory.status==='Verified'"> The product is upto mark.</p>
-                                        </div>
+                                            <div ng-if="inventory.status==='Verified' || inventory.status==='Rejected'">
+                                                <span ng-if="inventory.report"> <a href="{{pdfURL}}={{inventory.report}}" target="_blank"><img src="img/pdf-image.png"></a></span>
+                                                <p ng-if="inventory.remark">{{inventory.remark}}</p>
+                                                <p ng-if="inventory.status==='Verified'"> The product is upto mark.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -389,13 +395,13 @@
                                                 </div>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Quantity: <input type="text" name="totalQty" ng-model="productEdit.totalQty"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" ng-model="productEdit.totalQty" readonly></h3>
                                                 <span class="unit-size">Nos.</span>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Length: <input type="text" name="totalLength" ng-model="productEdit.totalLength"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" ng-model="productEdit.totalLength" readonly></h3>
                                                 <span class="unit-size">Mtrs</span>
                                             </div>
                                         </div>
@@ -420,8 +426,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="rate" id="rate" ng-model="productEdit.ratePerKgMtr" ng-change="valueAll(productEdit.ratePerKgMtr)"
                                             required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.ratePerKgMtr"></i>
-                                        <div class="error-msg61" ng-if="editProduct.rate.$invalid && editProduct.rate.$touched">Please Enter Rate per mtr</div>
+                                            <i class="fa fa-check tick" ng-show="productEdit.ratePerKgMtr"></i>
+                                            <div class="error-msg61" ng-if="editProduct.rate.$invalid && editProduct.rate.$touched">Please Enter Rate per mtr</div>
                                     </div>
                                 </div>
                             </div>
@@ -487,9 +493,9 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountpipe" ng-model="productEdit.discount" id="discount" ng-change="valueAll(productEdit.discount)"
                                             required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
-                                        <div class="error-msg13" ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched">Please Enter Discount</div>
-                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                            <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                            <div class="error-msg13" ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched">Please Enter Discount</div>
+                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -502,7 +508,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -713,7 +719,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="pricekgplate" ng-model="productEdit.pricePerKg" id="price" ng-change="valueAllPlate(productEdit.pricePerKg)"
                                             required>
-                                        <div class="error-msg61" ng-if="editProduct.pricekgplate.$invalid && editProduct.pricekgplate.$touched">Please Enter Price per Kg</div>
+                                            <div class="error-msg61" ng-if="editProduct.pricekgplate.$invalid && editProduct.pricekgplate.$touched">Please Enter Price per Kg</div>
                                     </div>
                                 </div>
                             </div>
@@ -726,7 +732,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="modvatkgplate" ng-model="productEdit.exciseModvatPerKg" id="Modvatexcise"
                                             readonly>
-                                        <div class="error-msg61" ng-if="editProduct.modvatkgplate.$invalid && editProduct.modvatkgplate.$touched">Please Enter Per KG Excise Modvat</div>
+                                            <div class="error-msg61" ng-if="editProduct.modvatkgplate.$invalid && editProduct.modvatkgplate.$touched">Please Enter Per KG Excise Modvat</div>
                                     </div>
                                 </div>
                             </div>
@@ -760,8 +766,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountplate" ng-model="productEdit.discount" id="discount" ng-change="valueAllPlate(productEdit.discount)"
                                             required>
-                                        <div class="error-msg13" ng-if="editProduct.discountplate.$invalid && editProduct.discountplate.$touched">Please Enter Discount</div>
-                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                            <div class="error-msg13" ng-if="editProduct.discountplate.$invalid && editProduct.discountplate.$touched">Please Enter Discount</div>
+                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -774,7 +780,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -976,7 +982,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="priceperkgcoil" ng-model="productEdit.pricePerKg" id="pricePerKg" ng-change="valueAllCoil(productEdit.pricePerKg)"
                                             required>
-                                        <div class="error-msg61" ng-if="editProduct.priceperkgcoil.$invalid && editProduct.priceperkgcoil.$touched">Please Enter Price per Kg</div>
+                                            <div class="error-msg61" ng-if="editProduct.priceperkgcoil.$invalid && editProduct.priceperkgcoil.$touched">Please Enter Price per Kg</div>
                                     </div>
                                 </div>
                             </div>
@@ -1021,8 +1027,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountcoil" ng-model="productEdit.discount" id="discount" ng-change="valueAllCoil(productEdit.discount)"
                                             required>
-                                        <div class="error-msg13" ng-if="editProduct.discountcoil.$invalid && editProduct.discountcoil.$touched">Please Enter Discount</div>
-                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                            <div class="error-msg13" ng-if="editProduct.discountcoil.$invalid && editProduct.discountcoil.$touched">Please Enter Discount</div>
+                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -1035,7 +1041,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -1278,13 +1284,13 @@
                                                 </div>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Quantity: <input type="text" name="totalQty" ng-model="productEdit.totalQty"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" ng-model="productEdit.totalQty" readonly></h3>
                                                 <span class="unit-size">Nos.</span>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Length: <input type="text" name="totalLength" ng-model="productEdit.totalLength"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" ng-model="productEdit.totalLength" readonly></h3>
                                                 <span class="unit-size">Mtrs</span>
                                             </div>
                                         </div>
@@ -1309,8 +1315,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="priceKg" ng-model="productEdit.pricePerKg" id="priceKg" ng-change="valueFinalPrice(productEdit.pricePerKg)"
                                             required>
-                                        <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
-                                        <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
+                                            <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
+                                            <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
                                     </div>
                                 </div>
                             </div>
@@ -1377,9 +1383,9 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountround" ng-model="productEdit.discount" ng-change="valueFinalPrice(productEdit.discount)"
                                             id="discount" required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
-                                        <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
-                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                            <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                            <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
+                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -1392,7 +1398,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>

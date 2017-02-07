@@ -255,7 +255,8 @@
 
 .seller-details,
 .buyer-details {
-    padding: 0;
+    // padding: 0;
+    padding: 5px 20px;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -543,6 +544,12 @@
                 /* margin: 2px 0 0 0; */
                 border-bottom: 1px solid #ccc;
                 .glance-cont {
+                    .dash-icons {
+                        img {
+                            margin: 0 auto;
+                            width: 60px;
+                        }
+                    }
                     p {
                         font-size: 18px;
                         color: #043E77;
@@ -1089,7 +1096,6 @@
         font-weight: bold;
         margin-top: 0px;
         display: inline-block;
-
     }
     .total-head {
         font-size: 20px;
