@@ -50,6 +50,7 @@
     "angular-translate": "^2.11.0"
   },
   "resolutions": {
-    "jStorage": "v0.4.10"
+    "jStorage": "v0.4.10",
+    "angular": "1.5.8"
   }
 }
