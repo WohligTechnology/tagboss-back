@@ -907,9 +907,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata._id = productdata._id;
             senddata.brand = productdata.brand._id;
             senddata.details = productdata.details;
-            if (productdata.category.name !== 'Roundbar') {
-                senddata.type = productdata.type._id;
-            }
+            // if (productdata.category.name !== 'Roundbar') {
+            //     senddata.type = productdata.type._id;
+            // }
             senddata.gradesstandards = productdata.gradesstandards._id;
             NavigationService.editProduct(senddata, function (data) {
                 $scope.showInspection();
@@ -1710,7 +1710,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
     })
 
 
-    .controller('OrdersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $uibModal) {
+    .controller('OrdersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $uibModal, $filter) {
 
         $scope.template = TemplateService.changecontent("orders");
         $scope.menutitle = NavigationService.makeactive("Orders");
@@ -1734,11 +1734,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.order = {};
             // var subid = id.slice(1);
             // $scope.order.orderid = subid;
+            console.log(id);
             $scope.order.orderid = id;
+
             NavigationService.getOrder($scope.order.orderid, function (data) {
                 if (data.value == true) {
                     $scope.orderData = data.data;
-                    $scope.orderData.neftRtgsPaymentTimestamp = new Date($scope.orderData.neftRtgsPaymentTimestamp);
+                    $scope.orderDate = data.data.buyerPaymentDate;
+                    $scope.orderData.buyerPaymentDate = $filter('date')($scope.orderData.buyerPaymentDate, "dd-MM-yyyy");
+                    // $scope.orderData.buyerPaymentDate = new Date($scope.orderData.buyerPaymentDate);
                     console.log("aa", $scope.orderData);
                     ordermod = $uibModal.open({
                         animation: true,
