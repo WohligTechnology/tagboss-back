@@ -69,17 +69,14 @@
                             <tr>
                                 <th><strong>SR. NO.</strong></th>
                                 <th><strong>Product NAME</strong></th>
-                                <!--<th><strong>GRADE</strong></th>-->
-                                <!--<th><strong>SIZE</strong></th>
-                            <th><strong>SCH</strong></th>
-                            <th><strong>THICKNESS (MM)</strong></th>-->
                                 <th>PRICE</th>
                                 <th>STATUS</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="products in product">
-                                <td>TB{{products.category.name}}{{products.product.productId}}</td>
+                                <td>{{products.product.productStringId}}</td>
+                                <!--<td>TB{{products.category.name}}{{products.product.productStringId}}</td>-->
                                 <td>
                                     <div class="item-info-detail pro-name" ng-if="products.category.name == 'Pipes'">
                                         {{products.moc.name}} {{products.type.name}} {{products.category.name}}<br/> {{products.gradesstandards.name}}
@@ -281,7 +278,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="stock in allStock">
-                            <td>TBI{{stock.inventoryId}}</td>
+                            <td>{{stock.inventoryStringId}}</td>
+                            <!--<td>TBI{{stock.inventoryId}}</td>-->
                             <td>{{stock.createdAt | date:'mediumDate'}}</td>
                             <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
                                 <span ng-if="stock.category.name==='Coil'">1</span>

@@ -1,5 +1,6 @@
 Window.uploadurl = "http://wohlig.biz/uploadfile/upload/";
-var adminURL = "http://localhost:1337/";
+// var adminURL = "http://localhost:1337/";
+var adminURL = "http://35.154.98.245:1337/";
 // var adminURL = "http://104.155.129.33:1337/";
 angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toastr', 'ui.tinymce', 'navigationservice', 'highcharts-ng', 'ui.bootstrap', 'ngAnimate', 'imageupload', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toggle-switch', 'angular.filter', 'angular-loading-bar'])
 
@@ -727,7 +728,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
 
-        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         $scope.currentDate = new Date();
         $scope.showEdit = false;
@@ -2238,7 +2240,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View-sellers");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneSeller($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.sellerData = data.data;
@@ -2575,7 +2578,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.rate = 3;
         $scope.max = 5;
         $scope.isReadonly = false;
-        $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         $scope.hoveringOver = function (value) {
             $scope.overStar = value;
             $scope.percent = 100 * (value / $scope.max);
@@ -2711,7 +2715,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         });
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         $scope.acceptSeller = function (sellerdata) {
             var senddata = {}
             senddata._id = sellerdata._id;
@@ -2723,7 +2728,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
             senddata.panNoVerified = sellerdata.panNoVerified;
             senddata.registrationNo = sellerdata.registrationNo;
-            senddata.cancelledCheque = sellerdata.cancelledCheque;
+            // senddata.cancelledCheque = sellerdata.cancelledCheque;
             senddata.importExportCode = sellerdata.importExportCode;
             senddata.registrationNoVerified = sellerdata.registrationNoVerified;
             senddata.cancelledChequeVerified = sellerdata.cancelledChequeVerified;
@@ -2792,6 +2797,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneBuyer($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.buyerData = data.data;

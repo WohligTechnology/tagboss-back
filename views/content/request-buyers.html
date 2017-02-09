@@ -12,7 +12,6 @@
           </span>
             </div>
           </div>
-
           <!--<div class="col-md-6">
             <div class="more-opt pull-right">
               <div class="magic-form">
@@ -44,26 +43,24 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
-
-       <div ng-if="AllBuyer.length==0">
+      <div ng-if="AllBuyer.length==0">
         <h3 class="text-center">No data Found</h3>
-        </div>
-        <div ng-if="AllBuyer==undefined">
+      </div>
+      <div ng-if="AllBuyer==undefined">
         <h3 class="text-center">Loading...</h3>
-        </div>
+      </div>
       <div ng-repeat="buyer in AllBuyer">
         <div class="request-buyer-details ">
           <div class="magic-form">
             <div class="magic-resize">
               <label class="detail-heading" for="add-one{{$index}}">
-              TBS{{buyer.userId}} {{buyer.firstName}} {{buyer.lastName}}.
+              {{buyer.userStringId}} {{buyer.firstName}} {{buyer.lastName}}.
             </label>
             </div>
           </div>
-           <div class="date pull-right">Date: {{buyer.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+          <div class="date pull-right">Date: {{buyer.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
         </div>
         <table class="table table-bordered request-buyer-table">
           <thead>
@@ -79,10 +76,11 @@
             <tr>
               <td>{{buyer.companyAddress}}
               </td>
-              <td>TBS{{buyer.userId}}</td>
+              <td>{{buyer.userStringId}}</td>
               <td>
-                <div ng-if="buyer.warehouse.length>0">{{buyer.warehouse[0].warehouseFirmName}},<br>{{buyer.warehouse[0].warehouseAddress}},<br>                  {{buyer.warehouse[0].warehouseCity}}, {{buyer.warehouse[0].warehousePincode}}<br/>{{buyer.warehouse[0].warehouseState}},
-                  {{buyer.warehouse[0].warehouseCountry}}
+                <div ng-if="buyer.warehouse.length>0">{{buyer.warehouse[0].warehouseFirmName}},<br>{{buyer.warehouse[0].warehouseAddress}},<br> {{buyer.warehouse[0].warehouseCity}},
+                  {{buyer.warehouse[0].warehousePincode}}
+                  <br/>{{buyer.warehouse[0].warehouseState}}, {{buyer.warehouse[0].warehouseCountry}}
                 </div>
               </td>
               <td>CST NO. {{buyer.cstTinNo}}<br> VAT NO. {{buyer.vatTinNo}}</td>
@@ -95,9 +93,7 @@
           </tbody>
         </table>
       </div>
-         <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllBuyer()"></ul>
-     
-
+      <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllBuyer()"></ul>
       <!--<div class="request-buyer-details ">
         <div class="magic-form">
           <div class="magic-resize">
@@ -173,7 +169,6 @@
           </tr>
         </tbody>
       </table>-->
-
     </div>
   </div>
 </section>

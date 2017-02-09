@@ -62,11 +62,10 @@
           <div class="magic-resize">
             <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
             <label class="detail-heading" for="add-one">
-                TBB{{buyerData.userId}} {{buyerData.firstName}} {{buyerData.lastName}}
+                {{buyerData.userStringId}} {{buyerData.firstName}} {{buyerData.lastName}}
               </label>
             <div class="mid-btn">
               <button ui-sref="orders({type:'buyer',id:buyerData._id})" type="button" class="btn btn-default btn-o">Order</button>
-              
             </div>
           </div>
         </div>

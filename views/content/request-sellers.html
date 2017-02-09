@@ -42,11 +42,11 @@
           <div class="magic-form">
             <div class="magic-resize">
               <label class="detail-heading" for="add-one{{$index}}">
-              TBS{{seller.userId}} {{seller.firmName}}.
+              {{seller.userStringId}} {{seller.firmName}}.
             </label>
             </div>
           </div>
-          <div class="date pull-right">Date: {{seller.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+          <div class="date pull-right">Date: {{seller.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
         </div>
         <table class="table table-bordered request-seller-table">
           <thead>
@@ -62,10 +62,11 @@
             <tr>
               <td>{{seller.companyAddress}}
               </td>
-              <td>TBS{{seller.userId}}</td>
+              <td>{{seller.userStringId}}</td>
               <td>
                 <div ng-if="seller.warehouse.length>0">{{seller.warehouse[0].warehouseFirmName}},<br> {{seller.warehouse[0].warehouseAddress}},<br> {{seller.warehouse[0].warehouseCity}},
-                  {{seller.warehouse[0].warehousePincode}}<br/>{{seller.warehouse[0].warehouseState.name}}, {{seller.warehouse[0].warehouseCountry}}
+                  {{seller.warehouse[0].warehousePincode}}
+                  <br/>{{seller.warehouse[0].warehouseState.name}}, {{seller.warehouse[0].warehouseCountry}}
                 </div>
               </td>
               <td>CST NO. {{seller.cstTinNo}}<br> VAT NO. {{seller.vatTinNo}}</td>
@@ -78,8 +79,7 @@
           </tbody>
         </table>
       </div>
-       <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllSeller()"></ul>
-     
+      <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllSeller()"></ul>
     </div>
   </div>
 </section>

@@ -20,11 +20,11 @@
         <div class="magic-form">
           <div class="magic-resize">
             <label class="detail-heading" for="add-more">
-                     TBS{{buyerData.userId}} {{buyerData.firstName}} {{buyerData.lastName}}.
+                     {{buyerData.userStringId}} {{buyerData.firstName}} {{buyerData.lastName}}.
                    </label>
           </div>
         </div>
-        <div class="date pull-right">Date: {{buyerData.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+        <div class="date pull-right">Date: {{buyerData.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
       </div>
       <table class="table table-bordered view-request-buyer-table">
         <thead>
@@ -189,7 +189,6 @@
                       <label class="font-karla-bold" for="com">Company PAN No.</label>
                       <div class="input-group attach">
                         <input class="form-control" type="text" id="com" placeholder="Enter PAN No." ng-model="buyerData.panNo" readonly>
-                     
                       </div>
                     </div>
                   </div>
@@ -198,7 +197,6 @@
                       <label class="font-karla-bold" for="vat">VAT TIN No.</label>
                       <div class="input-group attach">
                         <input class="form-control" type="text" id="vat" placeholder="Enter VAT TIN No." ng-model="buyerData.vatTinNo" readonly>
-                     
                       </div>
                     </div>
                   </div>
@@ -207,7 +205,6 @@
                       <label class="font-karla-bold" for="cst">CST TIN No.</label>
                       <div class="input-group attach">
                         <input class="form-control" type="text" id="cst" placeholder="Enter CST TIN No." ng-model="buyerData.cstTinNo" readonly>
-                      
                       </div>
                     </div>
                   </div>
@@ -275,10 +272,8 @@
                   <img ng-src="{{buyerData.imageOfVatTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-               <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+              <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
+                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -299,10 +294,8 @@
                   <img ng-src="{{buyerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-               <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+              <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
+                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -324,9 +317,7 @@
                 </a>
               </div>
               <div class="text-center" ng-if="imageOfPanNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="hide verified"><p>VERIFIED</p></div>
                         <div class="pending"><p>VERIFICATION PENDING</p></div>-->
@@ -338,7 +329,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-md-4 col-1">
             <div class="abc">
@@ -351,9 +341,7 @@
                 </a>
               </div>
               <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -364,7 +352,6 @@
               </div>
             </div>
           </div>
-         
         </div>
       </div>
       <div class="row comment-area">
@@ -378,8 +365,8 @@
       <div class="accept-reject">
         <button type="button" ng-if="buyerData.status==='incomplete'" ng-disabled="buyerData.status==='incomplete'" ng-click="acceptBuyer(buyerData);"
           class="btn btn-primary"> Profile Incomplete</button>
-        <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="acceptBuyer(buyerData);" class="btn btn-primary">ACCEPT</button>
-        <button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>
+          <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="acceptBuyer(buyerData);" class="btn btn-primary">ACCEPT</button>
+          <button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>
       </div>
     </div>
   </div>

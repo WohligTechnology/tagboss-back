@@ -51,7 +51,7 @@
           <div class="magic-resize">
             <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
             <label class="detail-heading" for="add-one">
-                TBS{{sellerData.userId}} {{sellerData.firmName}}
+                {{sellerData.userStringId}} {{sellerData.firmName}}
               </label>
             <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"
               titles="['one','two','three']" aria-labelledby="default-rating"></span>
@@ -225,7 +225,7 @@
             <tr>
               <th><strong>ADDRESS</strong></th>
               <th><strong>WAREHOUSE ADDRESS</strong></th>
-              <th><strong>REFERENCES</strong></th>
+              <!--<th><strong>REFERENCES</strong></th>-->
             </tr>
           </thead>
           <tbody>
@@ -238,13 +238,13 @@
                   <br/>{{sellerData.warehouse[0].warehouseState.name}}, {{sellerData.warehouse[0].warehouseCountry}}
                 </div>
               </td>
-              <td>TBS005<br> Dhanera Steel Ltd<br> TBB045
-                <br> Raj Steel and Accessories</td>
+              <!--<td>TBS005<br> Dhanera Steel Ltd<br> TBB045
+                <br> Raj Steel and Accessories</td>-->
             </tr>
             </tr>
           </tbody>
         </table>
-        <div class="row">
+        <div class="row hide">
           <div class="col-md-offset-2 col-md-8">
             <div class="alloted-bar">
               <div class="progress">
@@ -484,7 +484,7 @@
                         <input class="form-control " type="text " id="div " ng-model="sellerData.ifscCode" placeholder="Enter IFSC Code" readonly>
                       </div>
                     </div>
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 hide">
                       <div class="form-group ">
                         <label class="font-karla-bold "></label>
                         <div class="input-group cheque attach">
