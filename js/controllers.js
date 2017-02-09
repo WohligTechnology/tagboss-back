@@ -2741,9 +2741,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.registrationNoVerified == false || senddata.cancelledChequeVerified == false) {
                     toastr.error("Please verify all Documents!", "Error");
                 } else {
+                    senddata.securityDepositStatus = true;
                     NavigationService.updateSeller(senddata, function (data) {
                         if (data.value == true) {
-                            senddata.securityDepositStatus = true;
                             toastr.success("Seller Status Updated!", "Information");
                             $state.go("request-sellers");
                         }
