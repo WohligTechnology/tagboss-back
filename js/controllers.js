@@ -2242,6 +2242,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         NavigationService.getOneSeller($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.sellerData = data.data;
+                $scope.sellerData.securityDepositDate = $filter('date')($scope.sellerData.securityDepositDate, "dd-MM-yyyy");
                 if ($scope.sellerData.imageOfVatTinNo.indexOf(".pdf") != -1) {
                     $scope.imageOfVatTinNoIsPdf = true;
                 } else {
@@ -2681,6 +2682,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         NavigationService.getOneSeller($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.sellerData = data.data;
+                $scope.sellerData.securityDepositDate = $filter('date')($scope.sellerData.securityDepositDate, "dd-MM-yyyy");
                 if ($scope.sellerData.imageCancelledCheque.indexOf(".pdf") != -1) {
                     $scope.imageCancelledChequeIsPdf = true;
                 } else {
