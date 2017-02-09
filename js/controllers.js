@@ -1657,6 +1657,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
 
+        $scope.mystyles = {
+            "background": "#35b24a",
+            "border": "1px solid " + "#35b24a"
+        }
+
         $scope.updateBill = function (orderdata) {
             var senddata = {};
             senddata.orderCancelledComment = orderdata.orderCancelledComment;
@@ -1685,6 +1690,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getOneOrder($state.params.id, function (data) {
                 if (data.value == true) {
                     $scope.detailBill = data.data;
+                    $scope.qtyKg = (data.data.sizeQtyLength * data.data.inventory.theoreticalwt).toFixed(2);
                     $scope.sizeQty = $scope.detailBill.sizeQty;
                     if ($scope.detailBill.order.delivery[0].deliveryState == $scope.detailBill.warehouse.warehouseState) {
                         $scope.calvat = ($scope.detailBill.price * ($scope.detailBill.inventory.vat / 100));
@@ -1698,7 +1704,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
                     // $scope.discount = ($scope.detailBill.inventory.finalPrice * ($scope.detailBill.inventory.discount / 100)).toFixed(2);
                     // $scope.granTotal = ($scope.detailBill.price + $scope.calvat + $scope.detailBill.transporterCharges) - $scope.discount;
-                    $scope.granTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat + $scope.detailBill.transporterCharges);
+                    $scope.granTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat + $scope.detailBill.transportCharges);
                     console.log($scope.vat, $scope.granTotal, $scope.calcst);
                     console.log("$scope.detailBill", $scope.detailBill);
                 } else {
@@ -1905,6 +1911,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.isOrder = true;
             $scope.isCoupon = false;
             $scope.isSeller = false;
+            $scope.isBuyer = false;
             if (fromDate) {
                 $scope.filter.fromDate = fromDate;
             } else {
@@ -1976,6 +1983,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.isOrder = false;
                     $scope.isCoupon = false;
                     $scope.isSeller = true;
+                    $scope.isBuyer = false;
+                    NavigationService.getAllOrdersBySeller($scope.filter, function (data) {
+                        if (data.value == true) {
+                            $scope.selleris = true;
+                            $scope.allData = data.data.results;
+                            // $scope.allData = data.data;
+                            $scope.totalItems = data.data.total;
+                            console.log("$scope.aaaaallData", $scope.allData);
+                        } else {
+                            $scope.allData = [];
+                        }
+                    });
+                }
+                if ($state.params.type !== "coupon" && $state.params.type !== "seller") {
+                    $scope.isOrder = false;
+                    $scope.isCoupon = false;
+                    $scope.isBuyer = true;
+                    $scope.isSeller = false;
                     NavigationService.getAllOrdersBySeller($scope.filter, function (data) {
                         if (data.value == true) {
                             $scope.selleris = true;

@@ -91,46 +91,65 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="alloted-bars">
-                        <div class="progress">
-                            <div class="progress-bar">
-                                <div class="bar-color lgcolor"></div>
-                                <div class="circle green-color">
-                                    <!-- <span>0</span> -->
+                    <div class="alloted-bars ">
+                        <div class="progress ">
+                            <div class="progress-bar ">
+                                <div class="bar-color lgcolor" ng-if="!detailBill.order.createdAt"></div>
+                                <div class="circle green-color" ng-if="!detailBill.order.createdAt">
+                                    <!--<span>0</span>-->
                                 </div>
-                                <div class="mile">
+                                <div class="bar-color lgcolor" ng-if="detailBill.order.createdAt" ng-style="mystyles"></div>
+                                <div class="circle green-color" ng-if="detailBill.order.createdAt" ng-style="mystyles">
+                                    <!--<span>0</span>-->
+                                </div>
+                                <div class="mile ">
                                     <p>Order Placed</p>
-                                    <p>{{detailBill.createdAt |date : "dd/MM/y"}}</p>
+                                    <p>{{detailBill.createdAt | date: 'dd/MM/yyyy'}}</p>
                                 </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="bar-color lgcolors"></div>
-                                <div class="circle blue-color">
-                                    <!-- <span>5</span> -->
+                            <div class="progress-bar ">
+                                <div class="bar-color lgcolors" ng-if="!detailBill.order.paymentTimeStamp"></div>
+                                <div class="circle blue-color" ng-if="!detailBill.order.paymentTimeStamp">
+                                    <!--<span>5</span>-->
                                 </div>
-                                <div class="mile">
+                                <div class="bar-color lgcolors" ng-if="detailBill.order.paymentTimeStamp" ng-style="mystyles"></div>
+                                <div class="circle blue-color" ng-if="detailBill.order.paymentTimeStamp" ng-style="mystyles">
+                                    <!--<span>5</span>-->
+                                </div>
+                                <div class="mile ">
                                     <p>Payment of Order</p>
-                                    <p>{{detailBill.order.paymentTimeStamp| date:"dd/MM/y"}}</p>
+                                    <p>{{detailBill.order.paymentTimeStamp | date: 'dd/MM/yyyy'}}
+                                    </p>
                                 </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="bar-color lgcolor"></div>
-                                <div class="circle green-color">
-                                    <!-- <span>6</span> -->
+                            <div class="progress-bar ">
+                                <div class="bar-color lgcolor" ng-if="!detailBill.orderDispatchedTimestamp"></div>
+                                <div class="circle green-color" ng-if="!detailBill.orderDispatchedTimestamp">
+                                    <!--<span>6</span>-->
                                 </div>
-                                <div class="mile">
+                                <div class="bar-color lgcolor" ng-if="detailBill.orderDispatchedTimestamp" ng-style="mystyles"></div>
+                                <div class="circle green-color" ng-if="detailBill.orderDispatchedTimestamp" ng-style="mystyles">
+                                    <!--<span>6</span>-->
+                                </div>
+                                <div class="mile ">
                                     <p>Order Dispatched</p>
-                                    <p>{{detailBill.orderDispatchedTimestamp| date:"dd/MM/y"}}</p>
+                                    <p>{{detailBill.orderDispatchedTimestamp | date: 'dd/MM/yyyy'}}
+                                    </p>
                                 </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="bar-color"></div>
-                                <div class="circles green-color">
-                                    <!-- <span>5</span> -->
+                            <div class="progress-bar ">
+                                <div class="bar-color" ng-if="!detailBill.orderDeliveredTimestamp"></div>
+                                <div class="circles green-color" ng-if="!detailBill.orderDeliveredTimestamp">
+                                    <!--<span>5</span>-->
                                 </div>
-                                <div class="mile miles">
+                                <div class="bar-color" ng-if="detailBill.orderDeliveredTimestamp" ng-style="mystyles"></div>
+                                <div class="circles green-color" ng-if="detailBill.orderDeliveredTimestamp" ng-style="mystyles">
+                                    <!--<span>5</span>-->
+                                </div>
+                                <div class="mile miles ">
                                     <p>Order Delivered</p>
-                                    <p>{{detailBill.orderDispatchedTimestamp| date:"dd/MM/y"}}</p>
+                                    <p>{{detailBill.orderDeliveredTimestamp | date: 'dd/MM/yyyy'}}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -153,11 +172,13 @@
                                         <td>Product</td>
                                         <td>{{detailBill.inventory.moc.name}} {{detailBill.inventory.type.name}} {{detailBill.inventory.category.name}}
                                         </td>
-                                        <td><span ng-if="detailBill.inventory.category.name == 'Pipes'">{{detailBill.inventory.finalPrice}} per meter</span>
-                                            <span ng-if="detailBill.inventory.category.name != 'Pipes'">{{detailBill.inventory.finalPrice}} kg</span>
+                                        <td><span ng-if="detailBill.inventory.category.name == 'Pipes' || detailBill.inventory.category.name == 'Roundbar'">{{detailBill.inventory.finalPriceKg}} per Kg</span>
+                                            <span ng-if="detailBill.inventory.category.name != 'Pipes' && detailBill.inventory.category.name != 'Roundbar'">{{detailBill.inventory.finalPrice}} per Kg</span>
                                         </td>
-                                        <td><span ng-if="detailBill.inventory.category.name != 'Coil'">{{detailBill.qty}} </span>
-                                            <span ng-if="detailBill.inventory.category.name === 'Coil'">1</span>
+                                        <td><span ng-if="detailBill.inventory.category.name == 'Pipes' || detailBill.inventory.category.name == 'Roundbar'">{{qtyKg}} Kg</span>
+                                            <p ng-if="detailBill.inventory.category.name == 'Pipes' || detailBill.inventory.category.name == 'Roundbar'">({{detailBill.qty}} Nos)</p>
+                                            <span ng-if="detailBill.inventory.category.name == 'Coil'">{{detailBill.inventory.coilQty}}</span>
+                                            <span ng-if="detailBill.inventory.category.name != 'Pipes' && detailBill.inventory.category.name != 'Roundbar' && detailBill.inventory.category.name != 'Coil'">{{detailBill.qty}}</span>
                                         </td>
                                         <td>{{detailBill.price}}</td>
                                     </tr>
@@ -167,15 +188,25 @@
                                         <td>
                                             {{detailBill.inventory.seller.firstName}} {{detailBill.inventory.seller.lastName}}
                                             <!--<span uib-rating ng-model="rate " max="max " read-only="isReadonly
-                                                " on-hover="hoveringOver(value) " class="table-rating " on-leave="overStar=null "
-                                                            titles="[ 'one', 'two', 'three']
-                                                " aria-labelledby="default-rating ">
-                                                        </span>-->
+                                                                " on-hover="hoveringOver(value) " class="table-rating " on-leave="overStar=null "
+                                                                            titles="[ 'one', 'two', 'three']
+                                                                " aria-labelledby="default-rating ">
+                                                                        </span>-->
                                         </td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                     </tr>
+                                    <!--<tr>
+                                                <td></td>
+                                                <td>Transporter
+                                                    <br>XYZ transporter</td>
+                                                <td class="font-karla-bold ">Dispatched from bhivandi.
+                                                    <br>Currently at check post.</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>-->
                                     <tr>
                                         <td></td>
                                         <td>Manufacturer</td>
@@ -225,7 +256,7 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr>
+                                    <tr ng-if="detailBill.inventory.category.name != 'Roundbar'">
                                         <td></td>
                                         <td>Thickness (mm)</td>
                                         <td>{{detailBill.inventory.thickness}}</td>
@@ -233,7 +264,15 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr ng-if="detailBill.inventory.category.name == 'Pipes'">
+                                    <tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
+                                        <td></td>
+                                        <td>Diameter in MM</td>
+                                        <td>{{detailBill.inventory.diameter}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-if="detailBill.inventory.category.name == 'Pipes' || detailBill.inventory.category.name=='Roundbar'">
                                         <td></td>
                                         <td>Total length (m)</td>
                                         <td>{{detailBill.sizeQtyLength}}</td>
@@ -281,22 +320,14 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
-                                        <td></td>
-                                        <td>Diameter in MM</td>
-                                        <td>{{detailBill.inventory.diameter}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
-                                        <td></td>
-                                        <td>Length in MM</td>
-                                        <td>{{detailBill.inventory.length}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <!--<tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
+                                                                    <td></td>
+                                                                    <td>Length in MM</td>
+                                                                    <td>{{detailBill.inventory.length}}</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
                                     <tr class="border-none ">
                                         <td></td>
                                         <td></td>
@@ -329,10 +360,18 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
-                                    <tr>
+                                    <tr ng-if="detailBill.inventory.category.name == 'Pipes' || detailBill.inventory.category.name == 'Roundbar'">
                                         <td></td>
                                         <td>Price Per Kg</td>
-                                        <td>{{detailBill.inventory.pricePerKg}}</td>
+                                        <td>{{detailBill.inventory.finalPriceKg}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-if="detailBill.inventory.category.name != 'Pipes' && detailBill.inventory.category.name != 'Roundbar'">
+                                        <td></td>
+                                        <td>Price Per Kg</td>
+                                        <td>{{detailBill.inventory.finalPrice}}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -341,6 +380,71 @@
                                         <td></td>
                                         <td>Per KG Excise Modvat (included in price per kg)</td>
                                         <td>{{detailBill.inventory.exciseModvatPerKg}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <!-- Plates / Sheets -->
+                                    <!--<tr>
+                                                                    <td></td>
+                                                                    <td>Thickness (mm)</td>
+                                                                    <td>12mm</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <!--<tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <!--<tr ng-if="detailBill.inventory.category.name != 'Pipes'">
+                                                                    <td></td>
+                                                                    <td>Per KG Excise Modvat (included in price per kg)</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <tr ng-if="detailBill.inventory.category.name == 'Pipes'">
+                                        <td></td>
+                                        <td>Rate per mtr</td>
+                                        <td>{{detailBill.inventory.finalPrice}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-if="detailBill.inventory.category.name == 'Pipes'">
+                                        <td></td>
+                                        <td>Excise Modvat per mtr (included in price above)</td>
+                                        <td>{{detailBill.inventory.exciseModvatPerProduct}}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -361,6 +465,63 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
+                                    <!--Coil-->
+                                    <!--<tr ng-if="detailBill.inventory.category.name == 'Coil'">
+                                                                    <td></td>
+                                                                    <td>Thickness (mm)</td>
+                                                                    <td>12mm</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <!--<tr ng-if="detailBill.inventory.category.name == 'Coil'">
+                                                                    <td></td>
+                                                                    <td>Price Per Kg</td>
+                                                                    <td>{{detailBill.inventory.pricePerKg}}</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <!--<tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
+                                    <!--<tr ng-if="detailBill.inventory.category.name == 'Coil'">
+                                                                    <td></td>
+                                                                    <td>Per KG Excise Modvat (included in price per kg)</td>
+                                                                    <td>{{detailBill.inventory.exciseModvatPerKg}}</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
                                     <tr ng-if="detailBill.inventory.category.name == 'Coil'">
                                         <td></td>
                                         <td>Price per coil</td>
@@ -377,10 +538,51 @@
                                         <td></td>
                                         <td></td>
                                     </tr>
+                                    <!--Roundbar-->
+                                    <!--<tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                                <tr class="border-none ">
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>-->
                                     <tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
                                         <td></td>
-                                        <td>Per KG Excise Modvat (included in price per kg)</td>
-                                        <td>{{detailBill.inventory.exciseModvatPerKg}}</td>
+                                        <td>Price per mtr</td>
+                                        <td>{{detailBill.inventory.finalPrice}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr ng-if="detailBill.inventory.category.name == 'Roundbar'">
+                                        <td></td>
+                                        <td>Excise Modvat per mtr (included in price per mtr)</td>
+                                        <td>{{detailBill.inventory.exciseModvatPerProduct}}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -439,7 +641,7 @@
                                     <tr>
                                         <td>TRANSPORT
                                         </td>
-                                        <td>RS. {{detailBill.transporterCharges}}
+                                        <td>RS. {{detailBill.transportCharges}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -506,10 +708,10 @@
                                                 </div>
                                                 <div class="col-sm-6 no-padding">
                                                     <div class=""> <label class="control-label" for="">{{detailBill.order.buyerTransactionID}}</label>
-                                                                </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                             <div class="row" ng-if="detailBill.order.paymentMethod==='NEFT / RTGS'">
+                                            <div class="row" ng-if="detailBill.order.paymentMethod==='NEFT / RTGS'">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="control-label" for="">Bank Name : </label>
@@ -517,11 +719,11 @@
                                                 </div>
                                                 <div class="col-sm-6 no-padding">
                                                     <div class="">
-                                                         <label class="control-label" for="">{{detailBill.order.paymentBankName}}</label>
-                                                                </div>
+                                                        <label class="control-label" for="">{{detailBill.order.paymentBankName}}</label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                                                                 <div class="row" ng-if="detailBill.order.paymentMethod==='NEFT / RTGS'">
+                                            <div class="row" ng-if="detailBill.order.paymentMethod==='NEFT / RTGS'">
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label class="control-label" for="">Date : </label>
@@ -529,8 +731,8 @@
                                                 </div>
                                                 <div class="col-sm-6 no-padding">
                                                     <div class="">
-                                                         <label class="control-label" for="">{{detailBill.order.neftRtgsPaymentTimestamp | date:"dd MMMM yyyy "}}</label>
-                                                                </div>
+                                                        <label class="control-label" for="">{{detailBill.order.neftRtgsPaymentTimestamp | date:"dd MMMM yyyy "}}</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -573,7 +775,7 @@
                                                 <textarea name="Textstatus" ng-model="detailBill.transporterComment" class="form-control font-karla-bold trans">Dispatched From Bhivan...</textarea>
                                             </div>
                                             <div class="form-group">
-                                                  TRANSPORTER RECEIPT
+                                                TRANSPORTER RECEIPT
                                                 <div class="attach order-attach">
                                                     <upload-image ng-model="detailBill.transporterReceiept"></upload-image>
                                                 </div>
@@ -637,7 +839,7 @@
                                             </div>
                                             <div class="text-center">
                                                 <!--<button type="submit" ng-change="updateBill(order)" ng-click="updateOrderStatus(order)" class="btn btn-primary return mt5">SUBMIT</button>-->
-                                                 <button type="submit" class="btn btn-primary return mt5">SUBMIT</button>
+                                                <button type="submit" class="btn btn-primary return mt5">SUBMIT</button>
                                             </div>
                                         </form>
                                     </div>

@@ -10,9 +10,9 @@
                 <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                   uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
-                <span class="input-group-btn">
-                                <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
-                              </span>
+                  <span class="input-group-btn">
+                      <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                  </span>
               </div>
               <span>TO</span>
               <div class="input-group date">
@@ -20,13 +20,13 @@
                   uib-datepicker-popup="dd-MM-yyyy" ng-change="getAllOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
                   required="required">
-                <span class="input-group-btn">
+                  <span class="input-group-btn">
                                <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
                              </span>
               </div>
             </div>
           </div>
-             <div class="col-md-6">
+          <div class="col-md-6">
             <div class="more-opt pull-right">
               <div class="magic-form dropdown">
                 <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
@@ -77,107 +77,109 @@
         <div ng-if="allData==undefined">
           <h3 class="text-center">Loading...</h3>
         </div>
-          <div ng-repeat="allorder in allData">
-            <div class="buy-head">
-              <h2 ng-if="selleris==false" class="order-head">TBO{{allorder.order.orderId}}</h2>
-              <h2 ng-if="selleris==false" class="order-head subhead">BUYER NAME: <span>{{allorder.bill[0].buyer.firstName}} {{allorder.bill[0].buyer.lastName}}</span></h2>
-              <p class="pull-right">
-                <div class="row pull-right">
-                  <div class="">
-                    <div class="form-group">
-                      <label class="control-label inline-block statusplace" for="">Payment Status :{{allorder.bill[0].order.paymentStatus}}</label>
-                      <div class="inline-block editplace">
-                        <button type="button" ng-click="editOrder(allorder.order.orderId);" class="btn btn-primary return">EDIT</button>
-                      </div>
+        <div ng-repeat="allorder in allData">
+          <div class="buy-head">
+            <h2 ng-if="selleris==false" class="order-head">TBO{{allorder.order.orderId}}</h2>
+            <h2 ng-if="selleris==false" class="order-head subhead">BUYER NAME: <span>{{allorder.bill[0].buyer.firstName}} {{allorder.bill[0].buyer.lastName}}</span></h2>
+            <p class="pull-right">
+              <div class="row pull-right">
+                <div class="">
+                  <div class="form-group">
+                    <!--<div class="pull-right">
+                      <label class="control-label inline-block statusplaces" for="">Payment Status :{{order.order.paymentStatus}}</label>
+                    </div>
+                    <div class="pull-right">
+                      <label class="control-label inline-block statusplaces" for="">Total Amount :{{order.order.totalAmount| currency:'&#8377;'}}</label>
+                    </div>-->
+                    <label class="control-label inline-block statusplace" for="">Total Amount :{{allorder.bill[0].order.totalAmount| currency:'&#8377;'}}</label>
+                    <label class="control-label inline-block statusplace" for="">Payment Status :{{allorder.bill[0].order.paymentStatus}}</label>
+                    <div class="inline-block editplace">
+                      <button type="button" ng-click="editOrder(allorder.order.orderId);" class="btn btn-primary return">EDIT</button>
                     </div>
                   </div>
                 </div>
-              </P>
-            </div>
-            <div ng-repeat="order in allorder.bill">
-              <div class="order-details ">
-                <div class="magic-form">
-                  <div class="magic-resize">
-                    <label class="detail-heading" for="add-one">
+              </div>
+            </P>
+          </div>
+          <div ng-repeat="order in allorder.bill">
+            <div class="order-details ">
+              <div class="magic-form">
+                <div class="magic-resize">
+                  <label class="detail-heading" for="add-one">
                     ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
                   </label>
-                  </div>
                 </div>
-                <div class="date pull-right">Date: {{order.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
               </div>
-              <table class="table table-bordered order-table">
-                <thead>
-                  <tr>
-                    <th><strong>ORDER</strong></th>
-                    <th><strong>SELLER</strong></th>
-                    <th><strong>TOTAL AMOUNT</strong></th>
-                    <th><strong>ORDER STATUS</strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{order.inventory.category.name}}: {{order.qty}}</td>
-                    <td>
-                      <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
-                      <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
-                      <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
-                        <br/> {{order.warehouse.warehouseAddress}},
-                        <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
-                        <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
-                      </p>
-                      <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
-                      <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
-                    </td>
-                    <td>
-                      {{order.subTotal| currency:'&#8377;'}}
-                    </td>
-                    <td>
-                      {{order.deliveryStatus}}<br>
-                      <div ng-if="value[0].order.paymentStatus==='Pending'">
-                        <div data-ng-init="getCountDown(order.order.createdAt, cat,$index, order.order.paymentToTimestamp)">
-                          <div ng-if="order.paymentStatus=='Pending'" name="countercomplete{{cat  | ltrim: '-' }}{{$index}}" class="font-karla inline-block time"
-                            id="countercomplete{{cat  | ltrim: '-' }}{{$index}}">
-                            <form class="form-inline ng-pristine ng-valid">
-                              <div class="form-group ">
-                                <input type="text" class="countdays" id="countdays{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="countdays">Days</label>
-                              </div> <span>:</span>
-                              <div class="form-group">
-                                <input type="text" class="counthours" id="counthours{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="counthours">Hours</label>
-                              </div>
-                              <span>:</span>
-                              <div class="form-group">
-                                <input type="text" id="countmin{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="countmin">Mintues</label>
-                              </div>
-                              <span>:</span>
-                              <div class="form-group">
-                                <input type="text" id="countseconds{{cat  | ltrim: '-' }}{{$index}}" class="countseconds">
-                                <label for="countseconds">Seconds</label>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="date pull-right">Date: {{order.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
             </div>
+            <table class="table table-bordered order-table">
+              <thead>
+                <tr>
+                  <th><strong>ORDER</strong></th>
+                  <th><strong>SELLER</strong></th>
+                  <th><strong>TOTAL AMOUNT</strong></th>
+                  <th><strong>ORDER STATUS</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{order.inventory.category.name}}: {{order.qty}}</td>
+                  <td>
+                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
+                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
+                      <br/> {{order.warehouse.warehouseAddress}},
+                      <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
+                      <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
+                    </p>
+                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
+                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                  </td>
+                  <td>
+                    {{order.subTotal| currency:'&#8377;'}}
+                  </td>
+                  <td>
+                    {{order.deliveryStatus}}<br>
+                    <div ng-if="value[0].order.paymentStatus==='Pending'">
+                      <div data-ng-init="getCountDown(order.order.createdAt, cat,$index, order.order.paymentToTimestamp)">
+                        <div ng-if="order.paymentStatus=='Pending'" name="countercomplete{{cat  | ltrim: '-' }}{{$index}}" class="font-karla inline-block time"
+                          id="countercomplete{{cat  | ltrim: '-' }}{{$index}}">
+                          <form class="form-inline ng-pristine ng-valid">
+                            <div class="form-group ">
+                              <input type="text" class="countdays" id="countdays{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countdays">Days</label>
+                            </div> <span>:</span>
+                            <div class="form-group">
+                              <input type="text" class="counthours" id="counthours{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="counthours">Hours</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countmin{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countmin">Mintues</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countseconds{{cat  | ltrim: '-' }}{{$index}}" class="countseconds">
+                              <label for="countseconds">Seconds</label>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
           </div>
-          <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getAllOrders()"></ul>
+          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+          </td>
+          </tr>
+          </tbody>
+          </table>
         </div>
       </div>
+      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getAllOrders()"></ul>
+    </div>
+  </div>
   </div>
 </section>
-
-
-
 <!--seller & buyer-->
-
-
 <section ng-if="isSeller==true" class="body-main refund-to-buyers orders">
   <div class="container-fluid">
     <div class="order">
@@ -190,7 +192,7 @@
                 <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                   uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
-                <span class="input-group-btn">
+                  <span class="input-group-btn">
                                 <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
                               </span>
               </div>
@@ -200,13 +202,13 @@
                   uib-datepicker-popup="dd-MM-yyyy" ng-change="getOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
                   required="required">
-                <span class="input-group-btn">
+                  <span class="input-group-btn">
                                <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
                              </span>
               </div>
             </div>
           </div>
-             <div class="col-md-6">
+          <div class="col-md-6">
             <div class="more-opt pull-right">
               <div class="magic-form dropdown">
                 <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
@@ -257,99 +259,267 @@
         <div ng-if="allData==undefined">
           <h3 class="text-center">No data Found</h3>
         </div>
-          <div ng-repeat="order in allData">
-       
-            <div class="buy-head">
-              <h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>
-              <h2 ng-if="selleris==true" class="order-head subhead">BUYER NAME: <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span></h2>
-              <p class="pull-right">
-                <div class="row pull-right">
-                  <div class="">
-                    <div class="form-group">
-                      <label class="control-label inline-block statusplace" for="">Payment Status :{{order.order.paymentStatus}}</label>
-                      <div class="inline-block editplace">
+        <div ng-repeat="order in allData">
+          <div class="buy-head">
+            <h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>
+            <h2 ng-if="selleris==true" class="order-head subhead">BUYER NAME: <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span></h2>
+            <p class="pull-right">
+              <div class="row pull-right">
+                <div class="">
+                  <div class="form-group">
+                    <label class="control-label inline-block statusplaces" for="">Payment Status :{{order.order.paymentStatus}}</label>
+                    <!--<label class="control-label inline-block statusplace" for="">Payment Status :{{order.order.paymentStatus}}</label>-->
+                    <!--<div class="inline-block editplace">
                         <button type="button" ng-click="editOrder(allorder.order.orderId);" class="btn btn-primary return">EDIT</button>
-                      </div>
-                    </div>
+                      </div>-->
                   </div>
                 </div>
-              </P>
-            </div>
-            <div >
-              <div class="order-details ">
-                <div class="magic-form">
-                  <div class="magic-resize">
-                    <label class="detail-heading" for="add-one">
+              </div>
+            </P>
+          </div>
+          <div>
+            <div class="order-details ">
+              <div class="magic-form">
+                <div class="magic-resize">
+                  <label class="detail-heading" for="add-one">
                     ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
                   </label>
-                  </div>
                 </div>
-                <div class="date pull-right">Date: {{order.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
               </div>
-              <table class="table table-bordered order-table">
-                <thead>
-                  <tr>
-                    <th><strong>ORDER</strong></th>
-                    <th><strong>SELLER</strong></th>
-                    <th><strong>TOTAL AMOUNT</strong></th>
-                    <th><strong>ORDER STATUS</strong></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{{order.inventory.categories.name}}: {{order.qty}}</td>
-                    <td>
-                      <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
-                      <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
-                      <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
-                        <br/> {{order.warehouse.warehouseAddress}},
-                        <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
-                        <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
-                      </p>
-                      <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
-                      <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
-                    </td>
-                    <td>
-                      {{order.subTotal| currency:'&#8377;'}}
-                    </td>
-                    <td>
-                      {{order.deliveryStatus}}<br>
-                      <div ng-if="value[0].order.paymentStatus==='Pending'">
-                        <div data-ng-init="getCountDown(order.order.createdAt, cat,$index, order.order.paymentToTimestamp)">
-                          <div ng-if="order.paymentStatus=='Pending'" name="countercomplete{{cat  | ltrim: '-' }}{{$index}}" class="font-karla inline-block time"
-                            id="countercomplete{{cat  | ltrim: '-' }}{{$index}}">
-                            <form class="form-inline ng-pristine ng-valid">
-                              <div class="form-group ">
-                                <input type="text" class="countdays" id="countdays{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="countdays">Days</label>
-                              </div> <span>:</span>
-                              <div class="form-group">
-                                <input type="text" class="counthours" id="counthours{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="counthours">Hours</label>
-                              </div>
-                              <span>:</span>
-                              <div class="form-group">
-                                <input type="text" id="countmin{{cat  | ltrim: '-' }}{{$index}}">
-                                <label for="countmin">Mintues</label>
-                              </div>
-                              <span>:</span>
-                              <div class="form-group">
-                                <input type="text" id="countseconds{{cat  | ltrim: '-' }}{{$index}}" class="countseconds">
-                                <label for="countseconds">Seconds</label>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="date pull-right">Date: {{order.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
             </div>
+            <table class="table table-bordered order-table">
+              <thead>
+                <tr>
+                  <th><strong>ORDER</strong></th>
+                  <th><strong>SELLER</strong></th>
+                  <th><strong>TOTAL AMOUNT</strong></th>
+                  <th><strong>ORDER STATUS</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{order.inventory.categories.name}}: {{order.qty}}</td>
+                  <td>
+                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
+                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
+                      <br/> {{order.warehouse.warehouseAddress}},
+                      <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
+                      <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
+                    </p>
+                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
+                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                  </td>
+                  <td>
+                    {{order.subTotal| currency:'&#8377;'}}
+                  </td>
+                  <td>
+                    {{order.deliveryStatus}}<br>
+                    <div ng-if="value[0].order.paymentStatus==='Pending'">
+                      <div data-ng-init="getCountDown(order.order.createdAt, cat,$index, order.order.paymentToTimestamp)">
+                        <div ng-if="order.paymentStatus=='Pending'" name="countercomplete{{cat  | ltrim: '-' }}{{$index}}" class="font-karla inline-block time"
+                          id="countercomplete{{cat  | ltrim: '-' }}{{$index}}">
+                          <form class="form-inline ng-pristine ng-valid">
+                            <div class="form-group ">
+                              <input type="text" class="countdays" id="countdays{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countdays">Days</label>
+                            </div> <span>:</span>
+                            <div class="form-group">
+                              <input type="text" class="counthours" id="counthours{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="counthours">Hours</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countmin{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countmin">Mintues</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countseconds{{cat  | ltrim: '-' }}{{$index}}" class="countseconds">
+                              <label for="countseconds">Seconds</label>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
           </div>
-          <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
+          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+          </td>
+          </tr>
+          </tbody>
+          </table>
         </div>
       </div>
+      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
+    </div>
+  </div>
+  </div>
+</section>
+<section ng-if="isBuyer==true" class="body-main refund-to-buyers orders">
+  <div class="container-fluid">
+    <div class="order">
+      <div class="search-content">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="period ">
+              <span>FROM</span>
+              <div class="input-group date date1">
+                <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
+                  uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
+                  ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
+                  <span class="input-group-btn">
+                                <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                              </span>
+              </div>
+              <span>TO</span>
+              <div class="input-group date">
+                <input type="text" class="form-control cal-input ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date"
+                  uib-datepicker-popup="dd-MM-yyyy" ng-change="getOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
+                  is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                  required="required">
+                  <span class="input-group-btn">
+                               <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+                             </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="more-opt pull-right">
+              <div class="magic-form dropdown">
+                <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
+                  <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">-->
+                  <label class="">Filter by Status</label>
+                  <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
+                  <ul class="dropdown-menu" role="menu">
+                    <li ng-click="getOrders(filter.fromDate,filter.toDate, 'All')"><a>All</a></li>
+                    <li ng-click="getOrders(filter.fromDate,filter.toDate, 'Pending')"><a>Pending Delivery</a></li>
+                    <li ng-click="getOrders(filter.fromDate,filter.toDate, 'Delivered')"><a>Delivered</a></li>
+                    <li ng-click="getOrders(filter.fromDate,filter.toDate, 'Dispatched')"><a>Dispatched</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="refund-to-buyer">
+        <div class="bar">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-md-offset-2 col-md-8">
+                <p>DISPATCHED ORDERS / TOTAL ORDERS<br><span>{{allCount[1].totalDispatched}}/{{allCount[0].total}}</span></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-offset-2 col-md-8">
+                <p>RETURNED ORDERS / TOTAL ORDERS<br><span>{{allCount[2].totalCancelled}}/{{allCount[0].total}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bar border-none">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center">
+                <p>AVERAGE ORDER DELIVERY TIME IS 8 DAYS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div ng-if="allData.length==0">
+          <h3 class="text-center">No data Found</h3>
+        </div>
+        <div ng-if="allData==undefined">
+          <h3 class="text-center">No data Found</h3>
+        </div>
+        <div ng-repeat="order in allData">
+          <div class="buy-head">
+            <h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>
+            <h2 ng-if="selleris==true" class="order-head subhead">BUYER NAME: <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span></h2>
+            <div class="pull-right">
+              <label class="control-label inline-block statusplaces" for="">Payment Status :{{order.order.paymentStatus}}</label>
+            </div>
+            <div class="pull-right">
+              <label class="control-label inline-block statusplaces" for="">Total Amount :{{order.order.totalAmount| currency:'&#8377;'}}</label>
+            </div>
+          </div>
+          <div>
+            <div class="order-details ">
+              <div class="magic-form">
+                <div class="magic-resize">
+                  <label class="detail-heading" for="add-one">
+                    ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
+                  </label>
+                </div>
+              </div>
+              <div class="date pull-right">Date: {{order.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+            </div>
+            <table class="table table-bordered order-table">
+              <thead>
+                <tr>
+                  <th><strong>ORDER</strong></th>
+                  <th><strong>SELLER</strong></th>
+                  <th><strong>AMOUNT</strong></th>
+                  <th><strong>ORDER STATUS</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{order.inventory.categories.name}}: {{order.qty}}</td>
+                  <td>
+                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
+                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
+                      <br/> {{order.warehouse.warehouseAddress}},
+                      <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
+                      <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
+                    </p>
+                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
+                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                  </td>
+                  <td>
+                    {{order.subTotal| currency:'&#8377;'}}
+                  </td>
+                  <td>
+                    {{order.deliveryStatus}}<br>
+                    <div ng-if="value[0].order.paymentStatus==='Pending'">
+                      <div data-ng-init="getCountDown(order.order.createdAt, cat,$index, order.order.paymentToTimestamp)">
+                        <div ng-if="order.paymentStatus=='Pending'" name="countercomplete{{cat  | ltrim: '-' }}{{$index}}" class="font-karla inline-block time"
+                          id="countercomplete{{cat  | ltrim: '-' }}{{$index}}">
+                          <form class="form-inline ng-pristine ng-valid">
+                            <div class="form-group ">
+                              <input type="text" class="countdays" id="countdays{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countdays">Days</label>
+                            </div> <span>:</span>
+                            <div class="form-group">
+                              <input type="text" class="counthours" id="counthours{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="counthours">Hours</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countmin{{cat  | ltrim: '-' }}{{$index}}">
+                              <label for="countmin">Mintues</label>
+                            </div>
+                            <span>:</span>
+                            <div class="form-group">
+                              <input type="text" id="countseconds{{cat  | ltrim: '-' }}{{$index}}" class="countseconds">
+                              <label for="countseconds">Seconds</label>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+          </div>
+          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+          </td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
+    </div>
+  </div>
   </div>
 </section>
