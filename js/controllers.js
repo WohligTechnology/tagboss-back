@@ -2233,7 +2233,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getAllBuyer();
     })
-    .controller('View-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state) {
+    .controller('View-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
         $scope.template = TemplateService.changecontent("view-sellers");
         $scope.menutitle = NavigationService.makeactive("View-sellers");
         TemplateService.title = $scope.menutitle;
@@ -2674,7 +2674,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllBuyer();
     })
-    .controller('View-request-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state) {
+    .controller('View-request-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
         $scope.template = TemplateService.changecontent("view-request-sellers");
         $scope.menutitle = NavigationService.makeactive("View-request-sellers");
         TemplateService.title = $scope.menutitle;
