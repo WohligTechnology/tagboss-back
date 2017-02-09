@@ -25,7 +25,7 @@
                    </label>
           </div>
         </div>
-        <div class="date pull-right">Date: {{sellerData.createdAt |  date:"dd MMMM yyyy ' | ' h:mma"}}</div>
+        <div class="date pull-right">Date: {{sellerData.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
       </div>
       <table class="table table-bordered view-request-seller-table">
         <thead>
@@ -307,8 +307,9 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group export"><label class="font-karla-bold" for="code">Import-export code</label>
-                      <div class="input-group attach"><input class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="sellerData.importExportCode"
-                          type="text" id="code" placeholder="Enter Import-export code" readonly="">
+                      <div class="input-group attach">
+                        <input class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="sellerData.importExportCode" type="text"
+                          id="code" placeholder="Enter Import-export code" readonly="">
                       </div>
                     </div>
                   </div>
@@ -330,16 +331,12 @@
                 <!--<p>{{sellerData.imageOfVatTinNo}}</p>-->
               </div>
               <div ng-if="!imageOfVatTinNoIsPdf">
-                 
                 <a id="fbplus_01" href="{{sellerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive">
                 </a>
-
-                </div>
+              </div>
               <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+                <a href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <div class="text-center">
                 <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
@@ -358,10 +355,8 @@
                   <img ng-src="{{sellerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-                <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+              <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
+                <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -382,10 +377,8 @@
                   <img ng-src="{{sellerData.imageOfPanNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-               <div class="text-center" ng-if="imageOfPanNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+              <div class="text-center" ng-if="imageOfPanNoIsPdf">
+                <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="hide verified"><p>VERIFIED</p></div>
                         <div class="pending"><p>VERIFICATION PENDING</p></div>-->
@@ -397,7 +390,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-md-4 col-1">
             <div class="abc">
@@ -408,21 +400,19 @@
                 <a id="fbplus_01" href="{{sellerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
-              </div>
-               <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-                
-                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
-              </div>
-              <!--<div class="verified"><p>VERIFIED</p></div>
-                      <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
-              <div class="text-center">
-                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
-                <toggle-switch ng-model="sellerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
-                </toggle-switch>
-              </div>
             </div>
-              <div class="col-md-4 col-2">
+            <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
+              <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+            </div>
+            <!--<div class="verified"><p>VERIFIED</p></div>
+                      <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
+            <div class="text-center">
+              <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+              <toggle-switch ng-model="sellerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
+              </toggle-switch>
+            </div>
+          </div>
+          <div class="col-md-4 col-2">
             <div class="abc">
               <div>
                 <p class="img-head">Cancelled Cheque {{sellerData.cancelledCheque}}</p>
@@ -432,10 +422,8 @@
                   <img ng-src="{{sellerData.imageCancelledCheque|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-                <div class="text-center" ng-if="imageCancelledChequeIsPdf">
-                
-                  <a  href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img   src="../img/pdf-image.png"/></a>
-             
+              <div class="text-center" ng-if="imageCancelledChequeIsPdf">
+                <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -465,39 +453,34 @@
               </div>
             </div>
           </div>
-          </div>
-        
         </div>
-
-       <div class="row ">
-          <div class="col-md-3 ">
-                    <div class="form-group div ">
-                      <label class="font-karla-bold " for="div ">Payment Date</label>
-                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit">
-                    </div>
-                  </div>
-                    <div class="col-md-3 ">
-                    <div class="form-group div ">
-                      <label class="font-karla-bold " for="div ">Transaction Id</label>
-                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
-                    </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div class="form-group div ">
-                      <label class="font-karla-bold " for="div ">Bank Name</label>
-                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit">
-                    </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div class="form-group div ">
-                      <label class="font-karla-bold " for="div ">Security Deposit</label>
-                      <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositComment" placeholder="Enter Security Deposit Comment">
-                    </div>
-                  </div>
-                
-       </div>
-
-
+      </div>
+      <div class="row ">
+        <div class="col-md-3 ">
+          <div class="form-group div ">
+            <label class="font-karla-bold " for="div ">Payment Date</label>
+            <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositDate" placeholder="Enter Security Deposit Date">
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group div ">
+            <label class="font-karla-bold " for="div ">Transaction Id</label>
+            <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group div ">
+            <label class="font-karla-bold " for="div ">Bank Name</label>
+            <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositBankName" placeholder="Enter Bank Name">
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <div class="form-group div ">
+            <label class="font-karla-bold " for="div ">Security Deposit</label>
+            <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit Amount">
+          </div>
+        </div>
+      </div>
       <div class="row comment-area">
         <div class="col-md-offset-3 col-md-6 form-group form-inline">
           <label class="comment pull-left" for="comment">Comment</label>
@@ -507,8 +490,8 @@
       <div class="accept-reject">
         <button type="button" ng-if="sellerData.status==='incomplete'" ng-disabled="sellerData.status==='incomplete'" ng-click="acceptSeller(sellerData);"
           class="btn btn-primary"> Profile Incomplete</button>
-        <button type="button" ng-if="sellerData.status!=='incomplete'" ng-click="acceptSeller(sellerData);" class="btn btn-primary">ACCEPT</button>
-        <button type="button" ng-disabled="sellerData.status==='incomplete'" ng-click="rejectSeller(sellerData);" class="btn btn-primary">REJECT</button>
+          <button type="button" ng-if="sellerData.status!=='incomplete'" ng-click="acceptSeller(sellerData);" class="btn btn-primary">ACCEPT</button>
+          <button type="button" ng-disabled="sellerData.status==='incomplete'" ng-click="rejectSeller(sellerData);" class="btn btn-primary">REJECT</button>
       </div>
     </div>
   </div>
