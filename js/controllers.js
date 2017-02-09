@@ -2736,20 +2736,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.status = "verified";
             if (senddata.securityDepositAmount === '' || senddata.securityDepositComment === '' || senddata.securityDepositTransactionId === '') {
                 senddata.securityDepositStatus = false;
-
+                toastr.error("Yet to submit security deposit", "Error");
+            } else {
                 if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.registrationNoVerified == false || senddata.cancelledChequeVerified == false) {
                     toastr.error("Please verify all Documents!", "Error");
                 } else {
                     NavigationService.updateSeller(senddata, function (data) {
                         if (data.value == true) {
+                            senddata.securityDepositStatus = true;
                             toastr.success("Seller Status Updated!", "Information");
                             $state.go("request-sellers");
                         }
                     });
                 }
-            } else {
-                senddata.securityDepositStatus = true;
-                toastr.error("securityDepositAmount !", "Error");
+                // toastr.success("Seller Status Updated!", "Information");
+                // $state.go("request-sellers");
             }
         }
 
