@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div clas="view-products" ng-show="showSell">
-                <div class="view-categ">
+                <div class="view-categ hide">
                     <div class="row">
                         <div class="col-md-6">
                             <form class="form-horizontal">
@@ -111,7 +111,7 @@
                                     <!--<label class="stat">VERIFIED</label>-->
                                     <label class="stat">{{products.status}}</label>
                                     <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
-                                    <a ng-click="showProduct(products.product)"><label class="view">VIEW</label></a>
+                                    <a ng-click="showProduct(products.product._id)"><label class="view">VIEW</label></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -278,7 +278,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="stock in allStock">
-                            <td>{{stock.inventoryStringId}}</td>
+                            <td>{{stock.invenotryStringId}}</td>
                             <!--<td>TBI{{stock.inventoryId}}</td>-->
                             <td>{{stock.createdAt | date:'mediumDate'}}</td>
                             <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
