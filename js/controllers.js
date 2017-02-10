@@ -835,7 +835,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 var senddata = {};
                 senddata._id = inventorydata._id;
                 senddata.agencyid = inventorydata.agentIDTemp;
-                senddata.productId = inventorydata.product.productId;
+                senddata.productId = inventorydata.product.productStringId;
                 senddata.firstName = inventorydata.seller.firstName;
                 senddata.date = $filter('date')(new Date(), 'MMM dd yyyy');
                 $scope.mydate = new Date();
@@ -2717,13 +2717,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
         $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        var senddata = {}
         $scope.acceptSeller = function (sellerdata) {
-            var senddata = {}
             senddata._id = sellerdata._id;
             senddata.email = sellerdata.email;
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
-            senddata.comment = sellerdata.comment;
+            // senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
             senddata.panNoVerified = sellerdata.panNoVerified;
@@ -2734,24 +2734,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.cancelledChequeVerified = sellerdata.cancelledChequeVerified;
             senddata.importExportCodeVerified = sellerdata.importExportCodeVerified;
             senddata.securityDepositAmount = sellerdata.securityDepositAmount;
-            senddata.securityDepositComment = sellerdata.securityDepositComment;
+            senddata.securityDepositBankName = sellerdata.securityDepositBankName;
             senddata.securityDepositTransactionId = sellerdata.securityDepositTransactionId;
-
-            senddata.isAdminVerified = true;
-            senddata.status = "verified";
-            if (senddata.securityDepositAmount === '' || senddata.securityDepositComment === '' || senddata.securityDepositTransactionId === '') {
-                senddata.securityDepositStatus = false;
-                toastr.error("Yet to submit security deposit", "Error");
+            senddata.securityDepositDate = sellerdata.securityDepositDate;
+            if (senddata.securityDepositDate === undefined) {
+                // if (senddata.securityDepositDate === null && senddata.securityDepositBankName === null && senddata.securityDepositTransactionId === null) {
+                console.log('enter');
+                // senddata.securityDepositStatus = false;
+                toastr.error("Yet to submit security deposit!", "Error");
             } else {
                 if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.registrationNoVerified == false || senddata.cancelledChequeVerified == false) {
                     toastr.error("Please verify all Documents!", "Error");
                 } else {
                     senddata.securityDepositStatus = true;
+                    senddata.isAdminVerified = true;
+                    senddata.status = "verified";
                     NavigationService.updateSeller(senddata, function (data) {
-                        if (data.value == true) {
-                            toastr.success("Seller Status Updated!", "Information");
-                            $state.go("request-sellers");
-                        }
+                        // if (data.value == true) {
+                        toastr.success("Seller Status Updated!", "Information");
+                        $state.go("request-sellers");
+                        // } 
                     });
                 }
                 // toastr.success("Seller Status Updated!", "Information");
