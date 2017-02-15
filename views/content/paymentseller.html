@@ -45,7 +45,6 @@
           <div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>
         </div>-->
       </div>
-   
       <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" heading="Payment Master">
           <div class="over-table">
@@ -69,17 +68,16 @@
                 <tr ng-repeat="data in all">
                   <td>TBT{{data.transacId}}</td>
                   <td>TBO{{data.order.orderId}}</td>
-                  <td>{{data.orderDate | date:'mediumDate'}}</td>
+                  <td>{{data.orderDate | date:'dd-MMM-yyyy'}}</td>
                   <td>TBS{{data.seller.userId}}</td>
                   <td>{{data.orderValue| currency:'&#8377;'}}</td>
                   <td>{{data.netPayable | currency:'&#8377;'}}</td>
                   <td>{{data.paymentAmount | currency:'&#8377;'}}</td>
-                  <td> {{data.paymentDueDate| date:'mediumDate'}}</td>
+                  <td> {{data.paymentDueDate| date:'dd-MMM-yyyy'}}</td>
                   <td>{{data.paymentRemarks}}</td>
                   <td>{{data.status}}</td>
                   <td></td>
                 </tr>
-               
               </tbody>
             </table>
             <ul ng-if="totalItems>10" uib-pagination total-items="totalItems" ng-model="filter.page" ng-change="getAllPayments()"></ul>
@@ -139,12 +137,12 @@
                 <tr ng-repeat="data in allPending">
                   <td>TBT{{data.transacId}}</td>
                   <td>TBO{{data.order.orderId}}</td>
-                  <td>{{data.orderDate | date:'mediumDate'}}</td>
+                  <td>{{data.orderDate | date:'dd-MMM-yyyy'}}</td>
                   <td>TBS{{data.seller.userId}}</td>
                   <td>{{data.orderValue}}</td>
                   <td>{{data.netPayable}}</td>
                   <td>{{data.paymentAmount| currency:'&#8377;'}}</td>
-                  <td>{{data.paymentDueDate| date:'mediumDate'}}</td>
+                  <td>{{data.paymentDueDate| date:'dd-MMM-yyyy'}}</td>
                   <td>{{data.paymentRemarks}}</td>
                   <td>{{data.status}}</td>
                 </tr>
@@ -233,17 +231,18 @@
                     </div>
                   </td>
                   <td>
-                    <label ng-if="showText==true && myindex!=$index"><span >{{data.createdAt | date:'mediumDate'}}</span></label>
+                    <label ng-if="showText==true && myindex!=$index"><span >{{data.createdAt | date:'dd-MMM-yyyy'}}</span></label>
                     <p ng-if="showData==true && myindex==$index" class="input-group">
-                      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.paymentDate" is-open="popup1.opened" datepicker-options="dateOptions"
-                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                      <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="data.paymentDate" is-open="popup1.opened"
+                        datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
+                      />
                       <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="open1($index)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
                     </p>
                   </td>
                   <td>
-                    <label  ng-if="showText==true && myindex!=$index"><span>{{data.neftReference}}</span></label>
+                    <label ng-if="showText==true && myindex!=$index"><span>{{data.neftReference}}</span></label>
                     <span ng-if="showData==true && myindex==$index"><input ng-model="data.neftReference" type="text"/></span>
                   </td>
                   <td>
@@ -297,7 +296,7 @@
                       {{data.status}}
                     </td>
                     <td>
-                      {{data.paymentDate | date:'mediumDate'}}
+                      {{data.paymentDate | date:'dd-MMM-yyyy'}}
                     </td>
                     <td>
                       {{data.neftReference}}
@@ -305,8 +304,7 @@
                   </tr>
                 </tbody>
             </table>
-               <ul ng-if="totalallItems>10" uib-pagination total-items="totalallItems" ng-model="filterall.page" ng-change="getAllTransactionPayment('Paid')"></ul>
-        
+            <ul ng-if="totalallItems>10" uib-pagination total-items="totalallItems" ng-model="filterall.page" ng-change="getAllTransactionPayment('Paid')"></ul>
           </div>
         </uib-tab>
       </uib-tabset>

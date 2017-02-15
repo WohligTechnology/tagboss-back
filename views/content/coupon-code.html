@@ -1,5 +1,5 @@
 <section class="coupon-code body-main">
-  <div class="container-fluid">
+  <div class="container-fluid" ng-if="allCoupon.length!=0 && allCoupon!=undefined">
     <div class="details">
       <div class="row">
         <div class="col-md-2 pull-right">
@@ -26,12 +26,6 @@
                 </tr>
               </thead>
               <tbody>
-                <div ng-if="allCoupon.length==0">
-                  <h3 class="text-center">No data Found</h3>
-                </div>
-                <div ng-if="allCoupon==undefined">
-                  <h3 class="text-center">Loading...</h3>
-                </div>
                 <tr ng-repeat="coupon in allCoupon">
                   <td>{{coupon.code}}</td>
                   <td>{{coupon.maxUsed}}</td>
@@ -56,5 +50,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <div ng-if="allCoupon.length==0">
+    <h3 class="text-center">No data Found</h3>
+  </div>
+  <div ng-if="allCoupon==undefined">
+    <h3 class="text-center">Loading...</h3>
   </div>
 </section>

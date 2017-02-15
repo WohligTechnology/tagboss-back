@@ -101,7 +101,7 @@
                                             {{inventory.agencyid.agencyName}}
                                         </p>
                                         <p ng-if="inventory.status!=='Pending'">
-                                            Due On : {{inventory.duedate | date:'mediumDate'}}
+                                            Due On : {{inventory.duedate | date:'dd-MMM-yyyy'}}
                                         </p>
                                     </div>
                                 </td>
@@ -426,8 +426,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="rate" id="rate" ng-model="productEdit.ratePerKgMtr" ng-change="valueAll(productEdit.ratePerKgMtr)"
                                             required>
-                                            <i class="fa fa-check tick" ng-show="productEdit.ratePerKgMtr"></i>
-                                            <div class="error-msg61" ng-if="editProduct.rate.$invalid && editProduct.rate.$touched">Please Enter Rate per mtr</div>
+                                        <i class="fa fa-check tick" ng-show="productEdit.ratePerKgMtr"></i>
+                                        <div class="error-msg61" ng-if="editProduct.rate.$invalid && editProduct.rate.$touched">Please Enter Rate per mtr</div>
                                     </div>
                                 </div>
                             </div>
@@ -493,9 +493,9 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountpipe" ng-model="productEdit.discount" id="discount" ng-change="valueAll(productEdit.discount)"
                                             required>
-                                            <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
-                                            <div class="error-msg13" ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched">Please Enter Discount</div>
-                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                        <div class="error-msg13" ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched">Please Enter Discount</div>
+                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -508,7 +508,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -729,7 +729,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="pricekgplate" ng-model="productEdit.pricePerKg" id="price" ng-change="valueAllPlate(productEdit.pricePerKg)"
                                             required>
-                                            <div class="error-msg61" ng-if="editProduct.pricekgplate.$invalid && editProduct.pricekgplate.$touched">Please Enter Price per Kg</div>
+                                        <div class="error-msg61" ng-if="editProduct.pricekgplate.$invalid && editProduct.pricekgplate.$touched">Please Enter Price per Kg</div>
                                     </div>
                                 </div>
                             </div>
@@ -742,7 +742,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" only-decimal name="modvatkgplate" ng-model="productEdit.exciseModvatPerKg" id="Modvatexcise"
                                             readonly>
-                                            <div class="error-msg61" ng-if="editProduct.modvatkgplate.$invalid && editProduct.modvatkgplate.$touched">Please Enter Per KG Excise Modvat</div>
+                                        <div class="error-msg61" ng-if="editProduct.modvatkgplate.$invalid && editProduct.modvatkgplate.$touched">Please Enter Per KG Excise Modvat</div>
                                     </div>
                                 </div>
                             </div>
@@ -776,8 +776,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountplate" ng-model="productEdit.discount" id="discount" ng-change="valueAllPlate(productEdit.discount)"
                                             required>
-                                            <div class="error-msg13" ng-if="editProduct.discountplate.$invalid && editProduct.discountplate.$touched">Please Enter Discount</div>
-                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                        <div class="error-msg13" ng-if="editProduct.discountplate.$invalid && editProduct.discountplate.$touched">Please Enter Discount</div>
+                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -790,7 +790,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -1002,7 +1002,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="priceperkgcoil" ng-model="productEdit.pricePerKg" id="pricePerKg" ng-change="valueAllCoil(productEdit.pricePerKg)"
                                             required>
-                                            <div class="error-msg61" ng-if="editProduct.priceperkgcoil.$invalid && editProduct.priceperkgcoil.$touched">Please Enter Price per Kg</div>
+                                        <div class="error-msg61" ng-if="editProduct.priceperkgcoil.$invalid && editProduct.priceperkgcoil.$touched">Please Enter Price per Kg</div>
                                     </div>
                                 </div>
                             </div>
@@ -1047,8 +1047,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountcoil" ng-model="productEdit.discount" id="discount" ng-change="valueAllCoil(productEdit.discount)"
                                             required>
-                                            <div class="error-msg13" ng-if="editProduct.discountcoil.$invalid && editProduct.discountcoil.$touched">Please Enter Discount</div>
-                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                        <div class="error-msg13" ng-if="editProduct.discountcoil.$invalid && editProduct.discountcoil.$touched">Please Enter Discount</div>
+                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -1061,7 +1061,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
@@ -1335,8 +1335,8 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="priceKg" ng-model="productEdit.pricePerKg" id="priceKg" ng-change="valueFinalPrice(productEdit.pricePerKg)"
                                             required>
-                                            <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
-                                            <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
+                                        <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
+                                        <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
                                     </div>
                                 </div>
                             </div>
@@ -1403,9 +1403,9 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountround" ng-model="productEdit.discount" ng-change="valueFinalPrice(productEdit.discount)"
                                             id="discount" required>
-                                            <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
-                                            <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
-                                            <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
+                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                        <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
+                                        <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
                                 </div>
                             </div>
@@ -1418,7 +1418,7 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                            <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>

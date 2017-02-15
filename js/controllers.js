@@ -835,12 +835,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 var senddata = {};
                 senddata._id = inventorydata._id;
                 senddata.agencyid = inventorydata.agentIDTemp;
-                senddata.productId = inventorydata.product.productStringId;
+                senddata.productStringId = inventorydata.product.productStringId;
                 senddata.firstName = inventorydata.seller.firstName;
-                senddata.date = $filter('date')(new Date(), 'MMM dd yyyy');
+                senddata.date = $filter('date')(new Date(), 'dd MMM yyyy');
                 $scope.mydate = new Date();
                 $scope.newdate = $scope.mydate.setDate($scope.mydate.getDate() + 6);
-                senddata.duedate = $filter('date')(new Date($scope.newdate), 'MMM dd yyyy');
+                senddata.duedate = $filter('date')(new Date($scope.newdate), 'dd MMM yyyy');
                 senddata.report = inventorydata.report;
                 if (inventorydata.category.name === "Pipes") {
                     senddata.price = inventorydata.ratePerKgMtr;
@@ -883,7 +883,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.email = inventorydata.seller.email;
             senddata.firstName = inventorydata.seller.firstName;
             senddata.quantity = inventorydata.quantityInNos;
-            senddata.date = $filter('date')(new Date(), 'MMM dd yyyy');
+            senddata.date = $filter('date')(new Date(), 'dd MMM yyyy');
             senddata.report = inventorydata.report;
 
             if (inventorydata.ratePerKgMtr) {

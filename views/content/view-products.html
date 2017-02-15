@@ -1,113 +1,110 @@
 <section class="body-main view-products">
-  <div class="container-fluid">
-    <div class="view-product">
-      <div class="search-content">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="input-group search-top">
-              <input type="text" class="form-control" placeholder="Search by Inspector’s Name or ID">
-              <span class="input-group-btn">
+    <div class="container-fluid">
+        <div class="view-product">
+            <div class="search-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group search-top">
+                            <input type="text" class="form-control" placeholder="Search by Inspector’s Name or ID">
+                            <span class="input-group-btn">
                   <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
                   <!-- <button class="btn btn-default" type="button">Go!</button> -->
                 </span>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="excel-upload ">
-              <img src="img/excel-icon.png">
-              <label>CONVERT TO EXCEL</label>
-            </div>
-            <div class="select-prod pull-right">
-              <select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="excel-upload ">
+                            <img src="img/excel-icon.png">
+                            <label>CONVERT TO EXCEL</label>
+                        </div>
+                        <div class="select-prod pull-right">
+                            <select>
                       <option value="all">ALL</option>
                       <option value="saab">Approved</option>
                       <option value="opel">Rejected</option>
                       <option value="audi">Pending</option>
                     </select>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="view-products-details ">
-        <label class="detail-heading">REQUEST FOR INSPECTION</label>
-        <!--<div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
-      </div>
-      <div ng-if="getAllInventory.length==0">
-        <h3 class="text-center">No data Found</h3>
-      </div>
-      <div ng-if="getAllInventory==undefined">
-        <h3 class="text-center">Loading...</h3>
-      </div>
-      <table ng-show="hideEdit"  ng-if="getAllInventory.length>0" class="table table-bordered inspection-table">
-        <thead>
-          <tr>
-            <th><strong>NAME</strong></th>
-            <th><strong>PRODUCT</strong></th>
-            <th><strong>QUANTITY</strong></th>
-            <th><strong>UPLOAD REPORT</strong></th>
-            <th><strong>REMARKS</strong></th>
-        </thead>
-        <tbody>
-          <tr ng-repeat="inventory in getAllInventory">
-            <form name="reportform{{$index}}">
-              <td>
-                <div class="magic-form">
-                  <div class="magic-resize">
-                    <label class="text" for="add-one{{$index}}">
+            <div class="view-products-details ">
+                <label class="detail-heading">REQUEST FOR INSPECTION</label>
+                <!--<div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
+            </div>
+            <div ng-if="getAllInventory.length==0">
+                <h3 class="text-center">No data Found</h3>
+            </div>
+            <div ng-if="getAllInventory==undefined">
+                <h3 class="text-center">Loading...</h3>
+            </div>
+            <table ng-show="hideEdit" ng-if="getAllInventory.length>0" class="table table-bordered inspection-table">
+                <thead>
+                    <tr>
+                        <th><strong>NAME</strong></th>
+                        <th><strong>PRODUCT</strong></th>
+                        <th><strong>QUANTITY</strong></th>
+                        <th><strong>UPLOAD REPORT</strong></th>
+                        <th><strong>REMARKS</strong></th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="inventory in getAllInventory">
+                        <form name="reportform{{$index}}">
+                            <td>
+                                <div class="magic-form">
+                                    <div class="magic-resize">
+                                        <label class="text" for="add-one{{$index}}">
                             <p class="comp-name">  {{inventory.seller.firmName}}  </p>
                            <p>Email:{{inventory.seller.email}}</p> 
                            <p> Mobile:{{inventory.seller.mobile}}</p>
                             <p>
                              {{inventory.seller.companyAddress}}</p>
                           </label>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <ul class="prod-details">
-                  <li> {{inventory.brand.name}}, {{inventory.moc.name}} </li>
-                  <li> {{inventory.category.name}}, {{inventory.gradesstandards.name}}</li>
-                  <!--<li>  SCH           </li>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <ul class="prod-details">
+                                    <li> {{inventory.brand.name}}, {{inventory.moc.name}} </li>
+                                    <li> {{inventory.category.name}}, {{inventory.gradesstandards.name}}</li>
+                                    <!--<li>  SCH           </li>
                         <li>  OD in mm   </li>-->
-                  <li> {{inventory.thickness}} </li>
-                  <li> {{inventory.length}} </li>
-                  <li> {{inventory.width}} </li>
-                </ul>
-                <button type="button" class="btn btn-primary assign-btn" ng-click="showEditProduct(inventory._id)">VIEW</button>
-                           
-              </td>
-              <td>{{inventory.quantityInNos}}</td>
-              <td>
-                <div>
-                  <!--<button type="button" class="btn btn-primary assign-btn">PENDING</button>-->
-                  <p ng-if="inventory.status!=='Assigned'">Status: {{inventory.status}}</p>
-                  <p ng-if="inventory.status==='Assigned'">Status: Pending<br/>
-                    <b ng-if="inventory.duedate"> Due On : {{inventory.duedate | date:'mediumDate'}}</b></p>
-                  <!--<input class="btn btn-primary assign-btn" type="file" />-->
-                  <div ng-if="inventory.status==='Assigned'" class="assign-btn1">
-                    <upload-image ng-model="inventory.report" ng-callback="uploadReport" no-view></upload-image>
-                  </div>
-                  <!--</p>-->
-                </div>
-              </td>
-              <td>
-                <div class="txt-remark">
-                  <input type="hidden" ng-model="inventory._id" />
-                  <textarea name="inventoryremark{{$index}}" ng-model="inventory.remark" rows="4" cols="25" required>{{inventory.remark}}</textarea>
-                  <!--<input ng-if="inventory.status==='Assigned'" class="btn btn-primary assign-btn" value="Submit"/>-->
-                  <button type="submit" ng-if="inventory.status==='Assigned'" ng-disabled="inventory.report==null || inventory.remark==null"
-                    ng-click="sendReport(inventory)" class="btn btn-primary assign-btn">Submit Report</button>
-                </div>
-              </td>
-            </form>
-          </tr>
-        </tbody>
-      </table>
+                                    <li> {{inventory.thickness}} </li>
+                                    <li> {{inventory.length}} </li>
+                                    <li> {{inventory.width}} </li>
+                                </ul>
+                                <button type="button" class="btn btn-primary assign-btn" ng-click="showEditProduct(inventory._id)">VIEW</button>
+                            </td>
+                            <td>{{inventory.quantityInNos}}</td>
+                            <td>
+                                <div>
+                                    <!--<button type="button" class="btn btn-primary assign-btn">PENDING</button>-->
+                                    <p ng-if="inventory.status!=='Assigned'">Status: {{inventory.status}}</p>
+                                    <p ng-if="inventory.status==='Assigned'">Status: Pending<br/>
+                                        <b ng-if="inventory.duedate"> Due On : {{inventory.duedate | date:'dd-MMM-yyyy'}}</b></p>
+                                    <!--<input class="btn btn-primary assign-btn" type="file" />-->
+                                    <div ng-if="inventory.status==='Assigned'" class="assign-btn1">
+                                        <upload-image ng-model="inventory.report" ng-callback="uploadReport" no-view></upload-image>
+                                    </div>
+                                    <!--</p>-->
+                                </div>
+                            </td>
+                            <td>
+                                <div class="txt-remark">
+                                    <input type="hidden" ng-model="inventory._id" />
+                                    <textarea name="inventoryremark{{$index}}" ng-model="inventory.remark" rows="4" cols="25" required>{{inventory.remark}}</textarea>
+                                    <!--<input ng-if="inventory.status==='Assigned'" class="btn btn-primary assign-btn" value="Submit"/>-->
+                                    <button type="submit" ng-if="inventory.status==='Assigned'" ng-disabled="inventory.report==null || inventory.remark==null"
+                                        ng-click="sendReport(inventory)" class="btn btn-primary assign-btn">Submit Report</button>
+                                </div>
+                            </td>
+                        </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </section>
-
-
 <section class="sell-login addproduct editproduct" ng-show="showEdit">
     <div class="sell-log">
         <div class="container-fluid">
@@ -132,7 +129,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="sec-foot">
-                                               <input type="text" readonly class="form-control" name="" ng-model="productEdit.brand.name" id="">
+                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.brand.name" id="">
                                     </div>
                                 </div>
                             </div>
@@ -195,23 +192,18 @@
                                     </div>
                                 </div>
                             </div>-->
-
-                              <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="type" class="font-karla-bold">Type</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sec-foot">
-                                       
-                                  <input type="text" readonly class="form-control" name="" ng-model="productEdit.type.name" id="">
-                                        
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="type" class="font-karla-bold">Type</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sec-foot">
+                                            <input type="text" readonly class="form-control" name="" ng-model="productEdit.type.name" id="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -227,19 +219,18 @@
                                     </div>
                                 </div>
                             </div>
-                              <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="type" class="font-karla-bold">Standard / Grade</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="sec-foot">
-                                         <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
-                                        
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="type" class="font-karla-bold">Standard / Grade</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sec-foot">
+                                            <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -494,7 +485,7 @@
                                         <label for="brand" class="font-karla-bold">Product Description</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <textarea class="form-control" readonly  name="name" rows="2">{{productEdit.details}}</textarea>
+                                        <textarea class="form-control" readonly name="name" rows="2">{{productEdit.details}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1322,7 +1313,6 @@
                             </div>
                         </div>
                     </div>
-                 
                 </form>
             </div>
         </div>

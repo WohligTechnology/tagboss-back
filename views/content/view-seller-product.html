@@ -280,7 +280,7 @@
                         <tr ng-repeat="stock in allStock">
                             <td>{{stock.invenotryStringId}}</td>
                             <!--<td>TBI{{stock.inventoryId}}</td>-->
-                            <td>{{stock.createdAt | date:'mediumDate'}}</td>
+                            <td>{{stock.createdAt | date:'dd-MMM-yyyy'}}</td>
                             <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
                                 <span ng-if="stock.category.name==='Coil'">1</span>
                                 <span ng-if="stock.category.name==='Plates/Sheets'">{{stock.quantityInNos}}</span>
