@@ -2795,6 +2795,14 @@
         // height:150px;
       }
       
+      .img-placement {
+        min-height: 600px;
+        .img {
+          max-height: 600px;
+          overflow: hidden;
+        }
+      }
+      
       //bootstrap forms
       /* Start writing sass here */
       

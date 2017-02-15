@@ -330,7 +330,7 @@
                 <p class="img-head">VAT NO. {{sellerData.vatTinNo}}</p>
                 <!--<p>{{sellerData.imageOfVatTinNo}}</p>-->
               </div>
-              <div ng-if="!imageOfVatTinNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfVatTinNoIsPdf">
                 <a id="fbplus_01" href="{{sellerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive">
                 </a>
@@ -350,7 +350,7 @@
               <div>
                 <p class="img-head">CST NO. {{sellerData.cstTinNo}}</p>
               </div>
-              <div ng-if="!imageOfCstTinNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfCstTinNoIsPdf">
                 <a id="fbplus_02" href="{{sellerData.imageOfCstTinNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -372,7 +372,7 @@
               <div>
                 <p class="img-head">PAN NO. {{sellerData.panNo}}</p>
               </div>
-              <div ng-if="!imageOfPanNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfPanNoIsPdf">
                 <a id="fbplus_03" href="{{sellerData.imageOfPanNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfPanNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -396,20 +396,21 @@
               <div>
                 <p class="img-head">Registration No. (ECC) {{sellerData.registrationNo}}</p>
               </div>
-              <divng-if="!imageOfregistrationNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfregistrationNoIsPdf">
                 <a id="fbplus_01" href="{{sellerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
-            </div>
-            <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-              <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
-            </div>
-            <!--<div class="verified"><p>VERIFIED</p></div>
+              </div>
+              <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
+                <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+              </div>
+              <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
-            <div class="text-center">
-              <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
-              <toggle-switch ng-model="sellerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
-              </toggle-switch>
+              <div class="text-center">
+                <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
+                <toggle-switch ng-model="sellerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
+                </toggle-switch>
+              </div>
             </div>
           </div>
           <div class="col-md-4 col-2">
@@ -417,7 +418,7 @@
               <div>
                 <p class="img-head">Cancelled Cheque {{sellerData.cancelledCheque}}</p>
               </div>
-              <div ng-if="!imageCancelledChequeIsPdf">
+              <div class="img-placement" ng-if="!imageCancelledChequeIsPdf">
                 <a id="fbplus_02" href="{{sellerData.imageCancelledCheque|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageCancelledCheque|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -439,7 +440,7 @@
               <div>
                 <p class="img-head">Import Export Code {{sellerData.importExportCode}}</p>
               </div>
-              <div>
+              <div class="img-placement">
                 <a id="fbplus_03" href="{{sellerData.imageImportExportCode|uploadpath}}" fancybox-box>
                   <img ng-src="{{sellerData.imageImportExportCode|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -490,8 +491,8 @@
       <div class="accept-reject">
         <button type="button" ng-if="sellerData.status==='incomplete'" ng-disabled="sellerData.status==='incomplete'" ng-click="acceptSeller(sellerData);"
           class="btn btn-primary"> Profile Incomplete</button>
-          <button type="button" ng-if="sellerData.status!=='incomplete'" ng-click="acceptSeller(sellerData);" class="btn btn-primary">ACCEPT</button>
-          <button type="button" ng-disabled="sellerData.status==='incomplete'" ng-click="rejectSeller(sellerData);" class="btn btn-primary">REJECT</button>
+        <button type="button" ng-if="sellerData.status!=='incomplete'" ng-click="acceptSeller(sellerData);" class="btn btn-primary">ACCEPT</button>
+        <button type="button" ng-disabled="sellerData.status==='incomplete'" ng-click="rejectSeller(sellerData);" class="btn btn-primary">REJECT</button>
       </div>
     </div>
   </div>

@@ -2723,7 +2723,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.email = sellerdata.email;
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
-            // senddata.comment = sellerdata.comment;
+            senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
             senddata.panNoVerified = sellerdata.panNoVerified;
@@ -2772,7 +2772,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
             senddata.panNoVerified = sellerdata.panNoVerified;
             senddata.registrationNo = sellerdata.registrationNo;
-            senddata.cancelledCheque = sellerdata.cancelledCheque;
+            // senddata.cancelledCheque = sellerdata.cancelledCheque;
             senddata.importExportCode = sellerdata.importExportCode;
             senddata.registrationNoVerified = sellerdata.registrationNoVerified;
             senddata.cancelledChequeVerified = sellerdata.cancelledChequeVerified;

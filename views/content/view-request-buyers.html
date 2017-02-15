@@ -267,7 +267,7 @@
               <div>
                 <p class="img-head">VAT NO. {{buyerData.vatTinNo}}</p>
               </div>
-              <div ng-if="!imageOfVatTinNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfVatTinNoIsPdf">
                 <a id="fbplus_01" href="{{buyerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{buyerData.imageOfVatTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -289,7 +289,7 @@
               <div>
                 <p class="img-head">CST NO. {{buyerData.cstTinNo}}</p>
               </div>
-              <div ng-if="!imageOfCstTinNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfCstTinNoIsPdf">
                 <a id="fbplus_01" href="{{buyerData.imageOfCstTinNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{buyerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
@@ -311,7 +311,7 @@
               <div>
                 <p class="img-head">PAN NO. {{buyerData.panNo}}</p>
               </div>
-              <div ng-if="!imageOfPanNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfPanNoIsPdf">
                 <a id="fbplus_01" href="{{buyerData.imageOfPanNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{buyerData.imageOfPanNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
@@ -335,7 +335,7 @@
               <div>
                 <p class="img-head">Registration No. (ECC) {{buyerData.registrationNo}}</p>
               </div>
-              <div ng-if="!imageOfregistrationNoIsPdf">
+              <div class="img-placement" ng-if="!imageOfregistrationNoIsPdf">
                 <a id="fbplus_01" href="{{buyerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
                   <img ng-src="{{buyerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
@@ -365,8 +365,8 @@
       <div class="accept-reject">
         <button type="button" ng-if="buyerData.status==='incomplete'" ng-disabled="buyerData.status==='incomplete'" ng-click="acceptBuyer(buyerData);"
           class="btn btn-primary"> Profile Incomplete</button>
-          <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="acceptBuyer(buyerData);" class="btn btn-primary">ACCEPT</button>
-          <button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>
+        <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="acceptBuyer(buyerData);" class="btn btn-primary">ACCEPT</button>
+        <button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>
       </div>
     </div>
   </div>

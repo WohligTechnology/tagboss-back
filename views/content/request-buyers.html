@@ -67,7 +67,7 @@
             <tr>
               <th><strong>ADDRESS</strong></th>
               <th><strong>REFERENCE</strong></th>
-              <th><strong>WAREHOUSE ADD</strong></th>
+              <th><strong>DELIVERY ADD</strong></th>
               <th><strong>CERTIFICATIONS</strong></th>
               <th><strong>STATUS</strong></th>
             </tr>
@@ -78,9 +78,9 @@
               </td>
               <td>{{buyer.userStringId}}</td>
               <td>
-                <div ng-if="buyer.warehouse.length>0">{{buyer.warehouse[0].warehouseFirmName}},<br>{{buyer.warehouse[0].warehouseAddress}},<br> {{buyer.warehouse[0].warehouseCity}},
-                  {{buyer.warehouse[0].warehousePincode}}
-                  <br/>{{buyer.warehouse[0].warehouseState}}, {{buyer.warehouse[0].warehouseCountry}}
+                <div ng-if="buyer.delivery.length>0">{{buyer.delivery[0].deliveryFirmName}},<br>{{buyer.delivery[0].deliveryAddress}},<br> {{buyer.delivery[0].deliveryCity}},
+                  {{buyer.delivery[0].deliveryPincode}}
+                  <br/>{{buyer.delivery[0].deliveryState}}, {{buyer.delivery[0].deliveryCountry}}
                 </div>
               </td>
               <td>CST NO. {{buyer.cstTinNo}}<br> VAT NO. {{buyer.vatTinNo}}</td>
