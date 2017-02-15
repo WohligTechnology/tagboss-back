@@ -1287,7 +1287,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             console.log("aa", indexid, grade, id);
             if (grade != undefined) {
                 var senddata = {};
-                senddata.moc = id;
+                senddata.moc = $state.params.id;
                 senddata.name = grade;
 
                 console.log("searchdata", senddata);
