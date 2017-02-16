@@ -882,16 +882,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata._id = inventorydata._id;
             senddata.email = inventorydata.seller.email;
             senddata.firstName = inventorydata.seller.firstName;
-            senddata.quantity = inventorydata.quantityInNos;
+            if (inventorydata.category.name == 'Pipes' || inventorydata.category.name == 'Roundbar') {
+                senddata.quantity = inventorydata.totalQty;
+            } else if (inventorydata.category.name == 'Coil') {
+                senddata.quantity = inventorydata.coilQty;
+            } else {
+                senddata.quantity = inventorydata.quantityInNos;
+            }
             senddata.date = $filter('date')(new Date(), 'dd MMM yyyy');
             senddata.report = inventorydata.report;
+            senddata.price = inventorydata.finalPrice;
 
-            if (inventorydata.ratePerKgMtr) {
-                senddata.price = inventorydata.ratePerKgMtr;
-            }
-            if (inventorydata.pricePerKg) {
-                senddata.price = inventorydata.pricePerKg;
-            }
+            // if (inventorydata.ratePerKgMtr) {
+            //     senddata.price = inventorydata.ratePerKgMtr;
+            // }
+            // if (inventorydata.pricePerKg) {
+            //     senddata.price = inventorydata.pricePerKg;
+            // }
             senddata.product = inventorydata.brand.name + " " + inventorydata.moc.name + " " + inventorydata.category.name
             NavigationService.acceptReport(senddata, function (data) {
                 if (data.value == true) {
