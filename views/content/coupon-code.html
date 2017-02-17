@@ -1,5 +1,5 @@
 <section class="coupon-code body-main">
-  <div class="container-fluid" ng-if="allCoupon.length!=0 && allCoupon!=undefined">
+  <div class="container-fluid">
     <div class="details">
       <div class="row">
         <div class="col-md-2 pull-right">
@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" ng-if="allCoupon.length!=0 && allCoupon!=undefined">
         <div class="col-md-12">
           <div class="table-responsive">
             <table class="table table-bordered">
