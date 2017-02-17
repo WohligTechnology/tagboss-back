@@ -27,7 +27,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'forgotPasswordCtrl'
     })
-     .state('forgot-passwordinspection', {
+    .state('forgot-passwordinspection', {
       url: "/forgot-passwordinspection/:email",
       templateUrl: "views/template.html",
       controller: 'forgotPassworInspectiondCtrl'
@@ -298,11 +298,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       controller: 'EditAgencyDetailsCtrl'
     })
 
-  .state('inspection-login', {
-    url: "/inspection-login",
-    templateUrl: "views/template.html",
-    controller: 'InspectionLoginCtrl'
-  });
+    .state('inspection-login', {
+      url: "/inspection-login",
+      templateUrl: "views/template.html",
+      controller: 'InspectionLoginCtrl'
+    });
 
   $urlRouterProvider.otherwise("/dashboard");
   $locationProvider.html5Mode(isproduction);
@@ -532,6 +532,31 @@ firstapp.directive('onlyDigits', function () {
   };
 });
 
+// firstapp.directive('fancyboxBox', function ($document) {
+//   return {
+//     restrict: 'EA',
+//     replace: false,
+//     link: function (scope, element, attr) {
+//       var $element = $(element);
+//       var target;
+//       if (attr.rel) {
+//         target = $("[rel='" + attr.rel + "']");
+//       } else {
+//         target = element;
+//       }
+
+//       target.fancybox({
+//         openEffect: 'fade',
+//         closeEffect: 'fade',
+//         closeBtn: true,
+//         helpers: {
+//           media: {}
+//         }
+//       });
+//     }
+//   };
+// });
+
 firstapp.directive('fancyboxBox', function ($document) {
   return {
     restrict: 'EA',
@@ -549,14 +574,31 @@ firstapp.directive('fancyboxBox', function ($document) {
         openEffect: 'fade',
         closeEffect: 'fade',
         closeBtn: true,
+        arrows: false,
         helpers: {
           media: {}
+        },
+        keys: {
+          next: {
+            // 13: 'left', // enter
+            // 34: 'up', // page down
+            // 39: 'left', // right arrow
+            // 40: 'up' // down arrow
+          },
+          prev: {
+            // 8: 'right', // backspace
+            // 33: 'down', // page up
+            // 37: 'right', // left arrow
+            // 38: 'down' // up arrow
+          },
+          close: [27], // escape key
+          // play: [32], // space - start/stop slideshow
+          toggle: [70] // letter "f" - toggle fullscreen
         }
       });
     }
   };
 });
-
 
 firstapp.config(function ($translateProvider) {
   $translateProvider.translations('en', LanguageEnglish);

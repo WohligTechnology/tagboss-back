@@ -3389,6 +3389,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.orders = data.data[0].orders;
                     $scope.sellers = data.data[1].sellers;
                     $scope.buyers = data.data[2].buyers;
+                    $scope.products = data.data[3].products;
                 }
             });
         }
@@ -3417,6 +3418,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 if (data.value == true) {
                     $scope.getNotifications();
                     $state.go("request-buyers");
+
+                }
+            });
+        }
+
+        $scope.updateProductReadStatus = function () {
+            NavigationService.updateProductReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("product-approval");
 
                 }
             });

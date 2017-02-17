@@ -13,10 +13,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="excel-upload ">
+                        <!--<div class="excel-upload ">
                             <img src="img/excel-icon.png">
                             <label>CONVERT TO EXCEL</label>
-                        </div>
+                        </div>-->
                         <div class="select-prod pull-right">
                             <select>
                       <option value="all">ALL</option>
@@ -52,7 +52,7 @@
                         <form name="reportform{{$index}}">
                             <td>
                                 <div class="magic-form">
-                                    <div class="magic-resize">
+                                    <div class="magic-resize spaceissue">
                                         <label class="text" for="add-one{{$index}}">
                             <p class="comp-name">  {{inventory.seller.firmName}}  </p>
                            <p>Email:{{inventory.seller.email}}</p> 
@@ -64,18 +64,38 @@
                                 </div>
                             </td>
                             <td>
-                                <ul class="prod-details">
-                                    <li> {{inventory.brand.name}}, {{inventory.moc.name}} </li>
-                                    <li> {{inventory.category.name}}, {{inventory.gradesstandards.name}}</li>
-                                    <!--<li>  SCH           </li>
-                        <li>  OD in mm   </li>-->
-                                    <li> {{inventory.thickness}} </li>
-                                    <li> {{inventory.length}} </li>
-                                    <li> {{inventory.width}} </li>
+                                <ul class="prod-details" ng-if="inventory.category.name === 'Pipes'">
+                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
+                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
+                                    <li>{{inventory.gradesstandards.name}}</li>
+                                    <li> {{inventory.odInches}} Nb x {{inventory.sch}} </li>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                 </ul>
-                                <button type="button" class="btn btn-primary assign-btn" ng-click="showEditProduct(inventory._id)">VIEW</button>
+                                <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
+                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
+                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
+                                    <li>{{inventory.gradesstandards.name}}</li>
+                                    <li> {{inventory.thickness}} mm x {{inventory.width}} mm x {{inventory.length}} mm</li>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                </ul>
+                                <ul class="prod-details" ng-if="inventory.category.name === 'Coil'">
+                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
+                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
+                                    <li>{{inventory.gradesstandards.name}}</li>
+                                    <li> {{inventory.thickness}} mm x {{inventory.width}} mm x Coil</li>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                </ul>
+                                <ul class="prod-details" ng-if="inventory.category.name === 'Roundbar'">
+                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
+                                    <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
+                                    <li>{{inventory.gradesstandards.name}}</li>
+                                    <li> {{inventory.diameter}} mm</li>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                </ul>
                             </td>
-                            <td>{{inventory.quantityInNos}}</td>
+                            <td ng-if="inventory.category.name == 'Plates/Sheets'">{{inventory.quantityInNos}}</td>
+                            <td ng-if="inventory.category.name == 'Pipes' || inventory.category.name == 'Roundbar'">{{inventory.totalQty}}</td>
+                            <td ng-if="inventory.category.name == 'Coil'">{{inventory.coilQty}}</td>
                             <td>
                                 <div>
                                     <!--<button type="button" class="btn btn-primary assign-btn">PENDING</button>-->
@@ -86,13 +106,19 @@
                                     <div ng-if="inventory.status==='Assigned'" class="assign-btn1">
                                         <upload-image ng-model="inventory.report" ng-callback="uploadReport" no-view></upload-image>
                                     </div>
+                                    <a ng-if="inventory.report" fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
                                     <!--</p>-->
                                 </div>
                             </td>
                             <td>
                                 <div class="txt-remark">
                                     <input type="hidden" ng-model="inventory._id" />
-                                    <textarea name="inventoryremark{{$index}}" ng-model="inventory.remark" rows="4" cols="25" required>{{inventory.remark}}</textarea>
+                                    <textarea ng-if="inventory.status!=='Verified' && inventory.status!=='Rejected' && inventory.status!=='Inspected'" name="inventoryremark{{$index}}"
+                                        ng-model="inventory.remark" rows="4" cols="25" required>{{inventory.remark}}</textarea>
+                                    <textarea ng-if="inventory.status==='Verified' || inventory.status==='Rejected' || inventory.status==='Inspected'" name="inventoryremark{{$index}}"
+                                        ng-model="inventory.remark" rows="4" cols="25" disabled>{{inventory.remark}}</textarea>
                                     <!--<input ng-if="inventory.status==='Assigned'" class="btn btn-primary assign-btn" value="Submit"/>-->
                                     <button type="submit" ng-if="inventory.status==='Assigned'" ng-disabled="inventory.report==null || inventory.remark==null"
                                         ng-click="sendReport(inventory)" class="btn btn-primary assign-btn">Submit Report</button>

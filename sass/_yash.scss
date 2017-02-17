@@ -1177,8 +1177,9 @@
             }
             td,
             th {
-                width: 20%;
-                padding-left: 15px;
+                // width: 20%;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             select {
                 background-color: transparent;
@@ -1188,7 +1189,7 @@
             }
             .upload-date {
                 text-decoration: underline;
-                margin-top: 20px;
+                // margin-top: 20px;
             }
             .view {
                 text-decoration: underline;
@@ -1208,6 +1209,9 @@
                 background-color: #E6E6E6;
                 margin-left: -10px;
                 padding-left: 8px;
+            }
+            .mtop {
+                margin-top: 5px;
             }
         }
         .text-center {
@@ -1284,11 +1288,12 @@
             }
             td,
             th {
-                width: 20%;
-                padding-left: 15px;
+                // width: 20%;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             td:last-child {
-                width: 25%;
+                // width: 25%;
             }
             .prod-details {
                 list-style-type: none;
@@ -1297,6 +1302,9 @@
                     background-color: #E6E6E6;
                     margin-left: -10px;
                     padding-left: 8px;
+                }
+                .mtop {
+                    margin-top: 5px;
                 }
             }
             .last-col {
@@ -1369,13 +1377,14 @@
             }
             td,
             th {
-                width: 20%;
-                padding-left: 15px;
+                // width: 20%;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             label {
                 .comp-name {
                     font-size: 17px;
-                    margin-bottom: 0;
+                    // margin-bottom: 0;
                 }
             }
             select {
@@ -1386,7 +1395,7 @@
             }
             .upload-date {
                 text-decoration: underline;
-                margin-top: 20px;
+                // margin-top: 20px;
             }
             .prod-details {
                 list-style-type: none;
@@ -1395,6 +1404,9 @@
                     background-color: #E6E6E6;
                     margin-left: -10px;
                     padding-left: 8px;
+                }
+                .mtop {
+                    margin-top: 5px;
                 }
             }
             .txt-remark {

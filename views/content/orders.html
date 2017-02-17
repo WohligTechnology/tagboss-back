@@ -10,7 +10,7 @@
                 <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                   uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                       <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
                   </span>
               </div>
@@ -20,7 +20,7 @@
                   uib-datepicker-popup="dd-MM-yyyy" ng-change="getAllOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
                   required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                                <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
                              </span>
               </div>
@@ -61,10 +61,10 @@
           </div>
         </div>
         <div class="bar border-none">
-          <div class="row">
+          <div class="row" ng-if="allCount[3].avgOrderDelivered !== 0">
             <div class="col-md-12">
               <div class="text-center">
-                <p>AVERAGE ORDER DELIVERY TIME IS 8 DAYS</p>
+                <p>AVERAGE ORDER DELIVERY TIME IS {{allCount[3].avgOrderDelivered}} DAYS</p>
               </div>
             </div>
           </div>
@@ -79,7 +79,8 @@
         </div>
         <div ng-repeat="allorder in allData">
           <div class="buy-head">
-            <h2 ng-if="selleris==false" class="order-head">TBO{{allorder.order.orderId}}</h2>
+            <h2 ng-if="selleris==false" class="order-head">{{allorder.order.orderStringId}}</h2>
+            <!--<h2 ng-if="selleris==false" class="order-head">TBO{{allorder.order.orderId}}</h2>-->
             <h2 ng-if="selleris==false" class="order-head subhead">BUYER NAME: <span>{{allorder.bill[0].buyer.firstName}} {{allorder.bill[0].buyer.lastName}}</span></h2>
             <p class="pull-right">
               <div class="row pull-right">
@@ -94,7 +95,8 @@
                     <label class="control-label inline-block statusplace" for="">Total Amount :{{allorder.bill[0].order.totalAmount| currency:'&#8377;'}}</label>
                     <label class="control-label inline-block statusplace" for="">Payment Status :{{allorder.bill[0].order.paymentStatus}}</label>
                     <div class="inline-block editplace">
-                      <button type="button" ng-click="editOrder(allorder.order.orderId);" class="btn btn-primary return">EDIT</button>
+                      <button type="button" ng-if="allorder.bill[0].order.paymentStatus !== 'Paid'" ng-click="editOrder(allorder.order.orderId);"
+                        class="btn btn-primary return">EDIT</button>
                     </div>
                   </div>
                 </div>
@@ -106,7 +108,8 @@
               <div class="magic-form">
                 <div class="magic-resize">
                   <label class="detail-heading" for="add-one">
-                    ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
+                    ORDER ID: {{order.orderBillStringId}}
+                    <!--ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}-->
                   </label>
                 </div>
               </div>
@@ -164,19 +167,19 @@
                               <label for="countseconds">Seconds</label>
                             </div>
                           </form>
+                        </div>
                       </div>
                     </div>
+                    <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
-          </td>
-          </tr>
-          </tbody>
-          </table>
         </div>
+        <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getAllOrders()"></ul>
       </div>
-      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getAllOrders()"></ul>
     </div>
-  </div>
   </div>
 </section>
 <!--seller & buyer-->
@@ -192,7 +195,7 @@
                 <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                   uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                                 <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
                               </span>
               </div>
@@ -202,7 +205,7 @@
                   uib-datepicker-popup="dd-MM-yyyy" ng-change="getOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
                   required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                                <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
                              </span>
               </div>
@@ -243,10 +246,10 @@
           </div>
         </div>
         <div class="bar border-none">
-          <div class="row">
+          <div class="row" ng-if="allCount[3].avgOrderDelivered !== 0">
             <div class="col-md-12">
               <div class="text-center">
-                <p>AVERAGE ORDER DELIVERY TIME IS 8 DAYS</p>
+                <p>AVERAGE ORDER DELIVERY TIME IS {{allCount[3].avgOrderDelivered}} DAYS</p>
               </div>
             </div>
           </div>
@@ -261,7 +264,8 @@
         </div>
         <div ng-repeat="order in allData">
           <div class="buy-head">
-            <h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>
+            <h2 ng-if="selleris==true" class="order-head">{{order.order.orderStringId}}</h2>
+            <!--<h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>-->
             <h2 ng-if="selleris==true" class="order-head subhead">BUYER NAME: <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span></h2>
             <p class="pull-right">
               <div class="row pull-right">
@@ -282,7 +286,8 @@
               <div class="magic-form">
                 <div class="magic-resize">
                   <label class="detail-heading" for="add-one">
-                    ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
+                    ORDER ID: {{order.orderBillStringId}}
+                    <!--ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}-->
                   </label>
                 </div>
               </div>
@@ -340,19 +345,19 @@
                               <label for="countseconds">Seconds</label>
                             </div>
                           </form>
+                        </div>
                       </div>
                     </div>
+                    <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
-          </td>
-          </tr>
-          </tbody>
-          </table>
         </div>
+        <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
       </div>
-      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
     </div>
-  </div>
   </div>
 </section>
 <section ng-if="isBuyer==true" class="body-main refund-to-buyers orders">
@@ -367,7 +372,7 @@
                 <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                   uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                                 <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
                               </span>
               </div>
@@ -377,7 +382,7 @@
                   uib-datepicker-popup="dd-MM-yyyy" ng-change="getOrders(filter.fromDate,filter.toDate)" ng-model="filter.toDate"
                   is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats"
                   required="required">
-                  <span class="input-group-btn">
+                <span class="input-group-btn">
                                <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
                              </span>
               </div>
@@ -418,10 +423,10 @@
           </div>
         </div>
         <div class="bar border-none">
-          <div class="row">
+          <div class="row" ng-if="allCount[3].avgOrderDelivered !== 0">
             <div class="col-md-12">
               <div class="text-center">
-                <p>AVERAGE ORDER DELIVERY TIME IS 8 DAYS</p>
+                <p>AVERAGE ORDER DELIVERY TIME IS {{allCount[3].avgOrderDelivered}} DAYS</p>
               </div>
             </div>
           </div>
@@ -436,7 +441,8 @@
         </div>
         <div ng-repeat="order in allData">
           <div class="buy-head">
-            <h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>
+            <h2 ng-if="selleris==true" class="order-head">{{order.order.orderStringId}}</h2>
+            <!--<h2 ng-if="selleris==true" class="order-head">TBO{{order.order.orderId}}</h2>-->
             <h2 ng-if="selleris==true" class="order-head subhead">BUYER NAME: <span>{{order.buyer.firstName}} {{order.buyer.lastName}}</span></h2>
             <div class="pull-right">
               <label class="control-label inline-block statusplaces" for="">Payment Status :{{order.order.paymentStatus}}</label>
@@ -450,7 +456,8 @@
               <div class="magic-form">
                 <div class="magic-resize">
                   <label class="detail-heading" for="add-one">
-                    ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}
+                    ORDER ID: {{order.orderBillStringId}}
+                    <!--ORDER ID TBO{{order.order.orderId}}_{{order.orderBillId}}-->
                   </label>
                 </div>
               </div>
@@ -508,18 +515,18 @@
                               <label for="countseconds">Seconds</label>
                             </div>
                           </form>
+                        </div>
                       </div>
                     </div>
+                    <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <a ui-sref="view-orders({id:order._id})"><label class="view pull-right">VIEW</label></a>
-          </td>
-          </tr>
-          </tbody>
-          </table>
         </div>
+        <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
       </div>
-      <ul ng-if="totalItems>10 || allData!=undefined" uib-pagination total-items="totalItems" ng-model="filter.pagenumber" ng-change="getOrders()"></ul>
     </div>
-  </div>
   </div>
 </section>
