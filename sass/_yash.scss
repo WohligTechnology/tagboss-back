@@ -429,9 +429,9 @@
         .comment-section {
             border-top: 6px solid $panel-border;
             background-color: #F8F8F8;
-            height: 200px;
-            margin-top: 40px;
-            margin-bottom: 100px;
+            height: 256px;
+            margin-top: 36px;
+            margin-bottom: 54px;
             padding-top: 10px;
             padding-left: 25px;
             padding-right: 25px;
@@ -457,11 +457,11 @@
             }
         }
         .summary {
-            padding: 10px 30px;
+            padding: 20px 30px;
             background-color: #F8F8F8;
-            height: 200px;
-            margin-top: 40px;
-            margin-bottom: 100px;
+            min-height: 256px;
+            margin-top: 36px;
+            margin-bottom: 36px;
             .summary-data {
                 margin-bottom: 0;
                 height: 100%;
@@ -534,6 +534,14 @@
 .view-sellers {
     .view-buyer,
     .view-seller {
+        .certifications {
+            .abc {
+                margin-bottom: 40px;
+                img {
+                    margin: 0 auto;
+                }
+            }
+        }
         .details-1 {
             margin: 15px 10px;
             border-top: 6px solid #043E77;
@@ -733,13 +741,13 @@
         }
         .certifications {
             background-color: $box-background;
-            font-size: 16px;
+            font-size: 14px;
             margin-bottom: 40px;
             .certification-header {
-                height: 40px;
+                // height: 40px;
                 border-bottom: 1px solid;
-                padding-left: 10px;
-                padding-top: 20px;
+                // padding-left: 10px;
+                padding-top: 1px;
                 font-weight: bold;
             }
             .col-1 {
@@ -753,10 +761,16 @@
                 padding-left: 0;
             }
             .abc {
-                padding: 15px;
-                p {
-                    text-align: center;
+                padding: 15px 8px;
+                .afterPdf {
+                    margin-bottom: 10px;
                 }
+                img {
+                    margin: 0 auto;
+                }
+                // p {
+                //     // text-align: center;
+                // }
                 .img-head {
                     color: #666666;
                 }
@@ -1443,7 +1457,7 @@
 .comp-details {
     h4 {
         font-size: 21px;
-        margin-top: 20px;
+        margin-top: 14px;
         text-align: center;
     }
     .form-control {

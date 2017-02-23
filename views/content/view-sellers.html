@@ -53,12 +53,12 @@
             <label class="detail-heading" for="add-one">
                 {{sellerData.userStringId}} {{sellerData.firmName}}
               </label>
-            <span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"
-              titles="['one','two','three']" aria-labelledby="default-rating"></span>
-              <div class="mid-btn">
-                <button ui-sref="orders({type:'seller',id:sellerData._id})" type="button" class="btn btn-default btn-o">Order</button>
-                <!--<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>-->
-              </div>
+            <!--<span uib-rating ng-model="rate" max="max" read-only="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"
+              titles="['one','two','three']" aria-labelledby="default-rating"></span>-->
+            <div class="mid-btn">
+              <button ui-sref="orders({type:'seller',id:sellerData._id})" type="button" class="btn btn-default btn-o">Order</button>
+              <!--<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>-->
+            </div>
           </div>
         </div>
         <div class="date pull-right">Date: {{sellerData.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
@@ -412,7 +412,7 @@
                     </div>
                   </div>
                   <div class="row ">
-                    <h4 class="font-karla-bold text-uppercase spacing ">Excise Details</h4>
+                    <h4 class="font-karla-bold text-uppercase spacing ">Excise Details (Optional)</h4>
                   </div>
                   <div class="row excise-block">
                     <div class="col-md-4 ">
@@ -513,15 +513,18 @@
           </div>
         </div>
         <div class="certifications">
-          <div class="certification-header">
-            <p>CERTIFICATIONS</p>
+          <div class="certification-header comp-details">
+            <h4 class="font-karla-bold text-uppercase h-bottom ">CERTIFICATIONS</h4>
           </div>
           <div class="row">
             <div class="col-md-4 col-1">
               <div class="abc">
-                <div>
-                  <p class="img-head">VAT NO. {{sellerData.vatTinNo}}</p>
+                <div class="align-info">
+                  <p class="img-head pull-left">VAT NO. {{sellerData.vatTinNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfVatTinNoIsPdf"><a href="{{sellerData.imageOfVatTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfVatTinNoIsPdf"><a href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageOfVatTinNoIsPdf">
                   <a id="fbplus_01" href="{{sellerData.imageOfVatTinNo | uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageOfVatTinNo | uploadpath}} " alt=" " class="get-center img-responsive ">
@@ -534,9 +537,15 @@
             </div>
             <div class="col-md-4 col-2">
               <div class="abc">
-                <div>
-                  <p class="img-head">CST NO. {{sellerData.cstTinNo}}</p>
+                <!--<div>
+                  <p class="img-head"></p>
+                </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">CST NO. {{sellerData.cstTinNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfCstTinNoIsPdf"><a href="{{sellerData.imageOfCstTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageOfCstTinNoIsPdf">
                   <a id="fbplus_02" href="{{sellerData.imageOfCstTinNo | uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageOfCstTinNo | uploadpath}} " alt=" " class="get-center img-responsive ">
@@ -549,9 +558,15 @@
             </div>
             <div class="col-md-4 col-3">
               <div class="abc">
-                <div>
+                <!--<div>
                   <p class="img-head">PAN NO. {{sellerData.panNo}}</p>
+                </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">PAN NO. {{sellerData.panNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfPanNoIsPdf"><a href="{{sellerData.imageOfPanNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{pdfURL}}={{sellerData.imageOfPanNo}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageOfPanNoIsPdf">
                   <a id="fbplus_03" href="{{sellerData.imageOfPanNo | uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageOfPanNo | uploadpath}} " alt=" " class="get-center img-responsive ">
@@ -566,9 +581,15 @@
           <div class="row">
             <div class="col-md-4 col-1">
               <div class="abc">
-                <div>
+                <!--<div>
                   <p class="img-head">Registration No. (ECC) {{sellerData.registrationNo}}</p>
+                </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">Registration No. (ECC) {{sellerData.registrationNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfregistrationNoIsPdf"><a href="{{sellerData.imageOfregistrationNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{pdfURL}}={{sellerData.imageOfregistrationNo}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageOfregistrationNoIsPdf">
                   <a id="fbplus_01" href="{{sellerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
@@ -581,9 +602,15 @@
             </div>
             <div class="col-md-4 col-2">
               <div class="abc">
-                <div>
-                  <p class="img-head">Cancelled Cheque {{sellerData.cancelledCheque}}</p>
+                <!--<div>
+                  <p class="img-head">Cancelled Cheque</p>
+                </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">Cancelled Cheque</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageCancelledChequeIsPdf"><a href="{{sellerData.imageCancelledCheque | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageCancelledChequeIsPdf"><a href="{{pdfURL}}={{sellerData.imageCancelledCheque}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageCancelledChequeIsPdf">
                   <a id="fbplus_02" href="{{sellerData.imageCancelledCheque|uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageCancelledCheque|uploadpath}}" alt=" " class="get-center img-responsive ">
@@ -596,9 +623,15 @@
             </div>
             <div class="col-md-4 col-3">
               <div class="abc">
-                <div>
+                <!--<div>
                   <p class="img-head">Import Export Code {{sellerData.importExportCode}}</p>
+                </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">Import Export Code {{sellerData.importExportCode}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageImportExportCodeIsPdf"><a href="{{sellerData.imageImportExportCode | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageImportExportCodeIsPdf"><a href="{{pdfURL}}={{sellerData.imageImportExportCode}}" download><i class="fa fa-download"></i></a></span>
                 </div>
+                <div class="clearfix"></div>
                 <div ng-if="!imageImportExportCodeIsPdf">
                   <a id="fbplus_03" href="{{sellerData.imageImportExportCode|uploadpath}}" fancybox-box>
                     <img ng-src="{{sellerData.imageImportExportCode|uploadpath}}" alt=" " class="get-center img-responsive ">
@@ -613,8 +646,12 @@
             </div>
           </div>
         </div>
-        <div class="row ">
-          <!--<div class="col-md-4 ">
+        <div class="certifications">
+          <div class="certification-header comp-details">
+            <h4 class="font-karla-bold text-uppercase h-bottom ">Security Deposit Details</h4>
+          </div>
+          <div class="row ">
+            <!--<div class="col-md-4 ">
             <div class="form-group div ">
               <label class="font-karla-bold " for="div ">Security Deposit</label>
               <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit">
@@ -632,28 +669,29 @@
               <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
             </div>
           </div>-->
-          <div class="col-md-3 ">
-            <div class="form-group div ">
-              <label class="font-karla-bold " for="div ">Payment Date</label>
-              <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositDate" placeholder="Enter Security Deposit Date">
+            <div class="col-md-3 ">
+              <div class="form-group div ">
+                <label class="font-karla-bold " for="div ">Payment Date</label>
+                <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositDate" placeholder="Enter Security Deposit Date">
+              </div>
             </div>
-          </div>
-          <div class="col-md-3 ">
-            <div class="form-group div ">
-              <label class="font-karla-bold " for="div ">Transaction Id</label>
-              <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
+            <div class="col-md-3 ">
+              <div class="form-group div ">
+                <label class="font-karla-bold " for="div ">Transaction Id</label>
+                <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositTransactionId" placeholder="Enter Transaction Id">
+              </div>
             </div>
-          </div>
-          <div class="col-md-3 ">
-            <div class="form-group div ">
-              <label class="font-karla-bold " for="div ">Bank Name</label>
-              <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositBankName" placeholder="Enter Bank Name">
+            <div class="col-md-3 ">
+              <div class="form-group div ">
+                <label class="font-karla-bold " for="div ">Bank Name</label>
+                <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositBankName" placeholder="Enter Bank Name">
+              </div>
             </div>
-          </div>
-          <div class="col-md-3 ">
-            <div class="form-group div ">
-              <label class="font-karla-bold " for="div ">Security Deposit</label>
-              <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit Amount">
+            <div class="col-md-3 ">
+              <div class="form-group div ">
+                <label class="font-karla-bold " for="div ">Security Deposit</label>
+                <input class="form-control " readonly type="text " id="div " ng-model="sellerData.securityDepositAmount" placeholder="Enter Security Deposit Amount">
+              </div>
             </div>
           </div>
         </div>

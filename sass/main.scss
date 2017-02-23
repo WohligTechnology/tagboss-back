@@ -773,6 +773,9 @@
             position: absolute;
             right: -63%;
             top: 0;
+            .form-group {
+              margin: 0 4px;
+            }
           }
         }
       }
@@ -2353,8 +2356,8 @@
       
       .addproduct .stock input[type=number],
       .addproduct .stock input[type=text] {
-        width: 29px;
-        height: 29px;
+        width: 60px;
+        height: 34px;
         text-align: center;
         font-size: 14px;
         border: 1px solid #b5b5b5;
@@ -2470,6 +2473,17 @@
         text-transform: none;
       }
       
+      .stock .totalstock {
+        h3 {
+          margin: 0 0 10px;
+          font-size: 16px;
+        }
+      }
+      
+      .pacebtn {
+        margin: 0 20px;
+      }
+      
       .custom-radiobtn input[type=radio]+label {
         font-size: 18px;
         position: relative;
@@ -2479,9 +2493,9 @@
       }
       
       .customers {
-        font-size: 10px;
+        font-size: 12px;
         display: inline-block;
-        margin: 0 0 8px 27px;
+        margin: 0 0 8px 0;
         font-weight: 700;
       }
       
@@ -2838,8 +2852,121 @@
         }
       }
       
+      .view-request-seller-table {
+        margin: 0 auto;
+      }
+      
       //bootstrap forms
       /* Start writing sass here */
+      
+      .align-info {
+        padding: 0 10px;
+        .download-btn {
+          width: 40px;
+          height: 22px;
+          background-color: #009cd9;
+          border: 1px solid #009cd9;
+          border-radius: 6px;
+          .fa {
+            padding: 2px 10px;
+            color: #fff;
+            font-size: 20px;
+          }
+        }
+      }
+      
+      .divs {
+        margin: 5px 5px 10px;
+      }
+      
+      .custom-radiobtns {
+        label {
+          float: none;
+        }
+      }
+      
+      .excise {
+        span {
+          margin: 0 0 0 77px;
+        }
+        span+span {
+          margin: 0 0 0 54px;
+        }
+      }
+      
+      .excisek {
+        span {
+          margin: 0 0 0 77px;
+        }
+        span+span {
+          margin: 0 0 0 48px;
+        }
+      }
+      
+      .excisem {
+        span {
+          margin: 0 0 0 74px;
+        }
+        span+span {
+          margin: 0 0 0 56px;
+        }
+      }
+      
+      .excisemm {
+        span {
+          margin: 0 0 0 48px;
+        }
+        span+span {
+          margin: 0 0 0 9px;
+        }
+      }
+      
+      .excisewt {
+        span {
+          margin: 0 0 0 86px;
+        }
+        span+span {
+          margin: 0 0 0 88px;
+        }
+      }
+      
+      .exciseps {
+        span {
+          margin: 0 0 0 74px;
+        }
+        span+span {
+          margin: 0 0 0 44px;
+        }
+      }
+      
+      .exciseps1 {
+        span {
+          margin: 0 0 0 55px;
+        }
+        span+span {
+          margin: 0 0 0 25px;
+        }
+      }
+      
+      .excisec {
+        span {
+          margin: 0 0 0 73px;
+        }
+        span+span {
+          margin: 0 0 0 43px;
+        }
+      }
+      
+      .productDesc {
+        span {
+          margin: 0 0 0 72px;
+          display: block;
+        }
+        span+span {
+          margin: 0 0 0 166px;
+          display: block;
+        }
+      }
       
       @import "raj";
       @import "yash";

@@ -71,7 +71,7 @@
         </div>
         <div class="date pull-right">Date: {{buyerData.createdAt | date:"dd MMMM yyyy ' | ' h:mma"}}</div>
       </div>
-      <div class="row">
+      <div class="row hide">
         <div class="stat-row-1">
           <div class="col-md-4 stat-cols">
             <div class="order-content">
@@ -129,306 +129,330 @@
         </tbody>
       </table>-->
       <div class="view-request-buyers">
-        <div class="view-request-buyer ">
-          <table align="center" class="table table-bordered view-request-buyer-table">
-            <thead>
-              <tr>
-                <th><strong>ADDRESS</strong></th>
-                <!--<th><strong>WAREHOUSE ADDRESS</strong></th>-->
-                <!--<th><strong>REFERENCES</strong></th>-->
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{buyerData.companyAddress}}
-                </td>
-                <!--<td><div ng-if="buyerData.warehouse.length>0">{{buyerData.warehouse[0].warehouseFirmName}},<br> {{buyerData.warehouse[0].warehouseAddress}},<br> {{buyerData.warehouse[0].warehouseCity}}, {{buyerData.warehouse[0].warehousePincode}}<br/>{{buyerData.warehouse[0].warehouseState.name}},
+        <!--<div class="view-request-buyer ">-->
+        <table align="center" class="table table-bordered view-request-buyer-table">
+          <thead>
+            <tr>
+              <th><strong>ADDRESS</strong></th>
+              <!--<th><strong>WAREHOUSE ADDRESS</strong></th>-->
+              <!--<th><strong>REFERENCES</strong></th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{buyerData.companyAddress}}
+              </td>
+              <!--<td><div ng-if="buyerData.warehouse.length>0">{{buyerData.warehouse[0].warehouseFirmName}},<br> {{buyerData.warehouse[0].warehouseAddress}},<br> {{buyerData.warehouse[0].warehouseCity}}, {{buyerData.warehouse[0].warehousePincode}}<br/>{{buyerData.warehouse[0].warehouseState.name}},
             {{buyerData.warehouse[0].warehouseCountry}}
             </div>
             </td>-->
-                <!--<td>TBS005<br> Dhanera Steel Ltd<br> TBB045
+              <!--<td>TBS005<br> Dhanera Steel Ltd<br> TBB045
               <br> Raj Steel and Accessories</td>-->
-              </tr>
-              </tr>
-            </tbody>
-          </table>
-          <div class="row hide">
-            <div class="col-md-offset-2 col-md-8">
-              <div class="alloted-bar">
-                <div class="progress">
-                  <div class="progress-bar">
-                    <div class="circles">
-                      <span>0%</span>
-                    </div>
-                    <div class="bar-color lgcolor"></div>
-                    <div class="circle">
-                      <span>25%</span>
-                    </div>
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row hide">
+          <div class="col-md-offset-2 col-md-8">
+            <div class="alloted-bar">
+              <div class="progress">
+                <div class="progress-bar">
+                  <div class="circles">
+                    <span>0%</span>
                   </div>
-                  <div class="progress-bar">
-                    <div class="bar-color lgcolors"></div>
-                    <div class="circle">
-                      <span>50%</span>
-                    </div>
+                  <div class="bar-color lgcolor"></div>
+                  <div class="circle">
+                    <span>25%</span>
                   </div>
-                  <div class="progress-bar">
-                    <div class="bar-color lgcolor"></div>
-                    <div class="circle blue-color">
-                      <span>75%</span>
-                    </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="bar-color lgcolors"></div>
+                  <div class="circle">
+                    <span>50%</span>
                   </div>
-                  <div class="progress-bar">
-                    <div class="bar-color"></div>
-                    <div class="circle blue-color">
-                      <span>100%</span>
-                    </div>
+                </div>
+                <div class="progress-bar">
+                  <div class="bar-color lgcolor"></div>
+                  <div class="circle blue-color">
+                    <span>75%</span>
                   </div>
-                  <!-- <div class="progress-bar">
+                </div>
+                <div class="progress-bar">
+                  <div class="bar-color"></div>
+                  <div class="circle blue-color">
+                    <span>100%</span>
+                  </div>
+                </div>
+                <!-- <div class="progress-bar">
                                <div class="bar-color"></div>
                                <div class="circle">
                                    <span>5</span>
                                </div>
 
                            </div> -->
-                </div>
               </div>
             </div>
           </div>
-          <div class="comp-details">
-            <!--buyer Profile view-->
-            <div class="row">
-              <div class="col-md-offset-2 col-md-8">
-                <div ng-hide="buyerHide" class="company view-profile">
-                  <h4 class="font-karla-bold text-uppercase h-bottom">Company Details</h4>
-                  <!--<p class="font-karla f-size">Fields marked <span class="strike">*</span> are mandatory</p>-->
-                  <form>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="name">Contact Person</label>
-                          <input class="form-control" ng-model="buyerData.contactPerson" type="text" id="name" placeholder="Enter Contact Person" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="Registered">Registered Name</label>
-                          <input class="form-control" ng- type="text" id="Registered" ng-model="buyerData.firmName" placeholder="Enter Registered Name"
-                            readonly>
-                        </div>
+        </div>
+        <div class="comp-details">
+          <!--buyer Profile view-->
+          <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+              <div ng-hide="buyerHide" class="company view-profile">
+                <h4 class="font-karla-bold text-uppercase h-bottom">Company Details</h4>
+                <!--<p class="font-karla f-size">Fields marked <span class="strike">*</span> are mandatory</p>-->
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="name">Contact Person</label>
+                        <input class="form-control" ng-model="buyerData.contactPerson" type="text" id="name" placeholder="Enter Contact Person" readonly>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="Email">Email</label>
-                          <input class="form-control" type="email" id="Email" ng-model="buyerData.email" placeholder="Enter Email" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="AEmail">Alternate Email</label>
-                          <input class="form-control" type="email" id="AEmail" ng-model="buyerData.alternateEmail" placeholder="Enter Alternate Email"
-                            readonly>
-                        </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="Registered">Registered Name</label>
+                        <input class="form-control" ng- type="text" id="Registered" ng-model="buyerData.firmName" placeholder="Enter Registered Name"
+                          readonly>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="tele">Telephone</label>
-                          <input class="form-control" type="tel" id="tele" ng-model="buyerData.telephone" placeholder="Enter Telephone Number" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="mobile">Mobile No.</label>
-                          <input class="form-control" type="tel" id="mobile" ng-model="buyerData.mobile" placeholder="Enter Mobile Number" readonly>
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="Email">Email</label>
+                        <input class="form-control" type="email" id="Email" ng-model="buyerData.email" placeholder="Enter Email" readonly>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="Address">Registered Address</label>
-                          <input class="form-control" type="text" id="Address" ng-model="buyerData.companyAddress" placeholder="Enter Company Address"
-                            readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="City">City</label>
-                          <input class="form-control" type="text" id="City" ng-model="buyerData.city" placeholder="Enter City" readonly>
-                        </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="AEmail">Alternate Email</label>
+                        <input class="form-control" type="email" id="AEmail" ng-model="buyerData.alternateEmail" placeholder="Enter Alternate Email"
+                          readonly>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="Pincode">Pincode</label>
-                          <input class="form-control" type="text" id="Pincode" ng-model="buyerData.pincode" placeholder="Enter Pincode" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="State">State</label>
-                          <input class="form-control" type="text" id="State" ng-model="buyerData.state.name" placeholder="Enter State" readonly>
-                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="tele">Telephone</label>
+                        <input class="form-control" type="tel" id="tele" ng-model="buyerData.telephone" placeholder="Enter Telephone Number" readonly>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="Country">Country</label>
-                          <select class="form-control" name="" id="Country" placeholder="Enter Country" disabled>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="mobile">Mobile No.</label>
+                        <input class="form-control" type="tel" id="mobile" ng-model="buyerData.mobile" placeholder="Enter Mobile Number" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="Address">Registered Address</label>
+                        <input class="form-control" type="text" id="Address" ng-model="buyerData.companyAddress" placeholder="Enter Company Address"
+                          readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="City">City</label>
+                        <input class="form-control" type="text" id="City" ng-model="buyerData.city" placeholder="Enter City" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="Pincode">Pincode</label>
+                        <input class="form-control" type="text" id="Pincode" ng-model="buyerData.pincode" placeholder="Enter Pincode" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="State">State</label>
+                        <input class="form-control" type="text" id="State" ng-model="buyerData.state.name" placeholder="Enter State" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="Country">Country</label>
+                        <select class="form-control" name="" id="Country" placeholder="Enter Country" disabled>
                                                         <option ng-selected="true" value="India">India</option>
                                                     </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="com">Company PAN No.</label>
+                        <div class="input-group attach">
+                          <input class="form-control" type="text" id="com" placeholder="Enter PAN No." ng-model="buyerData.panNo" readonly>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="com">Company PAN No.</label>
-                          <div class="input-group attach">
-                            <input class="form-control" type="text" id="com" placeholder="Enter PAN No." ng-model="buyerData.panNo" readonly>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="vat">VAT TIN No.</label>
-                          <div class="input-group attach">
-                            <input class="form-control" type="text" id="vat" placeholder="Enter VAT TIN No." ng-model="buyerData.vatTinNo" readonly>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="cst">CST TIN No.</label>
-                          <div class="input-group attach">
-                            <input class="form-control" type="text" id="cst" placeholder="Enter CST TIN No." ng-model="buyerData.cstTinNo" readonly>
-                          </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="vat">VAT TIN No.</label>
+                        <div class="input-group attach">
+                          <input class="form-control" type="text" id="vat" placeholder="Enter VAT TIN No." ng-model="buyerData.vatTinNo" readonly>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <h4 class="font-karla-bold text-uppercase spacing">Excise Details</h4>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="cst">CST TIN No.</label>
+                        <div class="input-group attach">
+                          <input class="form-control" type="text" id="cst" placeholder="Enter CST TIN No." ng-model="buyerData.cstTinNo" readonly>
+                        </div>
+                      </div>
                     </div>
-                    <div class="row excise-block">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="reg">Registration No. (ECC)</label>
-                          <div class="input-group attach">
-                            <input class="form-control" type="text" id="reg" placeholder="Enter Registration No." ng-model="buyerData.registrationNo"
-                              readonly>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="range">Range</label>
-                          <input class="form-control" type="text" id="range" placeholder="Enter Range" ng-model="buyerData.range" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="font-karla-bold" for="commissionerate">Commissionerate</label>
-                          <input class="form-control" type="text" id="commissionerate" placeholder="Enter Commissionerate" ng-model="buyerData.commissioneRate"
+                  </div>
+                  <div class="row">
+                    <h4 class="font-karla-bold text-uppercase spacing">Excise Details (Optional)</h4>
+                  </div>
+                  <div class="row excise-block">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="reg">Registration No. (ECC)</label>
+                        <div class="input-group attach">
+                          <input class="form-control" type="text" id="reg" placeholder="Enter Registration No." ng-model="buyerData.registrationNo"
                             readonly>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group div">
-                          <label class="font-karla-bold" for="div">Division</label>
-                          <input class="form-control" type="text" id="div" ng-model="buyerData.division" placeholder="Enter Division" readonly>
-                        </div>
-                      </div>
-                      <div class="col-md-8">
-                        <div class="form-group div">
-                          <label class="font-karla-bold" for="div">Division Address</label>
-                          <textarea class="form-control" name="name" rows="3" ng-model="buyerData.exciseAddress" placeholder="Enter Excise Address"
-                            readonly></textarea>
-                        </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="range">Range</label>
+                        <input class="form-control" type="text" id="range" placeholder="Enter Range" ng-model="buyerData.range" readonly>
                       </div>
                     </div>
-                  </form>
-                </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="font-karla-bold" for="commissionerate">Commissionerate</label>
+                        <input class="form-control" type="text" id="commissionerate" placeholder="Enter Commissionerate" ng-model="buyerData.commissioneRate"
+                          readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group div">
+                        <label class="font-karla-bold" for="div">Division</label>
+                        <input class="form-control" type="text" id="div" ng-model="buyerData.division" placeholder="Enter Division" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group div">
+                        <label class="font-karla-bold" for="div">Division Address</label>
+                        <textarea class="form-control" name="name" rows="3" ng-model="buyerData.exciseAddress" placeholder="Enter Excise Address"
+                          readonly></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-            <!--buyer Profile view end-->
           </div>
-          <div class="certifications">
-            <div class="certification-header">
-              <p>CERTIFICATIONS</p>
-            </div>
-            <div class="row">
-              <div class="col-md-4 col-1">
-                <div class="abc">
-                  <div>
+          <!--buyer Profile view end-->
+        </div>
+        <div class="certifications">
+          <div class="certification-header comp-details">
+            <h4 class="font-karla-bold text-uppercase h-bottom ">CERTIFICATIONS</h4>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-1">
+              <div class="abc">
+                <!--<div>
                     <p class="img-head">VAT NO. {{buyerData.vatTinNo}}</p>
-                  </div>
-                  <div ng-if="!imageOfVatTinNoIsPdf">
-                    <a id="fbplus_01" href="{{buyerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
-                      <img ng-src="{{buyerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive ">
-                    </a>
-                  </div>
-                  <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
-                    <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
-                  </div>
+                  </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">VAT NO. {{buyerData.vatTinNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfVatTinNoIsPdf"><a href="{{buyerData.imageOfVatTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfVatTinNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" download><i class="fa fa-download"></i></a></span>
                 </div>
-              </div>
-              <div class="col-md-4 col-2">
-                <div class="abc">
-                  <div>
-                    <p class="img-head">CST NO. {{buyerData.cstTinNo}}</p>
-                  </div>
-                  <div ng-if="!imageOfCstTinNoIsPdf">
-                    <a id="fbplus_01" href="{{buyerData.imageOfCstTinNo|uploadpath}}" fancybox-box>
-                      <img ng-src="{{buyerData.imageOfCstTinNo|uploadpath}} " alt=" " class="get-center img-responsive ">
-                    </a>
-                  </div>
-                  <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
-                    <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
-                  </div>
+                <div class="clearfix"></div>
+                <div ng-if="!imageOfVatTinNoIsPdf">
+                  <a id="fbplus_01" href="{{buyerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
+                    <img ng-src="{{buyerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                  </a>
                 </div>
-              </div>
-              <div class="col-md-4 col-3">
-                <div class="abc">
-                  <div>
-                    <p class="img-head">PAN NO. {{buyerData.panNo}}</p>
-                  </div>
-                  <div ng-if="!imageOfPanNoIsPdf">
-                    <a id="fbplus_01" href="{{buyerData.imageOfPanNo|uploadpath}}" fancybox-box>
-                      <img ng-src="{{buyerData.imageOfPanNo|uploadpath}} " alt=" " class="get-center img-responsive ">
-                    </a>
-                  </div>
-                  <div class="text-center" ng-if="imageOfPanNoIsPdf">
-                    <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
-                  </div>
+                <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
+                  <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-4 col-1">
-                <div class="abc">
-                  <div>
+            <div class="col-md-4 col-2">
+              <div class="abc">
+                <!--<div>
+                    <p class="img-head">CST NO. {{buyerData.cstTinNo}}</p>
+                  </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">CST NO. {{buyerData.cstTinNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfCstTinNoIsPdf"><a href="{{buyerData.imageOfCstTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" download><i class="fa fa-download"></i></a></span>
+                </div>
+                <div class="clearfix"></div>
+                <div ng-if="!imageOfCstTinNoIsPdf">
+                  <a id="fbplus_01" href="{{buyerData.imageOfCstTinNo|uploadpath}}" fancybox-box>
+                    <img ng-src="{{buyerData.imageOfCstTinNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                  </a>
+                </div>
+                <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
+                  <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-3">
+              <div class="abc">
+                <!--<div>
+                    <p class="img-head">PAN NO. {{buyerData.panNo}}</p>
+                  </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">PAN NO. {{buyerData.panNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfPanNoIsPdf"><a href="{{buyerData.imageOfPanNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" download><i class="fa fa-download"></i></a></span>
+                </div>
+                <div class="clearfix"></div>
+                <div ng-if="!imageOfPanNoIsPdf">
+                  <a id="fbplus_01" href="{{buyerData.imageOfPanNo|uploadpath}}" fancybox-box>
+                    <img ng-src="{{buyerData.imageOfPanNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                  </a>
+                </div>
+                <div class="text-center" ng-if="imageOfPanNoIsPdf">
+                  <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-1">
+              <div class="abc">
+                <!--<div>
                     <p class="img-head">Registration No. (ECC) {{buyerData.registrationNo}}</p>
-                  </div>
-                  <div ng-if="!imageOfregistrationNoIsPdf">
-                    <a id="fbplus_01" href="{{buyerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
-                      <img ng-src="{{buyerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
-                    </a>
-                  </div>
-                  <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-                    <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
-                  </div>
+                  </div>-->
+                <div class="align-info">
+                  <p class="img-head pull-left">Registration No.(ECC) {{buyerData.registrationNo}}</p>
+                  <span class="download-btn hide pull-right" ng-if="!imageOfregistrationNoIsPdf"><a href="{{buyerData.imageOfregistrationNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
+                  <span class="download-btn hide pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" download><i class="fa fa-download"></i></a></span>
+                </div>
+                <div class="clearfix"></div>
+                <div ng-if="!imageOfregistrationNoIsPdf">
+                  <a id="fbplus_01" href="{{buyerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
+                    <img ng-src="{{buyerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                  </a>
+                </div>
+                <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
+                  <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <!--</div>-->
       </div>
     </div>
   </div>

@@ -98,12 +98,16 @@
                       <button type="button" ng-if="allorder.bill[0].order.paymentStatus !== 'Paid'" ng-click="editOrder(allorder.order.orderId);"
                         class="btn btn-primary return">EDIT</button>
                     </div>
+                    <div class="inline-block editplace">
+                      <button type="button" ng-if="allorder.bill[0].order.paymentStatus === 'Paid'" ng-click="viewOrder(allorder.order.orderId);"
+                        class="btn btn-primary return">View Payment Detail</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </P>
           </div>
-          <div ng-repeat="order in allorder.bill">
+          <div ng-repeat="order in allorder.bill | orderBy:'orderBillStringId'">
             <div class="order-details ">
               <div class="magic-form">
                 <div class="magic-resize">
@@ -128,18 +132,18 @@
                 <tr>
                   <td>{{order.inventory.category.name}}: {{order.qty}}</td>
                   <td>
-                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
-                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;"> {{order.inventory.seller.firmName}}</p>
+                    <!--<p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>-->
                     <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
                       <br/> {{order.warehouse.warehouseAddress}},
                       <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
                       <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
                     </p>
-                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
-                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                    <p style="margin:0;">Contact: {{order.inventory.seller.mobile}}</p>
                   </td>
                   <td>
-                    {{order.subTotal| currency:'&#8377;'}}
+                    <!--{{order.subTotal| currency:'&#8377;'}}-->
+                    {{order.totalCalculatedForABill| currency:'&#8377;'}}
                   </td>
                   <td>
                     {{order.deliveryStatus}}<br>
@@ -306,18 +310,18 @@
                 <tr>
                   <td>{{order.inventory.categories.name}}: {{order.qty}}</td>
                   <td>
-                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
-                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;"> {{order.inventory.sellers.firmName}}</p>
                     <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
                       <br/> {{order.warehouse.warehouseAddress}},
                       <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
-                      <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
+                      <br/> {{order.warehouse.warehouseState[0].name}}, {{order.warehouse.warehouseCountry}}
                     </p>
-                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
-                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                    <p style="margin:0;">Contact: {{order.inventory.sellers.mobile}}</p>
+                    <!--<p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>-->
                   </td>
                   <td>
-                    {{order.subTotal| currency:'&#8377;'}}
+                    {{order.totalCalculatedForABill| currency:'&#8377;'}}
+                    <!--{{order.subTotal| currency:'&#8377;'}}-->
                   </td>
                   <td>
                     {{order.deliveryStatus}}<br>
@@ -447,9 +451,9 @@
             <div class="pull-right">
               <label class="control-label inline-block statusplaces" for="">Payment Status :{{order.order.paymentStatus}}</label>
             </div>
-            <div class="pull-right">
+            <!--<div class="pull-right">
               <label class="control-label inline-block statusplaces" for="">Total Amount :{{order.order.totalAmount| currency:'&#8377;'}}</label>
-            </div>
+            </div>-->
           </div>
           <div>
             <div class="order-details ">
@@ -468,7 +472,7 @@
                 <tr>
                   <th><strong>ORDER</strong></th>
                   <th><strong>SELLER</strong></th>
-                  <th><strong>AMOUNT</strong></th>
+                  <th><strong>TOTAL AMOUNT</strong></th>
                   <th><strong>ORDER STATUS</strong></th>
                 </tr>
               </thead>
@@ -476,18 +480,17 @@
                 <tr>
                   <td>{{order.inventory.categories.name}}: {{order.qty}}</td>
                   <td>
-                    <p ng-if="selleris==false" style="margin:0;"> {{order.inventory.seller.firmName}}</p>
-                    <p ng-if="selleris==true" style="margin:0;"> {{order.inventories.sellers.firmName}}</p>
+                    <p style="margin:0;"> {{order.inventory.sellers.firmName}}</p>
                     <p style="margin:0;" ng-if="order.warehouse"> Address: {{order.warehouse.warehouseFirmName}},
                       <br/> {{order.warehouse.warehouseAddress}},
                       <br/> {{order.warehouse.warehouseCity}}-{{order.warehouse.warehousePincode}},
-                      <br/> {{order.warehouse.warehouseState.name}}, {{order.warehouse.warehouseCountry}}
+                      <br/> {{order.warehouse.warehouseState[0].name}}, {{order.warehouse.warehouseCountry}}
                     </p>
-                    <p style="margin:0;" ng-if="selleris==true">Contact: {{order.inventories.sellers.mobile}}</p>
-                    <p style="margin:0;" ng-if="selleris==false">Contact: {{order.inventors.seller.mobile}}</p>
+                    <p style="margin:0;">Contact: {{order.inventory.sellers.mobile}}</p>
                   </td>
                   <td>
-                    {{order.subTotal| currency:'&#8377;'}}
+                    {{order.totalCalculatedForABill | currency:'&#8377;'}}
+                    <!--{{order.subTotal| currency:'&#8377;'}}-->
                   </td>
                   <td>
                     {{order.deliveryStatus}}<br>

@@ -1,6 +1,6 @@
 // var adminURL = "http://localhost:1337/";
-// var adminURL = "http://104.155.129.33:1337/";
-var adminURL = "http://35.154.98.245:1337/";
+var adminURL = "http://104.155.129.33:1337/";
+// var adminURL = "http://35.154.98.245:1337/";
 
 
 var imgurl = adminURL + "upload/";
@@ -376,7 +376,7 @@ var navigationservice = angular.module('navigationservice', [])
       addAgency: function (agencydata, callback) {
         var data = agencydata;
         return $http({
-          url: adminURL + "inspection/save",
+          url: adminURL + "inspection/saveInspection",
           method: "POST",
           data: data
         }).success(callback);
@@ -823,10 +823,12 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
-      getAllSellerProducts: function (callback) {
+      getAllSellerProducts: function (input, callback) {
         // var data = senddata;
+        // url: adminURL + "inventory/getAllSellerProducts",
         return $http({
-          url: adminURL + "inventory/getAllSellerProducts",
+          url: adminURL + "inventory/getAll",
+          data: input,
           method: "POST"
         }).success(callback);
       },

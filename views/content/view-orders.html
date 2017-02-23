@@ -66,7 +66,7 @@
                                 <h2>SELLER</h2>
                             </div>
                             <div class="info">
-                                <p>{{detailBill.inventory.seller.firmName}}</p>
+                                <p>{{detailBill.buyer.firstName}} {{detailBill.buyer.lastName}}</p>
                                 <p> {{detailBill.warehouse.warehouseFirmName}},<br/> {{detailBill.warehouse.warehouseAddress}},
                                     <br/> {{detailBill.warehouse.warehouseCity}}-{{detailBill.warehouse.warehousePincode}},
                                     <br/> {{detailBill.warehouse.warehouseState.name}}, {{detailBill.warehouse.warehouseCountry}}
@@ -189,7 +189,8 @@
                                         <td></td>
                                         <td>Seller Name</td>
                                         <td>
-                                            {{detailBill.inventory.seller.firstName}} {{detailBill.inventory.seller.lastName}}
+                                            {{detailBill.inventory.seller.firmName}}
+                                            <!--{{detailBill.inventory.seller.firstName}} {{detailBill.inventory.seller.lastName}}-->
                                             <!--<span uib-rating ng-model="rate " max="max " read-only="isReadonly
                                                                 " on-hover="hoveringOver(value) " class="table-rating " on-leave="overStar=null "
                                                                             titles="[ 'one', 'two', 'three']
@@ -600,7 +601,7 @@
                         <div class="comment-section">
                             <div class="form-group">
                                 <label for="comment">COMMENTS</label>
-                                <textarea class="form-control" rows="5" id="comment"></textarea>
+                                <textarea class="form-control" rows="7" id="comment"></textarea>
                             </div>
                             <label class="add pull-right">ADD</label>
                         </div>
@@ -621,6 +622,12 @@
                                   <td>RS. xxx
                                   </td>
                               </tr> -->
+                                    <tr ng-if="discount != 0">
+                                        <td>DISCOUNT
+                                        </td>
+                                        <td>{{discount}}
+                                        </td>
+                                    </tr>
                                     <tr ng-if="vat != 0">
                                         <td>VAT {{detailBill.inventory.vat}}%:
                                         </td>
@@ -635,12 +642,12 @@
                                             Rs. {{cst}}
                                         </td>
                                     </tr>
-                                    <!--<tr>
-                                    <td>DISCOUNT
-                                    </td>
-                                    <td>RS. 200.00
-                                    </td>
-                                </tr>-->
+                                    <tr>
+                                        <td>GROSS AMOUNT
+                                        </td>
+                                        <td>RS. {{grossTotal}}
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>TRANSPORT
                                         </td>
@@ -648,9 +655,9 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>GRAND TOTAL
+                                        <td>TOTAL AMOUNT
                                         </td>
-                                        <td>RS. {{granTotal}}
+                                        <td>RS. {{grandTotal}}
                                         </td>
                                     </tr>
                                 </tbody>

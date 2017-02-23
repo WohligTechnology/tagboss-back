@@ -68,7 +68,7 @@
                                     <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                     <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> {{inventory.odInches}} Nb x {{inventory.sch}} </li>
+                                    <li> {{inventory.odInches}}" Nb x Sch {{inventory.sch}} </li>
                                     <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                 </ul>
                                 <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
@@ -89,7 +89,7 @@
                                     <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                     <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> {{inventory.diameter}} mm</li>
+                                    <li> Dia {{inventory.diameter}} mm</li>
                                     <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                 </ul>
                             </td>

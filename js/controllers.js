@@ -831,7 +831,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.assignInspection = function (inventorydata, indexid) {
             console.log("asssign", inventorydata.agentIDTemp, indexid);
             if (inventorydata.agentIDTemp != undefined) {
-
                 var senddata = {};
                 senddata._id = inventorydata._id;
                 senddata.agencyid = inventorydata.agentIDTemp;
@@ -841,7 +840,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 $scope.mydate = new Date();
                 $scope.newdate = $scope.mydate.setDate($scope.mydate.getDate() + 6);
                 senddata.duedate = $filter('date')(new Date($scope.newdate), 'dd MMM yyyy');
-                senddata.report = inventorydata.report;
+                // senddata.report = inventorydata.report;
                 if (inventorydata.category.name === "Pipes") {
                     senddata.price = inventorydata.ratePerKgMtr;
                     senddata.quantity = inventorydata.totalQty;
@@ -960,8 +959,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View Seller Products");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $scope.allMoc = [];
+        $scope.allCategory = [];
         $scope.showProd = false;
+        $scope.productAdd = {};
+        $scope.productAdd.moc = {};
         $scope.showSell = true;
         $scope.showProduct = function (id) {
             $scope.showProd = true;
@@ -980,19 +982,48 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         };
 
         $scope.getMocByCat = function (id) {
+            console.log(id);
             NavigationService.getMocByCat(id, function (data) {
                 if (data.value == true) {
-                    $scope.allMoc = data.data;
-                    console.log("aaa", $scope.allMoc);
+                    if (id == 'All') {
+                        $scope.allMoc = {};
+                    } else {
+                        data.data.unshift({
+                            '_id': 'All',
+                            'name': 'All'
+                        })
+                        $scope.allMoc = data.data;
+                        console.log("aaa", $scope.allMoc);
+                    }
                 }
             });
+            $scope.productAdd.moc._id = '';
+            $scope.constraints.category = id;
+            $scope.constraints.pagenumber = 1;
+            $scope.constraints.pagesize = 10;
+            $scope.constraints.text = '';
+            $scope.selectedStatus = 'All';
+            $scope.constraints.moc = 'All';
+            $scope.getAllSellerProducts();
         }
 
-
+        $scope.filterMoc = function (data) {
+            $scope.constraints.moc = data;
+            $scope.constraints.pagenumber = 1;
+            $scope.constraints.pagesize = 10;
+            $scope.constraints.text = '';
+            $scope.selectedStatus = 'All';
+            $scope.getAllSellerProducts();
+        }
 
         $scope.getAllCategory = function () {
             NavigationService.getAllCategory(function (data) {
                 if (data.value == true) {
+                    data.data.results.unshift({
+                        '_id': 'All',
+                        'name': 'All',
+                        'createdAt': '2016-10-25T15:14:02.064Z'
+                    })
                     $scope.allCategory = data.data.results;
                     console.log("cat", $scope.allCategory);
                 }
@@ -1002,11 +1033,48 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.getAllCategory();
 
 
+
+
+        $scope.constraints = {};
+        $scope.constraints.pagenumber = 1;
+        $scope.constraints.pagesize = 10;
+        $scope.constraints.text = '';
+        $scope.constraints.category = 'All';
+        $scope.constraints.moc = 'All';
+        $scope.selectedStatus = 'All';
+        $scope.searchInProducts = function (data) {
+            $scope.constraints.pagenumber = 1;
+            $scope.constraints.pagesize = 10;
+            if (data.length >= 2) {
+                $scope.constraints.text = data;
+                $scope.getAllSellerProducts();
+            } else if (data.length == '') {
+                $scope.constraints.text = data;
+                $scope.getAllSellerProducts();
+            }
+        }
+        $scope.filterProducts = function (data) {
+            $scope.constraints.pagenumber = 1;
+            $scope.constraints.pagesize = 10;
+            $scope.constraints.status = data;
+            $scope.selectedStatus = data;
+            $scope.getAllSellerProducts();
+        }
         $scope.getAllSellerProducts = function () {
-            NavigationService.getAllSellerProducts(function (data) {
+            $(window).scrollTop(0);
+            $scope.search = $scope.constraints.text;
+            $scope.constraints.status = $scope.selectedStatus;
+            $scope.constraints.pagenumber = $scope.constraints.pagenumber++;
+            NavigationService.getAllSellerProducts($scope.constraints, function (data) {
                 if (data.value == true) {
-                    $scope.allSellerProducts = data.data;
-                    console.log("$scope.allSellerProducts", $scope.allSellerProducts);
+                    $scope.allSellerProducts = undefined;
+                    if (_.isEmpty(data.data)) {
+                        $scope.allSellerProducts = null;
+                    } else {
+                        $scope.allSellerProducts = data.data.products;
+                        $scope.totalSizes = data.data.total;
+                        console.log("$scope.allSellerProducts", $scope.allSellerProducts);
+                    }
                 }
             });
         }
@@ -1227,8 +1295,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.navigation = NavigationService.getnav();
         TemplateService.header = 'views/headeragencylogin.html';
         TemplateService.sidemenu = '';
-
-
         $scope.logindata = {};
         $scope.error = false
         $scope.Login = function (logindata) {
@@ -1701,21 +1767,39 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.detailBill = data.data;
                     $scope.qtyKg = (data.data.sizeQtyLength * data.data.inventory.theoreticalwt).toFixed(2);
                     $scope.sizeQty = $scope.detailBill.sizeQty;
-                    if ($scope.detailBill.order.delivery[0].deliveryState == $scope.detailBill.warehouse.warehouseState) {
-                        $scope.calvat = ($scope.detailBill.price * ($scope.detailBill.inventory.vat / 100));
-                        $scope.vat = ($scope.calvat).toFixed(2);
-                        $scope.cst = 0.00;
+                    if ($scope.detailBill.discount) {
+                        $scope.discount = $scope.detailBill.discount;
+                        $scope.couponPrice = $scope.detailBill.price - $scope.detailBill.discount;
+                        if ($scope.detailBill.order.delivery[0].deliveryState.name == $scope.detailBill.warehouse.warehouseState.name) {
+                            $scope.calvat = ($scope.couponPrice * ($scope.detailBill.inventory.vat / 100));
+                            $scope.vat = ($scope.calvat).toFixed(2);
+                            $scope.cst = 0.00;
+                        } else {
+                            $scope.calcst = ($scope.couponPrice * ($scope.detailBill.inventory.cst / 100));
+                            $scope.cst = ($scope.calcst).toFixed(2);
+                            $scope.vat = 0.00;
+                        }
+                        $scope.granTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat + $scope.detailBill.transportCharges - $scope.detailBill.discount);
+                        $scope.gTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat - $scope.detailBill.discount);
+                        $scope.grandTotal = ($scope.granTotal).toFixed(2);
+                        $scope.grossTotal = ($scope.gTotal).toFixed(2);
                     } else {
-                        $scope.calcst = ($scope.detailBill.price * ($scope.detailBill.inventory.cst / 100));
-                        $scope.cst = ($scope.calcst).toFixed(2);
-                        $scope.vat = 0.00;
+                        $scope.discount = 0.00;
+                        $scope.couponPrice = $scope.detailBill.price - $scope.detailBill.discount;
+                        if ($scope.detailBill.order.delivery[0].deliveryState.name == $scope.detailBill.warehouse.warehouseState.name) {
+                            $scope.calvat = ($scope.detailBill.price * ($scope.detailBill.inventory.vat / 100));
+                            $scope.vat = ($scope.calvat).toFixed(2);
+                            $scope.cst = 0.00;
+                        } else {
+                            $scope.calcst = ($scope.detailBill.price * ($scope.detailBill.inventory.cst / 100));
+                            $scope.cst = ($scope.calcst).toFixed(2);
+                            $scope.vat = 0.00;
+                        }
+                        $scope.granTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat + $scope.detailBill.transportCharges);
+                        $scope.gTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat);
+                        $scope.grandTotal = ($scope.granTotal).toFixed(2);
+                        $scope.grossTotal = ($scope.gTotal).toFixed(2);
                     }
-
-                    // $scope.discount = ($scope.detailBill.inventory.finalPrice * ($scope.detailBill.inventory.discount / 100)).toFixed(2);
-                    // $scope.granTotal = ($scope.detailBill.price + $scope.calvat + $scope.detailBill.transporterCharges) - $scope.discount;
-                    $scope.granTotal = ($scope.detailBill.price + $scope.calcst + $scope.calvat + $scope.detailBill.transportCharges);
-                    console.log($scope.vat, $scope.granTotal, $scope.calcst);
-                    console.log("$scope.detailBill", $scope.detailBill);
                 } else {
                     $scope.detailBill = "";
                 }
@@ -1785,6 +1869,28 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
 
+        $scope.viewOrder = function (id) {
+            $scope.order = {};
+            // var subid = id.slice(1);
+            // $scope.order.orderid = subid;
+            console.log(id);
+            $scope.order.orderid = id;
+
+            NavigationService.getOrder($scope.order.orderid, function (data) {
+                if (data.value == true) {
+                    $scope.orderData = data.data;
+                    $scope.orderDate = data.data.buyerPaymentDate;
+                    $scope.orderData.buyerPaymentDate = $filter('date')($scope.orderData.buyerPaymentDate, "dd-MM-yyyy");
+                    // $scope.orderData.buyerPaymentDate = new Date($scope.orderData.buyerPaymentDate);
+                    console.log("aa", $scope.orderData);
+                    ordermod = $uibModal.open({
+                        animation: true,
+                        templateUrl: "views/modal/vieweditedorder.html",
+                        scope: $scope,
+                    });
+                }
+            });
+        }
 
         $scope.getCountDown = function (adate, orderid, myindex, todate) {
             // console.log("statename", $state);
@@ -1943,6 +2049,53 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.allData = data.data.orders;
                     $scope.totalItems = data.data.total;
                     console.log("$scope.allData", $scope.allData, "$scope.totalItems", $scope.totalItems);
+                    $scope.allData.vatInclusive = [];
+                    _.each($scope.allData, function (n) {
+                        $scope.calvat = 0.00;
+                        $scope.calcst = 0.00;
+                        $scope.couponPrice = 0.00;
+                        _.each(n.bill, function (detailBill) {
+                            if (detailBill.discount) {
+                                $scope.couponPrice = detailBill.price - detailBill.discount;
+                                $scope.discount = detailBill.discount;
+                                console.log($scope.couponPrice);
+                                if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState.name) {
+                                    $scope.calvat = ($scope.couponPrice * (detailBill.inventory.vat / 100));
+                                    $scope.vat = ($scope.calvat).toFixed(2);
+                                    $scope.cst = 0.00;
+                                } else {
+                                    $scope.calcst = ($scope.couponPrice * (detailBill.inventory.cst / 100));
+                                    $scope.cst = ($scope.calcst).toFixed(2);
+                                    $scope.vat = 0.00;
+                                }
+                                $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges - detailBill.discount);
+                                console.log($scope.vat, $scope.vatIncTotal);
+                                // $scope.vatInclusive = ($scope.vatIncTotal).toFixed(2);
+                                $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                            } else {
+                                $scope.discount = 0.00;
+                                if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState.name) {
+                                    $scope.calvat = (detailBill.price * (detailBill.inventory.vat / 100));
+                                    $scope.vat = ($scope.calvat).toFixed(2);
+                                    $scope.cst = 0.00;
+                                } else {
+                                    $scope.calcst = (detailBill.price * (detailBill.inventory.cst / 100));
+                                    $scope.cst = ($scope.calcst).toFixed(2);
+                                    $scope.vat = 0.00;
+                                }
+                                $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges);
+                                // console.log($scope.vat, $scope.vatIncTotal);
+                                $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                                // $scope.vatInclusive = ($scope.vatIncTotal).toFixed(2);
+                            }
+                            _.each($scope.allData.vatInclusive, function (data) {
+                                console.log(data);
+                                detailBill.totalCalculatedForABill = data;
+                            });
+                        });
+
+                    });
+
                 } else {
                     $scope.allData = [];
                 }
@@ -2000,6 +2153,56 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                             // $scope.allData = data.data;
                             $scope.totalItems = data.data.total;
                             console.log("$scope.aaaaallData", $scope.allData);
+                            $scope.allData.vatInclusive = [];
+                            _.each($scope.allData, function (detailBill) {
+                                $scope.calvat = 0.00;
+                                $scope.calcst = 0.00;
+                                $scope.couponPrice = 0.00;
+                                console.log(detailBill);
+                                if (detailBill.discount) {
+                                    $scope.couponPrice = detailBill.price - detailBill.discount;
+                                    $scope.discount = detailBill.discount;
+                                    console.log($scope.couponPrice);
+                                    if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState[0].name) {
+                                        $scope.calvat = ($scope.couponPrice * (detailBill.inventory.vat / 100));
+                                        console.log($scope.calvat);
+                                        $scope.vat = ($scope.calvat).toFixed(2);
+                                        $scope.cst = 0.00;
+                                    } else {
+                                        $scope.calcst = ($scope.couponPrice * (detailBill.inventory.cst / 100));
+                                        console.log($scope.calcst);
+                                        $scope.cst = ($scope.calcst).toFixed(2);
+                                        $scope.vat = 0.00;
+                                    }
+                                    $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges - detailBill.discount);
+                                    console.log($scope.vat, $scope.vatIncTotal);
+                                    $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                                    // $scope.vatInclusive = ($scope.vatIncTotal).toFixed(2);
+                                    console.log($scope.allData.vatInclusive);
+                                } else {
+                                    $scope.discount = 0.00;
+                                    if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState[0].name) {
+                                        $scope.calvat = (detailBill.price * (detailBill.inventory.vat / 100));
+                                        console.log($scope.calvat);
+                                        $scope.vat = ($scope.calvat).toFixed(2);
+                                        $scope.cst = 0.00;
+                                    } else {
+                                        $scope.calcst = (detailBill.price * (detailBill.inventory.cst / 100));
+                                        console.log($scope.calcst);
+                                        $scope.cst = ($scope.calcst).toFixed(2);
+                                        $scope.vat = 0.00;
+                                    }
+                                    $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges);
+                                    console.log($scope.vat, $scope.vatIncTotal);
+                                    $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                                    console.log($scope.allData.vatInclusive);
+                                }
+                                console.log('Array', $scope.allData.vatInclusive);
+                                _.each($scope.allData.vatInclusive, function (n) {
+                                    console.log(n);
+                                    detailBill.totalCalculatedForABill = n;
+                                });
+                            });
                         } else {
                             $scope.allData = [];
                         }
@@ -2017,6 +2220,56 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                             // $scope.allData = data.data;
                             $scope.totalItems = data.data.total;
                             console.log("$scope.aaaaallData", $scope.allData);
+                            $scope.allData.vatInclusive = [];
+                            _.each($scope.allData, function (detailBill) {
+                                $scope.calvat = 0.00;
+                                $scope.calcst = 0.00;
+                                $scope.couponPrice = 0.00;
+                                console.log(detailBill);
+                                if (detailBill.discount) {
+                                    $scope.couponPrice = detailBill.price - detailBill.discount;
+                                    $scope.discount = detailBill.discount;
+                                    console.log($scope.couponPrice);
+                                    if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState[0].name) {
+                                        $scope.calvat = ($scope.couponPrice * (detailBill.inventory.vat / 100));
+                                        console.log($scope.calvat);
+                                        $scope.vat = ($scope.calvat).toFixed(2);
+                                        $scope.cst = 0.00;
+                                    } else {
+                                        $scope.calcst = ($scope.couponPrice * (detailBill.inventory.cst / 100));
+                                        console.log($scope.calcst);
+                                        $scope.cst = ($scope.calcst).toFixed(2);
+                                        $scope.vat = 0.00;
+                                    }
+                                    $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges - detailBill.discount);
+                                    console.log($scope.vat, $scope.vatIncTotal);
+                                    $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                                    // $scope.vatInclusive = ($scope.vatIncTotal).toFixed(2);
+                                    console.log($scope.allData.vatInclusive);
+                                } else {
+                                    $scope.discount = 0.00;
+                                    if (detailBill.order.delivery.deliveryState.name == detailBill.warehouse.warehouseState[0].name) {
+                                        $scope.calvat = (detailBill.price * (detailBill.inventory.vat / 100));
+                                        console.log($scope.calvat);
+                                        $scope.vat = ($scope.calvat).toFixed(2);
+                                        $scope.cst = 0.00;
+                                    } else {
+                                        $scope.calcst = (detailBill.price * (detailBill.inventory.cst / 100));
+                                        console.log($scope.calcst);
+                                        $scope.cst = ($scope.calcst).toFixed(2);
+                                        $scope.vat = 0.00;
+                                    }
+                                    $scope.vatIncTotal = (detailBill.price + $scope.calcst + $scope.calvat + detailBill.transportCharges);
+                                    console.log($scope.vat, $scope.vatIncTotal);
+                                    $scope.allData.vatInclusive.push(($scope.vatIncTotal).toFixed(2));
+                                    console.log($scope.allData.vatInclusive);
+                                }
+                                console.log('Array', $scope.allData.vatInclusive);
+                                _.each($scope.allData.vatInclusive, function (n) {
+                                    console.log(n);
+                                    detailBill.totalCalculatedForABill = n;
+                                });
+                            });
                         } else {
                             $scope.allData = [];
                         }
@@ -2586,6 +2839,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.max = 5;
         $scope.isReadonly = false;
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
         $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         $scope.hoveringOver = function (value) {
             $scope.overStar = value;
@@ -2718,6 +2972,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.imageOfregistrationNoIsPdf = true;
                 } else {
                     $scope.imageOfregistrationNoIsPdf = false;
+                }
+                if ($scope.sellerData.imageImportExportCode.indexOf(".pdf") != -1) {
+                    $scope.imageImportExportCodeIsPdf = true;
+                } else {
+                    $scope.imageImportExportCodeIsPdf = false;
                 }
             }
         });
@@ -3232,8 +3491,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getInventory();
 
-
-
         $scope.uploadReport = function (err, data) {
             if (err) {
                 $scope.errorMsgpan = err;
@@ -3266,15 +3523,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.productEdit = data.data;
                 }
             });
-
         };
-
         $scope.showInspection = function () {
             $scope.hideEdit = true;
             $scope.showEdit = false;
         };
-
-
 
     })
 

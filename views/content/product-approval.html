@@ -72,7 +72,7 @@
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>
-                                        <li> {{inventory.odInches}} Nb x {{inventory.sch}} </li>
+                                        <li> {{inventory.odInches}}" Nb x Sch {{inventory.sch}} </li>
                                         <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                     <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
@@ -93,7 +93,7 @@
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>
-                                        <li> {{inventory.diameter}} mm</li>
+                                        <li> Dia {{inventory.diameter}} mm</li>
                                         <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                 </td>
@@ -200,7 +200,7 @@
                     </h3>
                     <div class="back-insp pull-right " ng-click="showInspection() ">
                         <p>
-                            < bact to inspection and approval</p>
+                            < back to inspection and approval</p>
                     </div>
                 </div>
             </div>
@@ -263,7 +263,7 @@
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="brand " class="font-karla-bold ">Product Description</label>
+                                        <label for="detailplate" class="font-karla-bold productDesc"><span class="">Product Description </span><span class="">(optional)</span></label>
                                     </div>
                                     <div class="col-md-6 ">
                                         <textarea class="form-control " name="name " rows="2 " ng-model="productEdit.details ">{{productEdit.details}}</textarea>
@@ -366,7 +366,7 @@
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="odi " class="font-karla-bold ">OD in Inches</label>
+                                        <label for="odi " class="font-karla-bold ">NB in Inches</label>
                                     </div>
                                     <div class="col-md-6 ">
                                         <input type="text " class="form-control " name=" " ng-model="productEdit.odInches
@@ -407,7 +407,54 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group ">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="brand" class="font-karla-bold">Stock in Mtrs</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="stock">
+                                            <div class="">
+                                                <div class="sizeqty length-range">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    length
+                                                                </th>
+                                                                <th class="">
+                                                                    quantity
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="addSizeQty in productEdit.sizeQty">
+                                                                <td class="borb">
+                                                                    <input type="number" ng-model="addSizeQty.size" ng-change="valueTotalQuantity()" readonly>
+                                                                </td>
+                                                                <td class="borrb">
+                                                                    <input type="number" name="otherqty" ng-model="addSizeQty.qty" ng-change="valueTotalQuantity()" readonly>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="totalstock">
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" ng-model="productEdit.totalQty" readonly></h3>
+                                                <span class="unit-size">Nos.</span>
+                                            </div>
+                                            <div class="totalstock">
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" ng-model="productEdit.totalLength" readonly></h3>
+                                                <span class="unit-size">Mtrs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
                                         <label for="brand " class="font-karla-bold ">Stock in Mtrs</label>
@@ -455,7 +502,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <!--<div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
@@ -470,26 +517,23 @@
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="rate " class="font-karla-bold ">Rate per mtr</label>
+                                        <label for="pricePerKg " class="font-karla-bold ">Price Per Kg</label>
                                     </div>
                                     <div class="col-md-6 ">
-                                        <input type="text " class="form-control " only-decimal name="rate " id="rate
-                                                " ng-model="productEdit.ratePerKgMtr " ng-change="valueAll(productEdit.ratePerKgMtr) "
-                                            required>
-                                        <i class="fa fa-check tick " ng-show="productEdit.ratePerKgMtr "></i>
-                                        <div class="error-msg61 " ng-if="editProduct.rate.$invalid && editProduct.rate.$touched ">Please Enter Rate per mtr</div>
+                                        <input type="text " class="form-control " name="perKg " ng-model="productEdit.pricePerKg
+                                                " id="pricePerKg " readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="exciseMpm " class="font-karla-bold excisem "><span>Excise Modvat per mtr</span>
-                                <span>(included in price above)</span></label>
+                                        <label for="exciseMpk " class="font-karla-bold excise "><span>Per KG Excise Modvat</span>
+                                    <span>(included in price per kg)</span></label>
                                     </div>
                                     <div class="col-md-6 ">
-                                        <input type="text " class="form-control " name="exciseMpm " ng-model="productEdit.exciseModvatPerProduct
-                                                " id="exciseMpm " readonly>
+                                        <input type="text " class="form-control " name="exciseMpk " ng-model="productEdit.exciseModvatPerKg
+                                                " id="exciseMpk " readonly>
                                     </div>
                                 </div>
                             </div>
@@ -519,23 +563,26 @@
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="pricePerKg " class="font-karla-bold ">Price Per Kg</label>
+                                        <label for="rate " class="font-karla-bold ">Rate per mtr</label>
                                     </div>
                                     <div class="col-md-6 ">
-                                        <input type="text " class="form-control " name="perKg " ng-model="productEdit.pricePerKg
-                                                " id="pricePerKg " readonly>
+                                        <input type="text " class="form-control " only-decimal name="rate " id="rate
+                                                " ng-model="productEdit.ratePerKgMtr " ng-change="valueAll(productEdit.ratePerKgMtr) "
+                                            required>
+                                        <!--<i class="fa fa-check tick " ng-show="productEdit.ratePerKgMtr "></i>-->
+                                        <div class="error-msg61 " ng-if="editProduct.rate.$invalid && editProduct.rate.$touched ">Please Enter Rate per mtr</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <div class="row ">
                                     <div class="col-md-6 ">
-                                        <label for="exciseMpk " class="font-karla-bold excise "><span>Per KG Excise Modvat</span>
-                                    <span>(included in price per kg)</span></label>
+                                        <label for="exciseMpm " class="font-karla-bold excisem "><span>Excise Modvat per mtr</span>
+                                <span>(included in price above)</span></label>
                                     </div>
                                     <div class="col-md-6 ">
-                                        <input type="text " class="form-control " name="exciseMpk " ng-model="productEdit.exciseModvatPerKg
-                                                " id="exciseMpk " readonly>
+                                        <input type="text " class="form-control " name="exciseMpm " ng-model="productEdit.exciseModvatPerProduct
+                                                " id="exciseMpm " readonly>
                                     </div>
                                 </div>
                             </div>
@@ -547,7 +594,7 @@
                                     <div class="col-md-6 ">
                                         <input type="text " class="form-control " name="discountpipe " ng-model="productEdit.discount
                                                 " id="discount " ng-change="valueAll(productEdit.discount) " required>
-                                        <i class="fa fa-check tick " ng-show="productEdit.discount "></i>
+                                        <!--<i class="fa fa-check tick " ng-show="productEdit.discount "></i>-->
                                         <div class="error-msg13 " ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched ">Please Enter Discount</div>
                                         <div class="error-msg13 " ng-if="productEdit.discount> 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
@@ -559,7 +606,7 @@
                                         <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice.toFixed(2)" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
                                         <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
@@ -593,11 +640,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="custom-radiobtns">
-                                            <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
+                                            <label for="radio4" class="" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
                                             <span class="customers" ng-if="productEdit.mtcStatus == 'Original'">Customers like to buy products with original MTC</span>
-                                            <label for="radio5" class="custspace" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
-                                            <label for="radio6" class="custspace" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
+                                            <label for="radio5" class="" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
+                                            <label for="radio6" class="" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
@@ -626,7 +673,8 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                        <!--<label for="brand" class="font-karla-bold">Product Description</label>-->
+                                        <label for="detailplate" class="font-karla-bold productDesc"><span class="">Product Description </span><span class="">(optional)</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <textarea class="form-control" name="name" rows="2">{{productEdit.details}}</textarea>
@@ -813,7 +861,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="exciseSheets" class="font-karla-bold exciseps"><span>Excise Modvat per sheet</span>
+                                        <label for="exciseSheets" class="font-karla-bold exciseps1"><span>Excise Modvat per sheet</span>
                          <span>(included in price per sheet)</span></label>
                                     </div>
                                     <div class="col-md-6">
@@ -841,7 +889,7 @@
                                         <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice.toFixed(2)" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
                                         <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
@@ -875,11 +923,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="custom-radiobtns">
-                                            <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
+                                            <label for="radio4" class="" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
                                             <span class="customers" ng-if="productEdit.mtcStatus == 'Original'">Customers like to buy products with original MTC</span>
-                                            <label for="radio5" class="custspace" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
-                                            <label for="radio6" class="custspace" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
+                                            <label for="radio5" class="" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
+                                            <label for="radio6" class="" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
@@ -908,7 +956,8 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                        <!--<label for="brand" class="font-karla-bold">Product Description</label>-->
+                                        <label for="detailplate" class="font-karla-bold productDesc"><span class="">Product Description </span><span class="">(optional)</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <textarea class="form-control" name="name" rows="2">{{productEdit.details}}</textarea>
@@ -1112,7 +1161,7 @@
                                         <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice.toFixed(2)" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
                                         <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
@@ -1146,11 +1195,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="custom-radiobtns">
-                                            <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
+                                            <label for="radio4" class="" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
                                             <span class="customers" ng-if="productEdit.mtcStatus == 'Original'">Customers like to buy products with original MTC</span>
-                                            <label for="radio5" class="custspace" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
-                                            <label for="radio6" class="custspace" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
+                                            <label for="radio5" class="" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
+                                            <label for="radio6" class="" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
@@ -1179,7 +1228,8 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                        <!--<label for="brand" class="font-karla-bold">Product Description</label>-->
+                                        <label for="detailplate" class="font-karla-bold productDesc"><span class="">Product Description </span><span class="">(optional)</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <textarea class="form-control" name="name" rows="2">{{productEdit.details}}</textarea>
@@ -1390,7 +1440,7 @@
                                         <input type="text" class="form-control" name="priceKg" ng-model="productEdit.pricePerKg" id="priceKg" ng-change="valueFinalPrice(productEdit.pricePerKg)"
                                             required>
                                         <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
-                                        <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
+                                        <!--<i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -1457,7 +1507,7 @@
                                     <div class="col-md-6">
                                         <input type="text" class="form-control" name="discountround" ng-model="productEdit.discount" ng-change="valueFinalPrice(productEdit.discount)"
                                             id="discount" required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                        <!--<i class="fa fa-check tick" ng-show="productEdit.discount"></i>-->
                                         <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
                                         <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
@@ -1469,7 +1519,7 @@
                                         <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice.toFixed(2)" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
                                         <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
@@ -1503,11 +1553,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="custom-radiobtns">
-                                            <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
+                                            <label for="radio4" class="" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
                                             <span class="customers" ng-if="productEdit.mtcStatus == 'Original'">Customers like to buy products with original MTC</span>
-                                            <label for="radio5" class="custspace" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
-                                            <label for="radio6" class="custspace" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
+                                            <label for="radio5" class="" ng-if="productEdit.mtcStatus=='Photocopy'">I have photocopy of MTC</label>
+                                            <label for="radio6" class="" ng-if="productEdit.mtcStatus=='Notavailable'">MTC not available</label>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
