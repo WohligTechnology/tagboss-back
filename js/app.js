@@ -304,7 +304,12 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       controller: 'InspectionLoginCtrl'
     });
 
-  $urlRouterProvider.otherwise("/dashboard");
+  // $urlRouterProvider.otherwise("/dashboard");
+  if (window.location.host != "inspection.tagboss.com") {
+    $urlRouterProvider.otherwise("loginpage");
+  } else {
+    $urlRouterProvider.otherwise("inspection-login");
+  }
   $locationProvider.html5Mode(isproduction);
 });
 
