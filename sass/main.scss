@@ -393,23 +393,25 @@
           background-color: $darkblue;
           border: none;
           .admin-head {
-            min-height: 65px;
+            height: 75px;
             h1 {
               color: #fff;
               font-size: 24px;
-              margin: 20px 0 0 0;
+              margin: 0;
+              text-align: right;
             }
           }
           .date {
             color: #fff;
-            margin: 24px 0 0 20px;
+            // margin: 24px 0 0 20px;
             text-align: left;
           }
           .icons {
-            float: right;
-            padding: 0 15px;
+            // float: right;
+            // padding: 0 15px;
             div+div {
               border-left: 1px solid #fff;
+              margin: 8px 0 0 4px;
             }
           }
           .head-tag {
@@ -432,17 +434,19 @@
           .buyer {
             position: relative;
             display: inline-block;
-            width: 50px;
+            width: 44px;
             vertical-align: middle;
-            height: 55px;
+            height: 60px;
             cursor: pointer;
+            margin: 8px 0 0 0;
+            text-align: center;
             i {
               background-color: #414156;
               border-radius: 20%;
-              padding: 4px;
+              padding: 4px 6px;
               font-size: 18px;
               color: #fff;
-              margin: 8px 0 0 0;
+              margin: 8px 0 0 5px;
             }
             .badge {
               display: inline-block;
@@ -458,13 +462,13 @@
               line-height: 15px;
               text-align: center;
               top: 0;
-              right: 7px;
+              right: 0;
               position: absolute;
             }
             label {
               font-size: 10px;
               color: #fff;
-              padding: 0;
+              padding: 0 2px;
             }
           }
           label {
@@ -475,10 +479,10 @@
           .h-icon {
             position: relative;
             display: inline-block;
-            width: 50px;
+            width: 34px;
             vertical-align: middle;
             height: 55px;
-            padding: 18px;
+            padding: 18px 0 18px 5px;
             margin: 5px 0;
             cursor: pointer;
             i {
@@ -2965,6 +2969,44 @@
         span+span {
           margin: 0 0 0 166px;
           display: block;
+        }
+      }
+      
+      .assign-table {
+        td:first-child {
+          width: 25%;
+        }
+        th:first-child {
+          width: 25%;
+        }
+      }
+      
+      .ul-pm0 {
+        padding: 0;
+        margin: 0;
+      }
+      
+      .align-li {
+        text-align: right;
+        vertical-align: middle;
+        margin: 0 -6px;
+        width: 41%;
+      }
+      
+      .align-allli {
+        vertical-align: middle;
+        width: 29%;
+      }
+      
+      .spaceIN {
+        text-align: center !important;
+        margin: 24px 0 !important;
+      }
+      
+      .spaceHead {
+        height: 55px !important;
+        .h-icon {
+          width: 55px !important;
         }
       }
       

@@ -1259,7 +1259,7 @@
             .reject {
                 font-size: 13px;
                 margin-top: 10px;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
                 // padding: 2px 12px;
             }
         }
@@ -1378,9 +1378,12 @@
                 margin-top: 12px;
                 display: inline-block;
                 select {
-                    width: 125px;
+                    width: 150px;
                     margin-top: 12px;
                     background-color: transparent;
+                    &:focus {
+                        outline: 0;
+                    }
                 }
             }
         }

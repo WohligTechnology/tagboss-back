@@ -86,8 +86,33 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      updateInspectedProductReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "User/updateInspectedProductReadStatus ",
+          method: "POST"
+        }).success(callback);
+      },
 
+      updateReturnRequestReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "user/updateReturnRequestReadStatus",
+          method: "POST"
+        }).success(callback);
+      },
 
+      updateContactReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "user/updateContactReadStatus",
+          method: "POST"
+        }).success(callback);
+      },
+
+      updatePaymentReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "user/updatePaymentReadStatus",
+          method: "POST"
+        }).success(callback);
+      },
 
       getInventory: function (idata, callback) {
         var data = idata;
@@ -98,7 +123,13 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
-
+      getProduct: function (input, callback) {
+        return $http({
+          url: adminURL + "Inventory/getApprovalProduct",
+          method: "POST",
+          data: input
+        }).success(callback);
+      },
 
       getAllRefundRequest: function (sdata, callback) {
         var data = sdata;
@@ -459,8 +490,6 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
-
-
       assignInspection: function (rdata, callback) {
         var data = rdata;
         return $http({
@@ -716,11 +745,11 @@ var navigationservice = angular.module('navigationservice', [])
       },
 
       editAgency: function (sendadata, callback) {
-        var data = sendadata;
+        // var data = sendadata;
         return $http({
-          url: adminURL + "inspection/save",
+          url: adminURL + "inspection/updateInspection ",
           method: "POST",
-          data: data
+          data: sendadata
         }).success(callback);
       },
 

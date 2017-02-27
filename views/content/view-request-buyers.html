@@ -279,7 +279,7 @@
                 </a>
               </div>
               <div class="text-center afterPdf" ng-if="imageOfVatTinNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -335,7 +335,7 @@
                 </a>
               </div>
               <div class="text-center afterPdf" ng-if="imageOfPanNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="hide verified"><p>VERIFIED</p></div>
                         <div class="pending"><p>VERIFICATION PENDING</p></div>-->
@@ -348,7 +348,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 col-1">
+          <div class="col-md-4 ng-if=" buyerData.imageOfregistrationNo " col-1">
             <div class="abc">
               <!--<div>
                 <p class="img-head">Registration No.(ECC) {{buyerData.registrationNo}}</p>
@@ -365,13 +365,13 @@
                 </a>
               </div>
               <div class="text-center afterPdf" ng-if="imageOfregistrationNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
               <div class="text-center">
                 <!--<toggle-switch ng-model="switchStatus"><toggle-switch>-->
-                <toggle-switch ng-model="buyerData.registrationNoVerified" required on-label="Verified" off-label="Non-Verified">
+                <toggle-switch ng-model="buyerData.registrationNoVerified" on-label="Verified" off-label="Non-Verified">
                 </toggle-switch>
               </div>
             </div>

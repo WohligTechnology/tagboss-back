@@ -2,28 +2,9 @@
     <div class="container-fluid">
         <div class="search-content">
             <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group search-top">
-                        <input type="text" class="form-control" placeholder="Search by Seller ID or Name">
-                        <span class="input-group-btn"><i class="btn btn-default fa fa-search" aria-hidden="true"></i></span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="more-opt pull-right">
-                        <div class="magic-form dropdown">
-                            <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
-                                <label class="">Filter by Status</label>
-                                <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Pending Verification</a></li>
-                                    <li><a href="#">Verified</a></li>
-                                    <li><a href="#">Rejected</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-md-12">
                     <div class="addagency pull-right">
-                        <label ng-click="openHome();">Add Home Banner</label>
+                        <label ng-click="openHome();">Add Home Banners</label>
                     </div>
                 </div>
             </div>
@@ -39,7 +20,8 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Image</th>
+                                        <th>Banner</th>
+                                        <th>Mobile Banner</th>
                                         <th>URL</th>
                                         <th>Order</th>
                                         <th>Status</th>
@@ -49,6 +31,11 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
+                                        <td>
+                                            <div class="logo">
+                                                <img src="img/partner-tata-steel-logo.png" alt="">
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="logo">
                                                 <img src="img/partner-tata-steel-logo.png" alt="">

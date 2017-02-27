@@ -1,25 +1,26 @@
 <header class="header1">
-<div class="tagboss-logo">
-<a ui-sref="home"><img class="img-responsive" src="img/tgblogo.png" alt="logo" width="60"> </a>
-</div>
-<nav class="navbar navbar-inverse resize">
-<div class="container text-center">
-<div class="row admin-head">
-<div class="col-md-3">
+    <div class="tagboss-logo">
+        <a ui-sref="home"><img class="img-responsive" src="img/tgblogo.png" alt="logo" width="60"> </a>
+    </div>
+    <nav class="navbar navbar-inverse resize">
+        <div class="container text-center">
+            <div class="row admin-head">
+                <div class="col-md-3">
 
-</div>
-<div class="col-md-6">
-<h1>Inspection Agency | log in</h1>
-</div>
-<div class="col-md-3">
-<div class="date pull-right">02 June, 2016 | 11.51 PM</div>
-</div>
-</div>
-<!-- <div class="admin-head">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="spaceIN">Inspection Agency | log in</h1>
+                </div>
+                <div class="col-md-3">
+                    <!--<div class="date spaceIN pull-right">02 June, 2016 | 11.51 PM</div>-->
+                    <div class="date pull-right">{{currentDate | date:"dd MMMM yyyy"}}</div>
+                </div>
+            </div>
+            <!-- <div class="admin-head">
 <h1>super admin | log in</h1>
 <div class="pull-right">02 June, 2016 | 11.51 PM</div>
 </div> -->
-<!-- <div class="navbar-header">
+            <!-- <div class="navbar-header">
 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse" aria-expanded="false">
 <span class="sr-only">Toggle navigation</span>
 <span class="icon-bar"></span>
@@ -31,7 +32,6 @@
 <div class="collapse navbar-collapse" id="nav-collapse">
 <div ng-include="template.menu" class="template menu"></div>
 </div> -->
-</div>
-</nav>
+        </div>
+    </nav>
 </header>
-

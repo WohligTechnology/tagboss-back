@@ -2,16 +2,15 @@
   <div class="container-fluid">
     <div class="search-content">
       <div class="row">
-        <div class="col-md-6">
-          <div class="input-group search-top">
+        <!--<div class="col-md-6">-->
+        <!--<div class="input-group search-top">
             <input type="text" class="form-control" placeholder="Search by Inspector's Name or ID">
             <span class="input-group-btn">
             <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
-            <!-- <button class="btn btn-default" type="button">Go!</button> -->
           </span>
-          </div>
-        </div>
-        <div class="col-md-6">
+          </div>-->
+        <!--</div>-->
+        <div class="col-md-12">
           <!--<div class="more-opt pull-right">
             <div class="magic-form">
               <div class="magic-resize">
@@ -29,13 +28,9 @@
         </div>
       </div>
     </div>
-
-
     <div class="details" ng-if="allAgency.length==0">
       <h3 class="text-center">No Data Found</h3>
     </div>
-
-
     <div class="details" ng-if="allAgency.length>0" ng-repeat="agency in  allAgency | orderBy: '-_id'">
       <div class="head">
         <div class="row">
@@ -133,10 +128,6 @@
         </div>
       </div>
     </div>
-    
-
-
-
     <!--<div class="details">
       <div class="head">
         <div class="row">

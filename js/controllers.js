@@ -727,7 +727,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("Product Approval");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-
+        $(window).scrollTop(0);
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
         $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
@@ -784,8 +784,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getAgency();
 
-        $scope.filter = {};
-        $scope.filter.page = 1;
 
         $scope.getAllBrands = function () {
             NavigationService.getBrands(function (data) {
@@ -815,9 +813,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
 
-
+        $scope.filter = {};
+        $scope.filter.page = 1;
+        $scope.filter.status = 'All';
+        $scope.selectedStatus = 'All';
+        $scope.filterProductStatus = function (data) {
+            $scope.filter.status = data;
+            $scope.selectedStatus = data;
+            $scope.getInventory();
+        }
         $scope.getInventory = function () {
-            NavigationService.getInventory($scope.filter, function (data) {
+            // $scope.filter.page = $scope.filter.page++;
+            $(window).scrollTop(0);
+            NavigationService.getProduct($scope.filter, function (data) {
                 if (data.value == true) {
                     $scope.getAllInventory = data.data.results;
                     $scope.totalItems = data.data.total;
@@ -826,6 +834,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
         $scope.getInventory();
+
+        // $scope.getInventory = function () {
+        //     NavigationService.getInventory($scope.filter, function (data) {
+        //         if (data.value == true) {
+        //             $scope.getAllInventory = data.data.results;
+        //             $scope.totalItems = data.data.total;
+        //             console.log("filter", $scope.filter);
+        //         }
+        //     });
+        // }
+        // $scope.getInventory();
 
         $scope.errmsg = false;
         $scope.assignInspection = function (inventorydata, indexid) {
@@ -1260,7 +1279,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.navigation = NavigationService.getnav();
     })
 
-    .controller('EditAgencyDetailsCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout) {
+    .controller('EditAgencyDetailsCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("edit-agency-details");
         $scope.menutitle = NavigationService.makeactive("Edit Agency Details");
         TemplateService.title = $scope.menutitle;
@@ -1278,10 +1297,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAgencyDetails();
 
+        $scope.constraints = {};
         $scope.editAgency = function (agencydata) {
-            NavigationService.editAgency(agencydata, function (data) {
+            console.log('Data', agencydata);
+            $scope.constraints._id = agencydata._id;
+            $scope.constraints.contactname = agencydata.contactname
+            $scope.constraints.email = agencydata.email
+            $scope.constraints.mobile = agencydata.mobile
+            $scope.constraints.password = agencydata.password
+            $scope.constraints.address = agencydata.address
+            $scope.constraints.telephone = agencydata.telephone
+            $scope.constraints.city = agencydata.city
+            $scope.constraints.state = agencydata.state
+            // $scope.constraints._id = 
+            NavigationService.editAgency($scope.constraints, function (data) {
                 if (data.value == true) {
                     toastr.success("Agency Edited Successfully", "Information");
+                    $state.reload();
 
                 }
             })
@@ -3480,16 +3512,50 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.navigation = NavigationService.getnav();
         TemplateService.header = 'views/headeragency.html';
         TemplateService.sidemenu = 'views/sidemenuagency.html';
+        // $scope.getInventory = function () {
+        //     NavigationService.getInventoryByAgency(function (data) {
+        //         if (data.value == true) {
+        //             $scope.getAllInventory = data.data;
+        //         } else {
+        //             $scope.getAllInventory = [];
+        //         }
+        //     });
+        // }
+        // $scope.getInventory();
+
+        $scope.filter = {};
+        $scope.filter.page = 1;
+        // $scope.filter.status = 'All';
+        $scope.selectedStatus = 'All';
+        $scope.searchInInspection = function (data) {
+            if (data.length >= 2) {
+                $scope.filter.keyword = data;
+                $scope.getInventory();
+            } else if (data.length == '') {
+                $scope.filter.keyword = data;
+                $scope.getInventory();
+            }
+        }
+
+        $scope.filterProductStatus = function (data) {
+            $scope.filter.status = data;
+            $scope.selectedStatus = data;
+            $scope.getInventory();
+        }
         $scope.getInventory = function () {
-            NavigationService.getInventoryByAgency(function (data) {
+            $(window).scrollTop(0);
+            $scope.search = $scope.filter.keyword;
+            $scope.filter.status = $scope.selectedStatus;
+            NavigationService.getProduct($scope.filter, function (data) {
                 if (data.value == true) {
-                    $scope.getAllInventory = data.data;
-                } else {
-                    $scope.getAllInventory = [];
+                    $scope.getAllInventory = data.data.results;
+                    $scope.totalItems = data.data.total;
+                    console.log("filter", $scope.filter);
                 }
             });
         }
         $scope.getInventory();
+
 
         $scope.uploadReport = function (err, data) {
             if (err) {
@@ -3643,6 +3709,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.sellers = data.data[1].sellers;
                     $scope.buyers = data.data[2].buyers;
                     $scope.products = data.data[3].products;
+                    $scope.inspectedProduct = data.data[4].inspectedProducts;
+                    $scope.returnRequest = data.data[5].returnRequest;
+                    $scope.contact = data.data[6].contact;
+                    $scope.payment = data.data[7].payments;
                 }
             });
         }
@@ -3682,6 +3752,42 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     $scope.getNotifications();
                     $state.go("product-approval");
 
+                }
+            });
+        }
+
+        $scope.updateInspectedProductReadStatus = function () {
+            NavigationService.updateInspectedProductReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("product-approval");
+                }
+            });
+        }
+
+        $scope.updateReturnRequestReadStatus = function () {
+            NavigationService.updateReturnRequestReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("refund-to-buyers");
+                }
+            });
+        }
+
+        $scope.updateContactReadStatus = function () {
+            NavigationService.updateContactReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("view-contact");
+                }
+            });
+        }
+
+        $scope.updatePaymentReadStatus = function () {
+            NavigationService.updatePaymentReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("payment-to-sellers");
                 }
             });
         }

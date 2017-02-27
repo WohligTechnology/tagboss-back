@@ -5,7 +5,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group search-top">
-                            <input type="text" class="form-control" placeholder="Search by Inspector’s Name or ID">
+                            <!--<input type="text" class="form-control" placeholder="Search by Inspection Id">-->
+                            <input type="text" autocomplete="off" class="form-control" ng-model="search" name="name" placeholder="Search by Inspection Id"
+                                ng-change="searchInInspection(search)">
                             <span class="input-group-btn">
                   <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
                   <!-- <button class="btn btn-default" type="button">Go!</button> -->
@@ -18,12 +20,19 @@
                             <label>CONVERT TO EXCEL</label>
                         </div>-->
                         <div class="select-prod pull-right">
-                            <select>
-                      <option value="all">ALL</option>
-                      <option value="saab">Approved</option>
-                      <option value="opel">Rejected</option>
-                      <option value="audi">Pending</option>
-                    </select>
+                            <!--<select>
+                      <option value="All">ALL</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Inspected">Inspected</option>
+                    </select>-->
+                            <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
+                                        <option value="All">All</option>
+                                        <option value="Pending">Pending Inspection</option>
+                                        <option value="Inspected">Inspected</option>
+                                        <!--<option value="Assigned">Assigned</option>-->
+                                        <!--<option value="Verified">Listed</option>
+                                        <option value="Rejected">Rejected</option>-->
+                                    </select>
                         </div>
                     </div>
                 </div>
@@ -38,10 +47,10 @@
             <div ng-if="getAllInventory==undefined">
                 <h3 class="text-center">Loading...</h3>
             </div>
-            <table ng-show="hideEdit" ng-if="getAllInventory.length>0" class="table table-bordered inspection-table">
+            <table ng-show="hideEdit" ng-if="getAllInventory.length>0" class="table table-bordered inspection-table assign-table">
                 <thead>
                     <tr>
-                        <th><strong>NAME</strong></th>
+                        <th><strong>SELLER</strong></th>
                         <th><strong>PRODUCT</strong></th>
                         <th><strong>QUANTITY</strong></th>
                         <th><strong>UPLOAD REPORT</strong></th>
@@ -54,6 +63,8 @@
                                 <div class="magic-form">
                                     <div class="magic-resize spaceissue">
                                         <label class="text" for="add-one{{$index}}">
+                            <p class="inline-block comp-name">Inspection Id:</p>
+                            <p class="inline-block">&nbsp;{{inventory.inspectionStringId}}  </p>
                             <p class="comp-name">  {{inventory.seller.firmName}}  </p>
                            <p>Email:{{inventory.seller.email}}</p> 
                            <p> Mobile:{{inventory.seller.mobile}}</p>
@@ -69,28 +80,28 @@
                                     <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
                                     <li> {{inventory.odInches}}" Nb x Sch {{inventory.sch}} </li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
                                 </ul>
                                 <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
                                     <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                     <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
                                     <li> {{inventory.thickness}} mm x {{inventory.width}} mm x {{inventory.length}} mm</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
                                 </ul>
                                 <ul class="prod-details" ng-if="inventory.category.name === 'Coil'">
                                     <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                     <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
                                     <li> {{inventory.thickness}} mm x {{inventory.width}} mm x Coil</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
                                 </ul>
                                 <ul class="prod-details" ng-if="inventory.category.name === 'Roundbar'">
                                     <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                     <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
                                     <li>{{inventory.gradesstandards.name}}</li>
                                     <li> Dia {{inventory.diameter}} mm</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
+                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
                                 </ul>
                             </td>
                             <td ng-if="inventory.category.name == 'Plates/Sheets'">{{inventory.quantityInNos}}</td>
@@ -128,6 +139,7 @@
                     </tr>
                 </tbody>
             </table>
+            <ul uib-pagination total-items="totalItems " ng-model="filter.page " ng-change="getInventory()"></ul>
         </div>
     </div>
 </section>

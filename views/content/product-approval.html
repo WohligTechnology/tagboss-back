@@ -3,27 +3,34 @@
         <div class="view-product assign">
             <div class="search-content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <div class="input-group search-top">
                             <input type="text" class="form-control" placeholder="Search">
                             <span class="input-group-btn">
                   <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
-                  <!-- <button class="btn btn-default" type="button">Go!</button> -->
                 </span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                    </div>-->
+                    <div class="col-md-12">
                         <!-- <div class="excel-upload ">
                       <img src="img/excel-icon.png" >
                       <label>CONVERT TO EXCEL</label>
                   </div> -->
                         <div class="select-prod pull-right">
-                            <select>
+                            <!--<select>
                       <option value="all">ALL</option>
                       <option value="saab">Approved</option>
                       <option value="opel">Rejected</option>
                       <option value="audi">Pending</option>
-                    </select>
+                    </select>-->
+                            <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
+                                        <option value="All">All</option>
+                                        <option value="Pending">Pending Inspection</option>
+                                        <option value="Assigned">Assigned</option>
+                                        <option value="Inspected">Inspected</option>
+                                        <option value="Verified">Listed</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
                         </div>
                         <div class="feed-assign hide">
                             <button type="button" class="btn btn-primary assign-btn">ASSIGN</button>
@@ -35,7 +42,7 @@
                 <div class="assign-agency-details">
                     <label class="detail-heading">INSPECTION AND APPROVAL</label>
                 </div>
-                <table class="table table-bordered assign-agency-table">
+                <table class="table table-bordered assign-agency-table assign-table">
                     <thead>
                         <tr>
                             <th><strong>NAME</strong></th>
@@ -163,7 +170,7 @@
                                                 btn-primary reject ">REJECT</button>
                                                 </div>
                                             </div>
-                                            <div ng-if="inventory.status==='Assigned' || inventory.status==='Pending'">
+                                            <div ng-if="inventory.status==='Pending'">
                                                 <div class=" ">
                                                     <button type="button " ng-click="acceptReport(inventory); " class="btn
                                                 btn-primary accept ">ACCEPT</button>
@@ -185,7 +192,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <ul uib-pagination total-items="totalItems " ng-model="filter.page " ng-change="getInventory() "></ul>
+                <ul uib-pagination total-items="totalItems " ng-model="filter.page " ng-change="getInventory()"></ul>
             </div>
         </div>
     </div>

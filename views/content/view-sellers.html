@@ -3,7 +3,7 @@
     <div class="view-seller">
       <div class="search-content">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 hide">
             <div class="period ">
               <span>FROM</span>
               <div class="input-group date date1">
@@ -28,12 +28,12 @@
               </span>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="pull-left">
-              <form class="form-horizontal enable" role="form">
+          <div class="col-md-12">
+            <div class="">
+              <form class="form-horizontal" role="form">
                 <div class="form-group">
-                  <label class="col-sm-6 control-label" for="">Change Status</label>
-                  <div class="col-sm-6">
+                  <label class="col-md-10 control-label" for="">Change Status</label>
+                  <div class="col-md-2">
                     <select ng-model="sellerData.isBlocked" ng-change="updateUser(sellerData._id,sellerData.isBlocked)" name="user" class="form-control">
                       
                         <option ng-selected="sellerData.isBlocked==true" >Block</option>

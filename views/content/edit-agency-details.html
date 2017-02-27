@@ -54,34 +54,34 @@
                     <textarea class="form-control" required ng-model="agencyDetails.address" rows="3" id="comment"></textarea>
                   </div>
                 </div>
-                 <div class="col-md-6">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>telephone no.</label>
                     <input type="text" required ng-model="agencyDetails.telephone" class="form-control">
                   </div>
                 </div>
-               
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="sel1">city</label>
-                    <select class="form-control" id="sel1">
-                      <option>India</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
+                    <label>City</label>
+                    <input type="text" required ng-model="agencyDetails.city" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
+                  <div class="form-group">
+                    <label>state</label>
+                    <input type="text" required ng-model="agencyDetails.state" class="form-control">
+                  </div>
+                </div>
+                <!--<div class="col-md-6">
                   <div class="form-group">
                     <label>pincode</label>
                     <input type="text" class="form-control">
                   </div>
-                </div>
+                </div>-->
               </div>
-              <div class="row">
+              <!--<div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>state</label>
@@ -94,7 +94,7 @@
                     <input type="text"  ng-model="agencyDetails.faxno" class="form-control">
                   </div>
                 </div>
-              </div>
+              </div>-->
               <button type="submit" class="btn btn-lg btn-block">update</button>
             </form>
           </div>
