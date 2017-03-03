@@ -2,26 +2,7 @@
   <div class="container-fluid">
     <div class="search-content">
       <div class="row">
-        <!--<div class="col-md-6">-->
-        <!--<div class="input-group search-top">
-            <input type="text" class="form-control" placeholder="Search by Inspector's Name or ID">
-            <span class="input-group-btn">
-            <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
-          </span>
-          </div>-->
-        <!--</div>-->
         <div class="col-md-12">
-          <!--<div class="more-opt pull-right">
-            <div class="magic-form">
-              <div class="magic-resize">
-                <input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">
-                <label class="detail-heading" for="add-one">
-                     More
-                   </label>
-              </div>
-            </div>
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-          </div>-->
           <div class="addagency pull-right">
             <label ng-click="openInspection('Add');">Add Agency</label>
           </div>
@@ -35,12 +16,12 @@
       <div class="head">
         <div class="row">
           <div class="col-md-6">
-            <div class="magic-form">
-              <div class="magic-resize">
-                <input class="magic-checkbox" type="checkbox" name="layout" id="{{$index}}" value="option1">
-                <label class="text" for="{{$index}}">
+            <div class="">
+              <div class="">
+                <!--<input class="magic-checkbox" type="checkbox" name="layout" ng-style="display: none;">-->
+                <label class="text text1">
                 <h2>{{agency.agencyName}}</h2>
-              </label>
+                </label>
               </div>
             </div>
           </div>
@@ -52,12 +33,6 @@
           <div class="col-md-2">
             <div class="product-category">
               <ul>
-                <!-- <li class="add-prod-cate">
-              <div class="input-group <edit>  </edit>-categ">
-                <input type="text" class="form-control" placeholder="Add Product Category" aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2">add</span>
-              </div>
-            </li> -->
                 <li>
                   <div class="input-group edit-btn" ng-click="openInspection('Edit', agency._id);">
                     <a href="" class="pull-right">
@@ -81,9 +56,6 @@
             <div class="rounded-pipes" style="">
               <h4>{{agency.contactname}}</h4>
             </div>
-            <!--<div class="pull-right edit-assign-type" style="">
-                <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
-            </div>-->
           </div>
         </div>
         <div class="row">
@@ -91,9 +63,6 @@
             <div class="rounded-pipes" style="">
               <h4>{{agency.telephone}}</h4>
             </div>
-            <!--<div class="pull-right edit-assign-type" style="">
-              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
-          </div>-->
           </div>
         </div>
         <div class="row">
@@ -101,9 +70,6 @@
             <div class="rounded-pipes" style="">
               <h4>{{agency.mobile}}</h4>
             </div>
-            <!--<div class="pull-right edit-assign-type" style="">
-              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
-          </div>-->
           </div>
         </div>
         <div class="row">
@@ -111,9 +77,6 @@
             <div class="rounded-pipes" style="">
               <h4>{{agency.email}}</h4>
             </div>
-            <!--<div class="pull-right edit-assign-type" style="">
-              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
-          </div>-->
           </div>
         </div>
         <div class="row">
@@ -121,9 +84,6 @@
             <div class="rounded-pipes" style="">
               <h4>{{agency.address}}</h4>
             </div>
-            <!--<div class="pull-right edit-assign-type" style="">
-              <p><span ui-sref="assign-agency">Edit</span> <span>|</span> <span>x</span> <span>|</span> <span ui-sref="assign-agency">Assign</span></p>
-            </div>-->
           </div>
         </div>
       </div>

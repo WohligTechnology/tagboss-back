@@ -22,22 +22,22 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>contact person</label>
+                    <label>Contact person</label>
                     <input type="text" required ng-model="agencyDetails.contactname" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>email id</label>
+                    <label>Email id</label>
                     <input type="text" required ng-model="agencyDetails.email" class="form-control">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label>mobile no.</label>
-                    <input type="text" required ng-model="agencyDetails.mobile" class="form-control">
+                  <div class="form-group txt-remark">
+                    <label for="comment">Address</label>
+                    <textarea class="form-control" required ng-model="agencyDetails.address" rows="3" id="comment"></textarea>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -49,15 +49,15 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group txt-remark">
-                    <label for="comment">address</label>
-                    <textarea class="form-control" required ng-model="agencyDetails.address" rows="3" id="comment"></textarea>
+                  <div class="form-group">
+                    <label>Telephone no.</label>
+                    <input type="text" required ng-model="agencyDetails.telephone" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>telephone no.</label>
-                    <input type="text" required ng-model="agencyDetails.telephone" class="form-control">
+                    <label>Mobile no.</label>
+                    <input type="text" required ng-model="agencyDetails.mobile" class="form-control">
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>state</label>
+                    <label>State</label>
                     <input type="text" required ng-model="agencyDetails.state" class="form-control">
                   </div>
                 </div>
