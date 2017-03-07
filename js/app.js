@@ -305,10 +305,10 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
     });
 
   // $urlRouterProvider.otherwise("/dashboard");
-  if (window.location.host == "inspection.tagboss.com") {
-    $urlRouterProvider.otherwise("/inspection-login");
-  } else if (window.location.host == "backend.tagboss.com") {
-    $urlRouterProvider.otherwise("/loginpage");
+  if (window.location.hostname == "inspection.tagboss.com") {
+    $urlRouterProvider.otherwise("inspection-login");
+  } else {
+    $urlRouterProvider.otherwise("loginpage");
   }
   $locationProvider.html5Mode(isproduction);
 });
