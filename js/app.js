@@ -305,7 +305,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
     });
 
   // $urlRouterProvider.otherwise("/dashboard");
-  alert(window.location.host);
+  alert(window.location.host == "inspection.tagboss.com");
   if (window.location.host == "inspection.tagboss.com") {
     $urlRouterProvider.otherwise("/inspection-login");
   } else {
