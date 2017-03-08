@@ -22,7 +22,12 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'LoginPageCtrl'
     })
-    .state('forgot-password', {
+    .state('inspection-login', {
+      url: "/inspection-login",
+      templateUrl: "views/template.html",
+      controller: 'InspectionLoginCtrl'
+    });
+  .state('forgot-password', {
       url: "/forgot-password/:email",
       templateUrl: "views/template.html",
       controller: 'forgotPasswordCtrl'
@@ -296,18 +301,14 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       url: "/edit-agency-details",
       templateUrl: "views/template.html",
       controller: 'EditAgencyDetailsCtrl'
-    })
-
-    .state('inspection-login', {
-      url: "/inspection-login",
-      templateUrl: "views/template.html",
-      controller: 'InspectionLoginCtrl'
     });
-
   // $urlRouterProvider.otherwise("/dashboard");
+  console.log(window.location.host);
   if (window.location.host != "inspection.tagboss.com") {
+    console.log('enter login');
     $urlRouterProvider.otherwise("loginpage");
   } else {
+    console.log('enter inspection-login');
     $urlRouterProvider.otherwise("inspection-login");
   }
   $locationProvider.html5Mode(isproduction);
