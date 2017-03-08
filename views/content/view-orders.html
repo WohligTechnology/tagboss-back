@@ -803,9 +803,21 @@
                                                 <textarea name="Textstatus" ng-model="detailBill.transporterComment" class="form-control font-karla-bold trans">Dispatched From Bhivan...</textarea>
                                             </div>
                                             <div class="form-group">
-                                                TRANSPORTER RECEIPT
+                                                <!--TRANSPORTER RECEIPT-->
                                                 <div class="attach order-attach transattach">
-                                                    <upload-image ng-model="detailBill.transporterReceiept"></upload-image>
+                                                    <upload-image ng-callback="uploadReport" ng-model="detailBill.transporterReceiept" file-types="'image/jpeg,image/png,application/pdf'"
+                                                        no-view></upload-image>
+                                                </div>
+                                                <div class="filename">
+                                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!detailBill.transporterReceiept">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
+                                                    </p>
+                                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!detailBill.transporterReceiept">{{ defaultSizeFormat }}</p>
+                                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="detailBill.transporterReceiept">{{ errorMsgpan }}</p>
+                                                    <a ng-if="detailBill.transporterReceiept && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB'"
+                                                        fancybox-box ng-href="{{detailBill.transporterReceiept | uploadpath}}"
+                                                        rel="fancybox" target="_blank">
+                                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="text-center subbtn">

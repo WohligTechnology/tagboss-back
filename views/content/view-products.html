@@ -63,9 +63,15 @@
                                 <div class="magic-form">
                                     <div class="magic-resize spaceissue">
                                         <label class="text" for="add-one{{$index}}">
-                            <p class="inline-block comp-name">Inspection Id:</p>
-                            <p class="inline-block">&nbsp;{{inventory.inspectionStringId}}  </p>
-                            <p class="comp-name">  {{inventory.seller.firmName}}  </p>
+                            <div>
+                                              <p class="inline-block comp-name">Date:</p>
+                            <p class="inline-block">&nbsp;{{inventory.assignedDate | date:"dd-MM-yyyy ' | ' h:mm a"}}</p>
+                            </div>
+                            <p class="inline-block comp-name mb">Inspection Id:</p>
+                            <p class="inline-block mb">&nbsp;{{inventory.inspectionStringId}}  </p>
+                            
+                            <p class="comp-name">  Address:  </p>
+                            <p class="">  {{inventory.seller.firmName}}  </p>
                            <p>Email:{{inventory.seller.email}}</p> 
                            <p> Mobile:{{inventory.seller.mobile}}</p>
                             <p>
@@ -108,18 +114,35 @@
                             <td ng-if="inventory.category.name == 'Pipes' || inventory.category.name == 'Roundbar'">{{inventory.totalQty}}</td>
                             <td ng-if="inventory.category.name == 'Coil'">{{inventory.coilQty}}</td>
                             <td>
-                                <div>
-                                    <!--<button type="button" class="btn btn-primary assign-btn">PENDING</button>-->
+                                <div class="item-info-detail">
                                     <p ng-if="inventory.status!=='Assigned'">Status: {{inventory.status}}</p>
                                     <p ng-if="inventory.status==='Assigned'">Status: Pending<br/>
                                         <b ng-if="inventory.duedate"> Due On : {{inventory.duedate | date:'dd-MMM-yyyy'}}</b></p>
-                                    <!--<input class="btn btn-primary assign-btn" type="file" />-->
                                     <div ng-if="inventory.status==='Assigned'" class="assign-btn1">
-                                        <upload-image ng-model="inventory.report" ng-callback="uploadReport" no-view></upload-image>
+                                        <upload-image ng-model="inventory.report" ng-callback="uploadReport" file-types="'image/jpeg,image/png,application/pdf'"
+                                            no-view></upload-image>
                                     </div>
+                                    <div class="filename">
+                                        <!--<p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>-->
+                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
+                                            <!--<div id="circleG" ng-if="(errorMsgpan != 'Successfully uploaded') && errorMsgpan && (errorMsgpan == 'Uploading')">
+                                                <div id="circleG_1" class="circleG"></div>
+                                                <div id="circleG_2" class="circleG"></div>
+                                                <div id="circleG_3" class="circleG"></div>
+                                            </div>-->
+                                        </p>
+                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ defaultSizeFormat }}</p>
+                                        <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="inventory.report">{{ errorMsgpan }}</p>
+                                        <a ng-if="inventory.report && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB'"
+                                            fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
+                                            <p class="font-karla upload-place">View uploaded file.</p>
+                                        </a>
+                                    </div>
+                                    <!--<p ng-if="inventory.status==='Assigned' && !inventory.report" class="font-karla upload-place mgn0">Upload the relevant documents</p>
+                                    <p ng-if="inventory.status==='Assigned' && !inventory.report" class="font-karla upload-place mgn0 fs12">(Max size 10MB & Format: Png, Jpeg & Pdf)</p>
                                     <a ng-if="inventory.report" fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
                                         <p class="font-karla upload-place">View uploaded file.</p>
-                                    </a>
+                                    </a>-->
                                     <!--</p>-->
                                 </div>
                             </td>
@@ -153,7 +176,7 @@
                     </h3>
                     <div class="back-insp pull-right" ng-click="showInspection()">
                         <p>
-                            < bact to inspection and approval</p>
+                            < back to inspection and approval</p>
                     </div>
                 </div>
             </div>

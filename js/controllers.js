@@ -1695,6 +1695,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             startingDay: 1
         };
 
+        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
+        $scope.uploadReport = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsgpan = err;
+                $scope.errorMsgp = false;
+            } else {
+                $scope.errorMsgp = true;
+                $scope.errorMsgpan = "Successfully uploaded";
+            }
+        }
+
         // Disable weekend selection
         function disabled(data) {
             var date = data.date,
@@ -3556,14 +3569,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getInventory();
 
-
+        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
         $scope.uploadReport = function (err, data) {
+            //console.log(err, data);
             if (err) {
                 $scope.errorMsgpan = err;
+                $scope.errorMsgp = false;
             } else {
+                $scope.errorMsgp = true;
                 $scope.errorMsgpan = "Successfully uploaded";
             }
         }
+
         $scope.sendReport = function (reportdata) {
             var senddata = {};
             senddata._id = reportdata._id;

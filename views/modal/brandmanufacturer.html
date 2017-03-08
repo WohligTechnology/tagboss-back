@@ -22,7 +22,7 @@
                                 <p ng-callback="changeit">{{formData.image}}</p>
                             </div>
                             <div class="input-group-addon upload">
-                                <upload-image ng-model="formData.image" ng-callback="changeit" no-view></upload-image>
+                                <upload-image ng-model="formData.image" ng-callback="changeit" file-types="'image/jpeg,image/png,application/pdf'" no-view></upload-image>
                             </div>
                         </div>
                         <!--<div class="filename">

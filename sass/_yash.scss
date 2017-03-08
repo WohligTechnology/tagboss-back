@@ -1144,6 +1144,9 @@
     .mgn0 {
         margin: 0;
     }
+    .fs12 {
+        font-size: 12px;
+    }
 }
 
 .chpass {
@@ -1517,3 +1520,19 @@
 //         }
 //     }
 // }
+.success-col {
+    color: #35b24a !important;
+}
+
+.mb {
+    margin: 0 0 10px !important;
+}
+
+.delivery-status {
+    .filename {
+        p {
+            text-align: center;
+            font-size: 14px !important;
+        }
+    }
+}

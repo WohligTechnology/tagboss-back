@@ -59,7 +59,10 @@
                                     <div class="magic-form">
                                         <div class="magic-resize spaceissue">
                                             <label class="text" for="add-one{{$index}}">
-                            <p class="comp-name"> {{inventory.seller.firmName}}   </p>
+                                                 <p class="inline-block comp-name mb"><strong>Date:</strong></p>
+                            <p class="inline-block mb">&nbsp;{{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mm a"}}</p>
+                            <p class="comp-name"><strong>Address:</strong></p>
+                            <p class="comp-name"> {{inventory.seller.firmName}}</p>
                             <p>Email:{{inventory.seller.email}}</p>
                             <p>Mobile:{{inventory.seller.mobile}}</p>
                             <!--<p>Warehouse</p>
@@ -76,6 +79,7 @@
                                 </td>
                                 <td>
                                     <ul class="prod-details" ng-if="inventory.category.name === 'Pipes'">
+                                        <!--<li> {{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mma"}} </li>-->
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>
@@ -83,6 +87,7 @@
                                         <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                     <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
+                                        <!--<li> {{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mma"}} </li>-->
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>
@@ -90,6 +95,7 @@
                                         <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                     <ul class="prod-details" ng-if="inventory.category.name === 'Coil'">
+                                        <!--<li> {{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mma"}} </li>-->
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>
@@ -97,6 +103,7 @@
                                         <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">EDIT</button>
                                     </ul>
                                     <ul class="prod-details" ng-if="inventory.category.name === 'Roundbar'">
+                                        <!--<li> {{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mma"}} </li>-->
                                         <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
                                         <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
                                         <li>{{inventory.gradesstandards.name}}</li>

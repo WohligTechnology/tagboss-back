@@ -29,7 +29,7 @@
                 <tr ng-repeat="coupon in allCoupon">
                   <td>{{coupon.code}}</td>
                   <td>{{coupon.maxUsed}}</td>
-                  <td>{{coupon.createdAt | date : "dd-MM-y"}} to {{coupon.endDate | date : "dd-MM-y"}}</td>
+                  <td>{{coupon.createdAt | date : "dd-MM-yyyy"}} to {{coupon.endDate | date : "dd-MM-yyyy"}}</td>
                   <td>{{coupon.type}}</td>
                   <td>{{coupon.amount}}</td>
                   <td>{{coupon.city.toString()}}</td>
