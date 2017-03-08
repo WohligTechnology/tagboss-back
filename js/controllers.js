@@ -12,7 +12,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.navigation = NavigationService.getnav();
         TemplateService.header = 'views/header1.html';
         TemplateService.sidemenu = '';
-
+        if (window.location.host == "inspection.tagboss.com") {
+            $state.go('inspection-login');
+        }
         $scope.logindata = {};
         $scope.error = false
         $scope.Login = function (logindata) {
