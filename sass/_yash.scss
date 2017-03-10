@@ -203,6 +203,9 @@
     td {
         width: auto !important;
     }
+    .product-width {
+        width: 498px !important;
+    }
 }
 
 // -------------this css is for details----------------
@@ -1534,5 +1537,39 @@
             text-align: center;
             font-size: 14px !important;
         }
+    }
+}
+
+.formatStatus {
+    text-align: center !important;
+    font-weight: 400;
+    font-size: larger;
+}
+
+.formatEdit {
+    font-size: 14px !important;
+    font-weight: 400;
+    padding: 10px 2px 0 !important;
+}
+
+.final-center {
+    vertical-align: top !important;
+    text-align: center !important;
+}
+
+.colorStats {
+    color: #35b24a !important;
+}
+
+.colorStat {
+    color: #eb1c22 !important;
+}
+
+.request-buyers .request-buyer .w-auto {
+    td.fix-width {
+        width: 210px !important;
+    }
+    th.fix-width {
+        width: 210px !important;
     }
 }

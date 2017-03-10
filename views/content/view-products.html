@@ -57,7 +57,7 @@
                         <th><strong>REMARKS</strong></th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="inventory in getAllInventory">
+                    <tr ng-repeat="inventory in getAllInventory | orderBy:'-assignedDate'">
                         <form name="reportform{{$index}}">
                             <td>
                                 <div class="magic-form">

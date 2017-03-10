@@ -190,7 +190,8 @@
               </div>
               <div class="col-md-6">
                 <div class="">
-                  <input ng-model="coupon.city" type="text" name="city" class="form-control" required>
+                  <input ng-model="coupon.city" type="text" name="city" placeholder="Please Enter City eg. Mumbai,Delhi Or All" class="form-control"
+                    required>
                 </div>
               </div>
               <div class="error-msg" ng-if="frmcoupon.city.$invalid && frmcoupon.city.$touched">Please Enter City.</div>
@@ -236,7 +237,7 @@
               <!--<a href="">
           <label class="view">Add</label>
         </a>-->
-              <button type="submit" class="btn btn-primary coupon-add">{{title}}</button>
+              <button type="submit" class="btn btn-primary coupon-add" style="margin-bottom: 10px;">{{title}}</button>
             </div>
           </div>
         </div>

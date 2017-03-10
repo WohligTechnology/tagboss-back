@@ -825,6 +825,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.getInventory();
         }
         $scope.getInventory = function () {
+
             // $scope.filter.page = $scope.filter.page++;
             $(window).scrollTop(0);
             NavigationService.getProduct($scope.filter, function (data) {
@@ -986,16 +987,56 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.productAdd = {};
         $scope.productAdd.moc = {};
         $scope.showSell = true;
+
+        $scope.siConstraints = {};
+        $scope.selectedIStatus = 'All';
+        $scope.searchInMyInventory = function (data) {
+            if (data.length >= 2) {
+                $scope.siConstraints.text = data;
+                $scope.showProduct($scope.siConstraints.product);
+            } else if (data.length == '') {
+                $scope.siConstraints.text = data;
+                $scope.showProduct($scope.siConstraints.product);
+            }
+        }
+
+        $scope.filterIStatus = function (data) {
+            $scope.siConstraints.status = data;
+            $scope.selectedIStatus = data;
+            $scope.showProduct($scope.siConstraints.product);
+        }
+
         $scope.showProduct = function (id) {
+            //console.log('from ifffff', id);
+            $(window).scrollTop(0);
+            // globalfunction.getIDforDisplay = id;
+            // $rootScope.showInvent = true;
             $scope.showProd = true;
-            NavigationService.getInventoryByProduct(id, function (data) {
-                if (data.value == true) {
-                    $scope.allStock = data.data;
-                    console.log(" $scope.getStock", $scope.allStock);
+            $scope.search = $scope.siConstraints.text;
+            $scope.siConstraints.product = id;
+            $scope.siConstraints.status = $scope.selectedIStatus;
+            // $scope.inventoryDisplay = undefined;
+            NavigationService.getInventoryByProduct($scope.siConstraints, function (data) {
+                if (data.value === true) {
+                    if (data.data.total > 0) {
+                        $scope.allStock = data.data.results;
+                        console.log(" $scope.getStock", $scope.allStock);
+                    }
                 }
             });
             $scope.showSell = false;
-        };
+        }
+
+        // $scope.showProduct = function (id) {
+        //     $scope.showProd = true;
+        //     NavigationService.getInventoryByProduct(id, function (data) {
+        //         if (data.value == true) {
+        //             $scope.allStock = data.data;
+        //             console.log(" $scope.getStock", $scope.allStock);
+        //         }
+        //     });
+        //     $scope.showSell = false;
+        // };
         $.fancybox.close(true);
         $scope.showSellerProduct = function () {
             $scope.showSell = true;
@@ -3807,7 +3848,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.updatePaymentReadStatus(function (data) {
                 if (data.value == true) {
                     $scope.getNotifications();
-                    $state.go("payment-to-sellers");
+                    $state.go("paymentseller");
                 }
             });
         }

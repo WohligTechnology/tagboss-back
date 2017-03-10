@@ -137,11 +137,11 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'PaymentCtrl'
     })
-    .state('assign-agency', {
-      url: "/assign-agency",
-      templateUrl: "views/template.html",
-      controller: 'PaymentCtrl'
-    })
+    // .state('assign-agency', {
+    //   url: "/assign-agency",
+    //   templateUrl: "views/template.html",
+    //   controller: 'PaymentCtrl'
+    // })
     .state('inspection-panel', {
       url: "/inspection-panel",
       templateUrl: "views/template.html",

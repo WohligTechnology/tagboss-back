@@ -833,13 +833,13 @@ var navigationservice = angular.module('navigationservice', [])
       },
 
       getInventoryByProduct: function (senddata, callback) {
-        var data = {
-          "product": senddata
-        };
+        // var data = {
+        //   "product": senddata
+        // };
         return $http({
-          url: adminURL + "inventory/getInventorybyProduct",
+          url: adminURL + "inventory/getInventoryByProducts",
           method: "POST",
-          data: data
+          data: senddata
         }).success(callback);
       },
 
