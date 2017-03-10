@@ -1918,6 +1918,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("Inspection Login");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        if (window.location.host == "backend.tagboss.com") {
+            $state.go('loginpage');
+        }
         TemplateService.header = 'views/headeragencylogin.html';
         TemplateService.sidemenu = '';
         $scope.logindata = {};
