@@ -1165,11 +1165,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         }
-        $scope.changeURL = function (id) {
-            //console.log(id);
-            $location.path("" + id);
-        };
-        $scope.LogedIN = $.jStorage.get("LogedIn");
+        // $scope.changeURL = function (id) {
+        //     //console.log(id);
+        //     $location.path("" + id);
+        // };
+        // $scope.LogedIN = $.jStorage.get("LogedIn");
         $scope.isReadOnly = true;
         $scope.productEdit = {};
         $scope.productEdit.moc = {};
@@ -1257,11 +1257,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         }
-        $scope.changeURL = function (id) {
-            console.log(id);
-            $location.path("" + id);
-        };
-        $scope.LogedIN = $.jStorage.get("LogedIn");
+        // $scope.changeURL = function (id) {
+        //     console.log(id);
+        //     $location.path("" + id);
+        // };
+        // $scope.LogedIN = $.jStorage.get("LogedIn");
         $scope.isReadOnly = true;
         $scope.editStock = {};
         $scope.addSizeQty = [];
@@ -1453,11 +1453,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         }
-        $scope.changeURL = function (id) {
-            //console.log(id);
-            $location.path("" + id);
-        };
-        $scope.LogedIN = $.jStorage.get("LogedIn");
+        // $scope.changeURL = function (id) {
+        //     //console.log(id);
+        //     $location.path("" + id);
+        // };
+        // $scope.LogedIN = $.jStorage.get("LogedIn");
         $scope.isReadOnly = true;
         $scope.productStock = {};
         $scope.addSizeQty = [];
