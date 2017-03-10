@@ -1414,21 +1414,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
             console.log(data);
             console.log(constraints);
-            if (stockEdit.$valid) {
-                $scope.isDisabled = true;
-                NavigationService.saveEditStock(constraints, function (data) {
-                    console.log(data);
-                    if (data.data) {
-                        $scope.openAdd();
-                        $timeout(function () {
-                            $scope.mymodal.close();
-                            $state.go("view-seller-product");
-                        }, 3000);
-                    }
-                });
-            } else {
-                $scope.isDisabled = false;
-            }
+            // if (stockEdit.$valid) {
+            $scope.isDisabled = true;
+            NavigationService.saveEditStock(constraints, function (data) {
+                console.log(data);
+                if (data.data) {
+                    $scope.openAdd();
+                    $timeout(function () {
+                        $scope.mymodal.close();
+                        $state.go("view-seller-product");
+                    }, 3000);
+                }
+            });
+            // } else {
+            //     $scope.isDisabled = false;
+            // }
         }
 
         $scope.openPrev = function () {
