@@ -1,0 +1,1209 @@
+<section class="sell-login addproduct editproduct replicate-edit repli-add">
+    <div class="sell-log">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="text-center">
+                    <h3 class="popularprdts font-gotham-medium text-uppercase">Add Stock</h3>
+                </div>
+            </div>
+            <div class="row">
+                <form name="stockProduct">
+                    <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label for="brand" class="font-karla-bold">Brand</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="brand" name="" disabled>
+                                        <option value="">{{productStock.brand.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label for="coo" class="font-karla-bold">Country of Orgin</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="coo" name="" disabled>
+                                        <option value="">{{productStock.coo.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label for="cat" class="font-karla-bold">Select Shape</label>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="cat" name="" disabled>
+                                        <option value="">{{productStock.category.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pipes -->
+                        <div class="div" ng-if="productStock.category.name=='Pipes'">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productStock.details}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="moc" class="font-karla-bold">Select MOC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="moc" name="" disabled>
+                                        <option value="">{{productStock.moc.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="type" class="font-karla-bold">Type</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productStock.type.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Select Image</label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="shape-img edit-image">
+                                            <img ng-src="{{productStock.productImage.image | uploadpath}}" alt="" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Standard / Grades</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productStock.gradesstandards.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="odi" class="font-karla-bold">NB in Inches</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.odInches" id="odi" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="odm" class="font-karla-bold">OD in MM</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.odMm" id="odm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="sch" class="font-karla-bold">SCH</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.sch" id="sch" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="Thickness" class="font-karla-bold">Thickness (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.thickness" id="Thickness" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Stock in mtrs</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="stock">
+                                            <div class="">
+                                                <div class="pull-left length-size">
+                                                    <h3 class="font-karla">Add Length</h3>
+                                                </div>
+                                                <div class="pull-right length-range">
+                                                    <div class="btn-submit newpro ">
+                                                        <div class="text-center subbtn ">
+                                                            <a class="btn btn-primary font-gotham-medium                                                                 text-uppercase "
+                                                                ng-if="showMinus" ng-click="removeRow                                                                 (productStock.sizeQty)"><i class="fa fa-minus "></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right length-range">
+                                                    <div class="btn-submit newpro ">
+                                                        <div class="text-center subbtn ">
+                                                            <a class="btn btn-primary font-gotham-medium                                                                text-uppercase "
+                                                                ng-click="addRow()"><i class="fa fa-plus "></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="sizeqty length-range" ng-if="productStock.sizeQty.length > 0">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    length
+                                                                </th>
+                                                                <th class="">
+                                                                    quantity
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="addSizeQty in productStock.sizeQty">
+                                                                <td class="borb">
+                                                                    <input type="text" name="other{{$index}}" ng-pattern="template.decimalExact2" placeholder="Length" ng-model="addSizeQty.size"
+                                                                        ng-change="valueTotalQuantity()" required>
+                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 00.00 & Enter Value
+                                                                        Less than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 00.00 && Enter Value
+                                                                        Less than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 00.09</div>
+                                                                </td>
+                                                                <td class="borrb">
+                                                                    <input type="text" only-digits name="otherqty" ng-init="addSizeQty.qty = 1" ng-model="addSizeQty.qty" ng-change="valueTotalQuantity()"
+                                                                        required>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.qty == 0)">Please Enter Value Greater than 0</div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="totalstock" ng-if="productStock.totalQty || productStock.totalQty==1">
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" placeholder="0" ng-model="productStock.totalQty" readonly></h3>
+                                                <span class="unit-size">Nos.</span>
+                                            </div>
+                                            <div class="totalstock" ng-if="productStock.totalLength">
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" placeholder="0" ng-model="productStock.totalLength" readonly></h3>
+                                                <span class="unit-size">Mtrs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="pricePerKg" class="font-karla-bold">Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="perKg" ng-model="productStock.pricePerKg" id="pricePerKg" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseMpk" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
+                                    <span>(included in Price per Kg)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseMpk" ng-model="productStock.exciseModvatPerKg" id="exciseMpk" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Theoretical Weight per mtr</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <span class="theory" ng-bind-html="productStock.theoreticalwt+' kg/mtr'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<label for="brand" class="font-karla-bold">Total wt of above stock (kg)</label>-->
+                                        <label for="totalweight" class="font-karla-bold excisewt"><span>Total weight of above</span>
+                                        <span>stock in Kgs</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" ng-model="productStock.totalWt" name="" id="totalweight" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="rate" class="font-karla-bold">Rate per mtr</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="rate" id="rate" ng-model="productStock.ratePerKgMtr" ng-change="valueAll(productStock.ratePerKgMtr)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseMpm" class="font-karla-bold excisem"><span>Excise Modvat per mtr</span>
+                                <span>(included in price above)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseMpm" ng-model="productStock.exciseModvatPerProduct" id="exciseMpm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="discount" class="font-karla-bold">Discount (%)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.discount" id="discount" ng-change="valueAll(productStock.discount)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.finalPriceKg" id="finalprice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="vat" class="font-karla-bold">VAT % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="cst" class="font-karla-bold">CST % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">MTC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="custom-radiobtn">
+                                            <input type="radio" name="optionsRadios" id="radio40" value="Original" ng-model="productStock.mtcStatus">
+                                            <label for="radio40" class="custspace"><span></span>I have original MTC
+                                    </label>
+                                            <span class="customers">Customers like to buy products with original MTC</span>
+                                            <input type="radio" name="optionsRadios" id="radio50" value="Photocopy" ng-model="productStock.mtcStatus">
+                                            <label for="radio50" class="custspaces"><span></span>I have photocopy of MTC</label>
+                                            <input type="radio" name="optionsRadios" id="radio60" value="Notavailable" ng-model="productStock.mtcStatus">
+                                            <label for="radio60" class="custspaces"><span></span>MTC not available</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="div" ng-hide="productStock.mtcStatus=='Notavailable'">
+                                            <div class="input-group attach">
+                                                <div class="filename">
+                                                    <a>
+                                                        <p class="font-karla upload-place"></p>
+                                                    </a>
+                                                    <a ng-if="productStock.mtcImage.length > 0 && errorMsg != 'Please upload png, jpg or pdf.' && errorMsg != 'Please Upload File Size Upto 10MB.'"
+                                                        fancybox-box ng-href="{{productStock.mtcImage | serverimage}}" rel="fancybox"
+                                                        target="_blank">
+                                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                                    </a>
+                                                </div>
+                                                <div class="input-group-addon upload">
+                                                    <upload-image ng-model="productStock.mtcImage" file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeMtc"
+                                                        no-view></upload-image>
+                                                </div>
+                                            </div>
+                                            <!--<p class="font-karla plsmtc">{{ !errorMsg ? "Please upload MTC" : errorMsg }}</p>-->
+                                            <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ !errorMsg && (errorMsg != 'Successfully uploaded') ? defaultErrorMsg: errorMsg
+                                                }}
+                                            </p>
+                                            <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ defaultSizeFormat }}</p>
+                                            <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgm}" ng-if="productStock.mtcImage">{{ errorMsg}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="godown" class="font-karla-bold">Address of Godown</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="godown" name="" disabled>
+                                        <option value="">{{productStock.warehouse.warehouseAddress+' '+productStock.warehouse.warehouseCity+' '+productStock.warehouse.warehousePincode}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- plates/sheet -->
+                        <div class="div" ng-if="productStock.category.name=='Plates/Sheets'">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productStock.details}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="moc" class="font-karla-bold">Select MOC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="moc" name="" disabled>
+                                        <option value="">{{productStock.moc.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="type" class="font-karla-bold">Type</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productStock.type.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Select Image</label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="shape-img edit-image">
+                                            <img ng-src="{{productStock.productImage.image | uploadpath}}" alt="" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="grade" class="font-karla-bold">Standard / Grades</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
+                                        <option value="">{{productStock.gradesstandards.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="thickness" class="font-karla-bold">Thickness (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.thickness" id="thickness" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="width" class="font-karla-bold">Width (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.width" id="width" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="length" class="font-karla-bold">Length (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.length" id="length" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold twps">Theoretical Weight per Plate/Sheet</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <span class="theory" ng-bind-html="productStock.theoreticalwt+' kg/sheet'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="quantity" class="font-karla-bold">Quantity in Numbers</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.quantityInNos" id="quantity" ng-change="valueTotalWtPlate(productStock.quantityInNos)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="weight" class="font-karla-bold"><span>Total Weight in Kg</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="weight" ng-model="productStock.totalWt" id="weight" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="price" class="font-karla-bold">Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="pricePK" ng-model="productStock.pricePerKg" id="price" ng-change="valueAllPlate(productStock.pricePerKg)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="Modvatexcise" class="font-karla-bold excisek"><span>Per KG Excise Modvat</span>
+                                        <span>(included in Price per Kg)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.exciseModvatPerKg" id="Modvatexcise" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="sheets" class="font-karla-bold">Price per Sheet</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="sheets" ng-model="productStock.pricePerProduct" id="sheets" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseSheets" class="font-karla-bold eexciseps"><span>Excise Modvat per Sheet</span>
+            <span>(included in Price per Sheet)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseSheets" ng-model="productStock.exciseModvatPerProduct" id="exciseSheets"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="discount" class="font-karla-bold">Discount (%)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.discount" id="discount" ng-change="valueAllPlate(productStock.discount)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.finalPrice" id="finalprice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="vat" class="font-karla-bold">VAT % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="cst" class="font-karla-bold">CST % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">MTC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="custom-radiobtn">
+                                            <input type="radio" name="optionsRadios" id="radio41" value="Original" ng-model="productStock.mtcStatus">
+                                            <label for="radio41" class="custspace"><span></span>I have original MTC
+                                    </label>
+                                            <span class="customers">Customers like to buy products with original MTC</span>
+                                            <input type="radio" name="optionsRadios" id="radio51" value="Photocopy" ng-model="productStock.mtcStatus">
+                                            <label for="radio51" class="custspaces"><span></span>I have photocopy of MTC</label>
+                                            <input type="radio" name="optionsRadios" id="radio61" value="Notavailable" ng-model="productStock.mtcStatus">
+                                            <label for="radio61" class="custspaces"><span></span>MTC not available</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="div" ng-hide="productStock.mtcStatus=='Notavailable'">
+                                            <div class="input-group attach">
+                                                <div class="filename">
+                                                    <a>
+                                                        <p class="font-karla upload-place"></p>
+                                                    </a>
+                                                    <a ng-if="productStock.mtcImage.length > 0 && errorMsg != 'Please upload png, jpg or pdf.' && errorMsg != 'Please Upload File Size Upto 10MB.'"
+                                                        fancybox-box ng-href="{{productStock.mtcImage | serverimage}}" rel="fancybox"
+                                                        target="_blank">
+                                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                                    </a>
+                                                </div>
+                                                <div class="input-group-addon upload">
+                                                    <upload-image ng-model="productStock.mtcImage" file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeMtc"
+                                                        no-view></upload-image>
+                                                </div>
+                                            </div>
+                                            <!--<p class="font-karla plsmtc">{{ !errorMsg ? "Please upload MTC" : errorMsg }}</p>-->
+                                            <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ !errorMsg && (errorMsg != 'Successfully uploaded') ? defaultErrorMsg: errorMsg
+                                                }}
+                                            </p>
+                                            <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ defaultSizeFormat }}</p>
+                                            <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgm}" ng-if="productStock.mtcImage">{{ errorMsg}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="godown" class="font-karla-bold">Address of Godown</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="godown" name="" disabled>
+                                        <option value="">{{productStock.warehouse.warehouseAddress+' '+productStock.warehouse.warehouseCity+' '+productStock.warehouse.warehousePincode}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- coil -->
+                        <div class="div" ng-if="productStock.category.name=='Coil'">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productStock.details}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="moc" class="font-karla-bold">Select MOC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="moc" name="" disabled>
+                                        <option value="">{{productStock.moc.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="type" class="font-karla-bold">Type</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productStock.type.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Select Image</label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="shape-img edit-image">
+                                            <img ng-src="{{productStock.productImage.image | uploadpath}}" alt="" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="grade" class="font-karla-bold">Standard / Grades</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
+                                        <option value="">{{productStock.gradesstandards.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="thickness" class="font-karla-bold">Thickness (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.thickness" id="thickness" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="width" class="font-karla-bold">Width (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.width" id="width" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Length (MM)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" value="Coil" id="cst" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Quantity in Numbers</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" value="1" readonly id="cst">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="weight" class="font-karla-bold"><span>Total Weight in Kg</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="weight" ng-model="productStock.totalWt" id="weight" readonly>
+                                        <p class="font-karla warning"><sup>*</sup> should match with the MTC weight.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="pricePerKg" class="font-karla-bold">Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="pricePerKg" ng-model="productStock.pricePerKg" id="pricePerKg" ng-change="valueAllCoil(productStock.pricePerKg)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseKg" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
+                <span>(included in Price per Kg)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseKg" ng-model="productStock.exciseModvatPerKg" id="exciseKg" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="priceCoil" class="font-karla-bold">Price per Coil</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="priceCoil" ng-model="productStock.pricePerProduct" id="priceCoil" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseProduct" class="font-karla-bold eexcisec"><span>Excise Modvat per Coil</span>
+                <span>(included in Price per Coil)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseProduct" ng-model="productStock.exciseModvatPerProduct" id="exciseProduct"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="discount" class="font-karla-bold">Discount (%)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.discount" id="discount" ng-change="valueAllCoil(productStock.discount)"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.finalPrice" id="finalprice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="vat" class="font-karla-bold">VAT % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="cst" class="font-karla-bold">CST % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">MTC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="custom-radiobtn">
+                                            <input type="radio" name="optionsRadios" id="radio42" value="Original" ng-model="productStock.mtcStatus">
+                                            <label for="radio42" class="custspace"><span></span>I have original MTC
+                                    </label>
+                                            <span class="customers">Customers like to buy products with original MTC</span>
+                                            <input type="radio" name="optionsRadios" id="radio52" value="Photocopy" ng-model="productStock.mtcStatus">
+                                            <label for="radio52" class="custspaces"><span></span>I have photocopy of MTC</label>
+                                            <input type="radio" name="optionsRadios" id="radio62" value="Notavailable" ng-model="productStock.mtcStatus">
+                                            <label for="radio62" class="custspaces"><span></span>MTC not available</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="div" ng-hide="productStock.mtcStatus=='Notavailable'">
+                                            <div class="input-group attach">
+                                                <div class="filename">
+                                                    <a>
+                                                        <p class="font-karla upload-place"></p>
+                                                    </a>
+                                                    <a ng-if="productStock.mtcImage.length > 0 && errorMsg != 'Please upload png, jpg or pdf.' && errorMsg != 'Please Upload File Size Upto 10MB.'"
+                                                        fancybox-box ng-href="{{productStock.mtcImage | serverimage}}" rel="fancybox"
+                                                        target="_blank">
+                                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                                    </a>
+                                                </div>
+                                                <div class="input-group-addon upload">
+                                                    <upload-image ng-model="productStock.mtcImage" file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeMtc"
+                                                        no-view></upload-image>
+                                                </div>
+                                            </div>
+                                            <!--<p class="font-karla plsmtc">{{ !errorMsg ? "Please upload MTC" : errorMsg }}</p>-->
+                                            <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ !errorMsg && (errorMsg != 'Successfully uploaded') ? defaultErrorMsg: errorMsg
+                                                }}
+                                            </p>
+                                            <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ defaultSizeFormat }}</p>
+                                            <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgm}" ng-if="productStock.mtcImage">{{ errorMsg}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="godown" class="font-karla-bold">Address of Godown</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="godown" name="" disabled>
+                                        <option value="">{{productStock.warehouse.warehouseAddress+' '+productStock.warehouse.warehouseCity+' '+productStock.warehouse.warehousePincode}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- roundbar -->
+                        <div class="div" ng-if="productStock.category.name=='Roundbar'">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Product Description</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productStock.details}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="moc" class="font-karla-bold">Select MOC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="moc" name="" disabled>
+                                        <option value="">{{productStock.moc.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Select Image</label>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <div class="shape-img edit-image">
+                                            <img ng-src="{{productStock.productImage.image | uploadpath}}" alt="" class="img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="grade" class="font-karla-bold">Standard / Grades</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
+                                        <option value="">{{productStock.gradesstandards.name}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="diameter" class="font-karla-bold">Diameter in MM</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.diameter" id="diameter" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Stock in mtrs</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="stock">
+                                            <div class="">
+                                                <div class="pull-left length-size">
+                                                    <h3 class="font-karla">Add Length</h3>
+                                                </div>
+                                                <div class="pull-right length-range">
+                                                    <div class="btn-submit newpro ">
+                                                        <div class="text-center subbtn ">
+                                                            <a class="btn btn-primary font-gotham-medium text-uppercase " ng-if="showMinus" ng-click="removeRow(productStock.sizeQty)"><i class="fa fa-minus "></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right length-range">
+                                                    <div class="btn-submit newpro ">
+                                                        <div class="text-center subbtn ">
+                                                            <a class="btn btn-primary font-gotham-medium text-uppercase " ng-click="addRow()"><i class="fa fa-plus "></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="sizeqty length-range" ng-if="productStock.sizeQty.length > 0">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    length
+                                                                </th>
+                                                                <th class="">
+                                                                    quantity
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="addSizeQty in productStock.sizeQty">
+                                                                <td class="borb">
+                                                                    <input type="text" name="other{{$index}}" ng-pattern="template.decimalExact2" placeholder="Length" ng-model="addSizeQty.size"
+                                                                        ng-change="valueTotalQuantity()" required>
+                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 00.00 & Enter Value
+                                                                        Less than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 00.00 && Enter Value
+                                                                        Less than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 00.09</div>
+                                                                </td>
+                                                                <td class="borrb">
+                                                                    <input type="text" only-digits name="otherqty" ng-init="addSizeQty.qty = 1" ng-model="addSizeQty.qty" ng-change="valueTotalQuantity()"
+                                                                        required>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.qty == 0)">Please Enter Value Greater than 0</div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="totalstock" ng-if="productStock.totalQty || productStock.totalQty==1">
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" placeholder="0" ng-model="productStock.totalQty" readonly></h3>
+                                                <span class="unit-size">Nos.</span>
+                                            </div>
+                                            <div class="totalstock" ng-if="productStock.totalLength">
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" placeholder="0" ng-model="productStock.totalLength" readonly></h3>
+                                                <span class="unit-size">Mtrs</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="priceKg" class="font-karla-bold">Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="priceKg" ng-model="productStock.pricePerKg" id="priceKg" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="modvatExcise" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
+                    <span>(included in Price per Kg)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="modvatExcise" ng-model="productStock.exciseModvatPerKg" id="modvatExcise" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Theoretical Weight per mtr</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <span class="theory" ng-bind-html="productStock.theoreticalwt+' kg/mtr'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<label for="brand" class="font-karla-bold">Total wt of above stock (kg)</label>-->
+                                        <label for="totalwtpipe" class="font-karla-bold excisewt"><span>Total weight of above</span>
+                    <span>stock in Kgs</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="totalwtpipe" id="totalwtpipe" ng-model="productStock.totalWt" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="priceplate" class="font-karla-bold">Price per mtr</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="priceplate" id="priceplate" ng-model="productStock.pricePerProduct" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="modvatplate" class="font-karla-bold excisemm"><span>Excise Modvat per mtr</span>
+            <span>(included in Price per mtr)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="modvatplate" id="modvatplate" ng-model="productStock.exciseModvatPerProduct"
+                                            readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="discount" class="font-karla-bold">Discount (%)</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.discount" ng-change="valueFinalPrice(productStock.pricePerKg)"
+                                            id="discount" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.finalPriceKg" id="finalprice" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="vat" class="font-karla-bold">VAT % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="cst" class="font-karla-bold">CST % extra</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">MTC</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="custom-radiobtn">
+                                            <input type="radio" name="optionsRadios" id="radio43" value="Original" ng-model="productStock.mtcStatus">
+                                            <label for="radio43" class="custspace"><span></span>I have original MTC
+                                    </label>
+                                            <span class="customers">Customers like to buy products with original MTC</span>
+                                            <input type="radio" name="optionsRadios" id="radio53" value="Photocopy" ng-model="productStock.mtcStatus">
+                                            <label for="radio53" class="custspaces"><span></span>I have photocopy of MTC</label>
+                                            <input type="radio" name="optionsRadios" id="radio63" value="Notavailable" ng-model="productStock.mtcStatus">
+                                            <label for="radio63" class="custspaces"><span></span>MTC not available</label>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="div" ng-hide="productStock.mtcStatus=='Notavailable'">
+                                            <div class="input-group attach">
+                                                <div class="filename">
+                                                    <a>
+                                                        <p class="font-karla upload-place"></p>
+                                                    </a>
+                                                    <a ng-if="productStock.mtcImage.length > 0 && errorMsg != 'Please upload png, jpg or pdf.' && errorMsg != 'Please Upload File Size Upto 10MB.'"
+                                                        fancybox-box ng-href="{{productStock.mtcImage | serverimage}}" rel="fancybox"
+                                                        target="_blank">
+                                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                                    </a>
+                                                </div>
+                                                <div class="input-group-addon upload">
+                                                    <upload-image ng-model="productStock.mtcImage" file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeMtc"
+                                                        no-view></upload-image>
+                                                </div>
+                                            </div>
+                                            <!--<p class="font-karla plsmtc">{{ !errorMsg ? "Please upload MTC" : errorMsg }}</p>-->
+                                            <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ !errorMsg && (errorMsg != 'Successfully uploaded') ? defaultErrorMsg: errorMsg
+                                                }}
+                                            </p>
+                                            <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgm}" ng-if="!productStock.mtcImage">{{ defaultSizeFormat }}</p>
+                                            <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgm}" ng-if="productStock.mtcImage">{{ errorMsg}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="godown" class="font-karla-bold">Address of Godown</label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="godown" name="" disabled>
+                                        <option value="">{{productStock.warehouse.warehouseAddress+' '+productStock.warehouse.warehouseCity+' '+productStock.warehouse.warehousePincode}}</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                        <div class="subbtn inline-block pacebtn">
+                            <button class="btn btn-primary font-gotham-medium text-uppercase" ng-click="saveStock(productStock,stockProduct)" ng-disabled="isDisabled == true">Submit</button>
+                        </div>
+                        <div class="subbtn inline-block pacebtn">
+                            <button class="btn btn-primary font-gotham-medium text-uppercase" ng-click="openPrev()">Cancel</button>
+                            <!--<button class="btn btn-primary font-gotham-medium text-uppercase" ui-sref="seller-accounttab({tab:'3'})">Cancel</button>-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

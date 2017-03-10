@@ -2679,6 +2679,97 @@
         }
       }
       
+      .replicate-edit {
+        margin-bottom: 30px;
+        padding-top: 180px;
+        .shape-img {
+          width: 50px;
+          margin: 0 0 10px;
+          background: rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+          .image-shape {
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+          }
+          &:hover {
+            .imagehover {
+              display: block;
+            }
+          }
+          .imagehover {
+            position: absolute;
+            top: 0;
+            left: 69px;
+            width: 110px;
+            height: auto;
+            z-index: 9999;
+            display: none;
+          }
+          .tick {
+            color: #fff;
+            top: 0;
+            right: 0;
+            font-size: 12px;
+          }
+        }
+        //   .imagehover {
+        //       position: absolute;
+        //       top: 0;
+        //       left: 15px;
+        //       width: 269px;
+        //       height: 65px;
+        //       z-index: 9999;
+        //       display: none;
+        //       img {
+        //           position: absolute;
+        //           top: 0;
+        //           left: 0;
+        //           width: 100%;
+        //           height: auto;
+        //           z-index: 9999;
+        //           display: none;
+        //       }
+        //   }
+        .edit-image {
+          width: 50%;
+          height: 100%;
+          border: 2px solid $button-info;
+        }
+        .warning {
+          margin: 8px 0 0;
+          sup {
+            font-size: 16px;
+            top: -0.1em;
+          }
+        }
+        .form-control {
+          border-color: #b5b5b5;
+          background-color: #ffffff;
+          font-size: 15px;
+        }
+        .form-control[disabled],
+        .form-control[readonly] {
+          background-color: #efefef !important;
+          opacity: 1;
+        }
+        .stock input[type=number],
+        .stock input[type=text] {
+          background-color: #fff !important;
+        }
+        .stock input[disabled],
+        .stock input[readonly] {
+          background-color: #efefef !important;
+          opacity: 1;
+        }
+      }
+      
+      .repli-add {
+        .customers {
+          margin: 12px 0 8px 0 !important;
+        }
+      }
+      
       //  -------------------Category Price Range---------------------
       .price-range {
         tbody {
@@ -2894,7 +2985,7 @@
           margin: 0 0 0 77px;
         }
         span+span {
-          margin: 0 0 0 54px;
+          margin: 0 0 0 50px;
         }
       }
       
@@ -2943,6 +3034,23 @@
         }
       }
       
+      .eexciseps {
+        span {
+          margin: 0 0 0 52px;
+        }
+        span+span {
+          margin: 0 0 0 21px;
+        }
+      }
+      
+      .twps {
+        margin: 0 0 0 70px;
+      }
+      
+      .theory {
+        font-size: 20px;
+      }
+      
       .exciseps1 {
         span {
           margin: 0 0 0 55px;
@@ -2958,6 +3066,15 @@
         }
         span+span {
           margin: 0 0 0 43px;
+        }
+      }
+      
+      .eexcisec {
+        span {
+          margin: 0 0 0 70px;
+        }
+        span+span {
+          margin: 0 0 0 39px;
         }
       }
       

@@ -129,138 +129,28 @@
                                     </td>
                                     <td class="view-td final-center">
                                         <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
-                                        <a class="inline-block" ng-click="editProduct(products.product._id)"><label class="view formatEdit">EDIT</label></a>
-                                        <a class="inline-block"><label class="view formatEdit">|</label></a>
-                                        <a class="inline-block" ng-click="showProduct(products.product)"><label class="view formatEdit">VIEW</label></a>
+                                        <a class="inline-block" ui-sref="editproduct({'id':products._id})"><label class=" view formatEdit ">EDIT</label></a>
+                                        <a class="inline-block "><label class="view formatEdit ">|</label></a>
+                                        <a class="inline-block " ng-click="showProduct(products.product)
+                                            "><label class="view formatEdit ">VIEW</label></a>
+                                        <form action="">
+                                            <select name="" ng-if="products.status == 'Verified'" ng-model="product.status" ng-change="changeStatus(product.status)"
+                                                id="">
+                                                <option value="">Live</option>
+                                                <option value="">Unlive</option>
+                                            </select>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row text-center" ng-if="allSellerProducts.length>0">
+                <div class="row text-center " ng-if="allSellerProducts.length>0">
                     <ul uib-pagination total-items="totalSizes" ng-model="constraints.pagenumber" class="pagination-sm" items-per-page="constraints.pagesize"
                         ng-change="getAllSellerProducts()"></ul>
                 </div>
             </div>
-            <!--<div class="view-sell-stock">
-                <div class="checkin favour orders sellorders myproduct">
-                    <div class="table-invent mycart-table">
-                        <div class="item-detail invent-head">
-                            <div class="item-info-detail pull-left">
-                                <h3 class="font-karla-bold">Stock</h3>
-                            </div>
-                            <div class="item-info-detail pull-right backcursor">
-                                <p class="font-karla-bold">
-                                    <span class="arrow font-karla"> < </span> Back to my products</p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                     
-                        <div class="pull-left">
-                            <h3 class="font-karla-bold pop-up"><span>Stainless Steel</span><span>Seamless</span><span>Pipes</span></h3>
-                            <h3 class="font-karla-bold pop-up"><span>ASTM A-312</span><span>1/4 NB (Inches)</span><span>x</span><span>SCH 10</span></h3>
-                        </div>
-                        <div class="clearfix"></div>
-                        <table class="table mycart">
-                            <thead class="font-karla">
-                                <tr>
-                                    <th class="text-center">Stock Id</th>
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Available Stock</th>
-                                    <th class="text-center">City</th>
-                                    <th class="text-center">MTC</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="border-left text-center">
-                                        <div class="item-detail">
-                                            <div class="item-info-detail">
-                                                <h3 class="">ABC_001</h3>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail">
-                                            <h3 class="font-karla">26 June 2016</h3>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail">
-                                            <h3 class="">200</h3>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="text-center">
-                                            <span class="font-karla">Mumbai</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="chpass text-center">
-                                            <span class="">View</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail status ">
-                                            <h3 class="text-uppercase ">Approved</h3>
-                                    
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla  border-right">
-                                        <div class="chpass backcursor">
-                                            <span ui-sref="viewstock" class="">View Stock</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="border-left text-center">
-                                        <div class="item-detail">
-                                            <div class="item-info-detail">
-                                                <h3 class="">ABC_001</h3>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail">
-                                            <h3 class="font-karla">26 June 2016</h3>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail">
-                                            <h3 class="">200</h3>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="text-center">
-                                            <span class="font-karla">Mumbai</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="chpass text-center">
-                                            <span class="">View</span>
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla">
-                                        <div class="item-info-detail status ">
-                                           
-                                            <h3 class="text-uppercase ">Pending</h3>
-                                           showSeller
-                                        </div>
-                                    </td>
-                                    <td class="text-center font-karla  border-right">
-                                        <div class="chpass backcursor">
-                                            <span ui-sref="viewstock" class="">View Stock</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>-->
             <div class="view-sell-prod" ng-show="showProd">
                 <div class="invent-head">
                     <div class="info-detail pull-left">
@@ -287,6 +177,14 @@
                     <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Roundbar'">
                         <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
                         <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span></span><span>Dia {{allStock[0].diameter}} MM</span></h3>
+                    </div>
+                    <div class="pull-right addbtn ">
+                        <div class="btn-submit newpro ">
+                            <div class="text-center subbtn ">
+                                <button ui-sref="addstock({'id':allStock[0]._id}) " class="btn btn-primary font-gotham-medium text-uppercase
+                                            "><i class="fa fa-plus "></i>Add More Stock</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -338,7 +236,7 @@
                                 <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Assigned'">{{stock.status}} to {{stock.agencyid.agencyName}}</label>
                                 <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Inspected'">{{stock.status}} by {{stock.agencyid.agencyName} </label>
                                 <label class="stat formatStatus" ng-if="stock.status=='Rejected'">Rejected</label>
-                                <a class="inline-block" ng-if="stock.status!='Rejected'" ng-click="editProduct(products.product._id)"><label class="view formatEdit">EDIT</label></a>
+                                <a class="inline-block" ng-if="stock.status!='Rejected'" ui-sref="editstock({'id':stock._id})"><label class="view formatEdit">EDIT</label></a>
                                 <a class="inline-block" ng-if="stock.status!='Rejected' && stock.status=='Verified'"><label class="view formatEdit">|</label></a>
                                 <a class="inline-block" ng-if="stock.status=='Verified'"><label class="view formatEdit colorStats">Live</label></a>
                                 <a class="inline-block" ng-if="stock.status=='Rejected'"><label class="view formatEdit colorStat">Rejected</label></a>

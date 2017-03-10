@@ -724,7 +724,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
     })
-    .controller('ProdApprovalCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $filter) {
+    .controller('ProdApprovalCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $filter, $state) {
         $scope.template = TemplateService.changecontent("product-approval");
         $scope.menutitle = NavigationService.makeactive("Product Approval");
         TemplateService.title = $scope.menutitle;
@@ -805,6 +805,18 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
 
+        $scope.unassignInspection = function (data) {
+            $scope.constraints = {};
+            $scope.constraints._id = data;
+            NavigationService.unassignedInspection($scope.constraints, function (data) {
+                if (data.data.nModified == 1) {
+                    toastr.success("Inventory is successfully unassigned.", "Unassign Inspection Message");
+                    $scope.getInventory();
+                } else {
+                    toastr.error("Something went wrong while unassigning inventory from inspection.", "Unassign Inspection Message");
+                }
+            });
+        }
 
         $scope.getAllGrades = function (id) {
             NavigationService.getGradesStandards(id, function (data) {
@@ -1145,6 +1157,544 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
     })
 
+    .controller('EditProductCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $stateParams, $state) {
+        $scope.template = TemplateService.changecontent("editproduct");
+        $scope.menutitle = NavigationService.makeactive("Edit Product");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+        $scope.changeURL = function (id) {
+            //console.log(id);
+            $location.path("" + id);
+        };
+        $scope.LogedIN = $.jStorage.get("LogedIn");
+        $scope.isReadOnly = true;
+        $scope.productEdit = {};
+        $scope.productEdit.moc = {};
+        var editProductId = {};
+        editProductId.inventory = $stateParams.id;
+        //console.log(editProductId._id);
+        NavigationService.getOneProductDetail(editProductId, function (data) {
+            $scope.productEdit = data.data;
+            if (data.data) {
+                $scope.calculatePriceRangeValue();
+            }
+        });
+        $scope.valueFinalPrice = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+            $scope.productEdit.finalPriceKg = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) - ((((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+        }
+
+        $scope.valueAll = function (data) {
+            $scope.productEdit.ratePerKgMtr = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg == 0 ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+            $scope.productEdit.finalPriceKg = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100).toFixed(2);
+            $scope.productEdit.finalPrice = ((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) - ((((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) * ($scope.productEdit.discount)) / 100).toFixed(2);
+        }
+
+        $scope.valueAllPlate = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+        }
+
+        $scope.valueAllCoil = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.totalWt)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+        }
+
+        $scope.calculatePriceRangeValue = function () {
+            //console.log($scope.productEdit.extraPrice);
+            $scope.lowerlimitPrice = ($scope.productEdit.extraPrice - ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
+            $scope.upperlimitPrice = ($scope.productEdit.extraPrice + ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
+        };
+
+        $scope.isDisabled = false;
+        $scope.saveEdited = function (data, editproduct) {
+            var constraints = {};
+            constraints._id = data._id;
+            // constraints = productEdit;
+            constraints.ratePerKgMtr = data.ratePerKgMtr;
+            constraints.pricePerKg = data.pricePerKg;
+            constraints.discount = data.discount;
+            constraints.finalPrice = data.finalPrice;
+            constraints.finalPriceKg = data.finalPriceKg;
+            constraints.pricePerProduct = data.pricePerProduct;
+            //console.log(data);
+            //console.log(constraints);
+
+            if (editproduct.$valid) {
+                $scope.isDisabled = true;
+                $(window).scrollTop(0);
+                NavigationService.saveEditProduct(constraints, function (data) {
+                    //console.log(data);
+                    if (data.data.nModified == 1) {
+                        $scope.openEdit();
+                        $timeout(function () {
+                            $scope.mymodal.close();
+                            $state.go("view-seller-product");
+                        }, 3000);
+                    }
+                });
+            }
+        }
+        $scope.openEdit = function () {
+            $scope.mymodal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/saveeditedproduct.html',
+                scope: $scope,
+                windowClass: "paymentbox"
+            });
+        };
+    })
+
+    .controller('EditStockCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $state, $stateParams, toastr, $rootScope) {
+        $scope.template = TemplateService.changecontent("editstock");
+        $scope.menutitle = NavigationService.makeactive("Edit Stock");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+        $scope.changeURL = function (id) {
+            console.log(id);
+            $location.path("" + id);
+        };
+        $scope.LogedIN = $.jStorage.get("LogedIn");
+        $scope.isReadOnly = true;
+        $scope.editStock = {};
+        $scope.addSizeQty = [];
+        $scope.editStock.moc = {};
+        $scope.editStock.sizeQty = [];
+        $scope.otherLengths = [];
+        $scope.lengths = [];
+        $scope.sizeQty = [];
+        $scope.editStock10 = {};
+        $scope.editStock10.sizeQty = [];
+        $scope.tempStock = [];
+        $scope.tempStockArray = [];
+        var stockProductId = {};
+        stockProductId.inventory = $stateParams.id;
+        NavigationService.getOneProductDetail(stockProductId, function (data) {
+            $scope.editStock = data.data;
+            // $scope.editStock10.sizeQty = data.data.sizeQty;
+            // $scope.editStock.sizeQty = [];
+            // delete $scope.editStock.totalWt;
+            if (data.data) {
+                $scope.tempQty = $scope.editStock.quantityInNos;
+                $scope.tempCoilQty = $scope.editStock.coilQty;
+                $scope.valueDivide();
+                // $scope.tempStock = $scope.sizeQty;
+                // $scope.tempStockArray = $scope.editStock.sizeQty;
+            }
+        });
+        $scope.valueDivide = function () {
+            // for (var i = 0; i <= $scope.editStock10.sizeQty.length; i++) {
+            // if ($scope.editStock.startRange > $scope.editStock10.sizeQty[i].size || $scope.editStock.endRange < $scope.editStock10.sizeQty[i].size) {
+
+            //     $scope.sizeQty.push({
+            //         size: $scope.editStock10.sizeQty[i].size,
+            //         qty: $scope.editStock10.sizeQty[i].qty
+            //     });
+            // } else {
+            //     $scope.editStock.sizeQty.push({
+            //         size: $scope.editStock10.sizeQty[i].size,
+            //         qty: $scope.editStock10.sizeQty[i].qty
+            //     });
+            // }
+            //   $scope.tempStock = $scope.sizeQty;
+            //   $scope.newTempStock = _.cloneDeep($scope.tempStock);
+            $scope.tempStockArray = $scope.editStock.sizeQty;
+            $scope.newStock = _.cloneDeep($scope.tempStockArray);
+
+
+
+            // }
+        }
+        $scope.valueTotalQuantity = function (index, value, length) {
+            // console.log(index, value, length, "aaa");
+            $scope.editStock.totalQty = 0;
+            $scope.editStock.totallength = 0;
+            if (length === undefined) {
+
+                if ($scope.tempStockArray[index].qty > $scope.newStock[index].qty) {
+                    console.log("err");
+                    var stock = toastr.error("Quantity should be less than " + $scope.newStock[index].qty, "Quantity Error");
+                    $timeout(function () {
+                        toastr.clear(stock);
+                    }, 5000)
+                }
+            }
+            //         else if(length == undefined){
+
+            //   if($scope.tempStock[index].qty > $scope.newTempStock[index].qty){
+            //                 console.log("err");
+            //                 var stock= toastr.error("Quantity should be less than "+$scope.newStock[index].qty,"Quantity Error");
+            //                         $timeout(function(){
+            //                             toastr.clear(stock);
+            //                         },5000)
+            //             }
+            //         }
+            _.each($scope.editStock.sizeQty, function (n) {
+                $scope.editStock.totalQty = parseInt($scope.editStock.totalQty + n.qty);
+                $scope.editStock.totallength = $scope.editStock.totallength + (n.size * n.qty);
+            });
+            $scope.editStock.totalLength = $scope.editStock.totallength.toFixed(2);
+
+            // _.each($scope.sizeQty, function (n) {
+            //     $scope.editStock.totalQty = parseInt($scope.editStock.totalQty + n.qty);
+            //     $scope.editStock.totallength = $scope.editStock.totallength + (n.size * n.qty);
+            // });
+            // $scope.editStock.totalLength = $scope.editStock.totallength.toFixed(2);
+            $scope.valueTotalWt();
+        }
+        // $scope.editStock.totalWt = '';
+        $scope.valueTotalWt = function () {
+            $scope.editStock.totalWt = (($scope.editStock.theoreticalwt) * ($scope.editStock.totalLength)).toFixed(2);
+        }
+
+        $scope.valueWtTotal = function (data) {
+            if (data > $scope.tempQty) {
+                console.log("err");
+                var stock = toastr.error("Quantity should be less than " + $scope.tempQty, "Quantity Error");
+                $timeout(function () {
+                    toastr.clear(stock);
+                }, 3000)
+                $scope.editStock.quantityInNos = $scope.tempQty;
+                $scope.editStock.totalWt = (($scope.editStock.theoreticalwt) * ($scope.editStock.quantityInNos)).toFixed(2);
+            }
+            //  else if (data == '') {
+            //     $scope.editStock.quantityInNos = 0;
+            // }
+            else {
+                $scope.editStock.totalWt = (($scope.editStock.theoreticalwt) * ($scope.editStock.quantityInNos)).toFixed(2);
+            }
+        }
+
+        $scope.valueQty = function (data) {
+            if (data > $scope.tempCoilQty) {
+                console.log("err");
+                var stock = toastr.error("Quantity should be less than " + $scope.tempCoilQty, "Quantity Error");
+                $timeout(function () {
+                    toastr.clear(stock);
+                }, 3000)
+                $scope.editStock.coilQty = $scope.tempCoilQty;
+            }
+        }
+        // else if (data == 0) {
+        //         var stocks = toastr.error("Quantity can't be zero", "Quantity Error");
+        //         $timeout(function () {
+        //             toastr.clear(stocks);
+        //         }, 3000)
+        //         $scope.editStock.quantityInNos = $scope.tempQty;
+        //         $scope.editStock.totalWt = (($scope.editStock.theoreticalwt) * ($scope.editStock.quantityInNos)).toFixed(2);
+        //     } 
+
+        console.log($scope.tempStockArray);
+        $scope.isDisabled = false;
+        $scope.saveStock = function (data) {
+            // data.sizeQty = data.sizeQty.concat(otherSizeQty);
+            $rootScope.showInvent = true;
+            $(window).scrollTop(0);
+            var constraints = {};
+            constraints._id = data._id;
+            if (data.category.name == 'Plates/Sheets') {
+                constraints.quantityInNos = data.quantityInNos;
+                constraints.totalWt = data.totalWt;
+            }
+            if (data.category.name == 'Coil') {
+                constraints.coilQty = data.coilQty;
+            }
+            if (data.category.name == 'Pipes' || data.category.name == 'Roundbar') {
+                constraints.totalLength = data.totalLength;
+                constraints.totalQty = data.totalQty;
+                constraints.sizeQty = data.sizeQty;
+                constraints.totalWt = data.totalWt;
+            }
+            console.log(data);
+            console.log(constraints);
+            if (stockEdit.$valid) {
+                $scope.isDisabled = true;
+                NavigationService.saveEditStock(constraints, function (data) {
+                    console.log(data);
+                    if (data.data) {
+                        $scope.openAdd();
+                        $timeout(function () {
+                            $scope.mymodal.close();
+                            $state.go("view-seller-product");
+                        }, 3000);
+                    }
+                });
+            } else {
+                $scope.isDisabled = false;
+            }
+        }
+
+        $scope.openPrev = function () {
+            $state.go("view-seller-product");
+        }
+
+        $scope.openAdd = function () {
+            $scope.mymodal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/saveeditedstock.html',
+                scope: $scope,
+                windowClass: "paymentbox"
+            });
+        };
+    })
+
+    .controller('AddStockCtrl', function ($scope, TemplateService, NavigationService, $timeout, $uibModal, $state, $stateParams, toastr, $rootScope) {
+        $scope.template = TemplateService.changecontent("addstock");
+        $scope.menutitle = NavigationService.makeactive("Add Stock");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
+        $scope.changeURL = function (id) {
+            //console.log(id);
+            $location.path("" + id);
+        };
+        $scope.LogedIN = $.jStorage.get("LogedIn");
+        $scope.isReadOnly = true;
+        $scope.productStock = {};
+        $scope.addSizeQty = [];
+        $scope.productStock.moc = {};
+        // $scope.productStock.sizeQty = [];
+        $scope.otherLengths = [];
+        $scope.lengths = [];
+        $scope.sizeQty = [];
+        $scope.productStock10 = {};
+        $scope.productStock10.sizeQty = [];
+        $scope.openStock = function () {
+            var stockProductId = {};
+            stockProductId.inventory = $stateParams.id;
+            //console.log(stockProductId._id);
+            NavigationService.getOneProductDetail(stockProductId, function (data) {
+                $scope.productStock = data.data;
+                //console.log(data);
+                delete $scope.productStock.sizeQty;
+                $scope.productStock.sizeQty = [{
+                    size: '',
+                    qty: ''
+                }];
+                delete $scope.productStock.totalQty;
+                delete $scope.productStock.totalLength;
+                delete $scope.productStock.mtcStatus;
+                delete $scope.productStock.mtcImage;
+                if ($scope.productStock.category.name != 'Coil') {
+                    delete $scope.productStock.totalWt;
+                }
+                $scope.productStock.mtcStatus = 'Notavailable';
+
+                //console.log($scope.productStock);
+                //console.log($scope.productStock10.sizeQty);
+                if (data.data) {
+                    // $scope.valueDivide();
+                }
+            });
+        }
+        $scope.openStock();
+        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
+        $scope.changeMtc = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsg = err;
+                $scope.errorMsgm = false;
+            } else {
+                $scope.errorMsgm = true;
+                $scope.errorMsg = "Successfully uploaded";
+            }
+        }
+
+        $scope.valueTotalQuantity = function () {
+            $scope.productStock.totalQty = 0;
+            $scope.productStock.totalLength = 0;
+            $scope.len = $scope.productStock.sizeQty.length;
+            $scope.tempSizeQtyRefer = _.cloneDeep($scope.productStock.sizeQty);
+
+            _.each($scope.productStock.sizeQty, function (n, i) {
+                $scope.newSize = n.size;
+                $scope.newQty = n.qty;
+                $scope.productStock.totalQty = parseInt($scope.productStock.totalQty + n.qty);
+                //console.log($scope.productStock.totalQty);
+                if (n.qty == undefined) {
+                    n.qty = ' ';
+                    $scope.productStock.totalQty = parseInt($scope.productStock.totalQty + n.qty);
+                    $scope.productStock.totalLength = $scope.productStock.totalLength + (n.size * n.qty);
+                    $scope.length = $scope.productStock.totalLength;
+                } else {
+                    $scope.productStock.totalLength = $scope.productStock.totalLength + (n.size * n.qty);
+                    //console.log($scope.productStock.totalLength);
+                }
+                // $scope.length = $scope.productStock.totalLength;
+
+            });
+            // $scope.compareSize = function () {
+            $scope.tempsize = $scope.tempSizeQtyRefer.length - 1;
+            $scope.tempSizeQtyRefer.splice($scope.tempsize, 1);
+            //console.log($scope.tempSizeQty1);
+            _.each($scope.tempSizeQtyRefer, function (key) {
+                $scope.tempSizeStore = key.size;
+                if ($scope.newSize != key.size) {
+                    $scope.totalQty1 = parseInt($scope.productStock.totalQty + key.qty);
+                    //console.log($scope.productStock.totalQty);
+                    if (key.qty == undefined) {
+                        key.qty = 0;
+                        $scope.totalLength1 = $scope.productStock.totalLength + (key.size * key.qty);
+                        // $scope.length = $scope.productStock.totalLength1;
+                    } else {
+                        $scope.totalLength1 = $scope.productStock.totalLength + (key.size * key.qty);
+                        //console.log($scope.productStock.totalLength);
+                        // $scope.length = $scope.productStock.totalLength1;
+                    }
+
+                    // $scope.length = $scope.productStock.totalLength;
+                } else {
+                    $scope.LengthZero = true;
+                    var lengtherr = toastr.error("Length matches in your stock", "Length Error");
+                    $timeout(function () {
+                        toastr.clear(lengtherr);
+                    }, 2000);
+                }
+            })
+            $scope.productStock.totalLength = ($scope.productStock.totalLength).toFixed(2);
+            if ($scope.LengthZero) {
+                for (var i = 0; i < $scope.productStock.sizeQty.length; i++) {
+                    if ($scope.tempSizeStore == $scope.productStock.sizeQty[i].size) {
+                        $scope.productStock.sizeQty[$scope.productStock.sizeQty.length - 1].size = '';
+                        $scope.LengthZero = false;
+                    }
+                }
+            }
+            $scope.valueTotalWt();
+        }
+
+
+        $scope.addRow = function (addSizeQty) {
+            $scope.showMinus = true;
+            $scope.productStock.sizeQty.push({
+                size: '',
+                qty: ''
+            })
+        }
+        $scope.showMinus = false;
+        $scope.removeRow = function (removeSizeQty) {
+            //console.log(removeSizeQty);
+            if (removeSizeQty.length > 1) {
+                //console.log(removeSizeQty[removeSizeQty.length - 1].qty);
+                //console.log(removeSizeQty[removeSizeQty.length - 1].size);
+                $scope.productStock.totalQty = $scope.productStock.totalQty - (removeSizeQty[removeSizeQty.length - 1].qty);
+                $scope.productStock.totalLength = ($scope.productStock.totalLength - (removeSizeQty[removeSizeQty.length - 1].size * removeSizeQty[removeSizeQty.length - 1].qty).toFixed(2)).toFixed(2);
+                $scope.productStock.sizeQty.pop({
+                    size: '',
+                    qty: ''
+                })
+                if (removeSizeQty.length <= 1) {
+                    $scope.showMinus = false;
+                }
+            }
+        }
+        $scope.productStock.totalWt = '';
+        $scope.valueTotalWt = function () {
+            $scope.productStock.totalWt = (($scope.productStock.theoreticalwt) * ($scope.productStock.totalLength)).toFixed(2);
+        }
+
+        $scope.valueTotalWtPlate = function (data) {
+            $scope.productStock.totalWt = (($scope.productStock.theoreticalwt) * ((!$scope.productStock.quantityInNos || $scope.productStock.quantityInNos === 0) ? 1 : $scope.productStock.quantityInNos)).toFixed(2);
+        }
+
+        $scope.isDisabled = false;
+        $scope.saveStock = function (data, stockProduct) {
+            //console.log('savestock', data);
+            $rootScope.showInvent = true;
+            // data.sizeQty = data.sizeQty.concat(otherSizeQty);
+            data.mtcStatus = data.mtcStatus;
+            data.mtcImage = data.mtcImage;
+            $scope.sellerId = data.seller._id;
+            $scope.brand = data.brand._id;
+            $scope.category = data.category._id;
+            $scope.moc = data.moc._id;
+            $scope.gradesstandards = data.gradesstandards._id;
+            $scope.productImage = data.productImage._id;
+            if (data.category.name == 'Pipes') {
+                $scope.type = data.type._id;
+            }
+            $scope.coo = data.coo._id;
+            delete data._id;
+            delete data.seller;
+            delete data.agencyid;
+            delete data.updatedAt;
+            delete data.inventoryId;
+            delete data.inventoryMonthDateId;
+            delete data.invenotryStringId;
+            delete data.invenotryAutoId;
+            delete data.createdAt;
+            delete data.__v;
+            delete data.brand;
+            delete data.category;
+            delete data.isAdminVerified;
+            delete data.status;
+            delete data.report;
+            delete data.remark;
+            delete data.moc;
+            delete data.gradesstandards;
+            delete data.productImage;
+            delete data.type;
+            delete data.coo;
+            delete data.productLeftAutoId;
+            delete data.productRightAutoId;
+
+            data.seller = $scope.sellerId;
+            data.brand = $scope.brand;
+            data.category = $scope.category;
+            data.moc = $scope.moc;
+            data.gradesstandards = $scope.gradesstandards;
+            data.productImage = $scope.productImage;
+            data.type = $scope.type;
+            data.coo = $scope.coo;
+            data.status = 'Pending';
+            data.isAdminVerified = 'false';
+
+            //console.log(data);
+            //console.log(constraints);
+            if (stockProduct.$valid) {
+                $scope.isDisabled = true;
+                $(window).scrollTop(0);
+                NavigationService.addMoreStock(data, function (data) {
+                    //console.log(data);
+                    if (data.value == true) {
+                        $scope.openAdd();
+                        $timeout(function () {
+                            $scope.mymodal.close();
+                            // $state.go("seller-account");
+                            $state.go("view-seller-product");
+                        }, 3000);
+                    }
+                });
+                // }
+            } else {
+                toastr.error("Stock fields can't be empty, Please fill up the empty stock field.", "Add Stock Error");
+                $scope.openStock();
+            }
+        }
+
+        $scope.openPrev = function () {
+            $state.go("view-seller-product");
+        }
+
+        $scope.openAdd = function () {
+            $scope.mymodal = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/savestock.html',
+                scope: $scope,
+                windowClass: "paymentbox"
+            });
+        };
+    })
 
     .controller('InspectionAgenciesCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $uibModal) {
         $scope.template = TemplateService.changecontent("inspection-agencies");

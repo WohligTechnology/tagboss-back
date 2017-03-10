@@ -77,6 +77,21 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'ViewSellerProductsCtrl'
     })
+    .state('editproduct', {
+      url: "/editproduct/:id",
+      templateUrl: "views/template.html",
+      controller: 'EditProductCtrl'
+    })
+    .state('addstock', {
+      url: "/addstock/:id",
+      templateUrl: "views/template.html",
+      controller: 'AddStockCtrl'
+    })
+    .state('editstock', {
+      url: "/editstock/:id",
+      templateUrl: "views/template.html",
+      controller: 'EditStockCtrl'
+    })
     .state('sellers', {
       url: "/sellers",
       templateUrl: "views/template.html",
@@ -485,6 +500,16 @@ firstapp.directive('uploadImage', function ($http, $filter) {
       };
     }
   };
+});
+
+firstapp.filter('serverimage', function () {
+  return function (image) {
+    if (image && image !== null) {
+      return adminURL + "upload/readFile?file=" + image;
+    } else {
+      return undefined;
+    }
+  }
 });
 
 firstapp.directive('onlyDecimal', function () {

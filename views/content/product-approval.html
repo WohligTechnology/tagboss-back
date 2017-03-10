@@ -161,6 +161,8 @@
                                             <p ng-if="inventory.status=='Assigned'">Status: {{inventory.status}} to {{inventory.agencyid.agencyName}}</p>
                                             <button ng-if="inventory.status==='Pending' && agency.agencyName == null && inventory.seller.status==='verified'" ng-click="assignInspection(inventory, $index)"
                                                 type="button" class="btn btn-primary assign-btn">ASSIGN</button>
+                                            <button ng-if="inventory.status=='Assigned' && inventory.status != 'Inspected'" ng-click="unassignInspection(inventory._id)"
+                                                type="button" class="btn btn-primary assign-btn">UNASSIGN</button>
                                         </div>
                                         <div ng-if="inventory.seller.status!='verified' && inventory.status!='Verified'">
                                             <p>Seller Not Verified</p>

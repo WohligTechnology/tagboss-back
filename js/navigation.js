@@ -499,6 +499,14 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      unassignedInspection: function (input, callback) {
+        return $http({
+          url: adminURL + "inspection/unassignedInspection",
+          method: "POST",
+          data: input
+        }).success(callback);
+      },
+
       Login: function (logindata, callback) {
         var data = logindata;
         return $http({
@@ -843,12 +851,52 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      getOneProductDetail: function (input, callback) {
+        $http({
+          // url: adminurl + 'product/getProductById',
+          url: adminURL + 'inventory/getOneInventoryProduct',
+          method: 'POST',
+          withCredentials: true,
+          data: input
+        }).success(callback);
+      },
+
       editProduct: function (senddata, callback) {
         var data = senddata;
         return $http({
           url: adminURL + "inventory/save",
           method: "POST",
           data: data
+        }).success(callback);
+      },
+
+      addMoreStock: function (input, callback) {
+        // console.log('form data: ', input);
+        $http({
+          url: adminURL + 'product/addMoreStock',
+          method: 'POST',
+
+          data: input
+        }).success(callback);
+      },
+
+      saveEditProduct: function (input, callback) {
+        $http({
+          // url: adminurl + 'product/getProductById',
+          url: adminURL + 'inventory/save',
+          method: 'POST',
+          withCredentials: true,
+          data: input
+        }).success(callback);
+      },
+
+      saveEditStock: function (input, callback) {
+        $http({
+          // url: adminurl + 'product/getProductById',
+          url: adminURL + 'inventory/editStock',
+          method: 'POST',
+          withCredentials: true,
+          data: input
         }).success(callback);
       },
 

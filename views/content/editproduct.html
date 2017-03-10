@@ -1,221 +1,32 @@
-<section class="body-main view-products">
-    <div class="container-fluid">
-        <div class="view-product">
-            <div class="search-content">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="input-group search-top">
-                            <!--<input type="text" class="form-control" placeholder="Search by Inspection Id">-->
-                            <input type="text" autocomplete="off" class="form-control" ng-model="search" name="name" placeholder="Search by Inspection Id"
-                                ng-change="searchInInspection(search)">
-                            <span class="input-group-btn">
-                  <i class="btn btn-default fa fa-search" aria-hidden="true"></i>
-                  <!-- <button class="btn btn-default" type="button">Go!</button> -->
-                </span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <!--<div class="excel-upload ">
-                            <img src="img/excel-icon.png">
-                            <label>CONVERT TO EXCEL</label>
-                        </div>-->
-                        <div class="select-prod pull-right">
-                            <!--<select>
-                      <option value="All">ALL</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Inspected">Inspected</option>
-                    </select>-->
-                            <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
-                                        <option value="All">All</option>
-                                        <option value="Pending">Pending Inspection</option>
-                                        <option value="Inspected">Inspected</option>
-                                        <!--<option value="Assigned">Assigned</option>-->
-                                        <!--<option value="Verified">Listed</option>
-                                        <option value="Rejected">Rejected</option>-->
-                                    </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="view-products-details ">
-                <label class="detail-heading">REQUEST FOR INSPECTION</label>
-                <!--<div class="date pull-right">Date: 02 June, 2016 | Time: 11.51 PM</div>-->
-            </div>
-            <div ng-if="getAllInventory.length==0">
-                <h3 class="text-center">No data Found</h3>
-            </div>
-            <div ng-if="getAllInventory==undefined">
-                <h3 class="text-center">Loading...</h3>
-            </div>
-            <table ng-show="hideEdit" ng-if="getAllInventory.length>0" class="table table-bordered inspection-table assign-table">
-                <thead>
-                    <tr>
-                        <th><strong>SELLER</strong></th>
-                        <th><strong>PRODUCT</strong></th>
-                        <th><strong>QUANTITY</strong></th>
-                        <th><strong>UPLOAD REPORT</strong></th>
-                        <th><strong>REMARKS</strong></th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="inventory in getAllInventory | orderBy:'assignedDate'">
-                        <form name="reportform{{$index}}">
-                            <td>
-                                <div class="magic-form">
-                                    <div class="magic-resize spaceissue">
-                                        <label class="text" for="add-one{{$index}}">
-                            <div>
-                                              <p class="inline-block comp-name">Date:</p>
-                            <p class="inline-block">&nbsp;{{inventory.assignedDate | date:"dd-MM-yyyy ' | ' h:mm a"}}</p>
-                            </div>
-                            <p class="inline-block comp-name mb">Inspection Id:</p>
-                            <p class="inline-block mb">&nbsp;{{inventory.inspectionStringId}}  </p>
-                            
-                            <p class="comp-name">  Address:  </p>
-                            <p class="">  {{inventory.seller.firmName}}  </p>
-                           <p>Email:{{inventory.seller.email}}</p> 
-                           <p> Mobile:{{inventory.seller.mobile}}</p>
-                            <p>
-                             {{inventory.seller.companyAddress}}</p>
-                          </label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <ul class="prod-details" ng-if="inventory.category.name === 'Pipes'">
-                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
-                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
-                                    <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> {{inventory.odInches}}" Nb x Sch {{inventory.sch}} </li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
-                                </ul>
-                                <ul class="prod-details" ng-if="inventory.category.name === 'Plates/Sheets'">
-                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
-                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
-                                    <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> {{inventory.thickness}} mm x {{inventory.width}} mm x {{inventory.length}} mm</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
-                                </ul>
-                                <ul class="prod-details" ng-if="inventory.category.name === 'Coil'">
-                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
-                                    <li> {{inventory.moc.name}} {{inventory.type.name}} {{inventory.category.name}}</li>
-                                    <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> {{inventory.thickness}} mm x {{inventory.width}} mm x Coil</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
-                                </ul>
-                                <ul class="prod-details" ng-if="inventory.category.name === 'Roundbar'">
-                                    <li> {{inventory.brand.name}}, {{inventory.coo.name}} </li>
-                                    <li> {{inventory.moc.name}} {{inventory.category.name}}</li>
-                                    <li>{{inventory.gradesstandards.name}}</li>
-                                    <li> Dia {{inventory.diameter}} mm</li>
-                                    <button type="button" class="btn btn-primary assign-btn mtop" ng-click="showEditProduct(inventory._id)">VIEW</button>
-                                </ul>
-                            </td>
-                            <td ng-if="inventory.category.name == 'Plates/Sheets'">{{inventory.quantityInNos}}</td>
-                            <td ng-if="inventory.category.name == 'Pipes' || inventory.category.name == 'Roundbar'">{{inventory.totalQty}}</td>
-                            <td ng-if="inventory.category.name == 'Coil'">{{inventory.coilQty}}</td>
-                            <td>
-                                <div class="item-info-detail">
-                                    <p ng-if="inventory.status!=='Assigned'">Status: {{inventory.status}}</p>
-                                    <p ng-if="inventory.status==='Assigned'">Status: Pending<br/>
-                                        <b ng-if="inventory.duedate"> Due On : {{inventory.duedate | date:'dd-MMM-yyyy'}}</b></p>
-                                    <div ng-if="inventory.status==='Assigned'" class="assign-btn1">
-                                        <upload-image ng-model="inventory.report" ng-callback="uploadReport" file-types="'image/jpeg,image/png,application/pdf'"
-                                            no-view></upload-image>
-                                    </div>
-                                    <div class="filename">
-                                        <!--<p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>-->
-                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
-                                            <!--<div id="circleG" ng-if="(errorMsgpan != 'Successfully uploaded') && errorMsgpan && (errorMsgpan == 'Uploading')">
-                                                <div id="circleG_1" class="circleG"></div>
-                                                <div id="circleG_2" class="circleG"></div>
-                                                <div id="circleG_3" class="circleG"></div>
-                                            </div>-->
-                                        </p>
-                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ defaultSizeFormat }}</p>
-                                        <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="inventory.report">{{ errorMsgpan }}</p>
-                                        <a ng-if="inventory.report && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB'"
-                                            fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
-                                            <p class="font-karla upload-place">View uploaded file.</p>
-                                        </a>
-                                    </div>
-                                    <!--<p ng-if="inventory.status==='Assigned' && !inventory.report" class="font-karla upload-place mgn0">Upload the relevant documents</p>
-                                    <p ng-if="inventory.status==='Assigned' && !inventory.report" class="font-karla upload-place mgn0 fs12">(Max size 10MB & Format: Png, Jpeg & Pdf)</p>
-                                    <a ng-if="inventory.report" fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
-                                        <p class="font-karla upload-place">View uploaded file.</p>
-                                    </a>-->
-                                    <!--</p>-->
-                                </div>
-                            </td>
-                            <td>
-                                <div class="txt-remark">
-                                    <input type="hidden" ng-model="inventory._id" />
-                                    <textarea ng-if="inventory.status!=='Verified' && inventory.status!=='Rejected' && inventory.status!=='Inspected'" name="inventoryremark{{$index}}"
-                                        ng-model="inventory.remark" rows="4" cols="25" required>{{inventory.remark}}</textarea>
-                                    <div class="text-center" style="margin-bottom: 5px;">
-                                        <select class="" name="" ng-if="inventory.status!=='Verified' && inventory.status!=='Rejected' && inventory.status!=='Inspected'"
-                                            ng-model="inventory.inspectStatus" id="">
-                                                <option value="">Select Status Of Report</option>
-                                                <option value="">Accepted</option>
-                                                <option value="">Rejected</option>
-                                            </select>
-                                    </div>
-                                    <textarea ng-if="inventory.status==='Verified' || inventory.status==='Rejected' || inventory.status==='Inspected'" name="inventoryremark{{$index}}"
-                                        ng-model="inventory.remark" rows="4" cols="25" disabled>{{inventory.remark}}</textarea>
-                                    <div class="text-center" style="margin-bottom: 5px;">
-                                        <select class="" name="" ng-if="inventory.status==='Verified' || inventory.status==='Rejected' || inventory.status==='Inspected'"
-                                            ng-model="inventory.inspectStatus" id="" disabled>
-                                            </select>
-                                    </div>
-                                    <!--<input ng-if="inventory.status==='Assigned'" class="btn btn-primary assign-btn" value="Submit"/>-->
-                                    <div class="text-center">
-                                        <button type="submit" ng-if="inventory.status==='Assigned'" ng-disabled="inventory.report==null || inventory.remark==null"
-                                            ng-click="sendReport(inventory)" class="btn btn-primary assign-btn">Submit Report</button>
-                                    </div>
-                                </div>
-                            </td>
-                        </form>
-                    </tr>
-                </tbody>
-            </table>
-            <ul uib-pagination total-items="totalItems " ng-model="filter.page " ng-change="getInventory()"></ul>
-        </div>
-    </div>
-</section>
-<section class="sell-login addproduct editproduct" ng-show="showEdit">
+<section class="sell-login addproduct editproduct replicate-edit">
     <div class="sell-log">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 text-center relative">
-                    <h3 class="popularprdts font-gotham-medium text-uppercase">
-                        EDIT Product
-                    </h3>
-                    <div class="back-insp pull-right" ng-click="showInspection()">
-                        <p>
-                            < back to inspection and approval</p>
-                    </div>
+                <div class="text-center">
+                    <h3 class="popularprdts font-gotham-medium text-uppercase">Edit Product</h3>
                 </div>
             </div>
             <div class="row">
                 <form name="editProduct">
-                    <div class="col-md-offset-3 col-md-6">
+                    <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label for="brand" class="font-karla-bold">Brand</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="sec-foot">
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.brand.name" id="">
-                                    </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="brand" name="" disabled>
+                                        <option value="">{{productEdit.brand.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label for="coo" class="font-karla-bold">Country of Orgin</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" id="coo" name="" disabled>
                                         <option value="">{{productEdit.coo.name}}</option>
                                     </select>
@@ -224,10 +35,10 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <label for="cat" class="font-karla-bold">Select Shape</label>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" id="cat" name="" disabled>
                                         <option value="">{{productEdit.category.name}}</option>
                                     </select>
@@ -238,54 +49,44 @@
                         <div class="div" ng-if="productEdit.category.name=='Pipes'">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Product Description</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <textarea readonly class="form-control" name="name" rows="2" ng-model="productEdit.details">{{productEdit.details}}</textarea>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productEdit.details}}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="moc" class="font-karla-bold">Select MOC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="moc" name="" disabled>
                                         <option value="">{{productEdit.moc.name}}</option>
                                     </select>
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="type" class="font-karla-bold">Type</label>
-                                    </div>
-                              
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.type.name" id="">
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="type" class="font-karla-bold">Type</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="sec-foot">
-                                            <input type="text" readonly class="form-control" name="" ng-model="productEdit.type.name" id="">
-                                        </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productEdit.type.name}}</option>
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Select Image</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
                                         <div class="shape-img edit-image">
                                             <img ng-src="{{productEdit.productImage.image | uploadpath}}" alt="" class="img-responsive">
                                             <!--<div class="overlay">
@@ -297,62 +98,62 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="type" class="font-karla-bold">Standard / Grade</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Standard / Grades</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="sec-foot">
-                                            <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
-                                        </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
+                                        <option value="">{{productEdit.gradesstandards.name}}</option>
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="odi" class="font-karla-bold">OD in Inches</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="odi" class="font-karla-bold">NB in Inches</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.odInches" id="odi" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="odm" class="font-karla-bold">OD in MM</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.odMm" id="odm" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="sch" class="font-karla-bold">SCH</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.sch" id="sch" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="Thickness" class="font-karla-bold">Thickness (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.thickness" id="Thickness" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Stock in Mtrs</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Stock in mtrs</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="stock">
                                             <div class="">
                                                 <div class="sizeqty length-range">
@@ -381,105 +182,96 @@
                                                 </div>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Quantity: <input type="text" name="totalQty" ng-model="productEdit.totalQty"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" ng-model="productEdit.totalQty" readonly></h3>
                                                 <span class="unit-size">Nos.</span>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Length: <input type="text" name="totalLength" ng-model="productEdit.totalLength"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" ng-model="productEdit.totalLength" readonly></h3>
                                                 <span class="unit-size">Mtrs</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="totallength" class="font-karla-bold">Total Length in Mtrs</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="totallength" ng-model="productEdit.totalLength" id="totallength" readonly>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="rate" class="font-karla-bold">Rate per mtr</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="pricePerKg" class="font-karla-bold">Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" only-decimal name="rate" id="rate" ng-model="productEdit.ratePerKgMtr" ng-change="valueAll(productEdit.ratePerKgMtr)"
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<input type="text" class="form-control" name="perKg" ng-model="productEdit.pricePerKg" id="pricePerKg" readonly>-->
+                                        <input type="text" class="form-control" only-decimal name="perKg" id="perKg" ng-model="productEdit.pricePerKg" ng-change="valueAll(productEdit.pricePerKg)"
                                             required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.ratePerKgMtr"></i>
-                                        <div class="error-msg61" ng-if="editProduct.rate.$invalid && editProduct.rate.$touched">Please Enter Rate per mtr</div>
+                                        <i class="fa fa-check tick hidden-xs" ng-show="productEdit.pricePerKg"></i>
+                                        <div class="error-msg61" ng-if="editProduct.perKg.$invalid && editProduct.perKg.$touched">Please Enter Price per Kg</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="exciseMpm" class="font-karla-bold excisem"><span>Excise Modvat per mtr</span>
-                                <span>(included in price above)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseMpk" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
+                                    <span>(included in Price per Kg)</span></label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="exciseMpm" ng-model="productEdit.exciseModvatPerProduct" id="exciseMpm" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseMpk" ng-model="productEdit.exciseModvatPerKg" id="exciseMpk">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Theoretical Weight per mtr</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <span class="theory" ng-bind-html="productEdit.theoreticalwt+' kg/mtr'"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <!--<label for="brand" class="font-karla-bold">Total wt of above stock (kg)</label>-->
                                         <label for="totalweight" class="font-karla-bold excisewt"><span>Total weight of above</span>
-                                        <span>stock in kgs</span></label>
+                                        <span>stock in Kgs</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" ng-model="productEdit.totalWt" name="" id="totalweight" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="pricePerKg" class="font-karla-bold">Price Per Kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="rate" class="font-karla-bold">Rate per mtr</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="perKg" ng-model="productEdit.pricePerKg" id="pricePerKg" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="exciseMpk" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
-                                    <span>(included in price per kg)</span></label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="exciseMpk" ng-model="productEdit.exciseModvatPerKg" id="exciseMpk" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="rate" ng-model="productEdit.ratePerKgMtr" id="rate" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseMpm" class="font-karla-bold excisem"><span>Excise Modvat per mtr</span>
+                                <span>(included in price above)</span></label>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="exciseMpm" ng-model="productEdit.exciseModvatPerProduct" id="exciseMpm" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="discount" class="font-karla-bold">Discount (%)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="discountpipe" ng-model="productEdit.discount" id="discount" ng-change="valueAll(productEdit.discount)"
                                             required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                        <i class="fa fa-check tick hidden-xs" ng-show="productEdit.discount"></i>
                                         <div class="error-msg13" ng-if="editProduct.discountpipe.$invalid && editProduct.discountpipe.$touched">Please Enter Discount</div>
                                         <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
@@ -487,43 +279,43 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPriceKg" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">MTC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="custom-radiobtns">
                                             <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
@@ -533,7 +325,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
-                                            <a fancybox-box ng-href="{{productEdit.mtcImage | uploadpath}}" rel="fancybox">
+                                            <a fancybox-box ng-href="{{productEdit.mtcImage | serverimage}}" rel="fancybox">
                                                 <p class="font-karla upload-place">View uploaded file.</p>
                                             </a>
                                         </div>
@@ -542,10 +334,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
                                     </select>
@@ -557,20 +349,20 @@
                         <div class="div" ng-if="productEdit.category.name=='Plates/Sheets'">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Product Description</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <textarea class="form-control" readonly name="name" rows="2">{{productEdit.details}}</textarea>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productEdit.details}}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="moc" class="font-karla-bold">Select MOC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="moc" name="" disabled>
                                         <option value="">{{productEdit.moc.name}}</option>
                                     </select>
@@ -579,23 +371,22 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="type" class="font-karla-bold">Type</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!--<select class="form-control" id="type" name="" disabled>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
                                         <option value="">{{productEdit.type.name}}</option>
-                                    </select>-->
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.type.name" id="">
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Select Image</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
                                         <div class="shape-img edit-image">
                                             <img ng-src="{{productEdit.productImage.image | uploadpath}}" alt="" class="img-responsive">
                                         </div>
@@ -604,83 +395,82 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="grade" class="font-karla-bold">Standard / Grades</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!--<select class="form-control" id="grade" name="" disabled>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
                                         <option value="">{{productEdit.gradesstandards.name}}</option>
-                                    </select>-->
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="thickness" class="font-karla-bold">Thickness (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.thickness" id="thickness" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="width" class="font-karla-bold">Width (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.width" id="width" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="length" class="font-karla-bold">Length (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.length" id="length" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold twps">Theoretical Weight per plate / sheet</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold twps">Theoretical Weight per Plate/Sheet</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <span class="theory" ng-bind-html="productEdit.theoreticalwt+' kg/sheet'"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="quantity" class="font-karla-bold">Quantity in Numbers</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.quantityInNos" id="quantity" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="weight" class="font-karla-bold"><span>Total Weight in Kg</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.totalWt" id="weight" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="price" class="font-karla-bold">Price Per Kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="price" class="font-karla-bold">Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" only-decimal name="pricekgplate" ng-model="productEdit.pricePerKg" id="price" ng-change="valueAllPlate(productEdit.pricePerKg)"
                                             required>
                                         <div class="error-msg61" ng-if="editProduct.pricekgplate.$invalid && editProduct.pricekgplate.$touched">Please Enter Price per Kg</div>
@@ -689,34 +479,33 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="Modvatexcise" class="font-karla-bold excisek"><span>Per KG Excise Modvat</span>
-                                        <span>(included in price per KG)</span></label>
+                                        <span>(included in Price per Kg)</span></label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" only-decimal name="modvatkgplate" ng-model="productEdit.exciseModvatPerKg" id="Modvatexcise"
-                                            readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" only-decimal name="modvatkgplate" ng-model="productEdit.exciseModvatPerKg" id="Modvatexcise">
                                         <div class="error-msg61" ng-if="editProduct.modvatkgplate.$invalid && editProduct.modvatkgplate.$touched">Please Enter Per KG Excise Modvat</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="sheets" class="font-karla-bold">Price per sheet</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="sheets" class="font-karla-bold">Price per Sheet</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="sheets" ng-model="productEdit.pricePerProduct" id="sheets" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="exciseSheets" class="font-karla-bold exciseps"><span>Excise Modvat per sheet</span>
-                         <span>(included in price per sheet)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseSheets" class="font-karla-bold eexciseps"><span>Excise Modvat per Sheet</span>
+            <span>(included in Price per Sheet)</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="exciseSheets" ng-model="productEdit.exciseModvatPerProduct" id="exciseSheets"
                                             readonly>
                                     </div>
@@ -724,10 +513,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="discount" class="font-karla-bold">Discount (%)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="discountplate" ng-model="productEdit.discount" id="discount" ng-change="valueAllPlate(productEdit.discount)"
                                             required>
                                         <div class="error-msg13" ng-if="editProduct.discountplate.$invalid && editProduct.discountplate.$touched">Please Enter Discount</div>
@@ -737,10 +526,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
@@ -750,30 +539,30 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">MTC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="custom-radiobtns">
                                             <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
@@ -783,7 +572,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
-                                            <a fancybox-box ng-href="{{productEdit.mtcImage | uploadpath}}" rel="fancybox">
+                                            <a fancybox-box ng-href="{{productEdit.mtcImage | serverimage}}" rel="fancybox">
                                                 <p class="font-karla upload-place">View uploaded file.</p>
                                             </a>
                                         </div>
@@ -792,10 +581,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
                                     </select>
@@ -807,20 +596,20 @@
                         <div class="div" ng-if="productEdit.category.name=='Coil'">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Product Description</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <textarea class="form-control" readonly name="name" rows="2">{{productEdit.details}}</textarea>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productEdit.details}}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="moc" class="font-karla-bold">Select MOC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="moc" name="" disabled>
                                         <option value="">{{productEdit.moc.name}}</option>
                                     </select>
@@ -829,23 +618,22 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="type" class="font-karla-bold">Type</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!--<select class="form-control" id="type" name="" disabled>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="type" name="" disabled>
                                         <option value="">{{productEdit.type.name}}</option>
-                                    </select>-->
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.type.name" id="">
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Select Image</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
                                         <div class="shape-img edit-image">
                                             <img ng-src="{{productEdit.productImage.image | uploadpath}}" alt="" class="img-responsive">
                                         </div>
@@ -854,63 +642,62 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="grade" class="font-karla-bold">Standard / Grades</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!--<select class="form-control" id="grade" name="" disabled>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
                                         <option value="">{{productEdit.gradesstandards.name}}</option>
-                                    </select>-->
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="thickness" class="font-karla-bold">Thickness (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.thickness" id="thickness" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="width" class="font-karla-bold">Width (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.width" id="width" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Length (MM)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" value="Coil" id="cst" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Quantity in Numbers</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" value="1" readonly id="cst">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.coilQty" readonly id="cst">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="weight" class="font-karla-bold"><span>Total Weight in kg</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="weight" class="font-karla-bold"><span>Total Weight in Kg</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.totalWt" id="weight" readonly>
                                         <p class="font-karla warning"><sup>*</sup> should match with the MTC weight.</p>
                                     </div>
@@ -918,10 +705,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="pricePerKg" class="font-karla-bold">Price Per Kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="pricePerKg" class="font-karla-bold">Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="priceperkgcoil" ng-model="productEdit.pricePerKg" id="pricePerKg" ng-change="valueAllCoil(productEdit.pricePerKg)"
                                             required>
                                         <div class="error-msg61" ng-if="editProduct.priceperkgcoil.$invalid && editProduct.priceperkgcoil.$touched">Please Enter Price per Kg</div>
@@ -930,32 +717,32 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="exciseKg" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
                          <span>(included in price per kg)</span></label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="exciseKg" ng-model="productEdit.exciseModvatPerKg" id="exciseKg" readonly>
+                                        <input type="text" class="form-control" name="exciseKg" ng-model="productEdit.exciseModvatPerKg" id="exciseKg">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="priceCoil" class="font-karla-bold">Price per coil</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="priceCoil" class="font-karla-bold">Price per Coil</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="priceCoil" ng-model="productEdit.pricePerProduct" id="priceCoil" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="exciseProduct" class="font-karla-bold excisec"><span>Excise Modvat per coil</span>
-                         <span>(included in price per coil)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="exciseProduct" class="font-karla-bold excisec eexcisec"><span>Excise Modvat per Coil</span>
+                                        <span>(included in Price per Coil)</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="exciseProduct" ng-model="productEdit.exciseModvatPerProduct" id="exciseProduct"
                                             readonly>
                                     </div>
@@ -963,10 +750,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="discount" class="font-karla-bold">Discount (%)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="discountcoil" ng-model="productEdit.discount" id="discount" ng-change="valueAllCoil(productEdit.discount)"
                                             required>
                                         <div class="error-msg13" ng-if="editProduct.discountcoil.$invalid && editProduct.discountcoil.$touched">Please Enter Discount</div>
@@ -976,43 +763,43 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="(productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice)">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">MTC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="custom-radiobtns">
                                             <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
@@ -1022,7 +809,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
-                                            <a fancybox-box ng-href="{{productEdit.mtcImage | uploadpath}}" rel="fancybox">
+                                            <a fancybox-box ng-href="{{productEdit.mtcImage | serverimage}}" rel="fancybox">
                                                 <p class="font-karla upload-place">View uploaded file.</p>
                                             </a>
                                         </div>
@@ -1031,7 +818,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
                                     <div class="col-md-6">
@@ -1046,20 +833,20 @@
                         <div class="div" ng-if="productEdit.category.name=='Roundbar'">
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Product Description</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <textarea readonly class="form-control" name="name" rows="2">{{productEdit.details}}</textarea>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control" name="name" rows="2" disabled>{{productEdit.details}}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="moc" class="font-karla-bold">Select MOC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="moc" name="" disabled>
                                         <option value="">{{productEdit.moc.name}}</option>
                                     </select>
@@ -1068,10 +855,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Select Image</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
                                         <div class="shape-img edit-image">
                                             <img ng-src="{{productEdit.productImage.image | uploadpath}}" alt="" class="img-responsive">
                                         </div>
@@ -1080,113 +867,32 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="grade" class="font-karla-bold">Standard / Grades</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <!--<select class="form-control" id="grade" name="" disabled>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" id="grade" name="" disabled>
                                         <option value="">{{productEdit.gradesstandards.name}}</option>
-                                    </select>-->
-                                        <input type="text" readonly class="form-control" name="" ng-model="productEdit.gradesstandards.name" id="">
+                                    </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="diameter" class="font-karla-bold">Diameter in MM</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="" ng-model="productEdit.diameter" id="diameter" readonly>
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Stock in Mtrs</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="stock">
-                                            <div class="length-range">
-                                                <h3 class="font-karla-bold">Length range from <input type="text" name="name" value="" ng-model="productEdit.startRange"
-                                                        readonly>to <input type="text" name="name" value="" ng-model="productEdit.endRange"
-                                                        readonly></h3>
-                                                <div class="table-place">
-                                                    <div class="sizeqty">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        Length
-                                                                    </th>
-                                                                    <th class="">
-                                                                        Quantity
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr ng-repeat="length in lengths">
-                                                                    <td class="borb">
-                                                                        <input type="text" name="name" value="" ng-model="length.size" readonly>
-                                                                    </td>
-                                                                    <td class="borrb">
-                                                                        <input type="number" name="name" value="" ng-model="length.qty" readonly>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div class="">
-                                                        <div class="pull-left">
-                                                            <h3 class="font-karla-bold">Other length</h3>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                        <div class="sizeqty betspace">
-                                                            <table class="table table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            Length
-                                                                        </th>
-                                                                        <th class="">
-                                                                            Quantity
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr ng-repeat="otherlength in otherLengths">
-                                                                        <td class="borb">
-                                                                            <input type="text" name="name" value="" ng-model="otherlength.size" readonly>
-                                                                        </td>
-                                                                        <td class="borrb">
-                                                                            <input type="number" name="name" value="" ng-model="otherlength.qty" readonly>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                    <div class="">
-                                                        <h3 class="font-karla-bold inline-block">Total Quantity: <span class="font-rupee" ng-bind-html="productEdit.totalQty">35</span></h3>
-                                                        <span class="unit-size">Nos.</span>
-                                                    </div>
-                                                    <div class="">
-                                                        <h3 class="font-karla-bold inline-block">Total Length: <span class="font-rupee" ng-bind-html="productEdit.totalLength">400</span></h3>
-                                                        <span class="unit-size">Mtrs</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="brand" class="font-karla-bold">Stock in Mtrs</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="brand" class="font-karla-bold">Stock in mtrs</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="stock">
                                             <div class="">
                                                 <div class="sizeqty length-range">
@@ -1215,92 +921,82 @@
                                                 </div>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Quantity: <input type="text" name="totalQty" ng-model="productEdit.totalQty"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Quantity:
+                                                    <input type="text" name="totalQty" ng-model="productEdit.totalQty" readonly></h3>
                                                 <span class="unit-size">Nos.</span>
                                             </div>
                                             <div class="totalstock">
-                                                <h3 class="font-karla inline-block">Total Length: <input type="text" name="totalLength" ng-model="productEdit.totalLength"
-                                                        readonly></h3>
+                                                <h3 class="font-karla inline-block">Total Length:
+                                                    <input type="text" name="totalLength" ng-model="productEdit.totalLength" readonly></h3>
                                                 <span class="unit-size">Mtrs</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="totallength" class="font-karla-bold">Total Length in Mtrs</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="totallength" ng-model="productEdit.totalLength" id="totallength" readonly>
-                                    </div>
-                                </div>
-                            </div>-->
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="priceKg" class="font-karla-bold">Price Per Kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="priceKg" class="font-karla-bold">Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="priceKg" ng-model="productEdit.pricePerKg" id="priceKg" ng-change="valueFinalPrice(productEdit.pricePerKg)"
                                             required>
                                         <div class="error-msg61" ng-if="editProduct.priceKg.$invalid && editProduct.priceKg.$touched">Please Enter Price per Kg</div>
-                                        <i class="fa fa-check tick" ng-show="productEdit.pricePerKg"></i>
+                                        <i class="fa fa-check tick hidden-xs" ng-show="productEdit.pricePerKg"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="modvatExcise" class="font-karla-bold excise"><span>Per KG Excise Modvat</span>
-                                <span>(included in price per kg)</span></label>
+                    <span>(included in Price per Kg)</span></label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="modvatExcise" ng-model="productEdit.exciseModvatPerKg" id="modvatExcise" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="modvatExcise" ng-model="productEdit.exciseModvatPerKg" id="modvatExcise">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">Theoretical Weight per mtr</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <span class="theory" ng-bind-html="productEdit.theoreticalwt+' kg/mtr'"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <!--<label for="brand" class="font-karla-bold">Total wt of above stock (kg)</label>-->
                                         <label for="totalwtpipe" class="font-karla-bold excisewt"><span>Total weight of above</span>
-                           <span>stock in kgs</span></label>
+                    <span>stock in Kgs</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="totalwtpipe" id="totalwtpipe" ng-model="productEdit.totalWt" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="priceplate" class="font-karla-bold">Price per mtr</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="priceplate" id="priceplate" ng-model="productEdit.pricePerProduct" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="modvatplate" class="font-karla-bold exciseps"><span>Excise Modvat per mtr</span>
-                         <span>(included in price per mtr)</span></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="modvatplate" class="font-karla-bold excisemm"><span>Excise Modvat per mtr</span>
+            <span>(included in Price per mtr)</span></label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="modvatplate" id="modvatplate" ng-model="productEdit.exciseModvatPerProduct"
                                             readonly>
                                     </div>
@@ -1308,13 +1004,13 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="discount" class="font-karla-bold">Discount (%)</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" class="form-control" name="discountround" ng-model="productEdit.discount" ng-change="valueFinalPrice(productEdit.discount)"
                                             id="discount" required>
-                                        <i class="fa fa-check tick" ng-show="productEdit.discount"></i>
+                                        <i class="fa fa-check tick hidden-xs" ng-show="productEdit.discount"></i>
                                         <div class="error-msg13" ng-if="editProduct.discountround.$invalid && editProduct.discountround.$touched">Please Enter Discount</div>
                                         <div class="error-msg13" ng-if="productEdit.discount > 100">Please Enter Value Less Than Or Equal to 100</div>
                                     </div>
@@ -1322,43 +1018,43 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="finalprice" class="font-karla-bold">Final selling price per kg</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="finalprice" class="font-karla-bold">Final Selling Price per Kg</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.finalPriceKg" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.vat" placeholder="5%" id="vat">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst" readonly>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control" name="" ng-model="productEdit.cst" placeholder="2%" id="cst">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="brand" class="font-karla-bold">MTC</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="custom-radiobtns">
                                             <label for="radio4" class="custspace" ng-if="productEdit.mtcStatus == 'Original'">I have original MTC
                                       </label>
@@ -1368,7 +1064,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="divs" ng-hide="productEdit.mtcStatus=='Notavailable'">
-                                            <a fancybox-box ng-href="{{productEdit.mtcImage | uploadpath}}" rel="fancybox">
+                                            <a fancybox-box ng-href="{{productEdit.mtcImage | serverimage}}" rel="fancybox">
                                                 <p class="font-karla upload-place">View uploaded file.</p>
                                             </a>
                                         </div>
@@ -1377,16 +1073,24 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
                                     </select>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                        <div class="subbtn inline-block pacebtn">
+                            <button class="btn btn-primary font-gotham-medium text-uppercase" ng-click="saveEdited(productEdit,editProduct)" ng-disabled="isDisabled == true">Submit</button>
+                        </div>
+                        <div class="subbtn inline-block pacebtn">
+                            <button class="btn btn-primary font-gotham-medium text-uppercase" ui-sref="view-seller-product">Cancel</button>
                         </div>
                     </div>
                 </form>
