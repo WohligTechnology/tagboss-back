@@ -57,7 +57,7 @@
                         <th><strong>REMARKS</strong></th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="inventory in getAllInventory | orderBy:'assignedDate'">
+                    <tr ng-repeat="inventory in getAllInventory | orderBy:'-assignedDate'">
                         <form name="reportform{{$index}}">
                             <td>
                                 <div class="magic-form">
@@ -155,15 +155,16 @@
                                         <select class="" name="" ng-if="inventory.status!=='Verified' && inventory.status!=='Rejected' && inventory.status!=='Inspected'"
                                             ng-model="inventory.inspectStatus" id="">
                                                 <option value="">Select Status Of Report</option>
-                                                <option value="">Accepted</option>
-                                                <option value="">Rejected</option>
+                                                <option value="Accepted">Accepted</option>
+                                                <option value="Rejected">Rejected</option>
                                             </select>
                                     </div>
                                     <textarea ng-if="inventory.status==='Verified' || inventory.status==='Rejected' || inventory.status==='Inspected'" name="inventoryremark{{$index}}"
                                         ng-model="inventory.remark" rows="4" cols="25" disabled>{{inventory.remark}}</textarea>
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <select class="" name="" ng-if="inventory.status==='Verified' || inventory.status==='Rejected' || inventory.status==='Inspected'"
-                                            ng-model="inventory.inspectStatus" id="" disabled>
+                                            id="" disabled>
+                                        <option value="">{{inventory.inspectStatus}}</option>
                                             </select>
                                     </div>
                                     <!--<input ng-if="inventory.status==='Assigned'" class="btn btn-primary assign-btn" value="Submit"/>-->

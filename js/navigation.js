@@ -507,6 +507,14 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      updateLiveUnliveStatus: function (input, callback) {
+        return $http({
+          url: adminURL + "inventory/updateLiveUnliveStatus",
+          method: "POST",
+          data: input
+        }).success(callback);
+      },
+
       Login: function (logindata, callback) {
         var data = logindata;
         return $http({

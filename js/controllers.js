@@ -988,7 +988,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
     })
 
-    .controller('ViewSellerProductsCtrl', function ($scope, TemplateService, NavigationService, $timeout) {
+    .controller('ViewSellerProductsCtrl', function ($scope, TemplateService, NavigationService, $timeout, toastr, $state) {
         $scope.template = TemplateService.changecontent("view-seller-product");
         $scope.menutitle = NavigationService.makeactive("View Seller Products");
         TemplateService.title = $scope.menutitle;
@@ -1154,6 +1154,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
         $scope.getAllSellerProducts();
+        $scope.product = {};
+        $scope.changeStatus = function (stats, id) {
+            $scope.cconstraints = {};
+            $scope.cconstraints.productId = id;
+            $scope.cconstraints.liveStatus = stats;
+            // $scope.product.liveStatus = stats;
+            NavigationService.updateLiveUnliveStatus($scope.cconstraints, function (data) {
+                if (data.value == true) {
+                    toastr.success("Product is successfully made " + stats + ".", "Live Unlive Message");
+                    $scope.getAllSellerProducts();
+                } else {
+                    toastr.error("Something went wrong while making product unlive.", "Live Unlive Message");
+                }
+            })
+        }
 
     })
 
@@ -1182,33 +1197,83 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 $scope.calculatePriceRangeValue();
             }
         });
-        $scope.valueFinalPrice = function (data) {
-            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
-            $scope.productEdit.finalPriceKg = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
-            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) - ((((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) * ($scope.productEdit.discount)) / 100)).toFixed(2);
-        }
-
-        $scope.valueAll = function (data) {
-            $scope.productEdit.ratePerKgMtr = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg == 0 ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
-            $scope.productEdit.finalPriceKg = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100).toFixed(2);
-            $scope.productEdit.finalPrice = ((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) - ((((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) * ($scope.productEdit.discount)) / 100).toFixed(2);
-        }
-
-        $scope.valueAllPlate = function (data) {
-            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
-            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
-        }
-
-        $scope.valueAllCoil = function (data) {
-            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.totalWt)).toFixed(2);
-            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
-        }
 
         $scope.calculatePriceRangeValue = function () {
             //console.log($scope.productEdit.extraPrice);
             $scope.lowerlimitPrice = ($scope.productEdit.extraPrice - ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
             $scope.upperlimitPrice = ($scope.productEdit.extraPrice + ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
         };
+
+        $scope.valueFinalPrice = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+            $scope.productEdit.finalPriceKg = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) - ((((!$scope.productEdit.pricePerProduct || $scope.productEdit.pricePerProduct === 0) ? 1 : $scope.productEdit.pricePerProduct) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+            $scope.priceRange = parseFloat($scope.productEdit.finalPriceKg);
+            $scope.priceLLimit = parseFloat($scope.lowerlimitPrice);
+            $scope.priceULimit = parseFloat($scope.upperlimitPrice);
+            if ($scope.priceRange < $scope.priceLLimit || $scope.priceRange > $scope.priceULimit) {
+                // console.log('enter error');
+                $scope.isRoundbar = true;
+            } else {
+                // console.log('enter');
+                $scope.isRoundbar = false;
+            }
+        }
+
+        $scope.valueAll = function (data) {
+            $scope.productEdit.ratePerKgMtr = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg == 0 ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+
+            $scope.productEdit.finalPriceKg = ((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100).toFixed(2);
+
+            $scope.productEdit.finalPrice = ((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) - ((((!$scope.productEdit.ratePerKgMtr || $scope.productEdit.ratePerKgMtr === 0) ? 1 : $scope.productEdit.ratePerKgMtr) * ($scope.productEdit.discount)) / 100).toFixed(2);
+
+            $scope.priceRange = parseFloat($scope.productEdit.finalPriceKg);
+            $scope.priceLLimit = parseFloat($scope.lowerlimitPrice);
+            $scope.priceULimit = parseFloat($scope.upperlimitPrice);
+            if ($scope.priceRange < $scope.priceLLimit || $scope.priceRange > $scope.priceULimit) {
+                // console.log('enter error');
+                $scope.isPipe = true;
+            } else {
+                // console.log('enter');
+                $scope.isPipe = false;
+            }
+        }
+
+        $scope.valueAllPlate = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.theoreticalwt)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+            // console.log($scope.priceRange);
+            // console.log('lower', $scope.priceLLimit);
+            // console.log('upper', $scope.priceULimit);
+            // console.log('lower', $scope.priceRange < $scope.priceLLimit);
+            // console.log('upper', $scope.priceRange > $scope.priceULimit);
+            $scope.priceRange = parseFloat($scope.productEdit.finalPrice);
+            $scope.priceLLimit = parseFloat($scope.lowerlimitPrice);
+            $scope.priceULimit = parseFloat($scope.upperlimitPrice);
+            if ($scope.priceRange < $scope.priceLLimit || $scope.priceRange > $scope.priceULimit) {
+                // console.log('enter error');
+                $scope.isPlate = true;
+            } else {
+                // console.log('enter');
+                $scope.isPlate = false;
+            }
+        }
+
+        $scope.valueAllCoil = function (data) {
+            $scope.productEdit.pricePerProduct = ((!$scope.productEdit.pricePerKg ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.totalWt)).toFixed(2);
+            $scope.productEdit.finalPrice = (((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) - ((((!$scope.productEdit.pricePerKg || $scope.productEdit.pricePerKg === 0) ? 1 : $scope.productEdit.pricePerKg) * ($scope.productEdit.discount)) / 100)).toFixed(2);
+            $scope.priceRange = parseFloat($scope.productEdit.finalPrice);
+            $scope.priceLLimit = parseFloat($scope.lowerlimitPrice);
+            $scope.priceULimit = parseFloat($scope.upperlimitPrice);
+            if ($scope.priceRange < $scope.priceLLimit || $scope.priceRange > $scope.priceULimit) {
+                // console.log('enter error');
+                $scope.isCoil = true;
+            } else {
+                // console.log('enter');
+                $scope.isCoil = false;
+            }
+        }
+
 
         $scope.isDisabled = false;
         $scope.saveEdited = function (data, editproduct) {
@@ -1481,6 +1546,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     qty: ''
                 }];
                 delete $scope.productStock.totalQty;
+                delete $scope.productStock.quantityInNos;
                 delete $scope.productStock.totalLength;
                 delete $scope.productStock.mtcStatus;
                 delete $scope.productStock.mtcImage;
@@ -1620,7 +1686,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.moc = data.moc._id;
             $scope.gradesstandards = data.gradesstandards._id;
             $scope.productImage = data.productImage._id;
-            if (data.category.name == 'Pipes') {
+            if (data.category.name != 'Roundbar') {
                 $scope.type = data.type._id;
             }
             $scope.coo = data.coo._id;
@@ -1654,7 +1720,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             data.moc = $scope.moc;
             data.gradesstandards = $scope.gradesstandards;
             data.productImage = $scope.productImage;
-            data.type = $scope.type;
+            if (data.category.name != 'Roundbar') {
+                data.type = $scope.type;
+            }
             data.coo = $scope.coo;
             data.status = 'Pending';
             data.isAdminVerified = 'false';
@@ -4179,10 +4247,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
         $scope.sendReport = function (reportdata) {
+            console.log(reportdata);
             var senddata = {};
             senddata._id = reportdata._id;
             senddata.report = reportdata.report;
             senddata.remark = reportdata.remark;
+            senddata.inspectStatus = reportdata.inspectStatus;
             NavigationService.sendReport(senddata, function (data) {
                 if (data.value == true) {
                     $scope.getInventory();

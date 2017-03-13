@@ -170,8 +170,9 @@
                                         <div ng-if="inventory.seller.status==='verified'">
                                             <div ng-if="inventory.status==='Inspected'">
                                                 <span ng-if=" inventory.report "> <a href="{{pdfURL}}={{inventory.report}}
-                                                " target="_blank "><img src="img/pdf-image.png "></a></span>
-                                                <p ng-if="inventory.remark">{{inventory.remark}}</p>
+                                                " target="_blank "><img src="img/pdf-image.png "></a></span><br>
+                                                <span ng-if="inventory.remark">{{inventory.remark}}</span>
+                                                <p ng-if="inventory.remark">{{inventory.inspectStatus}}</p>
                                                 <div class=" ">
                                                     <button type="button " ng-click="acceptReport(inventory); " class="btn
                                                 btn-primary accept ">ACCEPT</button>
@@ -189,8 +190,9 @@
                                             </div>
                                             <div ng-if="inventory.status==='Verified' || inventory.status==='Rejected'">
                                                 <span ng-if="inventory.report "> <a href="{{pdfURL}}={{inventory.report}}
-                                                " target="_blank "><img src="img/pdf-image.png "></a></span>
-                                                <p ng-if="inventory.remark ">{{inventory.remark}}</p>
+                                                " target="_blank "><img src="img/pdf-image.png "></a></span><br>
+                                                <span ng-if="inventory.remark ">{{inventory.remark}}</span>
+                                                <p ng-if="inventory.remark ">{{inventory.inspectStatus}}</p>
                                                 <p ng-if="inventory.status==='Verified' "> The product is upto mark.</p>
                                                 <p ng-if="inventory.status==='Rejected' "> The product is not proper.</p>
                                             </div>

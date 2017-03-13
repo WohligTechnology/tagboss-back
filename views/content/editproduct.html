@@ -286,7 +286,8 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPriceKg" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="isPipe == true">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <!--<div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>-->
                                     </div>
                                 </div>
                             </div>
@@ -533,7 +534,8 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="isPlate == true">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <!--<div class="error-msg12" ng-if="((productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>-->
                                     </div>
                                 </div>
                             </div>
@@ -770,7 +772,8 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPrice" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="(productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice)">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="isCoil == true">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <!--<div class="error-msg12" ng-if="(productEdit.finalPrice > upperlimitPrice) || (productEdit.finalPrice < lowerlimitPrice)">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>-->
                                     </div>
                                 </div>
                             </div>
@@ -1025,7 +1028,8 @@
                                         <input type="text" class="form-control" name="" ng-model="productEdit.finalPriceKg" id="finalprice" tooltip-placement="bottom"
                                             uib-tooltip="Allowed range {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-" tooltip-class="customClass"
                                             readonly>
-                                        <div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <div class="error-msg12" ng-if="isRoundbar == true">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>
+                                        <!--<div class="error-msg12" ng-if="((productEdit.finalPriceKg > upperlimitPrice) || (productEdit.finalPriceKg < lowerlimitPrice))">Allowed Range is {{lowerlimitPrice}}/- to {{upperlimitPrice}}/-</div>-->
                                     </div>
                                 </div>
                             </div>
