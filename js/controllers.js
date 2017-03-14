@@ -3718,7 +3718,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 // senddata.securityDepositStatus = false;
                 toastr.error("Yet to submit security deposit!", "Error");
             } else {
-                if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.registrationNoVerified == false || senddata.cancelledChequeVerified == false) {
+                // || senddata.registrationNoVerified == false
+                if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.cancelledChequeVerified == false) {
                     toastr.error("Please verify all Documents!", "Error");
                 } else {
                     senddata.securityDepositStatus = true;
@@ -3817,8 +3818,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.isAdminVerified = true;
             senddata.status = "verified";
             console.log("new data", senddata);
-
-            if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false || senddata.registrationNoVerified == false) {
+            //  || senddata.registrationNoVerified == false
+            if (senddata.cstTinNoVerified == false || senddata.vatTinNoVerified == false || senddata.panNoVerified == false) {
                 toastr.error("Please verify all Documents!", "Error");
             } else {
                 NavigationService.updateBuyer(senddata, function (data) {

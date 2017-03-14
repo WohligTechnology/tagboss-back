@@ -116,21 +116,13 @@
                                             {{products.moc}} {{products.type[0]}} {{products.category}}<br/> {{products.gradesstandards}}<br>                                            {{products.thickness}} MM Thick x {{products.width}} MM Width x Length Coil
                                         </div>
                                     </td>
-                                    <!--<td>{{pro.gradesstandards.name}}</td>-->
-                                    <!--<td>25.4 mm</td>
-                            <td>{{pro.sch}}</td>
-                            <td>{{pro.thickness}}</td>-->
-                                    <!--<td><span ng-if="products.category.name==='Pipes' || products.category.name==='Roundbar'">{{products.totalQty}}</span>
-                                    <span ng-if="products.category.name==='Coil' || products.category.name==='Plates/Sheets'">{{products.quantityInNos}}</span>
-                                </td>-->
                                     <td>
                                         <span ng-if="products.category==='Pipes' || products.category==='Roundbar'">{{products.finalPrice.toFixed(2)}} per meter</span>
                                         <span ng-if="products.category==='Coil' || products.category==='Plates/Sheets'">{{products.finalPrice.toFixed(2)}} per kg</span>
                                     </td>
                                     <td class="view-td final-center">
-                                        <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
-                                        <a class="inline-block" ui-sref="editproduct({'id':products._id})"><label class=" view formatEdit ">EDIT</label></a>
-                                        <a class="inline-block "><label class="view formatEdit ">|</label></a>
+                                        <a class="inline-block" ng-if="products.liveStatus != 'Unlive'" ui-sref="editproduct({'id':products._id})"><label class=" view formatEdit ">EDIT</label></a>
+                                        <a class="inline-block " ng-if="products.liveStatus != 'Unlive'"><label class="view formatEdit ">|</label></a>
                                         <a class="inline-block " ng-click="showProduct(products.product)
                                             "><label class="view formatEdit ">VIEW</label></a>
                                         <form action="">
@@ -178,7 +170,7 @@
                         <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
                         <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span></span><span>Dia {{allStock[0].diameter}} MM</span></h3>
                     </div>
-                    <div class="pull-right addbtn ">
+                    <div class="pull-right addbtn " ng-if="allStock[0].liveStatus != 'Unlive'">
                         <div class="btn-submit newpro ">
                             <div class="text-center subbtn ">
                                 <button ui-sref="addstock({'id':allStock[0]._id}) " class="btn btn-primary font-gotham-medium text-uppercase
@@ -236,8 +228,8 @@
                                 <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Assigned'">{{stock.status}} to {{stock.agencyid.agencyName}}</label>
                                 <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Inspected'">{{stock.status}} by {{stock.agencyid.agencyName} </label>
                                 <label class="stat formatStatus" ng-if="stock.status=='Rejected'">Rejected</label>
-                                <a class="inline-block" ng-if="stock.status!='Rejected'" ui-sref="editstock({'id':stock._id})"><label class="view formatEdit">EDIT</label></a>
-                                <a class="inline-block" ng-if="stock.status!='Rejected' && stock.status=='Verified'"><label class="view formatEdit">|</label></a>
+                                <a class="inline-block" ng-if="stock.status!='Rejected' && stock.liveStatus != 'Unlive'" ui-sref="editstock({'id':stock._id})"><label class="view formatEdit">EDIT</label></a>
+                                <a class="inline-block" ng-if="stock.status!='Rejected' && stock.status=='Verified' && stock.liveStatus != 'Unlive'"><label class="view formatEdit">|</label></a>
                                 <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Live'"><label class="view formatEdit colorStats">Live</label></a>
                                 <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Unlive'"><label class="view formatEdit colorStat">Unlive</label></a>
                                 <a class="inline-block" ng-if="stock.status=='Rejected'"><label class="view formatEdit colorStat">Rejected</label></a>
