@@ -153,10 +153,10 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="stock">
                                             <div class="">
-                                                <div class="pull-left length-size">
+                                                <div class="pull-left length-size hide">
                                                     <h3 class="font-karla">Add Length</h3>
                                                 </div>
-                                                <div class="pull-right length-range">
+                                                <div class="pull-right length-range hide">
                                                     <div class="btn-submit newpro ">
                                                         <div class="text-center subbtn ">
                                                             <a class="btn btn-primary font-gotham-medium                                                                 text-uppercase "
@@ -164,7 +164,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pull-right length-range">
+                                                <div class="pull-right length-range hide">
                                                     <div class="btn-submit newpro ">
                                                         <div class="text-center subbtn ">
                                                             <a class="btn btn-primary font-gotham-medium                                                                text-uppercase "
@@ -172,7 +172,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="clearfix"></div>
+                                                <div class="clearfix hide"></div>
                                                 <div class="sizeqty length-range" ng-if="productStock.sizeQty.length > 0">
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -312,7 +312,7 @@
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="6" id="vat" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2" id="cst" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -574,7 +574,7 @@
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5" id="vat" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -584,7 +584,7 @@
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2" id="cst" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -827,7 +827,7 @@
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5" id="vat" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -837,7 +837,7 @@
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2" id="cst" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -964,24 +964,24 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="stock">
                                             <div class="">
-                                                <div class="pull-left length-size">
+                                                <div class="pull-left length-size hide">
                                                     <h3 class="font-karla">Add Length</h3>
                                                 </div>
-                                                <div class="pull-right length-range">
+                                                <div class="pull-right length-range hide">
                                                     <div class="btn-submit newpro ">
                                                         <div class="text-center subbtn ">
                                                             <a class="btn btn-primary font-gotham-medium text-uppercase " ng-if="showMinus" ng-click="removeRow(productStock.sizeQty)"><i class="fa fa-minus "></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="pull-right length-range">
+                                                <div class="pull-right length-range hide">
                                                     <div class="btn-submit newpro ">
                                                         <div class="text-center subbtn ">
                                                             <a class="btn btn-primary font-gotham-medium text-uppercase " ng-click="addRow()"><i class="fa fa-plus "></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="clearfix"></div>
+                                                <div class="clearfix hide"></div>
                                                 <div class="sizeqty length-range" ng-if="productStock.sizeQty.length > 0">
                                                     <table class="table table-bordered">
                                                         <thead>
@@ -1121,7 +1121,7 @@
                                         <label for="vat" class="font-karla-bold">VAT % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5%" id="vat" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.vat" placeholder="5" id="vat" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -1131,7 +1131,7 @@
                                         <label for="cst" class="font-karla-bold">CST % extra</label>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2%" id="cst" readonly>
+                                        <input type="text" class="form-control" name="" ng-model="productStock.cst" placeholder="2" id="cst" readonly>
                                     </div>
                                 </div>
                             </div>
