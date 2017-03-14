@@ -124,17 +124,21 @@
                                     </div>
                                     <div class="filename">
                                         <!--<p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>-->
-                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
+                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned'">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
                                             <!--<div id="circleG" ng-if="(errorMsgpan != 'Successfully uploaded') && errorMsgpan && (errorMsgpan == 'Uploading')">
                                                 <div id="circleG_1" class="circleG"></div>
                                                 <div id="circleG_2" class="circleG"></div>
                                                 <div id="circleG_3" class="circleG"></div>
                                             </div>-->
                                         </p>
-                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ defaultSizeFormat }}</p>
-                                        <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="inventory.report">{{ errorMsgpan }}</p>
-                                        <a ng-if="inventory.report && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB'"
+                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned'">{{ defaultSizeFormat}}</p>
+                                        <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="inventory.report && inventory.status==='Assigned'">{{ errorMsgpan }}</p>
+                                        <a ng-if="inventory.report && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB' && inventory.status==='Assigned'"
                                             fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">
+                                            <p class="font-karla upload-place">View uploaded file.</p>
+                                        </a>
+                                        <a ng-if="inventory.report && inventory.status!=='Assigned'" fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox"
+                                            target="_blank">
                                             <p class="font-karla upload-place">View uploaded file.</p>
                                         </a>
                                     </div>
