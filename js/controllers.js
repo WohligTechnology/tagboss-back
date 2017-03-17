@@ -1720,8 +1720,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             data.moc = $scope.moc;
             data.gradesstandards = $scope.gradesstandards;
             data.productImage = $scope.productImage;
-            if (data.category.name != 'Roundbar') {
+            if (data.category != '5810c83ab5332c0c2c09dba9') {
                 data.type = $scope.type;
+            }
+            if (data.category == '5810c825b5332c0c2c09dba7') {
+                delete data.sizeQty;
+            }
+            if (data.category == '5810c831b5332c0c2c09dba8') {
+                delete data.sizeQty;
             }
             data.coo = $scope.coo;
             data.status = 'Pending';
@@ -4079,6 +4085,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPayments($scope.filter, function (data) {
                 if (data.value == true) {
                     $scope.all = data.data.results;
+                    $scope.value = $scope.all.orderValue;
                     $scope.totalItems = data.data.total;
                     console.log("coupon", $scope.all);
                 }
