@@ -797,7 +797,16 @@ var navigationservice = angular.module('navigationservice', [])
       getAllTransactionPayment: function (senddata, callback) {
         var data = senddata;
         return $http({
-          url: adminURL + "transaction/getalltransactionpayment",
+          url: adminURL + "transaction/getAllTransactionPayment",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
+      getAllPaymentProcessingTransaction: function (senddata, callback) {
+        var data = senddata;
+        return $http({
+          url: adminURL + "transaction/getAllPaymentProcessingTransaction",
           method: "POST",
           data: data
         }).success(callback);

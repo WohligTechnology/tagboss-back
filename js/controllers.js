@@ -3997,7 +3997,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
     })
-    .controller('PaymentCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $uibModal) {
+    .controller('PaymentCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $uibModal, $state) {
         $scope.template = TemplateService.changecontent("paymentseller");
         $scope.menutitle = NavigationService.makeactive("Payment Seller");
         TemplateService.title = $scope.menutitle;
@@ -4085,6 +4085,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPayments($scope.filter, function (data) {
                 if (data.value == true) {
                     $scope.all = data.data.results;
+                    _.each($scope.all, function (n) {
+                        if (n.isSeventyFive == true) {
+                            if (n.order.totalCst == 0) {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                            } else {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                            }
+                        } else if (n.isTwentyFive == true) {
+                            if (n.order.totalCst == 0) {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                            } else {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                            }
+                        }
+                    });
+
                     $scope.value = $scope.all.orderValue;
                     $scope.totalItems = data.data.total;
                     console.log("coupon", $scope.all);
@@ -4100,6 +4116,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPendingPayments($scope.filterpending, function (respo) {
                 if (respo.value == true) {
                     $scope.allPending = respo.data.results;
+                    _.each($scope.allPending, function (n) {
+                        if (n.isSeventyFive == true) {
+                            if (n.order.totalCst == 0) {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                            } else {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                            }
+                        } else if (n.isTwentyFive == true) {
+                            if (n.order.totalCst == 0) {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                            } else {
+                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                            }
+                        }
+                    });
                     $scope.totalpendingItems = respo.data.total;
                 }
             });
@@ -4111,39 +4142,70 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.convertToPayments(function (data) {
                 if (data.value == true) {
                     $scope.getAllPendingPayments();
-                    $scope.getAllTransactionPayment();
+                    $scope.getAllTransactionPayment('To be paid');
                     toastr.success("Payment Status Updated to Payment Processing!", "Information");
                 }
             });
         }
 
-
         $scope.filterall = {};
         $scope.filterall.page = 1;
+        $scope.changeStatus = function () {
+            $scope.getAllTransactionPayment('Paid');
+        }
         $scope.getAllTransactionPayment = function (data) {
             console.log("daatttt", data);
             if (data == "Paid") {
-                $scope.filterall.status = "Paid";
+                console.log('ENTERs');
+                $scope.filterall.status = data;
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
+                    console.log('ENTERs', respo);
                     if (respo.value == true) {
-                        $scope.allPaidTransaction = respo.data.results;
-                        console.log("aaaa", $scope.allTransaction);
+                        _.each(respo.data.results, function (n) {
+                            console.log('N', n);
+                            if (n.status == 'Paid') {
+                                $scope.allPaidTransaction = respo.data.results;
+                                console.log("aaaa", $scope.allTransaction);
+                            } else if (n.status != 'Paid') {
+                                console.log("aa", $scope.allTransaction);
+                                $scope.allPaidTransaction = 0;
+                            }
+                        })
                         $scope.totalallItems = respo.data.total;
                     }
                 });
             } else {
+                $scope.filterall.status = data;
+                console.log('ENTER');
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
+                    console.log('ENTER');
                     if (respo.value == true) {
                         $scope.allTransaction = respo.data.results;
+                        // _.each($scope.allTransaction, function (n) {
+                        //     if (n.status == 'Sent to bank' || n.status == 'To be paid' || n.status == 'All') {
+                        //         $scope.showText = true;
+                        //         $scope.showData = false;
+                        //     }
+                        // })
                         console.log("aaaa", $scope.allTransaction);
                         $scope.totalallItems = respo.data.total;
                     }
                 });
             }
-
         }
 
-        $scope.getAllTransactionPayment();
+        $scope.getAllTransactionPayment('All');
+
+        // $scope.filteralls = {};
+        // $scope.filteralls.page = 1;
+        // $scope.getAllPaymentProcessingTransaction = function () {
+        //     console.log("daatttt", data);
+
+
+
+        // }
+
+        // $scope.getAllPaymentProcessingTransaction();
 
         $scope.editPaymentStatus = function (data, myindex) {
             var senddata = {};
@@ -4153,14 +4215,27 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.paymentDate = data.paymentDate;
             console.log("data", data, myindex);
             NavigationService.editPaymentStatus(senddata, function (data) {
+                console.log(data);
+                console.log(senddata);
                 if (data.value == true) {
-                    $scope.getAllTransactionPayment('To be paid');
-                    $scope.getAllTransactionPayment('Paid');
-                    $scope.getAllPayments();
-                    toastr.success("Payment status Updated", "Information");
-                    $scope.showText = true;
-                    $scope.showData = false;
-                    $scope.myindex = myindex;
+                    if (data.data.status == "Sent to bank") {
+                        $scope.getAllTransactionPayment('All');
+                        $scope.getAllPayments();
+                        toastr.success("Payment status Updated", "Information");
+                        $scope.showText = true;
+                        $scope.showData = false;
+                        $scope.myindex = myindex;
+                        $state.reload();
+                    } else {
+                        $scope.getAllTransactionPayment('Paid');
+                        $scope.getAllPayments();
+                        toastr.success("Payment status Updated", "Information");
+                        $scope.showText = true;
+                        $scope.showData = false;
+                        $scope.myindex = myindex;
+                        $state.reload();
+                    }
+
                 }
             });
         }

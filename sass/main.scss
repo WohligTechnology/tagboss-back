@@ -3133,6 +3133,17 @@
         }
       }
       
+      .cssChange {
+        width: 155px !important;
+        padding: 27px 8px 8px !important;
+        border-bottom: 1px solid #dddddd !important;
+        display: block !important;
+      }
+      
+      .dataPlace p {
+        margin: 0 0px 10px -12px;
+      }
+      
       @import "raj";
       @import "yash";
       @import "fancybox-override";
