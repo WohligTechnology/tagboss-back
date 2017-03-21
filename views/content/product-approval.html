@@ -3,6 +3,54 @@
         <div class="view-product assign">
             <div class="search-content">
                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="period ">
+                            <span>FROM</span>
+                            <div class="input-group date date1">
+                                <input type="text" class="form-control cal-input ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
+                                    uib-datepicker-popup="dd-MM-yyyy" ng-model="filter.fromDate" is-open="popup1.opened" datepicker-options="dateOptions"
+                                    ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required">
+                                <span class="input-group-btn">
+                      <button type="button" class="btn btn-default cal-btn" ng-click="open1()"><i class="fa fa-calendar"></i></button>
+                  </span>
+                            </div>
+                            <span>TO</span>
+                            <div class="input-group date">
+                                <input type="text" class="form-control cal-input ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date"
+                                    uib-datepicker-popup="dd-MM-yyyy" ng-change="filterByDate(filter.fromDate,filter.toDate)"
+                                    ng-model="filter.toDate" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true"
+                                    close-text="Close" alt-input-formats="altInputFormats" required="required">
+                                <span class="input-group-btn">
+                               <button type="button" class="btn btn-default cal-btn" ng-click="open2()"><i class="fa fa-calendar"></i></button>
+                             </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="select-prod pull-right">
+                            <!--<select>
+                      <option value="all">ALL</option>
+                      <option value="saab">Approved</option>
+                      <option value="opel">Rejected</option>
+                      <option value="audi">Pending</option>
+                    </select>-->
+                            <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
+                                        <option value="All">All</option>
+                                        <option value="Pending">Pending Inspection</option>
+                                        <option value="Assigned">Assigned</option>
+                                        <option value="Inspected">Inspected</option>
+                                        <option value="Verified">Listed</option>
+                                        <option value="Rejected">Rejected</option>
+                                    </select>
+                        </div>
+                        <div class="feed-assign hide">
+                            <button type="button" class="btn btn-primary assign-btn">ASSIGN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-content hide">
+                <div class="row">
                     <!--<div class="col-md-6">
                         <div class="input-group search-top">
                             <input type="text" class="form-control" placeholder="Search">
@@ -38,7 +86,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="hideEdit">
+            <div ng-show="hideEdit" ng-if="getAllInventory.length > 0">
                 <div class="assign-agency-details">
                     <label class="detail-heading">INSPECTION AND APPROVAL</label>
                 </div>
@@ -204,6 +252,9 @@
                     </tbody>
                 </table>
                 <ul uib-pagination total-items="totalItems " ng-model="filter.page " ng-change="getInventory()"></ul>
+            </div>
+            <div class="text-center" ng-if="getAllInventory.length == 0">
+                <h3>No Product</h3>
             </div>
         </div>
     </div>

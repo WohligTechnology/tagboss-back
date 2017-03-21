@@ -826,6 +826,95 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
 
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.inlineOptions = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: false
+        };
+
+        $scope.dateOptions = {
+            dateDisabled: disabled,
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1,
+            showWeeks: false
+        };
+
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            // return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+
+        $scope.toggleMin = function () {
+            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+
+        $scope.toggleMin();
+
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.setDate = function (year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date();
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [{
+            date: tomorrow,
+            status: 'full'
+        }, {
+            date: afterTomorrow,
+            status: 'partially'
+        }];
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+            return '';
+        }
 
         $scope.filter = {};
         $scope.filter.page = 1;
@@ -836,8 +925,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.selectedStatus = data;
             $scope.getInventory();
         }
+        $scope.filterByDate = function (fromDate, toDate) {
+            if (fromDate) {
+                $scope.filter.fromDate = fromDate;
+            } else {
+                $scope.filter.fromDate = "";
+            }
+            if (toDate) {
+                $scope.filter.toDate = toDate;
+            } else {
+                $scope.filter.toDate = "";
+            }
+            $scope.getInventory();
+        }
         $scope.getInventory = function () {
-
             // $scope.filter.page = $scope.filter.page++;
             $(window).scrollTop(0);
             NavigationService.getProduct($scope.filter, function (data) {
@@ -1027,9 +1128,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.search = $scope.siConstraints.text;
             $scope.siConstraints.product = id;
             $scope.siConstraints.status = $scope.selectedIStatus;
+            // $scope.siConstraints.cstatus = 'All';
             // $scope.inventoryDisplay = undefined;
             NavigationService.getInventoryByProduct($scope.siConstraints, function (data) {
                 if (data.value === true) {
+                    $scope.totalItems = data.data.total;
                     if (data.data.total > 0) {
                         $scope.allStock = data.data.results;
                         console.log(" $scope.getStock", $scope.allStock);
@@ -1130,14 +1233,15 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filterProducts = function (data) {
             $scope.constraints.pagenumber = 1;
             $scope.constraints.pagesize = 10;
-            $scope.constraints.status = data;
+            $scope.constraints.cstatus = data;
             $scope.selectedStatus = data;
             $scope.getAllSellerProducts();
         }
         $scope.getAllSellerProducts = function () {
             $(window).scrollTop(0);
             $scope.search = $scope.constraints.text;
-            $scope.constraints.status = $scope.selectedStatus;
+            $scope.constraints.cstatus = $scope.selectedStatus;
+            $scope.constraints.status = 'All';
             $scope.constraints.pagenumber = $scope.constraints.pagenumber++;
             NavigationService.getAllSellerProducts($scope.constraints, function (data) {
                 if (data.value == true) {
@@ -4282,6 +4386,95 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         //     });
         // }
         // $scope.getInventory();
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.inlineOptions = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: false
+        };
+
+        $scope.dateOptions = {
+            dateDisabled: disabled,
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1,
+            showWeeks: false
+        };
+
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            // return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+
+        $scope.toggleMin = function () {
+            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+
+        $scope.toggleMin();
+
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.setDate = function (year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[0];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date();
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [{
+            date: tomorrow,
+            status: 'full'
+        }, {
+            date: afterTomorrow,
+            status: 'partially'
+        }];
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+            return '';
+        }
 
         $scope.filter = {};
         $scope.filter.page = 1;
@@ -4300,6 +4493,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filterProductStatus = function (data) {
             $scope.filter.status = data;
             $scope.selectedStatus = data;
+            $scope.getInventory();
+        }
+        $scope.filterByDate = function (fromDate, toDate) {
+            if (fromDate) {
+                $scope.filter.fromDate = fromDate;
+            } else {
+                $scope.filter.fromDate = "";
+            }
+            if (toDate) {
+                $scope.filter.toDate = toDate;
+            } else {
+                $scope.filter.toDate = "";
+            }
             $scope.getInventory();
         }
         $scope.getInventory = function () {

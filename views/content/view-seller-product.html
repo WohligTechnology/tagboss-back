@@ -24,9 +24,10 @@
                             <label class="">Filter by Status</label>
                             <select class="form-control " ng-model="selectedStatus" ng-change="filterProducts(selectedStatus)">
                                         <option value="All">All</option>
-                                        <option value="Pending">Pending Verification</option>
-                                        <option value="Verified">Listed</option>
-                                        <option value="Rejected">Rejected</option>
+                                        <option value="Pipes">Pipes</option>
+                                        <option value="Plates/Sheets">Plates/Sheets</option>
+                                        <option value="Coil">Coil</option>
+                                        <option value="Roundbar">Roundbar</option>
                             </select>
                         </div>
                         <div class="clearfix"></div>
@@ -144,100 +145,105 @@
                 </div>
             </div>
             <div class="view-sell-prod" ng-show="showProd">
-                <div class="invent-head">
-                    <div class="info-detail pull-left">
-                        <h3 class="font-karla-bold">Stock</h3>
-                    </div>
-                    <div class="item-info-detail pull-right backcursor" ng-click="showSellerProduct()">
-                        <p class="font-karla-bold"><span class="arrow font-karla">&lt;</span> Back to Seller Products</p>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="pull-left" style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Pipes'">
-                        <!--<h3 class="font-karla-bold pop-up"><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                <div class="">
+                    <div class="invent-head">
+                        <div class="info-detail pull-left">
+                            <h3 class="font-karla-bold">Stock</h3>
+                        </div>
+                        <div class="item-info-detail pull-right backcursor" ng-click="showSellerProduct()">
+                            <p class="font-karla-bold"><span class="arrow font-karla">&lt;</span> Back to Seller Products</p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="pull-left" style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Pipes'">
+                            <!--<h3 class="font-karla-bold pop-up"><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
                         <h3 class="font-karla-bold pop-up"><span>{{allStock[0].odMm}}</span><span>{{allStock[0].odInches}} (Inches)</span><span>x</span><span>{{allStock[0].sch}}</span></h3>-->
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span>{{allStock[0].odInches}}" NB</span><span>x</span><span>SCH {{allStock[0].sch}}</span></h3>
-                    </div>
-                    <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Plates/Sheets'">
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span>x</span><span>{{allStock[0].length}} MM Length</span></h3>
-                    </div>
-                    <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Coil'">
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span>x</span><span>Length Coil</span></h3>
-                    </div>
-                    <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Roundbar'">
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
-                        <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span></span><span>Dia {{allStock[0].diameter}} MM</span></h3>
-                    </div>
-                    <div class="pull-right addbtn " ng-if="allStock[0].liveStatus != 'Unlive'">
-                        <div class="btn-submit newpro ">
-                            <div class="text-center subbtn ">
-                                <button ui-sref="addstock({'id':allStock[0]._id}) " class="btn btn-primary font-gotham-medium text-uppercase
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].type.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span>{{allStock[0].odInches}}" NB</span><span>x</span><span>SCH {{allStock[0].sch}}</span></h3>
+                        </div>
+                        <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Plates/Sheets'">
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span>x</span><span>{{allStock[0].length}} MM Length</span></h3>
+                        </div>
+                        <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Coil'">
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span> </span><span>{{allStock[0].thickness}} MM Thick</span><span>x</span><span>{{allStock[0].width}} MM Width</span><span>x</span><span>Length Coil</span></h3>
+                        </div>
+                        <div class="pull-left " style="margin-bottom:10px;" ng-if="allStock[0].category.name == 'Roundbar'">
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].moc.name}}</span><span>{{allStock[0].category.name}}</span></h3>
+                            <h3 class="font-karla-bold pop-up "><span>{{allStock[0].gradesstandards.name}}</span><span></span><span>Dia {{allStock[0].diameter}} MM</span></h3>
+                        </div>
+                        <div class="pull-right addbtn " ng-if="allStock[0].liveStatus != 'Unlive'">
+                            <div class="btn-submit newpro ">
+                                <div class="text-center subbtn ">
+                                    <button ui-sref="addstock({'id':allStock[0]._id}) " class="btn btn-primary font-gotham-medium text-uppercase
                                             "><i class="fa fa-plus "></i>Add More Stock</button>
+                                </div>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <table class="table table-bordered request-buyer-table view-prod text-center w-auto">
-                    <thead>
-                        <tr>
-                            <th><strong>STOCK</strong></th>
-                            <th><strong>DATE</strong></th>
-                            <th><strong>AVAILABLE STOCK</strong></th>
-                            <th class="fix-width"><strong>WAREHOUSE</strong></th>
-                            <th><strong>MTC</strong></th>
-                            <!--<th></th>-->
-                            <th>STATUS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="stock in allStock">
-                            <td>{{stock.invenotryStringId}}</td>
-                            <!--<td>TBI{{stock.inventoryId}}</td>-->
-                            <td>{{stock.createdAt | date:'dd-MM-yyyy'}}</td>
-                            <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
-                                <span ng-if="stock.category.name==='Coil'">1</span>
-                                <span ng-if="stock.category.name==='Plates/Sheets'">{{stock.quantityInNos}}</span>
-                            </td>
-                            <td class="fix-width">{{stock.seller.warehouseAddress}}, {{stock.seller.warehouseCity}}, {{stock.seller.warehousePincode}}</td>
-                            <td class="text-center font-karla " ng-if="stock.mtcStatus != 'Notavailable'">
-                                <div class="item-info-detail">
-                                    <h5 class="mgn0" ng-if="stock.mtcStatus == 'Original'">MTC Certified</h5>
-                                    <h5 class="mgn0" ng-if="stock.mtcStatus == 'Photocopy'">MTC Certified (Photocopy)</h5>
-                                </div>
-                                <div class="chpass text-center ">
-                                    <a fancybox-box ng-href="{{stock.mtcImage | uploadpath}}" rel="fancybox" target="_blank">
-                                        <span class="view1">View</span>
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="text-center font-karla " ng-if="stock.mtcStatus == 'Notavailable'">
-                                <div class="item-info-detail">
-                                    <!--<h3>Not MTC Certified</h3>-->
-                                    <h5 class="mgn0">Not MTC Certified</h5>
-                                </div>
-                            </td>
-                            <!--<td class="view-td final-center">
+                    <table class="table table-bordered request-buyer-table view-prod text-center w-auto" ng-if="totalItems > 0">
+                        <thead>
+                            <tr>
+                                <th><strong>STOCK</strong></th>
+                                <th><strong>DATE</strong></th>
+                                <th><strong>AVAILABLE STOCK</strong></th>
+                                <th class="fix-width"><strong>WAREHOUSE</strong></th>
+                                <th><strong>MTC</strong></th>
+                                <!--<th></th>-->
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="stock in allStock">
+                                <td>{{stock.invenotryStringId}}</td>
+                                <!--<td>TBI{{stock.inventoryId}}</td>-->
+                                <td>{{stock.createdAt | date:'dd-MM-yyyy'}}</td>
+                                <td><span ng-if="stock.category.name==='Pipes' || stock.category.name==='Roundbar'">{{stock.totalQty}}</span>
+                                    <span ng-if="stock.category.name==='Coil'">1</span>
+                                    <span ng-if="stock.category.name==='Plates/Sheets'">{{stock.quantityInNos}}</span>
+                                </td>
+                                <td class="fix-width">{{stock.seller.warehouseAddress}}, {{stock.seller.warehouseCity}}, {{stock.seller.warehousePincode}}</td>
+                                <td class="text-center font-karla " ng-if="stock.mtcStatus != 'Notavailable'">
+                                    <div class="item-info-detail">
+                                        <h5 class="mgn0" ng-if="stock.mtcStatus == 'Original'">MTC Certified</h5>
+                                        <h5 class="mgn0" ng-if="stock.mtcStatus == 'Photocopy'">MTC Certified (Photocopy)</h5>
+                                    </div>
+                                    <div class="chpass text-center ">
+                                        <a fancybox-box ng-href="{{stock.mtcImage | uploadpath}}" rel="fancybox" target="_blank">
+                                            <span class="view1">View</span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center font-karla " ng-if="stock.mtcStatus == 'Notavailable'">
+                                    <div class="item-info-detail">
+                                        <!--<h3>Not MTC Certified</h3>-->
+                                        <h5 class="mgn0">Not MTC Certified</h5>
+                                    </div>
+                                </td>
+                                <!--<td class="view-td final-center">
                                 <a><label class="view formatEdit">Edit</label></a>
                             </td>-->
-                            <td class="view-td final-center">
-                                <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Verified'">{{stock.status}} by {{stock.agencyid.agencyName}}</label>
-                                <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Pending'">{{stock.status}} for Inspection</label>
-                                <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Assigned'">{{stock.status}} to {{stock.agencyid.agencyName}}</label>
-                                <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Inspected'">{{stock.status}} by {{stock.agencyid.agencyName} </label>
-                                <label class="stat formatStatus" ng-if="stock.status=='Rejected'">Rejected</label>
-                                <a class="inline-block" ng-if="stock.status!='Rejected' && stock.liveStatus != 'Unlive'" ui-sref="editstock({'id':stock._id})"><label class="view formatEdit">EDIT</label></a>
-                                <a class="inline-block" ng-if="stock.status!='Rejected' && stock.status=='Verified' && stock.liveStatus != 'Unlive'"><label class="view formatEdit">|</label></a>
-                                <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Live'"><label class="view formatEdit colorStats">Live</label></a>
-                                <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Unlive'"><label class="view formatEdit colorStat">Unlive</label></a>
-                                <a class="inline-block" ng-if="stock.status=='Rejected'"><label class="view formatEdit colorStat">Rejected</label></a>
-                                <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td class="view-td final-center">
+                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Verified'">{{stock.status}} by {{stock.agencyid.agencyName}}</label>
+                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Pending'">{{stock.status}} for Inspection</label>
+                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Assigned'">{{stock.status}} to {{stock.agencyid.agencyName}}</label>
+                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Inspected'">{{stock.status}} by {{stock.agencyid.agencyName} </label>
+                                    <label class="stat formatStatus" ng-if="stock.status=='Rejected'">Rejected</label>
+                                    <a class="inline-block" ng-if="stock.status!='Rejected' && stock.liveStatus != 'Unlive'" ui-sref="editstock({'id':stock._id})"><label class="view formatEdit">EDIT</label></a>
+                                    <a class="inline-block" ng-if="stock.status!='Rejected' && stock.status=='Verified' && stock.liveStatus != 'Unlive'"><label class="view formatEdit">|</label></a>
+                                    <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Live'"><label class="view formatEdit colorStats">Live</label></a>
+                                    <a class="inline-block" ng-if="stock.status=='Verified' && stock.liveStatus=='Unlive'"><label class="view formatEdit colorStat">Unlive</label></a>
+                                    <a class="inline-block" ng-if="stock.status=='Rejected'"><label class="view formatEdit colorStat">Rejected</label></a>
+                                    <!--<a ui-sref="view-request-buyers"><label class="view">VIEW</label></a>-->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center" ng-if="totalItems == 0">
+                        <h3>No Stock Found</h3>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
