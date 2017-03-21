@@ -170,7 +170,7 @@
           </div>
         </uib-tab>
         <uib-tab index="2" heading="Payments Processing">
-          <div class="" ng-if="allTransaction.length > 0">
+          <div class="">
             <div class="notify-head">
               <div class="row hide">
                 <div class="col-md-6">
@@ -201,17 +201,18 @@
                         <label for="text">Total Payments Being Processed:</label>
                       </div>-->
                       <div class="lbl-head">
-                        <select name="" id="" class="form-control">
-                              <option value="To be paid">To Be Paid</option>
-                              <option value="Send to bank" >Send To Bank</option>
-                        </select>
+                        <select ng-model="selectedStatus" ng-change="filterPaymentStatus(selectedStatus)">
+                             <option value="All">All</option>
+                             <option value="To be paid">To Be Paid</option>
+                             <option value="Send to bank" >Send To Bank</option>
+                          </select>
                       </div>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-            <div class="over-table">
+            <div class="over-table" ng-if="allTransaction.length > 0">
               <!--<div class="row" ng-if="allTransaction.length==0">
               <h4>Data Not Found</h4>
               </div>-->
@@ -264,7 +265,8 @@
                       <span ng-if="showData==true && myindex==$index"><input ng-model="data.neftReference" type="text"/></span>
                     </td>
                     <td>
-                      <label ng-if="myindex!=$index" for="" ng-click="showConverted($index);">Edit</label>
+                      <label ng-if="myindex!=$index && data.status!='Paid'" for="" ng-click="showConverted($index);">Edit</label>
+                      <label ng-if="myindex!=$index && data.status=='Paid'">Edit</label>
                       <label ng-if="myindex==$index" ng-click="editPaymentStatus(data,$index);">Save</label>
                     </td>
                   </tr>
@@ -272,9 +274,9 @@
               </table>
               <ul ng-if="totalallItems>10" uib-pagination total-items="totalallItems" ng-model="filterall.page" ng-change="getAllTransactionPayment()"></ul>
             </div>
-          </div>
-          <div class="text-center" ng-if="allTransaction == 0">
-            <h3>No Payment For Processing</h3>
+            <div class="text-center" ng-if="allTransaction == 0">
+              <h3>No Payment For Processing</h3>
+            </div>
           </div>
         </uib-tab>
         <!--data-ng-init="getAllTransactionPayment('Paid')"-->

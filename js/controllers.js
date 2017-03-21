@@ -4257,12 +4257,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.changeStatus = function () {
             $scope.getAllTransactionPayment('Paid');
         }
+        $scope.selectedStatus = "All"
+        $scope.filterPaymentStatus = function (data) {
+            // $scope.filterall.status = data;
+            $scope.selectedStatus = data;
+            $scope.getAllTransactionPayment(data);
+        }
         $scope.getAllTransactionPayment = function (data) {
             console.log("daatttt", data);
             if (data == "Paid") {
                 console.log('ENTERs');
                 // $scope.showTransaction = data;
                 $scope.filterall.status = data;
+
+                // $scope.filter.status = $scope.selectedStatus;
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTERs', respo);
                     if (respo.value == true) {
