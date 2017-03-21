@@ -4261,6 +4261,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             console.log("daatttt", data);
             if (data == "Paid") {
                 console.log('ENTERs');
+                // $scope.showTransaction = data;
                 $scope.filterall.status = data;
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTERs', respo);
@@ -4287,8 +4288,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                         $scope.allTransaction = respo.data.results;
                         // _.each($scope.allTransaction, function (n) {
                         //     if (n.status == 'Sent to bank' || n.status == 'To be paid' || n.status == 'All') {
-                        //         $scope.showText = true;
-                        //         $scope.showData = false;
+                        //         $scope.showTransaction = true;
+                        //     }else{
+                        //         $scope.showTransaction = false;
                         //     }
                         // })
                         console.log("aaaa", $scope.allTransaction);

@@ -96,7 +96,7 @@
                             <th><strong>NAME</strong></th>
                             <th><strong>PRODUCT</strong></th>
                             <th><strong>QUANTITY</strong></th>
-                            <th><strong>INSPECTION AGENCY</strong></th>
+                            <th class="selectSpace"><strong>INSPECTION AGENCY</strong></th>
                             <th><strong>STATUS</strong></th>
                         </tr>
                     </thead>
@@ -162,11 +162,11 @@
                                 <td ng-if="inventory.category.name == 'Plates/Sheets'">{{inventory.quantityInNos}}</td>
                                 <td ng-if="inventory.category.name == 'Pipes' || inventory.category.name == 'Roundbar'">{{inventory.totalQty}}</td>
                                 <td ng-if="inventory.category.name == 'Coil'">{{inventory.coilQty}}</td>
-                                <td class="">
+                                <td class="selectSpace">
                                     <!--<select ng-model="myid">
                    <option  ng-repeat="agency in getAllAgency" value="{{agency._id}}">{{agency.agencyName}}</option>
                        </select>-->
-                                    <div ng-if="inventory.seller.status==='verified'">
+                                    <div class="tempSpace" ng-if="inventory.seller.status==='verified'">
                                         <div class="form-group" ng-if="inventory.status==='Pending'">
                                             <select required name="status{{$index}}" ng-model="inventory.agentIDTemp">
                       <option  value="">Select Agency</option>
