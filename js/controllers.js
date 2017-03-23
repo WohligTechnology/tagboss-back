@@ -1,7 +1,7 @@
 Window.uploadurl = "http://wohlig.biz/uploadfile/upload/";
 // var adminURL = "http://localhost:1337/";
-var adminURL = "http://35.154.98.245:1337/";
-// var adminURL = "http://104.155.129.33:1337/";
+// var adminURL = "http://35.154.98.245:1337/";
+var adminURL = "http://104.155.129.33:1337/";
 angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toastr', 'ui.tinymce', 'navigationservice', 'highcharts-ng', 'ui.bootstrap', 'ngAnimate', 'imageupload', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toggle-switch', 'angular.filter', 'angular-loading-bar'])
 
     .controller('LoginPageCtrl', function ($scope, $uibModal, TemplateService, NavigationService, $timeout, $state, toastr) {
@@ -12,9 +12,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.navigation = NavigationService.getnav();
         TemplateService.header = 'views/header1.html';
         TemplateService.sidemenu = '';
-        if (window.location.host == "inspection.tagboss.com") {
-            $state.go('inspection-login');
-        }
+        // if (window.location.host == "inspection.tagboss.com") {
+        //     $state.go('inspection-login');
+        // }
         $scope.logindata = {};
         $scope.error = false
         $scope.Login = function (logindata) {
@@ -730,8 +730,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         $(window).scrollTop(0);
-        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         $scope.currentDate = new Date();
         $scope.showEdit = false;
@@ -2096,9 +2096,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("Inspection Login");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        if (window.location.host == "backend.tagboss.com") {
-            $state.go('loginpage');
-        }
+        // if (window.location.host == "backend.tagboss.com") {
+        //     $state.go('loginpage');
+        // }
         TemplateService.header = 'views/headeragencylogin.html';
         TemplateService.sidemenu = '';
         $scope.logindata = {};
@@ -3319,8 +3319,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View-sellers");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneSeller($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.sellerData = data.data;
@@ -3658,8 +3658,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.max = 5;
         $scope.isReadonly = false;
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
-        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         $scope.hoveringOver = function (value) {
             $scope.overStar = value;
             $scope.percent = 100 * (value / $scope.max);
@@ -3799,8 +3799,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 }
             }
         });
-        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         var senddata = {}
         $scope.acceptSeller = function (sellerdata) {

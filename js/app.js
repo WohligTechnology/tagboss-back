@@ -318,14 +318,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       controller: 'EditAgencyDetailsCtrl'
     });
   // $urlRouterProvider.otherwise("/dashboard");
-  console.log(window.location.host);
-  if (window.location.host != "inspection.tagboss.com") {
-    console.log('enter login');
-    $urlRouterProvider.otherwise("loginpage");
-  } else {
-    console.log('enter inspection-login');
-    $urlRouterProvider.otherwise("inspection-login");
-  }
+  $urlRouterProvider.otherwise("/loginpage");
   $locationProvider.html5Mode(isproduction);
 });
 
