@@ -803,6 +803,15 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      getAllTransactionPaymentExcludingPaid: function (senddata, callback) {
+        var data = senddata;
+        return $http({
+          url: adminURL + "transaction/getAllTransactionPaymentExcludingPaid",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
       getAllPaymentProcessingTransaction: function (senddata, callback) {
         var data = senddata;
         return $http({

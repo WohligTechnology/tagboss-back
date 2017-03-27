@@ -4268,29 +4268,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             if (data == "Paid") {
                 console.log('ENTERs');
                 // $scope.showTransaction = data;
-                $scope.filterall.status = data;
+                // $scope.filterall.status = data;
 
                 // $scope.filter.status = $scope.selectedStatus;
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTERs', respo);
                     if (respo.value == true) {
-                        _.each(respo.data.results, function (n) {
-                            console.log('N', n);
-                            if (n.status == 'Paid') {
-                                $scope.allPaidTransaction = respo.data.results;
-                                console.log("aaaa", $scope.allTransaction);
-                            } else if (n.status != 'Paid') {
-                                console.log("aa", $scope.allTransaction);
-                                $scope.allPaidTransaction = 0;
-                            }
-                        })
+                        // _.each(respo.data.results, function (n) {
+                        //     console.log('N', n);
+                        //     if (n.status == 'Paid') {
+                        //     } else if (n.status != 'Paid') {
+                        //         console.log("aa", $scope.allTransaction);
+                        //         $scope.allPaidTransaction = 0;
+                        //     }
+                        // })
+                        $scope.allPaidTransaction = respo.data.results;
+                        console.log("aaaa", $scope.allTransaction);
                         $scope.totalallItems = respo.data.total;
                     }
                 });
             } else {
                 $scope.filterall.status = data;
                 console.log('ENTER');
-                NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
+                NavigationService.getAllTransactionPaymentExcludingPaid($scope.filterall, function (respo) {
+                    // NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTER');
                     if (respo.value == true) {
                         $scope.allTransaction = respo.data.results;
