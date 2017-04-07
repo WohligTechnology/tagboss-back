@@ -50,7 +50,7 @@
                             </select>-->
                             <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
                                         <option value="All">All</option>
-                                        <option value="Pending">Pending Inspection</option>
+                                        <!--<option value="Pending">Pending Inspection</option>-->
                                         <option value="Inspected">Inspected</option>
                                         <option value="Assigned">Assigned</option>
                                         <option value="Verified">Listed</option>
@@ -181,7 +181,7 @@
                                     <div class="text-center" style="margin-bottom: 5px;">
                                         <select class="" name="" ng-if="inventory.status!=='Verified' && inventory.status!=='Rejected' && inventory.status!=='Inspected'"
                                             ng-model="inventory.inspectStatus" id="">
-                                                <option value="">Select Status Of Report</option>
+                                                <!--<option value="">Select Status Of Report</option>-->
                                                 <option value="Accepted">Accepted</option>
                                                 <option value="Rejected">Rejected</option>
                                             </select>

@@ -218,10 +218,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row ">
+                <div class="row " ng-if="sellerData.registrationNo || sellerData.range || sellerData.commissioneRate ||sellerData.division || sellerData.exciseAddress">
                   <h4 class="font-karla-bold text-uppercase spacing ">Excise Details (Optional)</h4>
                 </div>
-                <div class="row excise-block">
+                <div class="row excise-block" ng-if="sellerData.registrationNo || sellerData.range || sellerData.commissioneRate">
                   <div class="col-md-4 ">
                     <div class="form-group ">
                       <label class="font-karla-bold " for="reg ">Registration No. (ECC)</label>
@@ -245,7 +245,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row ">
+                <div class="row " ng-if="sellerData.division || sellerData.exciseAddress">
                   <div class="col-md-4 ">
                     <div class="form-group div ">
                       <label class="font-karla-bold " for="div ">Division</label>
@@ -301,10 +301,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="sellerData.importExportCode">
                   <h4 class="font-karla-bold text-uppercase spacing">Import-export</h4>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="sellerData.importExportCode">
                   <div class="col-md-4">
                     <div class="form-group export"><label class="font-karla-bold" for="code">Import-export code</label>
                       <div class="input-group attach">
@@ -319,12 +319,13 @@
           </div>
         </div>
       </div>
-      <div class="certifications">
+      <div class="certifications" ng-if=" sellerData.imageOfVatTinNo ">
         <!--<div class="certification-header">
           <p>CERTIFICATIONS</p>
         </div>-->
-        <div class="certification-header comp-details">
-          <h4 class="font-karla-bold text-uppercase h-bottom ">CERTIFICATIONS</h4>
+        <div class="certification-header comp-details text-center">
+          <h4 class="font-karla-bold text-uppercase h-bottom inline-block">CERTIFICATIONS</h4>
+          <button class="btn btn-primary inline-block" ng-click="zipCreate(sellerData)">Zip All</button>
         </div>
         <div class="row">
           <div class="col-md-4 col-1">
@@ -439,8 +440,8 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4 ng-if=" sellerData.imageOfregistrationNo " col-2">
-            <div class="abc">
+          <div class="col-md-4 col-2">
+            <div class="abc" ng-if=" sellerData.imageOfregistrationNo ">
               <!--<div>
                 <p class="img-head">Registration No.(ECC) {{sellerData.registrationNo}}</p>
               </div>-->
@@ -467,8 +468,8 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4 ng-if=" sellerData.imageImportExportCode " col-3">
-            <div class="abc">
+          <div class="col-md-4 col-3">
+            <div class="abc" ng-if=" sellerData.imageImportExportCode ">
               <!--<div>
                 <p class="img-head">Import Export Code {{sellerData.importExportCode}}</p>
               </div>-->
@@ -498,7 +499,7 @@
         </div>
       </div>
       <div class="clearfix"></div>
-      <div class="certifications">
+      <div class="certifications" ng-if="sellerData.securityDepositDate">
         <div class="certification-header comp-details">
           <h4 class="font-karla-bold text-uppercase h-bottom ">Security Deposit Details</h4>
         </div>

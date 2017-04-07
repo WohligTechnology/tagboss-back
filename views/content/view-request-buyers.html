@@ -209,10 +209,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="buyerData.registrationNo || buyerData.range || buyerData.commissioneRate ||buyerData.division || buyerData.exciseAddress">
                   <h4 class="font-karla-bold text-uppercase spacing">Excise Details (Optional)</h4>
                 </div>
-                <div class="row excise-block">
+                <div class="row excise-block" ng-if="buyerData.registrationNo || buyerData.range || buyerData.commissioneRate">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="font-karla-bold" for="reg">Registration No. (ECC)</label>
@@ -236,7 +236,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-if="buyerData.division || buyerData.exciseAddress">
                   <div class="col-md-4">
                     <div class="form-group div">
                       <label class="font-karla-bold" for="div">Division</label>
@@ -257,7 +257,7 @@
         </div>
         <!--buyer Profile view end-->
       </div>
-      <div class="certifications">
+      <div class="certifications" ng-if=" buyerData.imageOfVatTinNo ">
         <div class="certification-header">
           <p>CERTIFICATIONS</p>
         </div>
@@ -348,8 +348,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4 ng-if=" buyerData.imageOfregistrationNo " col-1">
-            <div class="abc">
+          <div class="col-md-4 col-1">
+            <div class="abc" ng-if=" buyerData.imageOfregistrationNo ">
               <!--<div>
                 <p class="img-head">Registration No.(ECC) {{buyerData.registrationNo}}</p>
               </div>-->

@@ -190,11 +190,11 @@
                                                                 <td class="borb">
                                                                     <input type="text" name="other{{$index}}" ng-pattern="template.decimalExact2" placeholder="Length" ng-model="addSizeQty.size"
                                                                         ng-change="valueTotalQuantity()" required>
-                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 00.00 & Enter Value
+                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 0.00 & Enter Value Less
+                                                                        than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 0.00 && Enter Value
                                                                         Less than 15.00</div>
-                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 00.00 && Enter Value
-                                                                        Less than 15.00</div>
-                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 00.09</div>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 0.09</div>
                                                                 </td>
                                                                 <td class="borrb">
                                                                     <input type="text" only-digits name="otherqty" ng-init="addSizeQty.qty = 1" ng-model="addSizeQty.qty" ng-change="valueTotalQuantity()"
@@ -999,11 +999,11 @@
                                                                 <td class="borb">
                                                                     <input type="text" name="other{{$index}}" ng-pattern="template.decimalExact2" placeholder="Length" ng-model="addSizeQty.size"
                                                                         ng-change="valueTotalQuantity()" required>
-                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 00.00 & Enter Value
+                                                                    <div class="error-msg62" ng-if="stockProduct['other'+$index].$invalid && stockProduct['other'+$index].$dirty">Please Enter Valid Length Format 0.00 & Enter Value Less
+                                                                        than 15.00</div>
+                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 0.00 && Enter Value
                                                                         Less than 15.00</div>
-                                                                    <div class="error-msg62" ng-if="addSizeQty.size > 15.00 && addSizeQty.size">Please Enter Valid Length Format 00.00 && Enter Value
-                                                                        Less than 15.00</div>
-                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 00.09</div>
+                                                                    <div class="error-msg62" ng-if="(addSizeQty.size <= 00.09 && addSizeQty.size)">Please Enter Value Greater than 0.09</div>
                                                                 </td>
                                                                 <td class="borrb">
                                                                     <input type="text" only-digits name="otherqty" ng-init="addSizeQty.qty = 1" ng-model="addSizeQty.qty" ng-change="valueTotalQuantity()"

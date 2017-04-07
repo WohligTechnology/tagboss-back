@@ -27,6 +27,8 @@ var jsArray = [
     './bower_components/angular-filter/dist/angular-filter.min.js',
     './bower_components/angularjs-imageupload-directive/public/javascripts/imageupload.js',
     './bower_components/angular-loading-bar/build/loading-bar.min.js',
+    './bower_components/jszip/dist/jszip.min.js',
+    './bower_components/FileSaver.js/FileSaver.min.js',
     './bower_components/moment/moment.js',
     './js/app.js',
     './js/language.js',

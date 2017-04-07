@@ -472,6 +472,16 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      zipDocument: function (sdata, callback) {
+        var data = sdata;
+        console.log(data);
+        return $http({
+          url: adminURL + "config/zipDocument",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
       updateBuyer: function (sdata, callback) {
         var data = sdata;
         return $http({

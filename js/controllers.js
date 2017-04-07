@@ -811,7 +811,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.unassignedInspection($scope.constraints, function (data) {
                 if (data.data.nModified == 1) {
                     toastr.success("Inventory is successfully unassigned.", "Unassign Inspection Message");
-                    $scope.getInventory();
+                    $scope.getUnassignedInventory();
                 } else {
                     toastr.error("Something went wrong while unassigning inventory from inspection.", "Unassign Inspection Message");
                 }
@@ -950,6 +950,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
         $scope.getInventory();
+
+
+        $scope.getUnassignedInventory = function () {
+            // $scope.filter.page = $scope.filter.page++;
+            console.log('done');
+            $scope.filters = {};
+            $scope.filters.page = 1;
+            $scope.filters.status = 'All';
+            $(window).scrollTop(0);
+            NavigationService.getProduct($scope.filters, function (data) {
+                console.log('data');
+                if (data.value == true) {
+                    $scope.getAllInventory = data.data.results;
+                    $scope.totalItems = data.data.total;
+                    console.log("filters", $scope.filters);
+                }
+            });
+        }
 
         // $scope.getInventory = function () {
         //     NavigationService.getInventory($scope.filter, function (data) {
@@ -3802,12 +3820,75 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+
+        $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
+
+
+
+        $scope.zipCreate = function (data) {
+            console.log(data);
+            $scope.zConstraint = {};
+            $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
+            $scope.zConstraint.userStringId = data.userStringId;
+
+            // $scope.zConstraint.panImage = $scope.imgURL + data.imageOfPanNo;
+            // $scope.zConstraint.vatImage = $scope.imgURL + data.imageOfVatTinNo;
+            // $scope.zConstraint.cstImage = $scope.imgURL + data.imageOfCstTinNo;
+            // $scope.zConstraint.registerImage = $scope.imgURL + data.imageOfregistrationNo;
+            // $scope.zConstraint.importImage = $scope.imgURL + data.imageImportExportCode;
+            // $scope.zConstraint.chequeImage = $scope.imgURL + data.imageCancelledCheque;
+            $scope.zConstraint.panImage = data.imageOfPanNo;
+            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
+            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
+            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
+            $scope.zConstraint.importImage = data.imageImportExportCode;
+            $scope.zConstraint.chequeImage = data.imageCancelledCheque;
+            console.log($scope.zConstraint);  
+            var zip = new JSZip();  
+            var files = [];
+
+            files.push($scope.zConstraint.panImage);  
+            files.push($scope.zConstraint.importImage);  
+            files.push($scope.zConstraint.vatImage);  
+            files.push($scope.zConstraint.cstImage);  
+            files.push($scope.zConstraint.registerImage);  
+            files.push($scope.zConstraint.chequeImage);
+            // console.log("inside zip", $scope.zConstraint);  
+            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+
+            _.forEach(files, function (value) {   
+                var extension = value.split(".").pop();   
+                extension = extension.toLowerCase();   
+                if (extension == "jpeg") {    
+                    extension = "jpg";   
+                }   
+                var i = value.indexOf(".");   
+                i--;   
+                var name = value.slice(0, i);   
+                if (extension == "png" || extension == "jpg") {    
+                    img.file(name + "." + extension, value);    
+                    console.log("zip");   
+                } else if (extension == "pdf") {    
+                    img.file(name + "." + extension, value);    
+                    console.log("zip");   
+                }  
+            }); 
+            zip.generateAsync({    
+                type: "blob"   
+            })   .then(function (content) {     // see FileSaver.js
+                saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");   
+            });
+        }
+
         var senddata = {}
         $scope.acceptSeller = function (sellerdata) {
             senddata._id = sellerdata._id;
             senddata.email = sellerdata.email;
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
+            senddata.firmName = sellerdata.firmName;
             senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
@@ -3834,6 +3915,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 } else {
                     senddata.securityDepositStatus = true;
                     senddata.isAdminVerified = true;
+                    senddata.isActive = true;
                     senddata.status = "verified";
                     NavigationService.updateSeller(senddata, function (data) {
                         // if (data.value == true) {
@@ -3863,7 +3945,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.registrationNoVerified = sellerdata.registrationNoVerified;
             senddata.cancelledChequeVerified = sellerdata.cancelledChequeVerified;
             senddata.importExportCodeVerified = sellerdata.importExportCodeVerified;
-            senddata.isAdminVerified = true;
+            senddata.isAdminVerified = false;
+            senddata.isActive = true;
             senddata.status = "rejected";
             // console.log()
             if (senddata.comment === "" || senddata.comment == undefined) {
@@ -3919,6 +4002,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.email = buyerdata.email;
             senddata.mobile = buyerdata.mobile;
             senddata.firstName = buyerdata.firstName;
+            senddata.firmName = buyerdata.firmName;
             senddata.comment = buyerdata.comment;
             senddata.cstTinNoVerified = buyerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = buyerdata.vatTinNoVerified;
@@ -3926,6 +4010,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.registrationNo = buyerdata.registrationNo;
             senddata.registrationNoVerified = buyerdata.registrationNoVerified;
             senddata.isAdminVerified = true;
+            senddata.isActive = true;
             senddata.status = "verified";
             console.log("new data", senddata);
             //  || senddata.registrationNoVerified == false
@@ -3953,7 +4038,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.panNoVerified = buyerdata.panNoVerified;
             senddata.registrationNo = buyerdata.registrationNo;
             senddata.registrationNoVerified = buyerdata.registrationNoVerified;
-            senddata.isAdminVerified = true;
+            senddata.isAdminVerified = false;
+            senddata.isActive = true;
             senddata.status = "rejected";
             NavigationService.updateBuyer(senddata, function (data) {
                 if (data.value == true) {
@@ -4533,7 +4619,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getInventory();
 
-        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultErrorMsg = 'Please upload one consolidated file.';
         $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
         $scope.uploadReport = function (err, data) {
             //console.log(err, data);
@@ -4550,6 +4636,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             console.log(reportdata);
             var senddata = {};
             senddata._id = reportdata._id;
+            senddata.inspectionId = reportdata.inspectionStringId;
             senddata.report = reportdata.report;
             senddata.remark = reportdata.remark;
             senddata.inspectStatus = reportdata.inspectStatus;
