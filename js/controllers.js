@@ -3820,10 +3820,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
         $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
 
-        var image23 = "";
 
 
-        function getBase64FromImageUrl(url) {
+        function getBase64FromImageUrl(url, callback) {
             var img = new Image();
 
             img.setAttribute('crossOrigin', 'anonymous');
@@ -3838,15 +3837,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
                 var dataURL = canvas.toDataURL("image/png");
 
-                image23 = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-                console.log(image23);
-                console.log("Done");
+                var img = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                callback(img);
             };
             img.src = url;
         }
 
 
-        getBase64FromImageUrl("http://104.155.129.33:1337/upload/readFile?file=58e23b4c333019376409a782.png");
+        //getBase64FromImageUrl("http:/ / 104.155 .129 .33: 1337 / upload / readFile ? file = 58e23 b4c333019376409a782.png ");
 
 
         $scope.zipCreate = function (data) {
@@ -3880,7 +3878,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             // console.log("inside zip", $scope.zConstraint);  
             var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
 
-            _.forEach(files, function (value) {   
+            async.each(files, function (value, callback) {   
+                console.log(value);
                 var extension = value.split(".").pop();   
                 extension = extension.toLowerCase();   
                 if (extension == "jpeg") {    
@@ -3888,24 +3887,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 }   
                 var i = value.indexOf(".");   
                 i--;   
-                var name = value.slice(0, i);   
-                if (extension == "png" || extension == "jpg") {    
-                    img.file(name + "." + extension, image23, {
+                var name = value.slice(0, i);  
+
+                getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                    img.file(name + "." + extension, imageData, {
                         base64: true
-                    });    
-                    console.log("zip");   
-                } else if (extension == "pdf") {    
-                    img.file(name + "." + extension, image23, {
-                        base64: true
-                    });    
-                    console.log("zip");   
-                }  
+                    });  
+                    callback();
+                }); 
+
+            }, function (err, data) {
+                zip.generateAsync({    
+                    type: "blob"   
+                }).then(function (content) {     // see FileSaver.js
+                    saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
+                });
             }); 
-            zip.generateAsync({    
-                type: "blob"   
-            }).then(function (content) {     // see FileSaver.js
-                saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");   
-            });
+
         }
 
         var senddata = {}
