@@ -30,6 +30,7 @@ var jsArray = [
     './bower_components/jszip/dist/jszip.min.js',
     './bower_components/FileSaver.js/FileSaver.min.js',
     './bower_components/moment/moment.js',
+    './bower_components/async/dist/async.js',
     './js/app.js',
     './js/language.js',
     './js/controllers.js',

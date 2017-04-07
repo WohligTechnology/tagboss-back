@@ -3817,14 +3817,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 }
             }
         });
-        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
-        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
-
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
         $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
-        // $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
-        // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
-
 
 
         $scope.zipCreate = function (data) {
