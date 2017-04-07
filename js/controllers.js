@@ -3776,7 +3776,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllBuyer();
     })
-    .controller('View-request-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
+    .controller('View-request-sellersCtrl', function ($http, $scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
         $scope.template = TemplateService.changecontent("view-request-sellers");
         $scope.menutitle = NavigationService.makeactive("View-request-sellers");
         TemplateService.title = $scope.menutitle;
@@ -3820,6 +3820,34 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
         $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
 
+        var image23 = "";
+
+
+        function getBase64FromImageUrl(url) {
+            var img = new Image();
+
+            img.setAttribute('crossOrigin', 'anonymous');
+
+            img.onload = function () {
+                var canvas = document.createElement("canvas");
+                canvas.width = this.width;
+                canvas.height = this.height;
+
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0);
+
+                var dataURL = canvas.toDataURL("image/png");
+
+                image23 = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                console.log(image23);
+                console.log("Done");
+            };
+            img.src = url;
+        }
+
+
+        getBase64FromImageUrl("http://104.155.129.33:1337/upload/readFile?file=58e23b4c333019376409a782.png");
+
 
         $scope.zipCreate = function (data) {
             console.log(data);
@@ -3862,16 +3890,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 i--;   
                 var name = value.slice(0, i);   
                 if (extension == "png" || extension == "jpg") {    
-                    img.file(name + "." + extension, value);    
+                    img.file(name + "." + extension, image23, {
+                        base64: true
+                    });    
                     console.log("zip");   
                 } else if (extension == "pdf") {    
-                    img.file(name + "." + extension, value);    
+                    img.file(name + "." + extension, image23, {
+                        base64: true
+                    });    
                     console.log("zip");   
                 }  
             }); 
             zip.generateAsync({    
                 type: "blob"   
-            })   .then(function (content) {     // see FileSaver.js
+            }).then(function (content) {     // see FileSaver.js
                 saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");   
             });
         }
