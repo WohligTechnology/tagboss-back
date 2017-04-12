@@ -3821,26 +3821,57 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
 
 
+        $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+            // check for conditions and support for blob / arraybuffer response type
+            if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob))))) {
+                return {
+                    // create new XMLHttpRequest
+                    send: function (headers, callback) {
+                        // setup all variables
+                        var xhr = new XMLHttpRequest(),
+                            url = options.url,
+                            type = options.type,
+                            async = options.async || true,
+                            // blob or arraybuffer. Default is blob
+                            dataType = options.responseType || "blob",
+                            data = options.data || null,
+                            username = options.username || null,
+                            password = options.password || null;
+
+                        xhr.addEventListener('load', function () {
+                            var data = {};
+                            data[options.dataType] = xhr.response;
+                            // make callback and send data
+                            callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                        });
+
+                        xhr.open(type, url, async, username, password);
+
+                        // setup custom headers
+                        for (var i in headers) {
+                            xhr.setRequestHeader(i, headers[i]);
+                        }
+
+                        xhr.responseType = dataType;
+                        xhr.send(data);
+                    },
+                    abort: function () {
+                        jqXHR.abort();
+                    }
+                };
+            }
+        });
 
         function getBase64FromImageUrl(url, callback) {
-            var img = new Image();
-
-            img.setAttribute('crossOrigin', 'anonymous');
-
-            img.onload = function () {
-                var canvas = document.createElement("canvas");
-                canvas.width = this.width;
-                canvas.height = this.height;
-
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(this, 0, 0);
-
-                var dataURL = canvas.toDataURL("image/png");
-
-                var img = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-                callback(img);
-            };
-            img.src = url;
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "binary",
+                processData: false,
+                success: function (result) {
+                    callback(result);
+                }
+            });
         }
 
 
@@ -3890,15 +3921,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 var name = value.slice(0, i);  
 
                 getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
-                    img.file(name + "." + extension, imageData, {
-                        base64: true
-                    });  
+                    img.file(name + "." + extension, imageData);  
                     callback();
                 }); 
 
             }, function (err, data) {
                 zip.generateAsync({    
-                    type: "blob"   
+                    type: "Blob"   
                 }).then(function (content) {     // see FileSaver.js
                     saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
                 });
