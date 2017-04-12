@@ -4851,6 +4851,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
 
+        $scope.updateAddStockReadStatus = function () {
+            NavigationService.updateAddStockReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("product-approval");
+
+                }
+            });
+        }
+
         $scope.updateInspectedProductReadStatus = function () {
             NavigationService.updateInspectedProductReadStatus(function (data) {
                 if (data.value == true) {

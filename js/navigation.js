@@ -86,6 +86,13 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      updateAddStockReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "user/updateAddStockReadStatus",
+          method: "POST"
+        }).success(callback);
+      },
+
       updateInspectedProductReadStatus: function (callback) {
         return $http({
           url: adminURL + "User/updateInspectedProductReadStatus ",

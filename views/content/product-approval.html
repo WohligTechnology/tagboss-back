@@ -109,18 +109,21 @@
                                             <label class="text" for="add-one{{$index}}">
                                                  <p class="inline-block comp-name mb"><strong>Date:</strong></p>
                             <p class="inline-block mb">&nbsp;{{inventory.createdAt | date:"dd-MM-yyyy ' | ' h:mm a"}}</p>
-                            <p class="comp-name"><strong>Address:</strong></p>
+                              <p class="inline-block comp-name mb"><strong>Product Id:</strong></p>
+                            <p class="inline-block mb">&nbsp;{{inventory.product.productStringId}}</p>
+                            <div class="mb">
+                            <p class="comp-name" style="margin:0"><strong>Company Detail:</strong></p>
                             <p class="comp-name"> {{inventory.seller.firmName}}</p>
-                            <p>Email:{{inventory.seller.email}}</p>
-                            <p>Mobile:{{inventory.seller.mobile}}</p>
-                            <!--<p>Warehouse</p>
-                            <p>
-                              15/18 Rhythm House,
-                              Kaala Ghoda, Fort,
-                              Mumbai - 400005
-                              India</p>-->
-                              <p>
-                             {{inventory.seller.companyAddress}}</p>
+                            <p>{{inventory.seller.companyAddress}}<br>
+                            Email:{{inventory.seller.email}}<br>
+                            Mobile:{{inventory.seller.mobile}}</p>
+                            </div>
+                            <div class="mb">
+                            <p class="comp-name" style="margin:0"><strong>Warehouse Address:</strong></p>
+                            <p>{{inventory.seller.warehouse[0].warehouseFirmName}}</p>
+                            <p>{{inventory.seller.warehouse[0].warehouseAddress}},{{inventory.seller.warehouse[0].warehouseCity}}-{{inventory.seller.warehouse[0].warehousePincode}}.
+                            </p>
+                            </div>
                           </label>
                                         </div>
                                     </div>
@@ -730,9 +733,7 @@
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="godown" name="" disabled>
-                                        <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
-                                    </select>
+                                        <textarea rows="4" class="form-control" readonly>{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1013,9 +1014,10 @@
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="godown" name="" disabled>
+                                        <!--<select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
-                                    </select>
+                                    </select>-->
+                                        <textarea rows="3" class="form-control" readonly>{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1285,9 +1287,10 @@
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="godown" name="" disabled>
+                                        <!--<select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
-                                    </select>
+                                    </select>-->
+                                        <textarea rows="3" class="form-control" readonly>{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1643,9 +1646,10 @@
                                         <label for="godown" class="font-karla-bold">Address of Godown</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="godown" name="" disabled>
+                                        <!--<select class="form-control" id="godown" name="" disabled>
                                         <option value="">{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</option>
-                                    </select>
+                                    </select>-->
+                                        <textarea rows="3" class="form-control" readonly>{{productEdit.warehouse.warehouseAddress+' '+productEdit.warehouse.warehouseCity+' '+productEdit.warehouse.warehousePincode}}</textarea>
                                     </div>
                                 </div>
                             </div>

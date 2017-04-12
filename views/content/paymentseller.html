@@ -76,7 +76,7 @@
                   <td> {{data.paymentDueDate| date:'dd-MMM-yyyy'}}</td>
                   <td>{{data.paymentRemarks}}</td>
                   <td>{{data.status}}</td>
-                  <td>TBP{{data.payment.paymentId}}</td>
+                  <td>{{data.payment.paymentStringId}}</td>
                 </tr>
               </tbody>
             </table>
@@ -171,7 +171,7 @@
         </uib-tab>
         <uib-tab index="2" heading="Payments Processing">
           <div class="">
-            <div class="notify-head" ng-if="allTransaction.length > 0">
+            <div class="notify-head">
               <div class="row hide">
                 <div class="col-md-6">
                   <form>
@@ -204,7 +204,7 @@
                         <select ng-model="selectedStatus" ng-change="filterPaymentStatus(selectedStatus)">
                              <option value="All">All</option>
                              <option value="To be paid">To Be Paid</option>
-                             <option value="Send to bank" >Send To Bank</option>
+                             <option value="Sent to Bank" >Send To Bank</option>
                           </select>
                       </div>
                     </div>
@@ -235,7 +235,7 @@
                     <td>
                       <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
                       {{$index +1}}</td>
-                    <td>TBP{{data.paymentId}}</td>
+                    <td>{{data.paymentStringId}}</td>
                     <td>{{data.seller.userStringId}}</td>
                     <td>{{data.amount| currency:'&#8377;'}}</td>
                     <td>{{data.transactionNumberReference.toString()}}</td>
@@ -319,9 +319,8 @@
                   <tbody>
                     <tr ng-repeat="data in allPaidTransaction">
                       <td>
-                        <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
                         {{$index +1}}</td>
-                      <td>TBP{{data.paymentId}}</td>
+                      <td>{{data.paymentStringId}}</td>
                       <td>{{data.seller.userStringId}}</td>
                       <td>{{data.amount| currency:'&#8377;'}}</td>
                       <td>{{data.transactionNumberReference.toString()}}</td>
