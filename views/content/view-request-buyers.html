@@ -258,8 +258,12 @@
         <!--buyer Profile view end-->
       </div>
       <div class="certifications" ng-if=" buyerData.imageOfVatTinNo ">
-        <div class="certification-header">
+        <!--<div class="certification-header">
           <p>CERTIFICATIONS</p>
+        </div>-->
+        <div class="certification-header comp-details text-center">
+          <h4 class="font-karla-bold text-uppercase h-bottom inline-block">CERTIFICATIONS&nbsp;&nbsp;&nbsp;</h4>
+          <button class="btn btn-primary inline-block" ng-click="zipCreate(buyerData)">Zip All</button>
         </div>
         <div class="row">
           <div class="col-md-4 col-1">
@@ -270,7 +274,7 @@
               <div class="align-info">
                 <p class="img-head pull-left">VAT NO. {{buyerData.vatTinNo}}</p>
                 <span class="download-btn pull-right" ng-if="!imageOfVatTinNoIsPdf"><a href="{{buyerData.imageOfVatTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfVatTinNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfVatTinNoIsPdf"><a href="{{pdfURL}}{{buyerData.imageOfVatTinNo}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfVatTinNoIsPdf">
@@ -278,8 +282,8 @@
                   <img ng-src="{{buyerData.imageOfVatTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-              <div class="text-center afterPdf" ng-if="imageOfVatTinNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+              <div class="text-center img-placement" ng-if="imageOfVatTinNoIsPdf">
+                <a href="{{pdfURL}}{{buyerData.imageOfVatTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -298,7 +302,7 @@
               <div class="align-info">
                 <p class="img-head pull-left">CST NO. {{buyerData.cstTinNo}}</p>
                 <span class="download-btn pull-right" ng-if="!imageOfCstTinNoIsPdf"><a href="{{buyerData.imageOfCstTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{pdfURL}}{{buyerData.imageOfCstTinNo}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfCstTinNoIsPdf">
@@ -306,8 +310,8 @@
                   <img ng-src="{{buyerData.imageOfCstTinNo|uploadpath}}" alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-              <div class="text-center afterPdf" ng-if="imageOfCstTinNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+              <div class="text-center img-placement" ng-if="imageOfCstTinNoIsPdf">
+                <a href="{{pdfURL}}{{buyerData.imageOfCstTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->
@@ -326,7 +330,7 @@
               <div class="align-info">
                 <p class="img-head pull-left">PAN NO. {{buyerData.panNo}}</p>
                 <span class="download-btn pull-right" ng-if="!imageOfPanNoIsPdf"><a href="{{buyerData.imageOfPanNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{pdfURL}}{{buyerData.imageOfPanNo}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfPanNoIsPdf">
@@ -334,8 +338,8 @@
                   <img ng-src="{{buyerData.imageOfPanNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-              <div class="text-center afterPdf" ng-if="imageOfPanNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+              <div class="text-center img-placement" ng-if="imageOfPanNoIsPdf">
+                <a href="{{pdfURL}}{{buyerData.imageOfPanNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
               </div>
               <!--<div class="hide verified"><p>VERIFIED</p></div>
                         <div class="pending"><p>VERIFICATION PENDING</p></div>-->
@@ -356,7 +360,7 @@
               <div class="align-info">
                 <p class="img-head pull-left">Registration No.(ECC) {{buyerData.registrationNo}}</p>
                 <span class="download-btn pull-right" ng-if="!imageOfregistrationNoIsPdf"><a href="{{buyerData.imageOfregistrationNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{pdfURL}}{{buyerData.imageOfregistrationNo}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfregistrationNoIsPdf">
@@ -364,8 +368,8 @@
                   <img ng-src="{{buyerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
                 </a>
               </div>
-              <div class="text-center afterPdf" ng-if="imageOfregistrationNoIsPdf">
-                <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+              <div class="text-center img-placement" ng-if="imageOfregistrationNoIsPdf">
+                <a href="{{pdfURL}}{{buyerData.imageOfregistrationNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
               </div>
               <!--<div class="verified"><p>VERIFIED</p></div>
                       <div class="hide pending"><p>VERIFICATION PENDING</p></div>-->

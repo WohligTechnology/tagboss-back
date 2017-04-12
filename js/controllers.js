@@ -3884,18 +3884,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
             $scope.zConstraint.userStringId = data.userStringId;
 
-            // $scope.zConstraint.panImage = $scope.imgURL + data.imageOfPanNo;
-            // $scope.zConstraint.vatImage = $scope.imgURL + data.imageOfVatTinNo;
-            // $scope.zConstraint.cstImage = $scope.imgURL + data.imageOfCstTinNo;
-            // $scope.zConstraint.registerImage = $scope.imgURL + data.imageOfregistrationNo;
-            // $scope.zConstraint.importImage = $scope.imgURL + data.imageImportExportCode;
-            // $scope.zConstraint.chequeImage = $scope.imgURL + data.imageCancelledCheque;
             $scope.zConstraint.panImage = data.imageOfPanNo;
             $scope.zConstraint.vatImage = data.imageOfVatTinNo;
             $scope.zConstraint.cstImage = data.imageOfCstTinNo;
             $scope.zConstraint.registerImage = data.imageOfregistrationNo;
             $scope.zConstraint.importImage = data.imageImportExportCode;
             $scope.zConstraint.chequeImage = data.imageCancelledCheque;
+
             console.log($scope.zConstraint);  
             var zip = new JSZip();  
             var files = [];
@@ -4048,6 +4043,115 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 // console.log("aaaaa",$scope.sellerData);
             }
         });
+
+        $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
+        $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
+
+
+        $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+            // check for conditions and support for blob / arraybuffer response type
+            if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob))))) {
+                return {
+                    // create new XMLHttpRequest
+                    send: function (headers, callback) {
+                        // setup all variables
+                        var xhr = new XMLHttpRequest(),
+                            url = options.url,
+                            type = options.type,
+                            async = options.async || true,
+                            // blob or arraybuffer. Default is blob
+                            dataType = options.responseType || "blob",
+                            data = options.data || null,
+                            username = options.username || null,
+                            password = options.password || null;
+
+                        xhr.addEventListener('load', function () {
+                            var data = {};
+                            data[options.dataType] = xhr.response;
+                            // make callback and send data
+                            callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                        });
+
+                        xhr.open(type, url, async, username, password);
+
+                        // setup custom headers
+                        for (var i in headers) {
+                            xhr.setRequestHeader(i, headers[i]);
+                        }
+
+                        xhr.responseType = dataType;
+                        xhr.send(data);
+                    },
+                    abort: function () {
+                        jqXHR.abort();
+                    }
+                };
+            }
+        });
+
+        function getBase64FromImageUrl(url, callback) {
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "binary",
+                processData: false,
+                success: function (result) {
+                    callback(result);
+                }
+            });
+        }
+
+
+        //getBase64FromImageUrl("http:/ / 104.155 .129 .33: 1337 / upload / readFile ? file = 58e23 b4c333019376409a782.png ");
+
+
+        $scope.zipCreate = function (data) {
+            console.log(data);
+            $scope.zConstraint = {};
+            $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
+            $scope.zConstraint.userStringId = data.userStringId;
+
+            $scope.zConstraint.panImage = data.imageOfPanNo;
+            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
+            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
+            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
+
+            console.log($scope.zConstraint);  
+            var zip = new JSZip();  
+            var files = [];
+
+            files.push($scope.zConstraint.panImage);  
+            files.push($scope.zConstraint.vatImage);  
+            files.push($scope.zConstraint.cstImage);  
+            files.push($scope.zConstraint.registerImage);  
+            // console.log("inside zip", $scope.zConstraint);  
+            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+
+            async.each(files, function (value, callback) {   
+                console.log(value);
+                var extension = value.split(".").pop();   
+                extension = extension.toLowerCase();   
+                if (extension == "jpeg") {    
+                    extension = "jpg";   
+                }   
+                var i = value.indexOf(".");   
+                i--;   
+                var name = value.slice(0, i);  
+
+                getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                    img.file(name + "." + extension, imageData);  
+                    callback();
+                }); 
+
+            }, function (err, data) {
+                zip.generateAsync({    
+                    type: "Blob"   
+                }).then(function (content) {     // see FileSaver.js
+                    saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
+                });
+            }); 
+
+        }
 
         $scope.acceptBuyer = function (buyerdata) {
             var senddata = {}
