@@ -3915,7 +3915,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             files.push($scope.zConstraint.registerImage);  
             files.push($scope.zConstraint.chequeImage);
             // console.log("inside zip", $scope.zConstraint);  
-            // var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
 
             async.each(files, function (value, callback) {   
 
@@ -3930,7 +3930,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     var name = value.slice(0, i);  
 
                     getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
-                        zip.file(name + "." + extension, imageData, {
+                        img.file(name + "." + extension, imageData, {
                             createFolders: false,
                             base64: true
                         });  
