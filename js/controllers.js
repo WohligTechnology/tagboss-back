@@ -3915,27 +3915,37 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             files.push($scope.zConstraint.registerImage);  
             files.push($scope.zConstraint.chequeImage);
             // console.log("inside zip", $scope.zConstraint);  
-            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+            // var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
 
             async.each(files, function (value, callback) {   
-                console.log(value);
-                var extension = value.split(".").pop();   
-                extension = extension.toLowerCase();   
-                if (extension == "jpeg") {    
-                    extension = "jpg";   
-                }   
-                var i = value.indexOf(".");   
-                i--;   
-                var name = value.slice(0, i);  
 
-                getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
-                    img.file(name + "." + extension, imageData);  
+                if (value) {
+                    console.log("Checking Files");
+                    console.log(value);
+                    var extension = value.split(".").pop();   
+                    extension = extension.toLowerCase();   
+                    if (extension == "jpeg") {    
+                        extension = "jpg";   
+                    }   
+                    var i = value.indexOf(".");   
+                    i--;   
+                    var name = value.slice(0, i);  
+
+                    getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                        zip.file(name + "." + extension, imageData, {
+                            createFolders: false,
+                            base64: true
+                        });  
+                        callback();
+                    }); 
+                } else {
                     callback();
-                }); 
+                }
+
 
             }, function (err, data) {
                 zip.generateAsync({    
-                    type: "Blob"   
+                    type: "blob",
                 }).then(function (content) {     // see FileSaver.js
                     saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
                 });
