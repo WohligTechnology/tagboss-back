@@ -3920,8 +3920,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             async.each(files, function (value, callback) {   
 
                 if (value) {
-                    console.log("Checking Files");
-                    console.log(value);
                     var extension = value.split(".").pop();   
                     extension = extension.toLowerCase();   
                     if (extension == "jpeg") {    
