@@ -16,10 +16,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         //     $state.go('inspection-login');
         // }
         $scope.logindata = {};
-        $scope.error = false
+        $scope.error = false;
         $scope.Login = function (logindata) {
             NavigationService.Login(logindata, function (data) {
-                if (data.value == true) {
+                if (data.value === true) {
                     var successmsg = toastr.success("Login Successfully", "Information");
                     setTimeout(function () {
                         toastr.clear(successmsg);
@@ -3637,8 +3637,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 y: 0,
                 layout: 'vertical'
             },
-
-
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
             },
