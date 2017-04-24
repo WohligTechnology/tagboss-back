@@ -4149,20 +4149,41 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
 
             async.each(files, function (value, callback) {   
-                console.log(value);
-                var extension = value.split(".").pop();   
-                extension = extension.toLowerCase();   
-                if (extension == "jpeg") {    
-                    extension = "jpg";   
-                }   
-                var i = value.indexOf(".");   
-                i--;   
-                var name = value.slice(0, i);  
+                // console.log(value);
 
-                getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
-                    img.file(name + "." + extension, imageData);  
+                if (value) {
+                    var extension = value.split(".").pop();   
+                    extension = extension.toLowerCase();   
+                    if (extension == "jpeg") {    
+                        extension = "jpg";   
+                    }   
+                    var i = value.indexOf(".");   
+                    i--;   
+                    var name = value.slice(0, i);  
+
+                    getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                        img.file(name + "." + extension, imageData, {
+                            createFolders: false,
+                            base64: true
+                        });  
+                        callback();
+                    }); 
+                } else {
                     callback();
-                }); 
+                }
+                // var extension = value.split(".").pop();   
+                // extension = extension.toLowerCase();   
+                // if (extension == "jpeg") {    
+                //     extension = "jpg";   
+                // }   
+                // var i = value.indexOf(".");   
+                // i--;   
+                // var name = value.slice(0, i);  
+
+                // getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                //     img.file(name + "." + extension, imageData);  
+                //     callback();
+                // }); 
 
             }, function (err, data) {
                 zip.generateAsync({    
