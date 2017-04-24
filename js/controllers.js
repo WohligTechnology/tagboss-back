@@ -1017,19 +1017,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
         $scope.rejectReport = function (inventorydata) {
+            console.log(inventorydata);
             var senddata = {};
             senddata._id = inventorydata._id;
             senddata.email = inventorydata.seller.email;
             senddata.firstName = inventorydata.seller.firstName;
+            if (inventorydata.status === 'Pending') {
+                senddata.inspectId = '';
+            } else if (inventorydata.status === 'Inspected') {
+                senddata.inspectId = inventorydata.inspectionStringId;
+            }
             NavigationService.rejectReport(senddata, function (data) {
                 if (data.value == true) {
-                    // toastr.success("Assign Successfully", "Information");
+                    toastr.success("Rejected Successfully", "Product Approval Message");
                     $scope.getInventory();
                 }
             });
         }
 
         $scope.acceptReport = function (inventorydata) {
+            console.log(inventorydata);
             var senddata = {};
             senddata._id = inventorydata._id;
             senddata.email = inventorydata.seller.email;
@@ -1052,9 +1059,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             //     senddata.price = inventorydata.pricePerKg;
             // }
             senddata.product = inventorydata.brand.name + " " + inventorydata.moc.name + " " + inventorydata.category.name
+            if (inventorydata.status === 'Pending') {
+                senddata.inspectId = '';
+            } else if (inventorydata.status === 'Inspected') {
+                senddata.inspectId = inventorydata.inspectionStringId;
+            }
             NavigationService.acceptReport(senddata, function (data) {
                 if (data.value == true) {
-                    // toastr.success("Assign Successfully", "Information");
+                    // toastr.success("Accepted Successfully", "Product Approval Message");
                     $scope.getInventory();
                     // $state.reload();
                 }
@@ -2697,11 +2709,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.paymentStatus = orderdata.paymentStatus;
             senddata.paymentMethod = "NEFT/RTGS";
             senddata.comment = orderdata.comment;
+            senddata.sentByAdmin = true;
             NavigationService.updateOrderStatusByAdmin(senddata, function (data) {
                 if (data.value == true) {
-                    toastr.success("Order Payment Status Updated!", "Information");
+                    toastr.success("Order Payment Status Updated!", "Payment Status Update");
                     $state.reload();
                     ordermod.close();
+                } else {
+                    toastr.error("Please Change Payment Status To Paid", "Payment Status Update");
                 }
             });
         }
@@ -3267,7 +3282,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filter = {};
         $scope.filter.pagenumber = 1;
         $scope.filter.pagesize = 10;
-        $scope.filter.sortBy = "";
+        $scope.filter.sortBy = "All";
         $scope.filter.text = "";
         $scope.filter.status = "verified";
 
@@ -3300,7 +3315,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filter = {};
         $scope.filter.pagenumber = 1;
         $scope.filter.pagesize = 10;
-        $scope.filter.sortBy = "";
+        $scope.filter.sortBy = "All";
         $scope.filter.text = "";
         $scope.filter.status = "verified";
         // $scope.getAllBuyer = function () {
@@ -4015,8 +4030,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View-request-buyers");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneBuyer($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.buyerData = data.data;
@@ -4432,21 +4447,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPayments($scope.filter, function (data) {
                 if (data.value == true) {
                     $scope.all = data.data.results;
-                    _.each($scope.all, function (n) {
-                        if (n.isSeventyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
-                            }
-                        } else if (n.isTwentyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
-                            }
-                        }
-                    });
+                    // _.each($scope.all, function (n) {
+                    //     if (n.isSeventyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                    //         }
+                    //     } else if (n.isTwentyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                    //         }
+                    //     }
+                    // });
 
                     $scope.value = $scope.all.orderValue;
                     $scope.totalItems = data.data.total;
@@ -4463,21 +4478,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPendingPayments($scope.filterpending, function (respo) {
                 if (respo.value == true) {
                     $scope.allPending = respo.data.results;
-                    _.each($scope.allPending, function (n) {
-                        if (n.isSeventyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
-                            }
-                        } else if (n.isTwentyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
-                            }
-                        }
-                    });
+                    // _.each($scope.allPending, function (n) {
+                    //     if (n.isSeventyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                    //         }
+                    //     } else if (n.isTwentyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                    //         }
+                    //     }
+                    // });
                     $scope.totalpendingItems = respo.data.total;
                 }
             });
@@ -4490,7 +4505,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 if (data.value == true) {
                     $scope.getAllPendingPayments();
                     $scope.getAllTransactionPayment('To be paid');
-                    toastr.success("Payment Status Updated to Payment Processing!", "Information");
+                    setTimeout(function () {
+                        toastr.success("Payment Status Updated to Payment Processing!", "Information");
+                        $state.reload();
+                    }, 2000);
                 }
             });
         }

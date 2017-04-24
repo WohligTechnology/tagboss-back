@@ -100,7 +100,13 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="products in product | unique:'productStringId'">
-                                    <td>{{products.productStringId}}</td>
+                                    <td>
+                                        <p class="inline-block comp-name mb"><strong>Product Id:</strong></p>
+                                        <p class="inline-block mb">&nbsp;{{products.productStringId}}</p><br>
+                                        <p class="inline-block comp-name mb"><strong>Listing Id:</strong></p>
+                                        <p class="inline-block mb">&nbsp;{{products.listingId}}</p>
+                                    </td>
+                                    <!--<td>{{products.productStringId}}</td>-->
                                     <!--<td>TB{{products.category.name}}{{products.product.productStringId}}</td>-->
                                     <td class="product-width">
                                         <div class="item-info-detail pro-name" ng-if="products.category == 'Pipes'">

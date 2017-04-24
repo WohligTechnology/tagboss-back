@@ -19,7 +19,7 @@
               <div class="magic-form dropdown">
                 <div class="filter pull-right dropdown-toggle" data-toggle="dropdown">
                   <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-more" value="option1">-->
-                  <label class="">Sort by</label>
+                  <label class="">Filter by</label>
                   <i class="fa fa-caret-down carrot" aria-hidden="true"></i>
                   <ul class="dropdown-menu" role="menu">
                     <li ng-click="getAllBuyer('All');"><a>All</a></li>
@@ -37,7 +37,7 @@
     <div ng-if="AllBuyer.length==0">
       <h3 class="text-center">No data Found</h3>
     </div>
-    <div ng-repeat="buyer in AllBuyer">
+    <div ng-repeat="buyer in AllBuyer | orderBy:'-userStringId'">
       <div class="buyer-details ">
         <!--<div class="magic-form">
           <div class="magic-resize">
@@ -68,6 +68,7 @@
             </td>
             <td>
               <span>{{buyer.firstName}} {{buyer.lastName}}</span>
+              <span>Company Name: {{buyer.firmName}}</span><br>
               <span></span>
               <span></span>
             </td>

@@ -381,7 +381,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
-                  <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{buyerData.imageOfVatTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
@@ -402,7 +402,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
-                  <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{buyerData.imageOfCstTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
@@ -423,14 +423,14 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfPanNoIsPdf">
-                  <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{buyerData.imageOfPanNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 col-1">
-              <div class="abc">
+              <div class="abc" ng-if=" buyerData.imageOfregistrationNo ">
                 <!--<div>
                     <p class="img-head">Registration No. (ECC) {{buyerData.registrationNo}}</p>
                   </div>-->
@@ -441,12 +441,12 @@
                 </div>
                 <div class="clearfix"></div>
                 <div ng-if="!imageOfregistrationNoIsPdf">
-                  <a id="fbplus_01" href="{{buyerData.imageOfregistrationNo|uploadpath}}" fancybox-box>
-                    <img ng-src="{{buyerData.imageOfregistrationNo|uploadpath}} " alt=" " class="get-center img-responsive ">
+                  <a id="fbplus_01" href="{{buyerData.imageOfregistrationNo | uploadpath}}" fancybox-box>
+                    <img ng-src="{{buyerData.imageOfregistrationNo | uploadpath}} " alt=" " class="get-center img-responsive ">
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-                  <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{buyerData.imageOfregistrationNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>

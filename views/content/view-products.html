@@ -51,8 +51,8 @@
                             <select ng-model="selectedStatus" ng-change="filterProductStatus(selectedStatus)">
                                         <option value="All">All</option>
                                         <!--<option value="Pending">Pending Inspection</option>-->
-                                        <option value="Inspected">Inspected</option>
                                         <option value="Assigned">Assigned</option>
+                                        <option value="Inspected">Inspected</option>
                                         <option value="Verified">Listed</option>
                                         <option value="Rejected">Rejected</option>
                                     </select>
@@ -158,15 +158,15 @@
                                             no-view></upload-image>
                                     </div>
                                     <div class="filename">
-                                        <!--<p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>-->
-                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned'">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
+                                        <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned' && errorMsgpan !== 'Uploading' && !defaultSizeFormat">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>
+                                        <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned' && errorMsgpan === 'Uploading' && !defaultSizeFormat">{{ !errorMsgpan ? defaultErrorMsg : errorMsgpan }}
                                             <!--<div id="circleG" ng-if="(errorMsgpan != 'Successfully uploaded') && errorMsgpan && (errorMsgpan == 'Uploading')">
                                                 <div id="circleG_1" class="circleG"></div>
                                                 <div id="circleG_2" class="circleG"></div>
                                                 <div id="circleG_3" class="circleG"></div>
                                             </div>-->
                                         </p>
-                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned'">{{ defaultSizeFormat}}</p>
+                                        <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!inventory.report && inventory.status==='Assigned'">Please upload one consolidated file.<br> {{ defaultSizeFormat}}</p>
                                         <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="inventory.report && inventory.status==='Assigned'">{{ errorMsgpan }}</p>
                                         <a ng-if="inventory.report && errorMsgpan != 'Uploading' && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB' && inventory.status==='Assigned'"
                                             fancybox-box ng-href="{{inventory.report | uploadpath}}" rel="fancybox" target="_blank">

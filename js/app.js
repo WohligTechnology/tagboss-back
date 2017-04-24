@@ -13,7 +13,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
   // for http request with session
   cfpLoadingBarProvider.includeSpinner = true;
   cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-  cfpLoadingBarProvider.spinnerTemplate = '<img class="spinner" src="img/Loader.gif" alt="">';
+  cfpLoadingBarProvider.spinnerTemplate = '<div class="spinner-overlay"><img class="spinner" src="img/Loader.gif" alt=""></div>';
   cfpLoadingBarProvider.includeBar = false;
   $httpProvider.defaults.withCredentials = true;
   $stateProvider
