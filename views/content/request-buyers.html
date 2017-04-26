@@ -56,7 +56,7 @@
           <div class="magic-form">
             <div class="magic-resize">
               <label class="detail-heading" for="add-one{{$index}}">
-              {{buyer.userStringId}} {{buyer.firstName}} {{buyer.lastName}}.
+              {{buyer.userStringId}} {{buyer.firmName}} - {{buyer.firstName}} {{buyer.lastName}}.
             </label>
             </div>
           </div>
@@ -80,7 +80,7 @@
               <td>
                 <div ng-if="buyer.delivery.length>0">{{buyer.delivery[0].deliveryFirmName}},<br>{{buyer.delivery[0].deliveryAddress}},<br> {{buyer.delivery[0].deliveryCity}},
                   {{buyer.delivery[0].deliveryPincode}}
-                  <br/>{{buyer.delivery[0].deliveryState}}, {{buyer.delivery[0].deliveryCountry}}
+                  <br/>{{buyer.delivery[0].deliveryState.name}}, {{buyer.delivery[0].deliveryCountry}}
                 </div>
               </td>
               <td>CST NO. {{buyer.cstTinNo}}<br> VAT NO. {{buyer.vatTinNo}}</td>

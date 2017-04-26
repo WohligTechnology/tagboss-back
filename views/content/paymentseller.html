@@ -70,13 +70,13 @@
                   <td>{{data.order.orderStringId}}</td>
                   <td>{{data.orderDate | date:'dd-MMM-yyyy'}}</td>
                   <td>{{data.seller.userStringId}}</td>
-                  <td>{{data.orderValue| currency:'&#8377;'}}</td>
-                  <td>{{data.netPayableAll | currency:'&#8377;'}}</td>
-                  <td>{{data.withVCAmount | currency:'&#8377;'}}</td>
+                  <td>{{data.orderValue.toFixed(2)}}</td>
+                  <td>{{data.netPayableAll.toFixed(2)}}</td>
+                  <td>{{data.withVCAmount.toFixed(2)}}</td>
                   <td> {{data.paymentDueDate| date:'dd-MMM-yyyy'}}</td>
                   <td>{{data.paymentRemarks}}</td>
                   <td>{{data.status}}</td>
-                  <td>TBP{{data.payment.paymentId}}</td>
+                  <td>{{data.payment.paymentStringId}}</td>
                 </tr>
               </tbody>
             </table>
@@ -151,9 +151,9 @@
                     <td>{{data.order.orderStringId}}</td>
                     <td>{{data.orderDate | date:'dd-MMM-yyyy'}}</td>
                     <td>{{data.seller.userStringId}}</td>
-                    <td>{{data.orderValue}}</td>
-                    <td>{{data.netPayableAll}}</td>
-                    <td>{{data.withVCAmount| currency:'&#8377;'}}</td>
+                    <td>{{data.orderValue.toFixed(2)}}</td>
+                    <td>{{data.netPayableAll.toFixed(2)}}</td>
+                    <td>{{data.withVCAmount.toFixed(2)}}</td>
                     <td>{{data.paymentDueDate| date:'dd-MMM-yyyy'}}</td>
                     <td>{{data.paymentRemarks}}</td>
                     <td>{{data.status}}</td>
@@ -204,7 +204,7 @@
                         <select ng-model="selectedStatus" ng-change="filterPaymentStatus(selectedStatus)">
                              <option value="All">All</option>
                              <option value="To be paid">To Be Paid</option>
-                             <option value="Send to bank" >Send To Bank</option>
+                             <option value="Sent to Bank" >Send To Bank</option>
                           </select>
                       </div>
                     </div>
@@ -235,10 +235,10 @@
                     <td>
                       <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
                       {{$index +1}}</td>
-                    <td>TBP{{data.paymentId}}</td>
+                    <td>{{data.paymentStringId}}</td>
                     <td>{{data.seller.userStringId}}</td>
-                    <td>{{data.amount| currency:'&#8377;'}}</td>
-                    <td>{{data.transactionNumberReference.toString()}}</td>
+                    <td>{{data.amount.toFixed(2)}}</td>
+                    <td style="word-break:break-all;">{{data.transactionNumberReference.toString()}}</td>
                     <td>
                       <span ng-if="showText==true && myindex!=$index">{{data.status}}</span>
                       <div ng-if="showData==true && myindex==$index" class="lbl-heads">
@@ -319,12 +319,11 @@
                   <tbody>
                     <tr ng-repeat="data in allPaidTransaction">
                       <td>
-                        <!--<input class="magic-checkbox" type="checkbox" name="layout" id="add-one" value="option1">-->
                         {{$index +1}}</td>
-                      <td>TBP{{data.paymentId}}</td>
+                      <td>{{data.paymentStringId}}</td>
                       <td>{{data.seller.userStringId}}</td>
-                      <td>{{data.amount| currency:'&#8377;'}}</td>
-                      <td>{{data.transactionNumberReference.toString()}}</td>
+                      <td>{{data.amount.toFixed(2)}}</td>
+                      <td style="word-break:break-all;">{{data.transactionNumberReference.toString()}}</td>
                       <td>
                         {{data.status}}
                       </td>

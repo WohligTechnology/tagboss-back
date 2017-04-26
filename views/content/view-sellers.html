@@ -531,7 +531,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfVatTinNoIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageOfVatTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
@@ -552,7 +552,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfCstTinNoIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageOfCstTinNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
@@ -573,14 +573,14 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfPanNoIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageOfPanNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageOfPanNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 col-1">
-              <div class="abc">
+              <div class="abc" ng-if=" sellerData.imageOfregistrationNo ">
                 <!--<div>
                   <p class="img-head">Registration No. (ECC) {{sellerData.registrationNo}}</p>
                 </div>-->
@@ -596,7 +596,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageOfregistrationNoIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageOfregistrationNo}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageOfregistrationNo}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
@@ -617,12 +617,12 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageCancelledChequeIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageCancelledCheque}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageCancelledCheque}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
               </div>
             </div>
             <div class="col-md-4 col-3">
-              <div class="abc">
+              <div class="abc" ng-if=" sellerData.imageImportExportCode ">
                 <!--<div>
                   <p class="img-head">Import Export Code {{sellerData.importExportCode}}</p>
                 </div>-->
@@ -638,7 +638,7 @@
                   </a>
                 </div>
                 <div class="text-center" ng-if="imageImportExportCodeIsPdf">
-                  <a href="{{pdfURL}}={{sellerData.imageImportExportCode}}" target="_blank"><img src="../img/pdf-image.png" /></a>
+                  <a href="{{pdfURL}}={{sellerData.imageImportExportCode}}" target="_blank"><img src="img/pdf-image.png" /></a>
                 </div>
                 <!--<div class="hide verified"><p>VERIFIED</p></div>
                         <div class="pending"><p>VERIFICATION PENDING</p></div>-->

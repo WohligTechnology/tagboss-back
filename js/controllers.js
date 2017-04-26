@@ -16,10 +16,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $state.go('inspection-login');
         }
         $scope.logindata = {};
-        $scope.error = false
+        $scope.error = false;
         $scope.Login = function (logindata) {
             NavigationService.Login(logindata, function (data) {
-                if (data.value == true) {
+                if (data.value === true) {
                     var successmsg = toastr.success("Login Successfully", "Information");
                     setTimeout(function () {
                         toastr.clear(successmsg);
@@ -811,7 +811,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.unassignedInspection($scope.constraints, function (data) {
                 if (data.data.nModified == 1) {
                     toastr.success("Inventory is successfully unassigned.", "Unassign Inspection Message");
-                    $scope.getInventory();
+                    $scope.getUnassignedInventory();
                 } else {
                     toastr.error("Something went wrong while unassigning inventory from inspection.", "Unassign Inspection Message");
                 }
@@ -951,6 +951,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getInventory();
 
+
+        $scope.getUnassignedInventory = function () {
+            // $scope.filter.page = $scope.filter.page++;
+            console.log('done');
+            $scope.filters = {};
+            $scope.filters.page = 1;
+            $scope.filters.status = 'All';
+            $(window).scrollTop(0);
+            NavigationService.getProduct($scope.filters, function (data) {
+                console.log('data');
+                if (data.value == true) {
+                    $scope.getAllInventory = data.data.results;
+                    $scope.totalItems = data.data.total;
+                    console.log("filters", $scope.filters);
+                }
+            });
+        }
+
         // $scope.getInventory = function () {
         //     NavigationService.getInventory($scope.filter, function (data) {
         //         if (data.value == true) {
@@ -999,19 +1017,26 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
         $scope.rejectReport = function (inventorydata) {
+            console.log(inventorydata);
             var senddata = {};
             senddata._id = inventorydata._id;
             senddata.email = inventorydata.seller.email;
             senddata.firstName = inventorydata.seller.firstName;
+            if (inventorydata.status === 'Pending') {
+                senddata.inspectId = '';
+            } else if (inventorydata.status === 'Inspected') {
+                senddata.inspectId = inventorydata.inspectionStringId;
+            }
             NavigationService.rejectReport(senddata, function (data) {
                 if (data.value == true) {
-                    // toastr.success("Assign Successfully", "Information");
+                    toastr.success("Rejected Successfully", "Product Approval Message");
                     $scope.getInventory();
                 }
             });
         }
 
         $scope.acceptReport = function (inventorydata) {
+            console.log(inventorydata);
             var senddata = {};
             senddata._id = inventorydata._id;
             senddata.email = inventorydata.seller.email;
@@ -1034,9 +1059,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             //     senddata.price = inventorydata.pricePerKg;
             // }
             senddata.product = inventorydata.brand.name + " " + inventorydata.moc.name + " " + inventorydata.category.name
+            if (inventorydata.status === 'Pending') {
+                senddata.inspectId = '';
+            } else if (inventorydata.status === 'Inspected') {
+                senddata.inspectId = inventorydata.inspectionStringId;
+            }
             NavigationService.acceptReport(senddata, function (data) {
                 if (data.value == true) {
-                    // toastr.success("Assign Successfully", "Information");
+                    // toastr.success("Accepted Successfully", "Product Approval Message");
                     $scope.getInventory();
                     // $state.reload();
                 }
@@ -2679,11 +2709,14 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.paymentStatus = orderdata.paymentStatus;
             senddata.paymentMethod = "NEFT/RTGS";
             senddata.comment = orderdata.comment;
+            senddata.sentByAdmin = true;
             NavigationService.updateOrderStatusByAdmin(senddata, function (data) {
                 if (data.value == true) {
-                    toastr.success("Order Payment Status Updated!", "Information");
+                    toastr.success("Order Payment Status Updated!", "Payment Status Update");
                     $state.reload();
                     ordermod.close();
+                } else {
+                    toastr.error("Please Change Payment Status To Paid", "Payment Status Update");
                 }
             });
         }
@@ -3249,7 +3282,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filter = {};
         $scope.filter.pagenumber = 1;
         $scope.filter.pagesize = 10;
-        $scope.filter.sortBy = "";
+        $scope.filter.sortBy = "All";
         $scope.filter.text = "";
         $scope.filter.status = "verified";
 
@@ -3282,7 +3315,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.filter = {};
         $scope.filter.pagenumber = 1;
         $scope.filter.pagesize = 10;
-        $scope.filter.sortBy = "";
+        $scope.filter.sortBy = "All";
         $scope.filter.text = "";
         $scope.filter.status = "verified";
         // $scope.getAllBuyer = function () {
@@ -3604,8 +3637,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 y: 0,
                 layout: 'vertical'
             },
-
-
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
             },
@@ -3758,7 +3789,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllBuyer();
     })
-    .controller('View-request-sellersCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
+    .controller('View-request-sellersCtrl', function ($http, $scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
         $scope.template = TemplateService.changecontent("view-request-sellers");
         $scope.menutitle = NavigationService.makeactive("View-request-sellers");
         TemplateService.title = $scope.menutitle;
@@ -3799,15 +3830,138 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 }
             }
         });
-        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
-        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
+        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file=";
+        $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
+        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
+
+
+        $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+            // check for conditions and support for blob / arraybuffer response type
+            if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob))))) {
+                return {
+                    // create new XMLHttpRequest
+                    send: function (headers, callback) {
+                        // setup all variables
+                        var xhr = new XMLHttpRequest(),
+                            url = options.url,
+                            type = options.type,
+                            async = options.async || true,
+                            // blob or arraybuffer. Default is blob
+                            dataType = options.responseType || "blob",
+                            data = options.data || null,
+                            username = options.username || null,
+                            password = options.password || null;
+
+                        xhr.addEventListener('load', function () {
+                            var data = {};
+                            data[options.dataType] = xhr.response;
+                            // make callback and send data
+                            callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                        });
+
+                        xhr.open(type, url, async, username, password);
+
+                        // setup custom headers
+                        for (var i in headers) {
+                            xhr.setRequestHeader(i, headers[i]);
+                        }
+
+                        xhr.responseType = dataType;
+                        xhr.send(data);
+                    },
+                    abort: function () {
+                        jqXHR.abort();
+                    }
+                };
+            }
+        });
+
+        function getBase64FromImageUrl(url, callback) {
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "binary",
+                processData: false,
+                success: function (result) {
+                    callback(result);
+                }
+            });
+        }
+
+
+        //getBase64FromImageUrl("http:/ / 104.155 .129 .33: 1337 / upload / readFile ? file = 58e23 b4c333019376409a782.png ");
+
+
+        $scope.zipCreate = function (data) {
+            console.log(data);
+            $scope.zConstraint = {};
+            $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
+            $scope.zConstraint.userStringId = data.userStringId;
+
+            $scope.zConstraint.panImage = data.imageOfPanNo;
+            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
+            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
+            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
+            $scope.zConstraint.importImage = data.imageImportExportCode;
+            $scope.zConstraint.chequeImage = data.imageCancelledCheque;
+
+            console.log($scope.zConstraint);  
+            var zip = new JSZip();  
+            var files = [];
+
+            files.push($scope.zConstraint.panImage);  
+            files.push($scope.zConstraint.importImage);  
+            files.push($scope.zConstraint.vatImage);  
+            files.push($scope.zConstraint.cstImage);  
+            files.push($scope.zConstraint.registerImage);  
+            files.push($scope.zConstraint.chequeImage);
+            // console.log("inside zip", $scope.zConstraint);  
+            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+
+            async.each(files, function (value, callback) {   
+
+                if (value) {
+                    var extension = value.split(".").pop();   
+                    extension = extension.toLowerCase();   
+                    if (extension == "jpeg") {    
+                        extension = "jpg";   
+                    }   
+                    var i = value.indexOf(".");   
+                    i--;   
+                    var name = value.slice(0, i);  
+
+                    getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                        img.file(name + "." + extension, imageData, {
+                            createFolders: false,
+                            base64: true
+                        });  
+                        callback();
+                    }); 
+                } else {
+                    callback();
+                }
+
+
+            }, function (err, data) {
+                zip.generateAsync({    
+                    type: "blob",
+                }).then(function (content) {     // see FileSaver.js
+                    saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
+                });
+            }); 
+
+        }
+
         var senddata = {}
         $scope.acceptSeller = function (sellerdata) {
             senddata._id = sellerdata._id;
             senddata.email = sellerdata.email;
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
+            senddata.firmName = sellerdata.firmName;
             senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
@@ -3834,6 +3988,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 } else {
                     senddata.securityDepositStatus = true;
                     senddata.isAdminVerified = true;
+                    senddata.isActive = true;
                     senddata.status = "verified";
                     NavigationService.updateSeller(senddata, function (data) {
                         // if (data.value == true) {
@@ -3863,7 +4018,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.registrationNoVerified = sellerdata.registrationNoVerified;
             senddata.cancelledChequeVerified = sellerdata.cancelledChequeVerified;
             senddata.importExportCodeVerified = sellerdata.importExportCodeVerified;
-            senddata.isAdminVerified = true;
+            senddata.isAdminVerified = false;
+            senddata.isActive = true;
             senddata.status = "rejected";
             // console.log()
             if (senddata.comment === "" || senddata.comment == undefined) {
@@ -3884,8 +4040,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View-request-buyers");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
-        $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
-        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneBuyer($state.params.id, function (data) {
             if (data.value == true) {
                 $scope.buyerData = data.data;
@@ -3913,12 +4067,146 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         });
 
+        // $scope.pdfURL = "http://localhost:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
+        $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file=";
+        $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
+        // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
+        // $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
+
+        $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
+            // check for conditions and support for blob / arraybuffer response type
+            if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob))))) {
+                return {
+                    // create new XMLHttpRequest
+                    send: function (headers, callback) {
+                        // setup all variables
+                        var xhr = new XMLHttpRequest(),
+                            url = options.url,
+                            type = options.type,
+                            async = options.async || true,
+                            // blob or arraybuffer. Default is blob
+                            dataType = options.responseType || "blob",
+                            data = options.data || null,
+                            username = options.username || null,
+                            password = options.password || null;
+
+                        xhr.addEventListener('load', function () {
+                            var data = {};
+                            data[options.dataType] = xhr.response;
+                            // make callback and send data
+                            callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+                        });
+
+                        xhr.open(type, url, async, username, password);
+
+                        // setup custom headers
+                        for (var i in headers) {
+                            xhr.setRequestHeader(i, headers[i]);
+                        }
+
+                        xhr.responseType = dataType;
+                        xhr.send(data);
+                    },
+                    abort: function () {
+                        jqXHR.abort();
+                    }
+                };
+            }
+        });
+
+        function getBase64FromImageUrl(url, callback) {
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "binary",
+                processData: false,
+                success: function (result) {
+                    callback(result);
+                }
+            });
+        }
+
+
+        //getBase64FromImageUrl("http:/ / 104.155 .129 .33: 1337 / upload / readFile ? file = 58e23 b4c333019376409a782.png ");
+
+
+        $scope.zipCreate = function (data) {
+            console.log(data);
+            $scope.zConstraint = {};
+            $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
+            $scope.zConstraint.userStringId = data.userStringId;
+
+            $scope.zConstraint.panImage = data.imageOfPanNo;
+            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
+            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
+            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
+
+            console.log($scope.zConstraint);  
+            var zip = new JSZip();  
+            var files = [];
+
+            files.push($scope.zConstraint.panImage);  
+            files.push($scope.zConstraint.vatImage);  
+            files.push($scope.zConstraint.cstImage);  
+            files.push($scope.zConstraint.registerImage);  
+            // console.log("inside zip", $scope.zConstraint);  
+            var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+
+            async.each(files, function (value, callback) {   
+                // console.log(value);
+
+                if (value) {
+                    var extension = value.split(".").pop();   
+                    extension = extension.toLowerCase();   
+                    if (extension == "jpeg") {    
+                        extension = "jpg";   
+                    }   
+                    var i = value.indexOf(".");   
+                    i--;   
+                    var name = value.slice(0, i);  
+
+                    getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                        img.file(name + "." + extension, imageData, {
+                            createFolders: false,
+                            base64: true
+                        });  
+                        callback();
+                    }); 
+                } else {
+                    callback();
+                }
+                // var extension = value.split(".").pop();   
+                // extension = extension.toLowerCase();   
+                // if (extension == "jpeg") {    
+                //     extension = "jpg";   
+                // }   
+                // var i = value.indexOf(".");   
+                // i--;   
+                // var name = value.slice(0, i);  
+
+                // getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
+                //     img.file(name + "." + extension, imageData);  
+                //     callback();
+                // }); 
+
+            }, function (err, data) {
+                zip.generateAsync({    
+                    type: "Blob"   
+                }).then(function (content) {     // see FileSaver.js
+                    saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
+                });
+            }); 
+
+        }
+
         $scope.acceptBuyer = function (buyerdata) {
             var senddata = {}
             senddata._id = buyerdata._id;
             senddata.email = buyerdata.email;
             senddata.mobile = buyerdata.mobile;
             senddata.firstName = buyerdata.firstName;
+            senddata.firmName = buyerdata.firmName;
             senddata.comment = buyerdata.comment;
             senddata.cstTinNoVerified = buyerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = buyerdata.vatTinNoVerified;
@@ -3926,6 +4214,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.registrationNo = buyerdata.registrationNo;
             senddata.registrationNoVerified = buyerdata.registrationNoVerified;
             senddata.isAdminVerified = true;
+            senddata.isActive = true;
             senddata.status = "verified";
             console.log("new data", senddata);
             //  || senddata.registrationNoVerified == false
@@ -3953,7 +4242,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.panNoVerified = buyerdata.panNoVerified;
             senddata.registrationNo = buyerdata.registrationNo;
             senddata.registrationNoVerified = buyerdata.registrationNoVerified;
-            senddata.isAdminVerified = true;
+            senddata.isAdminVerified = false;
+            senddata.isActive = true;
             senddata.status = "rejected";
             NavigationService.updateBuyer(senddata, function (data) {
                 if (data.value == true) {
@@ -4189,21 +4479,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPayments($scope.filter, function (data) {
                 if (data.value == true) {
                     $scope.all = data.data.results;
-                    _.each($scope.all, function (n) {
-                        if (n.isSeventyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
-                            }
-                        } else if (n.isTwentyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
-                            }
-                        }
-                    });
+                    // _.each($scope.all, function (n) {
+                    //     if (n.isSeventyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                    //         }
+                    //     } else if (n.isTwentyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                    //         }
+                    //     }
+                    // });
 
                     $scope.value = $scope.all.orderValue;
                     $scope.totalItems = data.data.total;
@@ -4220,21 +4510,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             NavigationService.getAllPendingPayments($scope.filterpending, function (respo) {
                 if (respo.value == true) {
                     $scope.allPending = respo.data.results;
-                    _.each($scope.allPending, function (n) {
-                        if (n.isSeventyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
-                            }
-                        } else if (n.isTwentyFive == true) {
-                            if (n.order.totalCst == 0) {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
-                            } else {
-                                n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
-                            }
-                        }
-                    });
+                    // _.each($scope.allPending, function (n) {
+                    //     if (n.isSeventyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.75);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.75);
+                    //         }
+                    //     } else if (n.isTwentyFive == true) {
+                    //         if (n.order.totalCst == 0) {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalVat * 0.25);
+                    //         } else {
+                    //             n.withVCAmount = n.paymentAmount + (n.order.totalCst * 0.25);
+                    //         }
+                    //     }
+                    // });
                     $scope.totalpendingItems = respo.data.total;
                 }
             });
@@ -4247,7 +4537,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 if (data.value == true) {
                     $scope.getAllPendingPayments();
                     $scope.getAllTransactionPayment('To be paid');
-                    toastr.success("Payment Status Updated to Payment Processing!", "Information");
+                    setTimeout(function () {
+                        toastr.success("Payment Status Updated to Payment Processing!", "Information");
+                        $state.reload();
+                    }, 2000);
                 }
             });
         }
@@ -4268,29 +4561,30 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             if (data == "Paid") {
                 console.log('ENTERs');
                 // $scope.showTransaction = data;
-                $scope.filterall.status = data;
+                // $scope.filterall.status = data;
 
                 // $scope.filter.status = $scope.selectedStatus;
                 NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTERs', respo);
                     if (respo.value == true) {
-                        _.each(respo.data.results, function (n) {
-                            console.log('N', n);
-                            if (n.status == 'Paid') {
-                                $scope.allPaidTransaction = respo.data.results;
-                                console.log("aaaa", $scope.allTransaction);
-                            } else if (n.status != 'Paid') {
-                                console.log("aa", $scope.allTransaction);
-                                $scope.allPaidTransaction = 0;
-                            }
-                        })
+                        // _.each(respo.data.results, function (n) {
+                        //     console.log('N', n);
+                        //     if (n.status == 'Paid') {
+                        //     } else if (n.status != 'Paid') {
+                        //         console.log("aa", $scope.allTransaction);
+                        //         $scope.allPaidTransaction = 0;
+                        //     }
+                        // })
+                        $scope.allPaidTransaction = respo.data.results;
+                        console.log("aaaa", $scope.allTransaction);
                         $scope.totalallItems = respo.data.total;
                     }
                 });
             } else {
                 $scope.filterall.status = data;
                 console.log('ENTER');
-                NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
+                NavigationService.getAllTransactionPaymentExcludingPaid($scope.filterall, function (respo) {
+                    // NavigationService.getAllTransactionPayment($scope.filterall, function (respo) {
                     console.log('ENTER');
                     if (respo.value == true) {
                         $scope.allTransaction = respo.data.results;
@@ -4532,7 +4826,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
         $scope.getInventory();
 
-        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultErrorMsg = 'Please upload one consolidated file.';
         $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
         $scope.uploadReport = function (err, data) {
             //console.log(err, data);
@@ -4549,6 +4843,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             console.log(reportdata);
             var senddata = {};
             senddata._id = reportdata._id;
+            senddata.inspectionId = reportdata.inspectionStringId;
             senddata.report = reportdata.report;
             senddata.remark = reportdata.remark;
             senddata.inspectStatus = reportdata.inspectStatus;
@@ -4731,6 +5026,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.updateProductReadStatus = function () {
             NavigationService.updateProductReadStatus(function (data) {
+                if (data.value == true) {
+                    $scope.getNotifications();
+                    $state.go("product-approval");
+
+                }
+            });
+        }
+
+        $scope.updateAddStockReadStatus = function () {
+            NavigationService.updateAddStockReadStatus(function (data) {
                 if (data.value == true) {
                     $scope.getNotifications();
                     $state.go("product-approval");

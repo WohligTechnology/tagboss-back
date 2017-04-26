@@ -13,7 +13,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
   // for http request with session
   cfpLoadingBarProvider.includeSpinner = true;
   cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-  cfpLoadingBarProvider.spinnerTemplate = '<img class="spinner" src="img/Loader.gif" alt="">';
+  cfpLoadingBarProvider.spinnerTemplate = '<div class="spinner-overlay"><img class="spinner" src="img/Loader.gif" alt=""></div>';
   cfpLoadingBarProvider.includeBar = false;
   $httpProvider.defaults.withCredentials = true;
   $stateProvider
@@ -317,7 +317,7 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'EditAgencyDetailsCtrl'
     });
-  // $urlRouterProvider.otherwise("/dashboard");
+  // $urlRouterProvider.otherwise("/loginpage");
   console.log(window.location.host);
   if (window.location.host != "inspection.tagboss.com") {
     console.log('enter login');

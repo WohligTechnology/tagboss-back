@@ -86,6 +86,13 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      updateAddStockReadStatus: function (callback) {
+        return $http({
+          url: adminURL + "user/updateAddStockReadStatus",
+          method: "POST"
+        }).success(callback);
+      },
+
       updateInspectedProductReadStatus: function (callback) {
         return $http({
           url: adminURL + "User/updateInspectedProductReadStatus ",
@@ -472,6 +479,16 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      zipDocument: function (sdata, callback) {
+        var data = sdata;
+        console.log(data);
+        return $http({
+          url: adminURL + "config/zipDocument",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
       updateBuyer: function (sdata, callback) {
         var data = sdata;
         return $http({
@@ -798,6 +815,15 @@ var navigationservice = angular.module('navigationservice', [])
         var data = senddata;
         return $http({
           url: adminURL + "transaction/getAllTransactionPayment",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
+      getAllTransactionPaymentExcludingPaid: function (senddata, callback) {
+        var data = senddata;
+        return $http({
+          url: adminURL + "transaction/getAllTransactionPaymentExcludingPaid",
           method: "POST",
           data: data
         }).success(callback);

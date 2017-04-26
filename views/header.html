@@ -53,6 +53,11 @@
               <div class="badge primary-bg">{{products}}</div>
               <label>Products</label>
             </div>
+            <div ng-if="addStock>0" ng-click="updateAddStockReadStatus()" class="seller">
+              <i class="fa fa-list-alt" aria-hidden="true"></i>
+              <div class="badge primary-bg">{{addStock}}</div>
+              <label>Added<br>Stock</label>
+            </div>
             <div ng-if="inspectedProduct>0" ng-click="updateInspectedProductReadStatus()" class="seller">
               <i class="fa fa-book" aria-hidden="true"></i>
               <div class="badge primary-bg">{{inspectedProduct}}</div>

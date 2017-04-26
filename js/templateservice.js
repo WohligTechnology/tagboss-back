@@ -12,7 +12,8 @@ templateservicemod.service('TemplateService', function () {
     this.content = "views/content/content.html";
   };
 
-  this.decimalExact2 = /^(0[1-9]|1[0-5])(\.\d{2})$/;
+  this.decimalExact2 = /^(?:(\d)|(0[0-9]|1[0-5]))(\.\d{2})$/;
+  // this.decimalExact2 = /^(0[1-9]|1[0-5])(\.\d{2})$/;
   this.changecontent = function (page) {
     this.init();
     var data = this;

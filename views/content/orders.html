@@ -95,7 +95,7 @@
                     <label class="control-label inline-block statusplace" for="">Total Amount :{{allorder.bill[0].order.totalAmount| currency:'&#8377;'}}</label>
                     <label class="control-label inline-block statusplace" for="">Payment Status :{{allorder.bill[0].order.paymentStatus}}</label>
                     <div class="inline-block editplace">
-                      <button type="button" ng-if="allorder.bill[0].order.paymentStatus !== 'Paid' && allorder.bill[0].order.paymentMethod === 'NEFT/RTGS'"
+                      <button type="button" ng-if="allorder.bill[0].order.paymentStatus !== 'Paid' && allorder.bill[0].order.paymentMethod === 'NEFT/RTGS' && allorder.order.buyerPaymentSentStatus === true"
                         ng-click="editOrder(allorder.order.orderId);" class="btn btn-primary return">EDIT</button>
                     </div>
                     <div class="inline-block editplace">

@@ -27,7 +27,10 @@ var jsArray = [
     './bower_components/angular-filter/dist/angular-filter.min.js',
     './bower_components/angularjs-imageupload-directive/public/javascripts/imageupload.js',
     './bower_components/angular-loading-bar/build/loading-bar.min.js',
+    './bower_components/jszip/dist/jszip.min.js',
+    './bower_components/FileSaver.js/FileSaver.min.js',
     './bower_components/moment/moment.js',
+    './bower_components/async/dist/async.js',
     './js/app.js',
     './js/language.js',
     './js/controllers.js',
@@ -41,7 +44,7 @@ var jsArray = [
 var replacehostFrom = "http://localhost/demo/";
 var replacehostTo = "http://wohlig.co.in/demo2/";
 
-var ftpString = "U2FsdGVkX1+biVN325A4sdlYzcJ15z1hRSBMMttkkPsfPkLX/t40MH3sWTtmmGKdM71c1ELu9TAUvrpyzOxcg7+fBreC6vNh5hIlRvkN5JGjHBYsku6fKnz4O52y2nPkm1QzO3sD+jG7HAUtYO/SVg==";
+var ftpString = "U2FsdGVkX18aCMwda1/CcmWUElO9RhbZYtjQPfvu7tCSdlZet2/X0eTzycdDr5BoKPPYwwiMoNDzCVAlvk80wjO1V4u8TBEsRf956gWkESug7IjdJMinftn2JTchSpqV";
 
 var uploadingFolder = "tagbossbackend";
 // var uploadingFolder = "tagboss-backend";
