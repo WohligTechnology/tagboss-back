@@ -43,7 +43,7 @@
               </div>
               <div class="col-md-6">
                 <div class="">
-                  <select class="" name="type" required ng-model="coupon.type">
+                  <select class="" name="type" required ng-model="coupon.type" ng-change="amountPercentage(coupon.type)">
            <option value="">Select</option>
           <option value="Percentage">Percentage</option>
           <option value="Amount">Amount</option>
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class="head-1">
+        <div class="head-1" ng-if="value">
           <div class="row">
             <div class="form-group">
               <div class="col-md-5">
@@ -64,12 +64,50 @@
               </div>
               <div class="col-md-6">
                 <div class="">
-                  <input type="text" name="amount" only-Digits required ng-model="coupon.amount" class="form-control">
+                  <input type="number" min="0" name="amount" required ng-model="coupon.amount" class="form-control" ng-change="amountMaxDiscount(coupon.amount)">
+                </div>
+                <!--<div class="percent" ng-if="coupon.type == 'Percentage'">
+                  <input type="number" min="0" max="100" name="amount" required ng-model="coupon.amount" class="form-control">
+                </div>-->
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="">
+                <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$touched">Please Enter Amount.</div>
+              </div>
+              <!--<div class="" ng-if="coupon.type == 'Percentage'">
+                <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$touched">Please Enter Amount Less Than 100.</div>
+                <div class="error-msg" ng-if="coupon.amount > 100">Please Enter Amount Less than 100.</div>
+                <div class="error-msg" ng-if="coupon.amount < 0">Please Enter Amount greater than 0.</div>
+              </div>-->
+            </div>
+          </div>
+        </div>
+        <div class="head-1" ng-if="valuePer">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Value</label>
+              </div>
+              <div class="col-md-6">
+                <!--<div class="" ng-if="coupon.type == 'Amount'">
+                  <input type="text" name="amount" only-Digits required ng-model="coupon.amount" class="form-control" ng-change="amountMaxDiscount(coupon.amount)">
+                </div>-->
+                <div class="">
+                  <!--<div class="percent" ng-if="coupon.type == 'Percentage'">-->
+                  <input type="number" min="0" max="100" name="amount" required ng-model="coupon.amount" class="form-control">
                 </div>
               </div>
               <div class="col-md-2">
               </div>
-              <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$touched">Please Enter Amount.</div>
+              <!--<div class="" ng-if="coupon.type == 'Amount'">
+                <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$touched">Please Enter Amount.</div>
+              </div>-->
+              <div class="">
+                <div class="error-msg" ng-if="frmcoupon.amount.$invalid && frmcoupon.amount.$dirty">Please Enter Amount Less Than 100.</div>
+                <!--<div class="error-msg" ng-if="coupon.amount > 100">Please Enter Amount Less than 100.</div>
+                <div class="error-msg" ng-if="coupon.amount < 0">Please Enter Amount greater than 0.</div>-->
+              </div>
             </div>
           </div>
         </div>
@@ -90,13 +128,38 @@
             </div>
           </div>
         </div>
-        <div class="head-1">
+        <div class="head-1" ng-if="value">
           <div class="row">
             <div class="form-group">
               <div class="col-md-5">
                 <label>Max Discount Value</label>
               </div>
               <div class="col-md-6">
+                <div class="">
+                  <!--<div class="" ng-if="coupon.type == 'Amount'">-->
+                  <input type="text" name="maxOrderAmount" readonly ng-model="coupon.maxDiscountValue" class="form-control">
+                </div>
+                <!--<div class="" ng-if="coupon.type == 'Percentage'">
+                  <input type="text" name="maxOrderAmount" only-Digits required ng-model="coupon.maxDiscountValue" class="form-control">
+                </div>-->
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="error-msg" ng-if="frmcoupon.maxOrderAmount.$invalid && frmcoupon.maxOrderAmount.$touched">Please Enter Max Order Amount.</div>
+            </div>
+          </div>
+        </div>
+        <div class="head-1" ng-if="valuePer">
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-5">
+                <label>Max Discount Value</label>
+              </div>
+              <div class="col-md-6">
+                <!--<div class="" ng-if="coupon.type == 'Amount'">
+                  <input type="text" name="maxOrderAmount" readonly ng-model="coupon.maxDiscountValue" class="form-control">
+                </div>-->
+                <!--<div class="" ng-if="coupon.type == 'Percentage'">-->
                 <div class="">
                   <input type="text" name="maxOrderAmount" only-Digits required ng-model="coupon.maxDiscountValue" class="form-control">
                 </div>

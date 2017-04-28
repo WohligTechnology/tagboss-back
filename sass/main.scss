@@ -3105,6 +3105,17 @@
         margin: 0 0px 10px -12px;
       }
 
+      .percent {
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type="number"] {
+          -moz-appearance: textfield;
+        }
+      }
+
       @import "raj";
       @import "yash";
       @import "fancybox-override";
