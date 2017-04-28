@@ -4925,6 +4925,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllCoupon();
 
+        $scope.value = "";
+        $scope.valuePer = "";
+        $scope.amountPercentage = function (data) {
+            if (data == 'Amount') {
+                $scope.valuePer = "";
+                delete $scope.coupon.amount;
+                $scope.value = data;
+            } else {
+                $scope.value = "";
+                delete $scope.coupon.amount;
+                $scope.valuePer = data;
+            }
+        }
+        $scope.amountMaxDiscount = function (data) {
+            $scope.coupon.maxDiscountValue = data;
+        }
+
         $scope.addCoupon = function (coupondata) {
             console.log("aa", coupondata);
             NavigationService.addCoupon(coupondata, function (data) {
