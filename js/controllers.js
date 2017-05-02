@@ -1,6 +1,6 @@
 Window.uploadurl = "http://wohlig.biz/uploadfile/upload/";
 // var adminURL = "http://localhost:1337/";
-var adminURL = "http://api.tagboss.com/";
+var adminURL = "https://api.tagboss.com/";
 // var adminURL = "http://35.154.98.245:1337/";
 // var adminURL = "http://104.155.129.33:1337/";
 angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toastr', 'ui.tinymce', 'navigationservice', 'highcharts-ng', 'ui.bootstrap', 'ngAnimate', 'imageupload', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toggle-switch', 'angular.filter', 'angular-loading-bar'])
@@ -733,7 +733,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $(window).scrollTop(0);
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
-        $scope.pdfURL = "http://api.tagboss.com/upload/readFile?file";
+        $scope.pdfURL = "https://api.tagboss.com/upload/readFile?file";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         $scope.currentDate = new Date();
         $scope.showEdit = false;
@@ -3381,7 +3381,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://api.tagboss.com/upload/readFile?file";
+        $scope.pdfURL = "https://api.tagboss.com/upload/readFile?file";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         NavigationService.getOneSeller($state.params.id, function (data) {
             if (data.value == true) {
@@ -3719,7 +3719,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.isReadonly = false;
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file";
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file";
-        $scope.pdfURL = "http://api.tagboss.com/upload/readFile?file";
+        $scope.pdfURL = "https://api.tagboss.com/upload/readFile?file";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file";
         $scope.hoveringOver = function (value) {
             $scope.overStar = value;
@@ -3864,8 +3864,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         // $scope.imgURL = "http://104.155.129.33:1337/upload/readFile?file=";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file=";
         // $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
-        $scope.pdfURL = "http://api.tagboss.com/upload/readFile?file=";
-        $scope.imgURL = "http://api.tagboss.com/upload/readFile?file=";
+        $scope.pdfURL = "https://api.tagboss.com/upload/readFile?file=";
+        $scope.imgURL = "https://api.tagboss.com/upload/readFile?file=";
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file=";
         // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
 
@@ -4101,8 +4101,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         // $scope.pdfURL = "http://localhost:1337/upload/readFile?file=";
         // $scope.imgURL = "http://localhost:1337/upload/readFile?file=";
-        $scope.pdfURL = "http://api.tagboss.com/upload/readFile?file=";
-        $scope.imgURL = "http://api.tagboss.com/upload/readFile?file=";
+        $scope.pdfURL = "https://api.tagboss.com/upload/readFile?file=";
+        $scope.imgURL = "https://api.tagboss.com/upload/readFile?file=";
         // $scope.pdfURL = "http://35.154.98.245:1337/upload/readFile?file=";
         // $scope.imgURL = "http://35.154.98.245:1337/upload/readFile?file=";
         // $scope.pdfURL = "http://104.155.129.33:1337/upload/readFile?file=";
