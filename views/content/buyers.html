@@ -37,7 +37,7 @@
     <div ng-if="AllBuyer.length==0">
       <h3 class="text-center">No data Found</h3>
     </div>
-    <div ng-repeat="buyer in AllBuyer | orderBy:'-userStringId'">
+    <div ng-repeat="buyer in AllBuyer | orderBy:'-userId'">
       <div class="buyer-details ">
         <!--<div class="magic-form">
           <div class="magic-resize">
