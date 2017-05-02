@@ -51,6 +51,24 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      getContact: function (callback) {
+        return $http({
+          url: adminURL + "contact/search",
+          method: "POST"
+        }).success(callback);
+      },
+
+      getOneContact: function (id, callback) {
+        var data = {
+          _id: id
+        };
+        return $http({
+          url: adminURL + "contact/getOne",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
       getNotifications: function (callback) {
         return $http({
           url: adminURL + "user/getNotificationCount",

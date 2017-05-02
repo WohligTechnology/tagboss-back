@@ -2326,9 +2326,33 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         $scope.menutitle = NavigationService.makeactive("View Contact");
         TemplateService.title = $scope.menutitle;
         $scope.navigation = NavigationService.getnav();
+        $scope.getContact = [];
+        $scope.getContactOne = {};
+
+        NavigationService.getContact(function (data) {
+            if (data.value == true) {
+                $scope.getContact = data.data.results;
+            } else {
+                $scope.getContact = [];
+            }
+        });
+
+        $scope.getOneContact = function (data) {
+            // $scope.contactConstraint = {};
+            // $scope.contactConstraint._id = data._id;
+            NavigationService.getOneContact(data._id, function (data) {
+                if (data.value == true) {
+                    // $scope.openContactModal.open();
+                    $scope.openCotact();
+                    $scope.getContactOne = data.data;
+                } else {
+                    $scope.getContactOne = {};
+                }
+            });
+        }
 
         $scope.openCotact = function () {
-            $uibModal.open({
+            $scope.openContactModal = $uibModal.open({
                 animation: true,
                 templateUrl: "views/modal/opencontact.html",
                 scope: $scope,

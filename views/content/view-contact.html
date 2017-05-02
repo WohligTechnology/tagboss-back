@@ -1,6 +1,6 @@
 <section class="body-main brands">
     <div class="container-fluid">
-        <div class="search-content">
+        <div class="search-content hide">
             <div class="row">
                 <div class="col-md-6">
                     <div class="input-group search-top">
@@ -45,20 +45,20 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody ng-repeat="contact in getContact | orderBy: '-createdAt'">
                                     <tr>
-                                        <td>1</td>
-                                        <td>xyz</td>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{contact.firstName}}</td>
                                         <td>
                                             <!--<div class="logo">
                                                 <img src="img/partner-tata-steel-logo.png" alt="">
                                             </div>-->
-                                            pqrs
+                                            {{contact.lastName}}
                                         </td>
-                                        <td>xyz@yahoo.com</td>
+                                        <td>{{contact.email}}</td>
                                         <td>
                                             <p>
-                                                <span ng-click="openCotact();">View</span>
+                                                <span ng-click="getOneContact(contact);">View</span>
                                             </p>
                                         </td>
                                     </tr>
