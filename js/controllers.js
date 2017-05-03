@@ -4920,12 +4920,50 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 NavigationService.getOneCoupon(id, function (data) {
                     if (data.value == true) {
                         $scope.coupon = data.data;
+                        if (data.data.type == 'Amount') {
+                            $scope.valuePer = "";
+                            $scope.value = data.data.amount;
+                            $scope.coupon.amount = Number($scope.value);
+                            $scope.coupon.maxDiscountValue = Number($scope.value);
+                        } else {
+                            $scope.value = "";
+                            $scope.valuePer = data.data.amount;
+                            $scope.coupon.amount = Number($scope.valuePer);
+                        }
                         $scope.coupon.startDate = new Date($scope.coupon.startDate);
                         $scope.coupon.endDate = new Date($scope.coupon.endDate);
+                        $scope.amountPercentage = function (data) {
+                            if (data == 'Amount') {
+                                $scope.valuePer = "";
+                                $scope.value = data;
+                            } else {
+                                $scope.value = "";
+                                $scope.valuePer = data;
+                            }
+                        }
+                        $scope.amountMaxDiscount = function (data) {
+                            $scope.coupon.maxDiscountValue = data;
+                        }
                     }
                 });
             } else {
                 $scope.coupon = {};
+                $scope.value = "";
+                $scope.valuePer = "";
+                $scope.amountPercentage = function (data) {
+                    if (data == 'Amount') {
+                        $scope.valuePer = "";
+                        delete $scope.coupon.amount;
+                        $scope.value = data;
+                    } else {
+                        $scope.value = "";
+                        delete $scope.coupon.amount;
+                        $scope.valuePer = data;
+                    }
+                }
+                $scope.amountMaxDiscount = function (data) {
+                    $scope.coupon.maxDiscountValue = data;
+                }
             }
             openmodc = $uibModal.open({
                 animation: true,
@@ -4950,36 +4988,17 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllCoupon();
 
-        $scope.value = "";
-        $scope.valuePer = "";
-        $scope.amountPercentage = function (data) {
-            if (data == 'Amount') {
-                $scope.valuePer = "";
-                delete $scope.coupon.amount;
-                $scope.value = data;
-            } else {
-                $scope.value = "";
-                delete $scope.coupon.amount;
-                $scope.valuePer = data;
-            }
-        }
-        $scope.amountMaxDiscount = function (data) {
-            $scope.coupon.maxDiscountValue = data;
-        }
 
         $scope.addCoupon = function (coupondata) {
             console.log("aa", coupondata);
             NavigationService.addCoupon(coupondata, function (data) {
                 if (data.value == true) {
+                    console.log('edited', data);
                     openmodc.close();
-                    toastr.success("Coupon Added!", "Information");
                     $scope.getAllCoupon();
+                    toastr.success("Coupon Added!", "Information");
                 }
             });
-        }
-
-        $scope.editCoupon = function () {
-
         }
 
         $scope.deleteCoupon = function (id) {
