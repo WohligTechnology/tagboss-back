@@ -231,7 +231,7 @@
                                 <a><label class="view formatEdit">Edit</label></a>
                             </td>-->
                                 <td class="view-td final-center">
-                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Verified'">{{stock.status}} <span ng-if="stock.agencyid.agencyName">by</span> {{stock.agencyid.agencyName}}</label>
+                                    <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Verified'">{{stock.status}} <span class="inline-block" ng-if="stock.agencyid.agencyName">by</span> {{stock.agencyid.agencyName}}</label>
                                     <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Pending'">{{stock.status}} for Inspection</label>
                                     <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Assigned'">{{stock.status}} to {{stock.agencyid.agencyName}}</label>
                                     <label class="stat formatStatus" ng-if="stock.status!='Rejected' && stock.status == 'Inspected'">{{stock.status}} by {{stock.agencyid.agencyName} </label>
