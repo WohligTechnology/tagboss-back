@@ -3982,6 +3982,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
             senddata.firmName = sellerdata.firmName;
+            if (sellerdata.alternateEmail) {
+                senddata.alternateEmail = sellerdata.alternateEmail;
+            }
             senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
@@ -4028,6 +4031,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.email = sellerdata.email;
             senddata.mobile = sellerdata.mobile;
             senddata.firstName = sellerdata.firstName;
+            senddata.firmName = sellerdata.firmName;
+            if (sellerdata.alternateEmail) {
+                senddata.alternateEmail = sellerdata.alternateEmail;
+            }
             senddata.comment = sellerdata.comment;
             senddata.cstTinNoVerified = sellerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = sellerdata.vatTinNoVerified;
@@ -4226,6 +4233,9 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.mobile = buyerdata.mobile;
             senddata.firstName = buyerdata.firstName;
             senddata.firmName = buyerdata.firmName;
+            if (buyerdata.alternateEmail) {
+                senddata.alternateEmail = buyerdata.alternateEmail;
+            }
             senddata.comment = buyerdata.comment;
             senddata.cstTinNoVerified = buyerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = buyerdata.vatTinNoVerified;
@@ -4255,6 +4265,10 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.email = buyerdata.email;
             senddata.mobile = buyerdata.mobile;
             senddata.firstName = buyerdata.firstName;
+            senddata.firmName = buyerdata.firmName;
+            if (buyerdata.alternateEmail) {
+                senddata.alternateEmail = buyerdata.alternateEmail;
+            }
             senddata.comment = buyerdata.comment;
             senddata.cstTinNoVerified = buyerdata.cstTinNoVerified;
             senddata.vatTinNoVerified = buyerdata.vatTinNoVerified;
