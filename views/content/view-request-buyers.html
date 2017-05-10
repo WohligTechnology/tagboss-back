@@ -394,7 +394,8 @@
         <button type="button" ng-if="buyerData.status==='incomplete'" ng-disabled="buyerData.status==='incomplete'" ng-click="acceptBuyer(buyerData);"
           class="btn btn-primary"> Profile Incomplete</button>
         <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="acceptBuyer(buyerData);" class="btn btn-primary">ACCEPT</button>
-        <button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>
+        <!--<button type="button" ng-disabled="buyerData.status==='incomplete'" ng-click="rejectBuyer(buyerData);" class="btn btn-primary">REJECT</button>-->
+        <button type="button" ng-if="buyerData.status!=='incomplete'" ng-click="rejectBuyerMod(buyerData);" class="btn btn-primary">REJECT</button>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ var adminURL = "https://api.tagboss.com/";
 // var adminURL = "http://104.155.129.33:1337/";
 angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toastr', 'ui.tinymce', 'navigationservice', 'highcharts-ng', 'ui.bootstrap', 'ngAnimate', 'imageupload', 'ngSanitize', 'angular-flexslider', 'ksSwiper', 'toggle-switch', 'angular.filter', 'angular-loading-bar'])
 
+
     .controller('LoginPageCtrl', function ($scope, $uibModal, TemplateService, NavigationService, $timeout, $state, toastr) {
 
         $scope.template = TemplateService.changecontent("loginpage");
@@ -725,7 +726,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
         }
 
     })
-    .controller('ProdApprovalCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $filter, $state) {
+    .controller('ProdApprovalCtrl', function ($scope, toastr, TemplateService, NavigationService, $timeout, $filter, $state, $uibModal) {
         $scope.template = TemplateService.changecontent("product-approval");
         $scope.menutitle = NavigationService.makeactive("Product Approval");
         TemplateService.title = $scope.menutitle;
@@ -1018,6 +1019,21 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         }
 
+        $scope.rejectProduct = function (data) {
+            $scope.inventory = data;
+            console.log($scope.inventory);
+            $scope.rejectproductmodal = $uibModal.open({
+                animation: true,
+                templateUrl: "views/modal/rejectproduct.html",
+                scope: $scope,
+                size: 'sm'
+            });
+        };
+
+        $scope.closeProduct = function () {
+            $scope.rejectproductmodal.close();
+        }
+
         $scope.rejectReport = function (inventorydata) {
             console.log(inventorydata);
             var senddata = {};
@@ -1029,9 +1045,11 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             } else if (inventorydata.status === 'Inspected') {
                 senddata.inspectId = inventorydata.inspectionStringId;
             }
+            console.log(senddata);
             NavigationService.rejectReport(senddata, function (data) {
                 if (data.value == true) {
                     toastr.success("Rejected Successfully", "Product Approval Message");
+                    $scope.rejectproductmodal.close();
                     $scope.getInventory();
                 }
             });
@@ -3818,7 +3836,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.getAllBuyer();
     })
-    .controller('View-request-sellersCtrl', function ($http, $scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter) {
+    .controller('View-request-sellersCtrl', function ($http, $scope, toastr, TemplateService, NavigationService, $timeout, $state, $filter, $uibModal) {
         $scope.template = TemplateService.changecontent("view-request-sellers");
         $scope.menutitle = NavigationService.makeactive("View-request-sellers");
         TemplateService.title = $scope.menutitle;
@@ -4036,7 +4054,24 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         }
 
+        $scope.rejectSellerMod = function (data) {
+            $scope.sellerData = data;
+            console.log($scope.sellerData);
+            $scope.rejectsellermodal = $uibModal.open({
+                animation: true,
+                templateUrl: "views/modal/rejectseller.html",
+                scope: $scope,
+                size: 'sm'
+            });
+        };
+
+        $scope.closeSeller = function () {
+            $scope.rejectsellermodal.close();
+        }
+
+
         $scope.rejectSeller = function (sellerdata) {
+            console.log(sellerdata);
             var senddata = {}
             senddata._id = sellerdata._id;
             senddata.email = sellerdata.email;
@@ -4059,13 +4094,16 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.isAdminVerified = false;
             senddata.isActive = true;
             senddata.status = "rejected";
-            // console.log()
+
+            console.log(senddata);
             if (senddata.comment === "" || senddata.comment == undefined) {
                 toastr.error("Please enter comment!", "Error");
+                $scope.rejectsellermodal.close();
             } else {
                 NavigationService.updateSeller(senddata, function (data) {
                     if (data.value == true) {
                         toastr.success("Seller Status Updated!", "Information");
+                        $scope.rejectsellermodal.close();
                         $state.go("request-sellers");
                     }
                 });
@@ -4073,7 +4111,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         }
     })
-    .controller('View-request-buyersCtrl', function ($scope, $state, toastr, TemplateService, NavigationService, $timeout) {
+    .controller('View-request-buyersCtrl', function ($scope, $state, toastr, TemplateService, NavigationService, $timeout, $uibModal) {
         $scope.template = TemplateService.changecontent("view-request-buyers");
         $scope.menutitle = NavigationService.makeactive("View-request-buyers");
         TemplateService.title = $scope.menutitle;
@@ -4273,7 +4311,23 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         }
 
+        $scope.rejectBuyerMod = function (data) {
+            $scope.buyerData = data;
+            console.log($scope.buyerData);
+            $scope.rejectbuyermodal = $uibModal.open({
+                animation: true,
+                templateUrl: "views/modal/rejectbuyer.html",
+                scope: $scope,
+                size: 'sm'
+            });
+        };
+
+        $scope.closeBuyer = function () {
+            $scope.rejectbuyermodal.close();
+        }
+
         $scope.rejectBuyer = function (buyerdata) {
+            console.log(buyerdata);
             var senddata = {}
             senddata._id = buyerdata._id;
             senddata.email = buyerdata.email;
@@ -4292,12 +4346,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             senddata.isAdminVerified = false;
             senddata.isActive = true;
             senddata.status = "rejected";
-            NavigationService.updateBuyer(senddata, function (data) {
-                if (data.value == true) {
-                    toastr.success("Buyer Status Updated!", "Information");
-                    $state.go("request-buyers");
-                }
-            });
+            console.log(senddata);
+            if (senddata.comment === "" || senddata.comment == undefined) {
+                toastr.error("Please enter comment!", "Error");
+                $scope.rejectbuyermodal.close();
+            } else {
+                NavigationService.updateBuyer(senddata, function (data) {
+                    if (data.value == true) {
+                        toastr.success("Buyer Status Updated!", "Information");
+                        $scope.rejectbuyermodal.close();
+                        $state.go("request-buyers");
+                    }
+                });
+            }
         }
     })
     .controller('Payment-to-sellersCtrl', function ($scope, TemplateService, NavigationService, $timeout) {

@@ -1,0 +1,24 @@
+<div class="inspec">
+    <div class="close-img" ng-click="$close();">
+        <img src="img/closebtn.png" alt="">
+    </div>
+    <div class="otp-option text-center" style="padding:8px;">
+        <div class="verify-otp">
+            <div class="row">
+                <p class="text-center font-gotham-medium" style="font-size:16px;">Do you want to reject this buyer?</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="inline-block">
+                <div class="text-center">
+                    <button class="btn btn-primary font-gotham-medium" ng-click="rejectBuyer(buyerData);" style="margin: 0 5px;">Yes</button>
+                </div>
+            </div>
+            <div class="inline-block">
+                <div class="text-center">
+                    <button class="btn btn-primary font-gotham-medium" ng-click="closeBuyer();" style="margin: 0 5px;">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
