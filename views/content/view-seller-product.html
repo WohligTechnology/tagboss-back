@@ -104,7 +104,8 @@
                                         <p class="inline-block comp-name mb"><strong>Product Id:</strong></p>
                                         <p class="inline-block mb">&nbsp;{{products.productStringId}}</p><br>
                                         <p class="inline-block comp-name mb"><strong>Listing Id:</strong></p>
-                                        <p class="inline-block mb">&nbsp;{{products.listingId}}</p>
+                                        <p class="inline-block mb" ng-if="products.listingId != ''">&nbsp;{{products.listingId}}</p>
+                                        <p class="inline-block mb" ng-if="products.listingId == ''">&nbsp;{{products.productStringId}}{{products.sellerId}}</p>
                                     </td>
                                     <!--<td>{{products.productStringId}}</td>-->
                                     <!--<td>TB{{products.category.name}}{{products.product.productStringId}}</td>-->
