@@ -3726,7 +3726,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
     })
 
 
-    .controller('View-buyersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
+    .controller('View-buyersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         $scope.template = TemplateService.changecontent("view-buyers");
         $scope.menutitle = NavigationService.makeactive("View-buyers");
         TemplateService.title = $scope.menutitle;
