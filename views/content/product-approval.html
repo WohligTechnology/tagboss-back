@@ -178,7 +178,7 @@
                 </select>
                                             <div class="error-msg1" ng-if="errmsg==true && myindex==$index && inventory.status==='Pending'">Please Select Agency Name.</div>
                                         </div>
-                                        <div ng-if="inventory.status!=='Pending'">
+                                        <div ng-if="inventory.status!=='Pending' && inventory.agencyid.agencyName">
                                             <p class="upload-date">
                                                 {{inventory.agencyid.agencyName}}
                                             </p>
