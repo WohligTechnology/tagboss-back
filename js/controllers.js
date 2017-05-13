@@ -3770,6 +3770,20 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 console.log("buyerdata", $scope.buyerData);
             }
         });
+        $scope.updateUser = function (id, status) {
+            console.log("status", status);
+            var senddata = {};
+            senddata._id = id;
+            if (status === "Block") {
+                senddata.isBlocked = true;
+            } else {
+                senddata.isBlocked = false;
+            }
+            NavigationService.updateUser(senddata, function (data) {
+                toastr.success("Buyer Status Updated!", "Information");
+
+            });
+        }
     })
     .controller('Request-sellersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("request-sellers");
