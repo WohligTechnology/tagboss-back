@@ -3439,8 +3439,12 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
         });
 
-        $scope.getSellerDashboard = function () {
-            NavigationService.getSellerDashboard($state.params.id, function (data) {
+
+        console.log($state.params.id)
+
+        $scope.getSellerDashboard = function (sellerId) {
+            console.log(sellerId);
+            NavigationService.getSellerDashboard(sellerId, function (data) {
                 if (data.value == true) {
                     $scope.sellerDashboard = data.data;
                     $scope.sellerRating = data.data[0].rating.length;
@@ -3449,7 +3453,7 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         };
 
-        $scope.getSellerDashboard();
+        $scope.getSellerDashboard($state.params.id);
 
         $scope.updateUser = function (id, status) {
             console.log("status", status);

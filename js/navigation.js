@@ -682,7 +682,7 @@ var navigationservice = angular.module('navigationservice', [])
           'seller': id
         };
         return $http({
-          url: adminURL + "user/getSellerDashboard",
+          url: adminURL + "user/getSellerDashboards",
           method: "POST",
           data: data
         }).success(callback);
