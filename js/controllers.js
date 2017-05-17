@@ -1354,8 +1354,8 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.calculatePriceRangeValue = function () {
             //console.log($scope.productEdit.extraPrice);
-            $scope.lowerlimitPrice = ($scope.productEdit.extraPrice - ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
-            $scope.upperlimitPrice = ($scope.productEdit.extraPrice + ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 1 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
+            $scope.lowerlimitPrice = ($scope.productEdit.extraPrice - ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 0 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
+            $scope.upperlimitPrice = ($scope.productEdit.extraPrice + ($scope.productEdit.extraPrice * (((!$scope.productEdit.moc.pricePercentage || $scope.productEdit.moc.pricePercentage === 0) ? 0 : $scope.productEdit.moc.pricePercentage) / 100))).toFixed(2);
         };
 
         $scope.valueFinalPrice = function (data) {
@@ -1829,15 +1829,77 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
         $scope.isDisabled = false;
         $scope.saveStock = function (data, stockProduct) {
-            //console.log('savestock', data);
+            // //console.log('savestock', data);
+            // $rootScope.showInvent = true;
+            // // data.sizeQty = data.sizeQty.concat(otherSizeQty);
+            // data.mtcStatus = data.mtcStatus;
+            // data.mtcImage = data.mtcImage;
+            // $scope.sellerId = data.seller._id;
+            // $scope.brand = data.brand._id;
+            // $scope.category = data.category._id;
+            // $scope.moc = data.moc._id;
+            // $scope.gradesstandards = data.gradesstandards._id;
+            // $scope.productImage = data.productImage._id;
+            // if (data.category.name != 'Roundbar') {
+            //     $scope.type = data.type._id;
+            // }
+            // $scope.coo = data.coo._id;
+            // delete data._id;
+            // delete data.seller;
+            // delete data.agencyid;
+            // delete data.updatedAt;
+            // delete data.inventoryId;
+            // delete data.inventoryMonthDateId;
+            // delete data.invenotryStringId;
+            // delete data.invenotryAutoId;
+            // delete data.createdAt;
+            // delete data.__v;
+            // delete data.brand;
+            // delete data.category;
+            // delete data.isAdminVerified;
+            // delete data.status;
+            // delete data.report;
+            // delete data.remark;
+            // delete data.moc;
+            // delete data.gradesstandards;
+            // delete data.productImage;
+            // delete data.type;
+            // delete data.coo;
+            // delete data.productLeftAutoId;
+            // delete data.productRightAutoId;
+
+            // data.seller = $scope.sellerId;
+            // data.brand = $scope.brand;
+            // data.category = $scope.category;
+            // data.moc = $scope.moc;
+            // data.gradesstandards = $scope.gradesstandards;
+            // data.productImage = $scope.productImage;
+            // if (data.category != '5810c83ab5332c0c2c09dba9') {
+            //     data.type = $scope.type;
+            // }
+            // if (data.category == '5810c825b5332c0c2c09dba7') {
+            //     delete data.sizeQty;
+            // }
+            // if (data.category == '5810c831b5332c0c2c09dba8') {
+            //     delete data.sizeQty;
+            // }
+            // data.coo = $scope.coo;
+            // data.status = 'Pending';
+            // data.isAdminVerified = 'false';
+
+            // //console.log(data);
+            // //console.log(constraints);
+            console.log('savestock', data);
             $rootScope.showInvent = true;
             // data.sizeQty = data.sizeQty.concat(otherSizeQty);
             data.mtcStatus = data.mtcStatus;
             data.mtcImage = data.mtcImage;
+            // $scope.sizeQuant = data.sizeQty;
             $scope.sellerId = data.seller._id;
             $scope.brand = data.brand._id;
             $scope.category = data.category._id;
             $scope.moc = data.moc._id;
+            $scope.inventIdManual = data.inventoryId;
             $scope.gradesstandards = data.gradesstandards._id;
             $scope.productImage = data.productImage._id;
             if (data.category.name != 'Roundbar') {
@@ -1867,11 +1929,22 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             delete data.coo;
             delete data.productLeftAutoId;
             delete data.productRightAutoId;
+            delete data.readStatus;
+            delete data.tempRow;
+            delete data.inspectStatus;
+            delete data.inspectedReadStatus;
+            delete data.inspectionAutoId;
+            delete data.inspectionIncId;
+            delete data.inspectionStringId;
+            delete data.assignedDate;
+            delete data.listingId;
+            delete data.liveStatus;
 
             data.seller = $scope.sellerId;
             data.brand = $scope.brand;
             data.category = $scope.category;
             data.moc = $scope.moc;
+            data.inventoryId = $scope.inventIdManual + 1;
             data.gradesstandards = $scope.gradesstandards;
             data.productImage = $scope.productImage;
             if (data.category != '5810c83ab5332c0c2c09dba9') {
@@ -1882,18 +1955,19 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             }
             if (data.category == '5810c831b5332c0c2c09dba8') {
                 delete data.sizeQty;
+                data.coilQty = 1;
             }
             data.coo = $scope.coo;
             data.status = 'Pending';
             data.isAdminVerified = 'false';
 
-            //console.log(data);
+            console.log('list', data);
             //console.log(constraints);
             if (stockProduct.$valid) {
                 $scope.isDisabled = true;
                 $(window).scrollTop(0);
                 NavigationService.addMoreStock(data, function (data) {
-                    //console.log(data);
+                    console.log(data);
                     if (data.value == true) {
                         $scope.openAdd();
                         $timeout(function () {
