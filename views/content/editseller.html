@@ -1,0 +1,480 @@
+<section class="body-main view-buyers">
+    <div class="container-fluid">
+        <div class="company">
+            <h4 class="font-karla-bold text-uppercase h-bottom">Company Details</h4>
+            <!--<p class="font-karla f-size">Fields marked <span class="strike">*</span> are mandatory</p>-->
+            <form name="sellerForm">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group name-space" style="margin-left: -15px;">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="font-karla-bold " for="person ">Contact Person<sup>*</sup></label>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <input class="form-control " type="text " name="fname" id="person " placeholder="Enter First Name " ng-change="changeProgressBar(sellerData.firstName,sellerForm.fname.$name)"
+                                        ng-model="sellerData.firstName " required>
+                                    <div class="error-msg9" ng-if="sellerForm.fname.$invalid && sellerForm.fname.$touched">Enter First Name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <input class="form-control " type="text " name="lname" placeholder="Enter Last Name " ng-change="changeProgressBar(sellerData.lastName,sellerForm.lname.$name)"
+                                        ng-model="sellerData.lastName " required>
+                                    <div class="error-msg9" ng-if="sellerForm.lname.$invalid && sellerForm.lname.$touched">Enter Last Name</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.firstName.$invalid && sellerForm.firstName.$touched}">-->
+                            <label class="font-karla-bold" for="Registered">Registered Name<sup>*</sup></label>
+                            <input class="form-control" ng- type="text" name="registeredName" id="Registered" ng-change="changeProgressBar(sellerData.firmName,sellerForm.registeredName.$name)"
+                                ng-model="sellerData.firmName" placeholder="Enter Registered Name" required>
+                            <div class="error-msg7" ng-if="sellerForm.registeredName.$invalid && sellerForm.registeredName.$touched">Please Enter Registered Name</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.email.$invalid && sellerForm.email.$touched}">-->
+                            <label class="font-karla-bold" for="Email">Email<sup>*</sup></label>
+                            <input class="form-control" type="email" name="email" id="Email" ng-change="changeProgressBar(sellerData.email,sellerForm.email.$name)"
+                                ng-model="sellerData.email" readonly>
+                            <!--<div class="error-msg7" ng-if="sellerForm.email.$invalid && sellerForm.email.$touched">Please Enter Email</div>-->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.AEmail.$invalid && sellerForm.AEmail.$touched}">-->
+                            <label class="font-karla-bold" for="AEmail">Alternate Email</label>
+                            <input class="form-control" type="email" name="AEmail" id="AEmail" ng-change="changeProgressBar(sellerData.alternateEmail,sellerForm.AEmail.$name)"
+                                ng-model="sellerData.alternateEmail" placeholder="Enter Alternate Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.telephone.$invalid && sellerForm.telephone.$touched}">-->
+                            <label class="font-karla-bold" for="tele">Telephone<sup>*</sup></label>
+                            <input minlength="11" maxlength="13" ng-pattern="template.forTelephone" class="form-control" name="telephone" type="tel"
+                                id="tele" ng-change="changeProgressBar(sellerData.telephone,sellerForm.telephone.$name)" ng-model="sellerData.telephone"
+                                placeholder="Enter Telephone (STD code & start from 0/+91)" required>
+                            <div class="error-msg72" ng-if="sellerForm.telephone.$invalid && sellerForm.telephone.$touched && sellerForm.telephone.$dirty">Please Enter Telephone (STD code & start from 0/+91)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.mobile.$invalid && sellerForm.mobile.$touched}">-->
+                            <label class="font-karla-bold" for="mobile">Mobile No.<sup>*</sup></label>
+                            <input minlength="10" maxlength="11" class="form-control" only-digits name="mobile" type="tel" id="mobile" ng-change="changeProgressBar(sellerData.mobile,sellerForm.mobile.$name)"
+                                ng-model="sellerData.mobile" readonly>
+                            <!--<div class="error-msg7" ng-if="sellerForm.mobile.$invalid && sellerForm.mobile.$touched">Please Enter Mobile</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.companyAddress.$invalid && sellerForm.companyAddress.$touched}">-->
+                            <label class="font-karla-bold" for="Address">Registered Address<sup>*</sup></label>
+                            <input class="form-control" type="text" name="companyAddress" id="Address" ng-change="changeProgressBar(sellerData.companyAddress,sellerForm.companyAddress.$name)"
+                                ng-model="sellerData.companyAddress" placeholder="Enter Registered Address" required>
+                            <div class="error-msg7" ng-if="sellerForm.companyAddress.$invalid && sellerForm.companyAddress.$touched">Please Enter Registered Address</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.city.$invalid && sellerForm.city.$touched}">-->
+                            <label class="font-karla-bold" for="City">City<sup>*</sup></label>
+                            <input class="form-control" name="city" type="text" id="City" ng-change="changeProgressBar(sellerData.city,sellerForm.city.$name)"
+                                ng-model="sellerData.city" placeholder="Enter City" required>
+                            <div class="error-msg7" ng-if="sellerForm.city.$invalid && sellerForm.city.$touched">Please Enter City</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.pincode.$invalid && sellerForm.pincode.$touched}">-->
+                            <label class="font-karla-bold" for="Pincode">Pincode<sup>*</sup></label>
+                            <input class="form-control" minlength="6" maxlength="6" only-digits name="pincode" type="text" id="Pincode" ng-change="changeProgressBar(sellerData.pincode,sellerForm.pincode.$name)"
+                                ng-model="sellerData.pincode" placeholder="Enter Pincode" required>
+                            <div class="error-msg7" ng-if="sellerForm.pincode.$invalid && sellerForm.pincode.$touched">Please Enter Pincode</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group " ng-class="{'form-invalid': sellerForm.state.$invalid && sellerForm.state.$touched}">-->
+                            <label class="font-karla-bold " for="State ">State<sup>*</sup></label>
+                            <select class="form-control" ng-change="changeProgressBar(sellerData.state,sellerForm.state.$name)" ng-model="sellerData.state._id"
+                                name="state" id="state" ng-options="state._id as state.name for state in states" required>
+                                                        <option value="">Select State</option>
+                                                        <!--<option value="">{{!sellerData.state ? 'Select State' : ''}}{{sellerData.state.name}}</option>-->
+                                                        </select>
+                            <div class="error-msg7" ng-if="sellerForm.state.$invalid && sellerForm.state.$touched">Please Select State</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.country.$invalid && sellerForm.country.$touched}">-->
+                            <label class="font-karla-bold" for="Country">Country</label>
+                            <select class="form-control" name="country" id="Country" ng-change="changeProgressBar(sellerData.country,sellerForm.country.$name)"
+                                ng-model="sellerData.country">
+                                                        <option ng-selected="true" value="{{sellerData.country}}">{{sellerData.country}}</option>
+                                                        </select>
+                            <!--<div class="error-msg7" ng-if=" sellerForm.country.$invalid && sellerForm.country.$touched">Please Enter Country</div>-->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="form-group ">
+                            <label class="font-karla-bold " for="div ">Brief Profile (Optional)</label>
+                            <textarea class="form-control " name="briefProfile " ng-change="changeProgressBar(sellerData.briefProfile,sellerForm.briefProfile.$name) "
+                                rows="3 " ng-model="sellerData.briefProfile "></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.panNo.$invalid && sellerForm.panNo.$touched}">-->
+                            <label class="font-karla-bold" for="com">Company PAN No.<sup>*</sup></label>
+                            <div class="input-group attach">
+                                <input minlength="10" maxlength="10" ng-pattern="template.forPanCard" class="form-control" type="text" name="panNo" id="com"
+                                    ng-change="changeProgressBar(sellerData.panNo,sellerForm.panNo.$name)" ng-model="sellerData.panNo"
+                                    placeholder="Enter PAN No." required>
+                                <div class="input-group-addon upload">
+                                    <upload-image name="imagepanNo" ng-model="sellerData.imageOfPanNo" file-types="'image/jpeg,image/png,application/pdf'" ng-change="changeProgressBar(sellerData.imageOfPanNo,sellerForm.imagepanNo.$name)"
+                                        ng-callback="changeitPan" no-view required></upload-image>
+                                </div>
+                                <div class="filename">
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="!sellerData.imageOfPanNo">{{ !errorMsgpan && (errorMsgpan != 'Uploading') ? defaultErrorMsg : errorMsgpan }}</p>
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgp}" ng-if="!sellerData.imageOfPanNo">{{ !errorMsgpan && (errorMsgpan != 'Successfully uploaded') ? defaultErrorMsg : errorMsgpan
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgpan != 'Successfully uploaded') && errorMsgpan && (errorMsgpan == 'Uploading')">
+                                            <div id="circleG_1" class="circleG"></div>
+                                            <div id="circleG_2" class="circleG"></div>
+                                            <div id="circleG_3" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgp}" ng-if="!sellerData.imageOfPanNo">{{ defaultSizeFormat }}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgp}" ng-if="sellerData.imageOfPanNo">{{ errorMsgpan }}</p>
+                                    <!--<p ng-if="sellerData.imageOfPanNo.length > 0 && errorMsgpan == 'Uploading'">Uploading...</p>-->
+                                    <a ng-if="sellerData.imageOfPanNo.length > 0 && errorMsgpan != 'Please upload png, jpg or pdf.' && errorMsgpan != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageOfPanNo | serverimage}}" rel="fancybox" target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                    <!--<p class="font-karla plsmtc">Documents uploaded but not verified</p>-->
+                                </div>
+                                <!-- <div class="filename">
+                                                    <p>12.jpg</p>
+                                                  </div> -->
+                            </div>
+                            <div class="error-msg7" ng-if="sellerForm.panNo.$invalid && sellerForm.panNo.$touched && sellerForm.panNo.$dirty">Please Enter Pan No</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.vat.$invalid && sellerForm.vat.$touched}">-->
+                            <label class="font-karla-bold" for="vat">VAT TIN No.<sup>*</sup></label>
+                            <div class="input-group attach">
+                                <input minlength="12" maxlength="12" class="form-control" type="text" name="vat" id="vat" ng-change="changeProgressBar(sellerData.vatTinNo,sellerForm.vat.$name)"
+                                    ng-model="sellerData.vatTinNo" placeholder="Enter VAT TIN No." required>
+                                <div class="input-group-addon upload">
+                                    <upload-image ng-change="changeProgressBar(sellerData.imageOfVatTinNo,sellerForm.imagevatNo.$name)" name="imagepanNo" ng-model="sellerData.imageOfVatTinNo"
+                                        file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeitVat" required
+                                        no-view></upload-image>
+                                </div>
+                                <div class="filename">
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgv}" ng-if="!sellerData.imageOfVatTinNo">{{ !errorMsgvat && (errorMsgvat != 'Uploading')? defaultErrorMsg : errorMsgvat }}</p>
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgv}" ng-if="!sellerData.imageOfVatTinNo">{{ !errorMsgvat && (errorMsgvat != 'Successfully uploaded') ? defaultErrorMsg: errorMsgvat
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgvat != 'Successfully uploaded') && errorMsgvat && (errorMsgvat == 'Uploading')">
+                                            <div id="circleG_1" class="circleG"></div>
+                                            <div id="circleG_2" class="circleG"></div>
+                                            <div id="circleG_3" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgv}" ng-if="!sellerData.imageOfVatTinNo">{{ defaultSizeFormat }}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgv}" ng-if="sellerData.imageOfVatTinNo ">{{ errorMsgvat }}</p>
+                                    <a ng-if="sellerData.imageOfVatTinNo.length > 0 && errorMsgvat != 'Please upload png, jpg or pdf.' && errorMsgvat != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageOfVatTinNo | serverimage}}" rel="fancybox" target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                    <!--<p class="font-karla plsmtc">Documents uploaded but not verified</p>-->
+                                </div>
+                                <!-- <div class="filename">
+                                                      <p>12.jpg</p>
+                                                    </div> -->
+                            </div>
+                            <div class="error-msg7" ng-if="sellerForm.vat.$invalid && sellerForm.vat.$touched">Please Enter VAT TIN No.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.vat.$invalid && sellerForm.vat.$touched}">-->
+                            <label class="font-karla-bold" for="cst">CST TIN No.<sup>*</sup></label>
+                            <div class="input-group attach">
+                                <input minlength="12" maxlength="12" class="form-control" type="text" name="cst" id="cst" ng-change="changeProgressBar(sellerData.cstTinNo,sellerForm.cst.$name)"
+                                    ng-model="sellerData.cstTinNo" placeholder="Enter CST TIN No." required>
+                                <div class="input-group-addon upload">
+                                    <upload-image name="imagecstNo" ng-change="changeProgressBar(sellerData.imageOfCstTinNo,sellerForm.imagecstNo.$name)" ng-model="sellerData.imageOfCstTinNo"
+                                        file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeitCST" required
+                                        no-view></upload-image>
+                                </div>
+                                <div class="filename">
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgc}" ng-if="!sellerData.imageOfCstTinNo">{{ !errorMsgcst && (errorMsgcst != 'Uploading')? defaultErrorMsg : errorMsgcst }}</p>
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgc}" ng-if="!sellerData.imageOfCstTinNo">{{ !errorMsgcst && (errorMsgcst != 'Successfully uploaded') ? defaultErrorMsg : errorMsgcst
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgcst != 'Successfully uploaded') && errorMsgcst && (errorMsgcst == 'Uploading')">
+                                            <div id="circleG_1" class="circleG"></div>
+                                            <div id="circleG_2" class="circleG"></div>
+                                            <div id="circleG_3" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgc}" ng-if="!sellerData.imageOfCstTinNo">{{ defaultSizeFormat }}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgc}" ng-if="sellerData.imageOfCstTinNo ">{{ errorMsgcst }}</p>
+                                    <a ng-if="sellerData.imageOfCstTinNo.length > 0 && errorMsgcst != 'Please upload png, jpg or pdf.' && errorMsgcst != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageOfCstTinNo | serverimage}}" rel="fancybox" target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                    <!--<p class="font-karla plsmtc">Documents uploaded but not verified</p>-->
+                                </div>
+                                <!-- <div class="filename">
+                                                      <p>12.png</p>
+                                                    </div> -->
+                            </div>
+                            <div class="error-msg7" ng-if="sellerForm.cst.$invalid && sellerForm.cst.$touched">Please Enter CST TIN No.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4 class="font-karla-bold text-uppercase spacing" style="margin-left:15px">Excise Details (Optional)</h4>
+                </div>
+                <div class="row excise-block">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.reg.$invalid && sellerForm.reg.$touched}">-->
+                            <label class="font-karla-bold" for="reg">Registration No. (ECC)</label>
+                            <!--<label class="font-karla-bold" for="reg">Registration No. (ECC)<sup>*</sup></label>-->
+                            <div class="input-group attach">
+                                <input class="form-control" type="text" minlength="15" maxlength="15" name="reg" id="reg" ng-change="changeProgressBar(sellerData.registrationNo,sellerForm.reg.$name)"
+                                    ng-model="sellerData.registrationNo" placeholder="Enter Registration No.">
+                                <div class="input-group-addon upload">
+                                    <upload-image name="imageeccNo" ng-change="changeProgressBar(sellerData.imageOfregistrationNo,sellerForm.imageeccNo.$name)"
+                                        ng-model="sellerData.imageOfregistrationNo" file-types="'image/jpeg,image/png,application/pdf'"
+                                        ng-callback="changeitECC" no-view></upload-image>
+                                </div>
+                                <div class="filename">
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsge}" ng-if="!sellerData.imageOfregistrationNo">{{ !errorMsgecc && (errorMsgecc != 'Uploading')? defaultErrorMsg : errorMsgecc }}</p>
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsge}" ng-if="!sellerData.imageOfregistrationNo">{{ !errorMsgecc && (errorMsgecc != 'Successfully uploaded') ? defaultErrorMsg : errorMsgecc
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgecc != 'Successfully uploaded') && errorMsgecc && (errorMsgecc == 'Uploading')">
+                                            <!--<div id="circleG">-->
+                                            <div id="circleG_1" class="circleG"></div>
+                                            <div id="circleG_2" class="circleG"></div>
+                                            <div id="circleG_3" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsge}" ng-if="!sellerData.imageOfregistrationNo">{{ defaultSizeFormat }}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsge}" ng-if="sellerData.imageOfregistrationNo ">{{ errorMsgecc }}</p>
+                                    <a ng-if="sellerData.imageOfregistrationNo.length > 0 && errorMsgecc != 'Please upload png, jpg or pdf.' && errorMsgecc != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageOfregistrationNo | serverimage}}" rel="fancybox"
+                                        target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                    <!--<p class="font-karla plsmtc">Documents uploaded but not verified</p>-->
+                                </div>
+                            </div>
+                            <div class="error-msg7" ng-if="sellerForm.reg.$invalid && sellerForm.reg.$touched">Please Enter Registration No.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.range.$invalid && sellerForm.range.$touched}">-->
+                            <label class="font-karla-bold" for="range">Range</label>
+                            <!--<label class="font-karla-bold" for="range">Range<sup>*</sup></label>-->
+                            <input class="form-control" name="range" type="text" id="range" placeholder="Enter Range" ng-change="changeProgressBar(sellerData.range,sellerForm.range.$name)"
+                                ng-model="sellerData.range">
+                            <div class="error-msg7" ng-if="sellerForm.range.$invalid && sellerForm.range.$touched">Please Enter Range</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group" ng-class="{'form-invalid': sellerForm.commission.$invalid && sellerForm.commission.$touched}">-->
+                            <label class="font-karla-bold" for="commissionerate">Commissionerate</label>
+                            <!--<label class="font-karla-bold" for="commissionerate">Commissionerate<sup>*</sup></label>-->
+                            <input class="form-control" name="commission" type="text" id="commissionerate" placeholder="Enter Commissionerate" ng-change="changeProgressBar(sellerData.commissioneRate,sellerForm.commission.$name)"
+                                ng-model="sellerData.commissioneRate">
+                            <div class="error-msg7" ng-if="sellerForm.commission.$invalid && sellerForm.commission.$touched">Please Enter Commissionerate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group div" ng-class="{'form-invalid': sellerForm.division.$invalid && sellerForm.division.$touched}">-->
+                            <label class="font-karla-bold" for="div">Division</label>
+                            <!--<label class="font-karla-bold" for="div">Division<sup>*</sup></label>-->
+                            <input class="form-control" type="text" name="division" id="div" ng-change="changeProgressBar(sellerData.division,sellerForm.division.$name)"
+                                ng-model="sellerData.division" placeholder="Enter Division">
+                            <div class="error-msg7" ng-if="sellerForm.division.$invalid && sellerForm.division.$touched">Please Enter Division</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-8 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group div" ng-class="{'form-invalid': sellerForm.exciseAddress.$invalid && sellerForm.exciseAddress.$touched}">-->
+                            <label class="font-karla-bold" for="div">Division Address</label>
+                            <!--<label class="font-karla-bold" for="div">Division Address<sup>*</sup></label>-->
+                            <textarea class="form-control" name="exciseAddress" rows="3" ng-change="changeProgressBar(sellerData.exciseAddress,sellerForm.exciseAddress.$name)"
+                                ng-model="sellerData.exciseAddress" placeholder="Enter Division Address"></textarea>
+                            <div class="error-msg7" ng-if="sellerForm.exciseAddress.$invalid && sellerForm.exciseAddress.$touched">Please Enter Division Address</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <h4 class="font-karla-bold text-uppercase spacing" style="margin-left:15px">Bank Details</h4>
+                </div>
+                <div class="row ">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group " ng-class="{ 'form-invalid': sellerForm.bankAccountNo.$invalid && sellerForm.bankAccountNo.$touched} ">-->
+                            <label class="font-karla-bold " for="acc ">Bank Account No.<sup>*</sup></label>
+                            <input class="form-control " maxlength="20" name="bankAccountNo " ng-model="sellerData.bankAccountNo " ng-change="changeProgressBar(sellerData.bankAccountNo,sellerForm.bankAccountNo.$name)"
+                                type="text " id="acc " placeholder="Enter Account No." required>
+                            <div class="error-msg7" ng-if="sellerForm.bankAccountNo.$invalid && sellerForm.bankAccountNo.$touched">Please Enter Account No.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group " ng-class="{ 'form-invalid': sellerForm.bankName.$invalid && sellerForm.bankName.$touched} ">-->
+                            <label class="font-karla-bold " for="bank ">Bank Name<sup>*</sup></label>
+                            <input class="form-control " type="text " id="bank " name="bankName " ng-model="sellerData.bankName " ng-change="changeProgressBar(sellerData.bankName,sellerForm.bankName.$name)"
+                                placeholder="Enter Bank Name" required>
+                            <div class="error-msg7" ng-if="sellerForm.bankName.$invalid && sellerForm.bankName.$touched">Please Enter Bank Name</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group">
+                            <!--<div class="form-group " ng-class="{ 'form-invalid': sellerForm.branch.$invalid && sellerForm.branch.$touched} ">-->
+                            <label class="font-karla-bold " for="branch ">Branch<sup>*</sup></label>
+                            <input class="form-control " type="text " id="branch " name="branch " ng-model="sellerData.branch " ng-change="changeProgressBar(sellerData.branch,sellerForm.branch.$name)"
+                                placeholder="Enter Branch Name" required>
+                            <div class="error-msg7" ng-if="sellerForm.branch.$invalid && sellerForm.branch.$touched">Please Enter Branch Name</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group div">
+                            <!--<div class="form-group div " ng-class="{ 'form-invalid': sellerForm.ifscCode.$invalid && sellerForm.ifscCode.$touched} ">-->
+                            <label class="font-karla-bold " for="div ">IFSC Code<sup>*</sup></label>
+                            <input class="form-control " minlength="11" maxlength="11 " type="text " id="div" name="ifscCode " ng-model="sellerData.ifscCode "
+                                ng-change="changeProgressBar(sellerData.ifscCode,sellerForm.ifscCode.$name)" placeholder="Enter IFSC Code"
+                                required>
+                            <div class="error-msg7" ng-if="sellerForm.ifscCode.$invalid && sellerForm.ifscCode.$touched">Please Enter IFSC Code</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group div ccplacement">
+                            <!--<div class="form-group " ng-class="{ 'form-invalid': sellerForm.cheque.$invalid && sellerForm.cheque.$touched} ">-->
+                            <label class="font-karla-bold ">Cancelled Cheque<sup>*</sup></label>
+                            <div class="attach">
+                                <button class="btn btn-primary file-upload" name="button">
+                                                            <upload-image ng-model="sellerData.imageCancelledCheque" name="imageCancelledCheque" ng-change="changeProgressBar(sellerData.imageCancelledCheque,sellerForm.imageCancelledCheque.$name)" file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeitCheque "
+                                                                no-view></upload-image>
+                                                        </button>
+                                <div class="filename ">
+                                    <p class="font-karla plsmtc setchq" ng-class="{'success-col':errorMsgch}" ng-if="!sellerData.imageCancelledCheque">{{ !errorMsgcheq && (errorMsgcheq != 'Uploading') ? defaultErrorMsg : errorMsgcheq }}
+                                    </p>
+                                    <p class="font-karla plsmtc setchq" ng-class="{'success-col':errorMsgch}" ng-if="!sellerData.imageCancelledCheque">{{ !errorMsgcheq && (errorMsgcheq != 'Successfully uploaded') ? defaultErrorMsg : errorMsgcheq
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgcheq != 'Successfully uploaded') && errorMsgcheq && (errorMsgcheq == 'Uploading')">
+                                            <div id="circleG_11" class="circleG"></div>
+                                            <div id="circleG_21" class="circleG"></div>
+                                            <div id="circleG_31" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgch}" ng-if="!sellerData.imageCancelledCheque">{{defaultSizeFormat}}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgch}" ng-if="sellerData.imageCancelledCheque">{{ errorMsgcheq }}</p>
+                                    <a ng-if="sellerData.imageCancelledCheque.length > 0 && errorMsgcheq != 'Please upload png, jpg or pdf.' && errorMsgcheq != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageCancelledCheque | serverimage}}" rel="fancybox"
+                                        target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <!--<div class="input-group cheque attach ">
+                                                        <input class="form-control " name="cheque " placeholder="Enter cancelled cheque no " ng-model="sellerData.cancelledCheque"
+                                                            type="text " required>
+                                                        <div class="input-group-addon upload ">
+                                                            <upload-image ng-model="sellerData.imageCancelledCheque" ng-callback="changeitCheque " no-view></upload-image>
+                                                        </div>
+                                                        <div class="filename ">
+                                                    <p>12.jpg</p>
+                                                  </div>
+                                                    </div>-->
+                            <!--<div class="error-msg8" ng-if="sellerForm.cheque.$invalid && sellerForm.cheque.$touched">Please Enter Cancelled Cheque no</div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <h4 class="font-karla-bold text-uppercase spacing" style="margin-left:15px">Import-export</h4>
+                </div>
+                <div class="row excise-block">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="form-group export">
+                            <!--<div class="form-group export " ng-class="{'form-invalid': sellerForm.importExportCode.$invalid && sellerForm.importExportCode.$touched}">-->
+                            <label class="font-karla-bold " for="code ">Import-export code (Optional)</label>
+                            <div class="input-group attach">
+                                <input class="form-control " name="importExportCode" type="text " id="code " placeholder="Enter Import-export code " ng-model="sellerData.importExportCode"
+                                    ng-change="changeProgressBar(sellerData.importExportCode,sellerForm.importExportCode.$name)">
+                                <div class="input-group-addon upload ">
+                                    <upload-image ng-model="sellerData.imageImportExportCode " name="imageImportExportCode" ng-change="changeProgressBar(sellerData.imageImportExportCode,sellerForm.imageImportExportCode.$name)"
+                                        file-types="'image/jpeg,image/png,application/pdf'" ng-callback="changeitImportExport"
+                                        no-view></upload-image>
+                                </div>
+                                <div class="filename ">
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgi}" ng-if="!sellerData.imageImportExportCode">{{ !errorMsgIE && (errorMsgIE != 'Uploading') ? defaultErrorMsg : errorMsgIE }}
+                                    </p>
+                                    <p class="font-karla plsmtc" ng-class="{'success-col':errorMsgi}" ng-if="!sellerData.imageImportExportCode">{{ !errorMsgIE && (errorMsgIE != 'Successfully uploaded') ? defaultErrorMsg : errorMsgIE
+                                        }}
+                                        <div id="circleG" ng-if="(errorMsgIE != 'Successfully uploaded') && errorMsgIE && (errorMsgIE == 'Uploading')">
+                                            <div id="circleG_1" class="circleG"></div>
+                                            <div id="circleG_2" class="circleG"></div>
+                                            <div id="circleG_3" class="circleG"></div>
+                                        </div>
+                                    </p>
+                                    <p class="font-karla plsmtc size-format" ng-class="{'success-col':errorMsgi}" ng-if="!sellerData.imageImportExportCode">{{defaultSizeFormat}}</p>
+                                    <p class="font-karla plsmtc " ng-class="{'success-col':errorMsgi}" ng-if="sellerData.imageImportExportCode">{{ errorMsgIE }}</p>
+                                    <a ng-if="sellerData.imageImportExportCode.length > 0 && errorMsgIE != 'Please upload png, jpg or pdf.' && errorMsgIE != 'Please Upload File Size Upto 10 MB'"
+                                        fancybox-box ng-href="{{sellerData.imageImportExportCode | serverimage}}" rel="fancybox"
+                                        target="_blank">
+                                        <p class="font-karla upload-place">View uploaded file.</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="btn-submit ">
+                        <div class="text-center subbtn btn-space">
+                            <button class="btn btn-primary font-gotham-medium text-uppercase" ng-click="updateSellerProfile(errorMsgpan,errorMsgvat,errorMsgcst,errorMsgIE,errorMsgcheq,sellerData.imageOfPanNo,sellerData.imageOfVatTinNo,sellerData.imageOfCstTinNo,sellerForm,sellerData)"><span ng-if="!(sellerData.imageOfPanNo && sellerData.imageOfVatTinNo && sellerData.imageOfCstTinNo && sellerForm.$valid) || (sellerData.telephone == '' && sellerData.city == '' && sellerData.companyAddress == '' && sellerData.pincode != '' && sellerData.state != '' && sellerData.panNo == '' && sellerData.vatTinNo == '' && sellerData.cstTinNo == '' && sellerData.bankName != '' && sellerData.branch == '' && sellerData.ifscCode == '' && sellerData.bankAccountNo == '') || ((errorMsgpan == 'Please upload png, jpg or pdf.') && (errorMsgvat == 'Please upload png, jpg or pdf.') && (errorMsgcst == 'Please upload png, jpg or pdf.') && (errorMsgcheq == 'Please upload png, jpg or pdf.') && (errorMsgIE == 'Please upload png, jpg or pdf.') && (errorMsgpan == 'Please Upload File Size Upto 10 MB') && (errorMsgvat == 'Please Upload File Size Upto 10 MB') && (errorMsgcst == 'Please Upload File Size Upto 10 MB') && (errorMsgcheq == 'Please Upload File Size Upto 10 MB') && (errorMsgIE == 'Please Upload File Size Upto 10 MB'))">Please Enter Mandatory Field</span>
+                                                        <span ng-if="(sellerData.imageOfPanNo && sellerData.imageOfVatTinNo && sellerData.imageOfCstTinNo && sellerForm.$valid) && (errorMsgpan != 'Please upload png, jpg or pdf.') && (errorMsgvat != 'Please upload png, jpg or pdf.') && (errorMsgIE != 'Please upload png, jpg or pdf.') && (errorMsgcst != 'Please upload png, jpg or pdf.') && (errorMsgcheq != 'Please upload png, jpg or pdf.') && (errorMsgpan != 'Please Upload File Size Upto 10 MB') && (errorMsgvat != 'Please Upload File Size Upto 10 MB') && (errorMsgIE != 'Please Upload File Size Upto 10 MB') && (errorMsgcst != 'Please Upload File Size Upto 10 MB') && (errorMsgcheq != 'Please Upload File Size Upto 10 MB')">Submit</span></button>
+                            <!--&& (errorMsgecc != 'Please Upload File Size Upto 10 MB')   && (errorMsgecc != 'Please upload png, jpg or pdf.')
+                                                         || (errorMsgecc == 'Please Upload File Size Upto 10 MB')    && sellerData.imageOfregistrationNo     || (errorMsgecc == 'Please upload png, jpg or pdf.')
+                                                         ,errorMsgecc   ,sellerData.imageOfregistrationNo && sellerData.imageOfregistrationNo-->
+                            <button class="btn btn-primary font-gotham-medium text-uppercase returnbtn" ng-click="ShowViewSeller();">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

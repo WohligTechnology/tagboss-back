@@ -335,13 +335,13 @@
               </div>-->
               <div class="align-info">
                 <p class="img-head pull-left">VAT NO. {{sellerData.vatTinNo}}</p>
-                <span class="download-btn pull-right" ng-if="!imageOfVatTinNoIsPdf"><a href="{{sellerData.imageOfVatTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfVatTinNoIsPdf"><a href="{{pdfURL}}{{sellerData.imageOfVatTinNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageOfVatTinNoIsPdf"><a ng-href="{{sellerData.imageOfVatTinNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfVatTinNoIsPdf"><a ng-href="{{sellerData.imageOfVatTinNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfVatTinNoIsPdf">
                 <a id="fbplus_01" href="{{sellerData.imageOfVatTinNo|uploadpath}}" fancybox-box>
-                  <img ng-src="{{sellerData.imageOfVatTinNo|uploadpath}} " alt=" " class="get-center img-responsive">
+                  <img ng-src="{{sellerData.imageOfVatTinNo|uploadpath}}" alt=" " class="get-center img-responsive">
                 </a>
               </div>
               <div class="text-center img-placement" ng-if="imageOfVatTinNoIsPdf">
@@ -361,8 +361,8 @@
               </div>-->
               <div class="align-info">
                 <p class="img-head pull-left">CST NO. {{sellerData.cstTinNo}}</p>
-                <span class="download-btn pull-right" ng-if="!imageOfCstTinNoIsPdf"><a href="{{sellerData.imageOfCstTinNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{pdfURL}}{{sellerData.imageOfCstTinNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageOfCstTinNoIsPdf"><a href="{{sellerData.imageOfCstTinNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfCstTinNoIsPdf"><a href="{{sellerData.imageOfCstTinNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfCstTinNoIsPdf">
@@ -389,8 +389,8 @@
               </div>-->
               <div class="align-info">
                 <p class="img-head pull-left">PAN NO. {{sellerData.panNo}}</p>
-                <span class="download-btn pull-right" ng-if="!imageOfPanNoIsPdf"><a href="{{sellerData.imageOfPanNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{pdfURL}}{{sellerData.imageOfPanNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageOfPanNoIsPdf"><a href="{{sellerData.imageOfPanNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfPanNoIsPdf"><a href="{{sellerData.imageOfPanNo|downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfPanNoIsPdf">
@@ -419,8 +419,8 @@
               </div>-->
               <div class="align-info">
                 <p class="img-head pull-left">Cancelled Cheque</p>
-                <span class="download-btn pull-right" ng-if="!imageCancelledChequeIsPdf"><a href="{{sellerData.imageCancelledCheque | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageCancelledChequeIsPdf"><a href="{{pdfURL}}{{sellerData.imageCancelledCheque}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageCancelledChequeIsPdf"><a href="{{sellerData.imageCancelledCheque | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageCancelledChequeIsPdf"><a href="{{sellerData.imageCancelledCheque | downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageCancelledChequeIsPdf">
@@ -447,8 +447,8 @@
               </div>-->
               <div class="align-info dataPlace">
                 <p class="img-head pull-left">Registration No. (ECC) {{sellerData.registrationNo}}</p>
-                <span class="download-btn pull-right" ng-if="!imageOfregistrationNoIsPdf"><a href="{{sellerData.imageOfregistrationNo | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{pdfURL}}{{sellerData.imageOfregistrationNo}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageOfregistrationNoIsPdf"><a href="{{sellerData.imageOfregistrationNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageOfregistrationNoIsPdf"><a href="{{sellerData.imageOfregistrationNo | downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageOfregistrationNoIsPdf">
@@ -475,8 +475,8 @@
               </div>-->
               <div class="align-info">
                 <p class="img-head pull-left">Import Export Code {{sellerData.importExportCode}}</p>
-                <span class="download-btn pull-right" ng-if="!imageImportExportCodeIsPdf"><a href="{{sellerData.imageImportExportCode | uploadpath}}" download><i class="fa fa-download"></i></a></span>
-                <span class="download-btn pull-right" ng-if="imageImportExportCodeIsPdf"><a href="{{pdfURL}}{{sellerData.imageImportExportCode}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="!imageImportExportCodeIsPdf"><a href="{{sellerData.imageImportExportCode | downloadFile}}" download><i class="fa fa-download"></i></a></span>
+                <span class="download-btn pull-right" ng-if="imageImportExportCodeIsPdf"><a href="{{sellerData.imageImportExportCode | downloadFile}}" download><i class="fa fa-download"></i></a></span>
               </div>
               <div class="clearfix"></div>
               <div class="img-placement" ng-if="!imageImportExportCodeIsPdf">

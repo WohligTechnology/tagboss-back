@@ -3803,6 +3803,169 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
     })
 
+    .controller('editSellerProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal, $filter) {
+        $scope.template = TemplateService.changecontent("editseller");
+        $scope.menutitle = NavigationService.makeactive("Edit Seller");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.sellerProfile = {};
+        NavigationService.getOneSeller($state.params.id, function (data) {
+            if (data.value == true) {
+                $scope.sellerData = data.data;
+                // $scope.sellerData.securityDepositDate = $filter('date')($scope.sellerData.securityDepositDate, "dd-MM-yyyy");
+                console.log("sellerdata", $scope.sellerData);
+            }
+        });
+
+        $scope.ShowViewSeller = function () {
+            $state.go("view-sellers", {
+                id: $scope.tempId
+            });
+        };
+        $scope.getAllState = function () {
+            NavigationService.getState(function (data) {
+                $scope.states = data.data;
+            });
+        };
+        $scope.getAllState();
+
+        $scope.tempId = $state.params.id;
+
+        $scope.updateSellerProfile = function (ipan, ivat, icst, iIE, icheq, pan, vat, cst, sellerForm, sellerProfile) {
+            $(window).scrollTop(0);
+            // console.log(sellerProfile);
+            if (sellerForm.$valid && pan && cst && vat && ipan != "Please upload png, jpg or pdf." && icst != "Please upload png, jpg or pdf." && ivat != "Please upload png, jpg or pdf." && iIE != "Please upload png, jpg or pdf." && icheq != "Please upload png, jpg or pdf." && ipan != "Please Upload File Size Upto 10 MB" && icst != "Please Upload File Size Upto 10 MB" && ivat != "Please Upload File Size Upto 10 MB" && iIE != "Please Upload File Size Upto 10 MB" && icheq != "Please Upload File Size Upto 10 MB" && sellerProfile.telephone != '' && sellerProfile.city != '' && sellerProfile.companyAddress != '' && sellerProfile.pincode != '' && sellerProfile.state != '' && sellerProfile.panNo != '' && sellerProfile.vatTinNo != '' && sellerProfile.cstTinNo != '' && sellerProfile.bankName != '' && sellerProfile.branch != '' && sellerProfile.ifscCode != '' && sellerProfile.bankAccountNo != '') {
+                sellerProfile.contactPerson = sellerProfile.firstName + ' ' + sellerProfile.lastName;
+                // $scope.sellerProfile.status = 'pending';
+                // console.log('enter');
+                NavigationService.editUser(sellerProfile, function (data) {
+                    // console.log(data);
+                    if (data.data.nModified == '1') {
+                        $scope.openOptionalProfileMsg();
+                        $timeout(function () {
+                            $scope.buyOptionalProfile.close();
+                            $state.go("view-sellers", {
+                                id: $scope.tempId
+                            });
+                        }, 3000);
+                    } else {
+                        $state.go("view-sellers", {
+                            id: $scope.tempId
+                        });
+                    }
+                });
+            } else {
+                if (!pan || !cst || !vat || ipan == "Please upload png, jpg or pdf." || icst == "Please upload png, jpg or pdf." || ivat == "Please upload png, jpg or pdf." || iIE == "Please upload png, jpg or pdf." || icheq == "Please upload png, jpg or pdf." || ipan == "Please Upload File Size Upto 10 MB" || icst == "Please Upload File Size Upto 10 MB" || ivat == "Please Upload File Size Upto 10 MB" || iIE == "Please Upload File Size Upto 10 MB" || icheq == "Please Upload File Size Upto 10 MB") {
+                    var profileErr = toastr.error("Please Upload All Valid Documents And Data.", "Profile Validation Error");
+                    toastr.refreshTimer(profileErr, 5000);
+                }
+                if (sellerProfile.telephone != '' || sellerProfile.city != '' || sellerProfile.companyAddress != '' || sellerProfile.pincode != '' || sellerProfile.state != '' || sellerProfile.panNo != '' || sellerProfile.vatTinNo != '' || sellerProfile.cstTinNo != '' || sellerProfile.bankName != '' || sellerProfile.branch != '' || sellerProfile.ifscCode != '' || sellerProfile.bankAccountNo != '') {
+                    var profileErr = toastr.error("Please Enter Mandatory Fields.", "Profile Validation Error");
+                    toastr.refreshTimer(profileErr, 5000);
+                }
+            }
+        }
+
+        $scope.defaultErrorMsg = 'Upload the relevant documents.';
+        $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
+        var p = 0;
+        var v = 0;
+        var c = 0;
+        var e = 0;
+        var cheq = 0;
+        var ie = 0;
+        $scope.changeitPan = function (err, data) {
+            if (err) {
+                $scope.errorMsgpan = err;
+                $scope.errorMsgp = false;
+            } else {
+                $scope.errorMsgp = true;
+                $scope.errorMsgpan = "Successfully uploaded";
+                if (p == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    p = p + 1;
+                }
+            }
+        }
+        $scope.changeitVat = function (err, data) {
+            if (err) {
+                $scope.errorMsgvat = err;
+                $scope.errorMsgv = false;
+            } else {
+                $scope.errorMsgv = true;
+                $scope.errorMsgvat = "Successfully uploaded";
+                if (v == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    v = v + 1;
+                }
+            }
+        }
+
+        $scope.changeitCST = function (err, data) {
+            //console.log(name);
+            //console.log($scope.sellerProfile.imageOfCstTinNo);
+            if (err) {
+                $scope.errorMsgcst = err;
+                $scope.errorMsgc = false;
+            } else {
+                $scope.errorMsgc = true;
+                $scope.errorMsgcst = "Successfully uploaded";
+                if (c == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    c = c + 1;
+                }
+            }
+        }
+        $scope.changeitECC = function (err, data) {
+            if (err) {
+                $scope.errorMsgecc = err;
+                $scope.errorMsge = false;
+            } else {
+                $scope.errorMsge = true;
+                $scope.errorMsgecc = "Successfully uploaded";
+                if (e == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    e = e + 1;
+                }
+            }
+        }
+        $scope.changeitCheque = function (err, data) {
+            if (err) {
+                $scope.errorMsgcheq = err;
+                $scope.errorMsgch = false;
+            } else {
+                $scope.errorMsgch = true;
+                $scope.errorMsgcheq = "Successfully uploaded";
+                if (cheq == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    cheq = cheq + 1;
+                }
+            }
+        }
+        $scope.changeitImportExport = function (err, data) {
+            if (err) {
+                $scope.errorMsgIE = err;
+                $scope.errorMsgi = false;
+            } else {
+                $scope.errorMsgi = true;
+                $scope.errorMsgIE = "Successfully uploaded";
+
+                if (ie == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    ie = ie + 1;
+                }
+            }
+        }
+        $scope.openOptionalProfileMsg = function () {
+            $scope.buyOptionalProfile = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/editProfileMsg.html',
+                scope: $scope,
+                windowClass: "loginbox"
+            });
+        };
+
+    })
 
     .controller('View-buyersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr) {
         $scope.template = TemplateService.changecontent("view-buyers");
@@ -3863,6 +4026,142 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             });
         }
     })
+
+    .controller('editBuyerProfileCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state, toastr, $uibModal) {
+        $scope.template = TemplateService.changecontent("editbuyer");
+        $scope.menutitle = NavigationService.makeactive("Edit Buyer");
+        TemplateService.title = $scope.menutitle;
+        $scope.navigation = NavigationService.getnav();
+        $scope.buyerProfile = {};
+        NavigationService.getOneBuyer($state.params.id, function (data) {
+            if (data.value == true) {
+                $scope.buyerData = data.data;
+            }
+        });
+        $scope.defaultErrorMsg = 'Upload the relevant document.';
+        $scope.defaultSizeFormat = '(Max size 10MB & Format: Png, Jpeg & Pdf)';
+        var p = 0;
+        var v = 0;
+        var c = 0;
+        var e = 0;
+        $scope.changeitPan = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsgpan = err;
+                $scope.errorMsgp = false;
+            } else {
+                $scope.errorMsgp = true;
+                $scope.errorMsgpan = "Successfully uploaded";
+                if (p == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    p = p + 1;
+                }
+            }
+        }
+
+        $scope.changeitVat = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsgvat = err;
+                $scope.errorMsgv = false;
+            } else {
+                $scope.errorMsgv = true;
+                $scope.errorMsgvat = "Successfully uploaded";
+                if (v == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    v = v + 1;
+                }
+            }
+        }
+
+
+        $scope.changeitCST = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsgcst = err;
+                $scope.errorMsgc = false;
+            } else {
+                $scope.errorMsgc = true;
+                $scope.errorMsgcst = "Successfully uploaded";
+                if (c == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    c = c + 1;
+                }
+            }
+        }
+
+        $scope.changeitECC = function (err, data) {
+            //console.log(err, data);
+            if (err) {
+                $scope.errorMsgecc = err;
+                $scope.errorMsge = false;
+            } else {
+                $scope.errorMsge = true;
+                $scope.errorMsgecc = "Successfully uploaded";
+                if (e == 0) {
+                    $scope.docLeft = $scope.docLeft - 1;
+                    e = e + 1;
+                }
+            }
+        }
+
+        $scope.ShowViewBuyer = function () {
+            $state.go("view-buyers", {
+                id: $scope.tempId
+            });
+        };
+        $scope.getAllState = function () {
+            NavigationService.getState(function (data) {
+                $scope.states = data.data;
+            });
+        };
+        $scope.getAllState();
+        $scope.tempId = $state.params.id;
+        $scope.updateBuyerProfile = function (ipan, ivat, icst, pan, vat, cst, buyerForm, buyerProfile) {
+            if (buyerForm.$valid && pan && cst && vat && ipan != "Please upload png, jpg or pdf." && icst != "Please upload png, jpg or pdf." && ivat != "Please upload png, jpg or pdf." && ipan != "Please Upload File Size Upto 10 MB" && icst != "Please Upload File Size Upto 10 MB" && ivat != "Please Upload File Size Upto 10 MB" && buyerProfile.telephone != '' && buyerProfile.city != '' && buyerProfile.companyAddress != '' && buyerProfile.pincode != '' && buyerProfile.state != '' && buyerProfile.panNo != '' && buyerProfile.vatTinNo != '' && buyerProfile.cstTinNo != '') {
+                console.log(buyerProfile);
+                buyerProfile.contactPerson = buyerProfile.firstName + ' ' + buyerProfile.lastName;
+                // $scope.buyerProfile.status = 'Pending';
+                NavigationService.editUser(buyerProfile, function (data) {
+                    console.log(data);
+                    if (data.data.nModified == '1') {
+                        $scope.openOptionalProfileMsg();
+                        $timeout(function () {
+                            $scope.buyOptionalProfile.close();
+                            // $scope.ShowViewBuyer();
+                            $state.go("view-buyers", {
+                                id: $scope.tempId
+                            });
+                        }, 3000);
+                    } else {
+                        $state.go("view-buyers", {
+                            id: $scope.tempId
+                        });
+                    }
+                });
+            } else {
+                //console.log('Not valid');
+                if (!pan || !cst || !vat || ipan == "Please upload png, jpg or pdf." || icst == "Please upload png, jpg or pdf." || ivat == "Please upload png, jpg or pdf." || ipan == "Please Upload File Size Upto 10 MB" || icst == "Please Upload File Size Upto 10 MB" || ivat == "Please Upload File Size Upto 10 MB") {
+                    var profileErr = toastr.error("Please Upload All Valid Documents And Data.", "Profile Validation Error");
+                    toastr.refreshTimer(profileErr, 5000);
+                }
+                if (buyerProfile.telephone != '' || buyerProfile.city != '' || buyerProfile.companyAddress != '' || buyerProfile.pincode != '' || buyerProfile.state != '' || buyerProfile.panNo != '' || buyerProfile.vatTinNo != '' || buyerProfile.cstTinNo != '') {
+                    var profileErr = toastr.error("Please Enter Mandatory Fields.", "Profile Validation Error");
+                    toastr.refreshTimer(profileErr, 5000);
+                }
+            }
+        }
+        $scope.openOptionalProfileMsg = function () {
+            $scope.buyOptionalProfile = $uibModal.open({
+                animation: true,
+                templateUrl: 'views/modal/editProfileMsg.html',
+                scope: $scope,
+                windowClass: "loginbox"
+            });
+        };
+    })
+
+
     .controller('Request-sellersCtrl', function ($scope, TemplateService, NavigationService, $timeout, $state) {
         $scope.template = TemplateService.changecontent("request-sellers");
         $scope.menutitle = NavigationService.makeactive("Request-sellers");
@@ -4042,37 +4341,51 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
             $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
             $scope.zConstraint.userStringId = data.userStringId;
 
-            $scope.zConstraint.panImage = data.imageOfPanNo;
-            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
-            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
-            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
-            $scope.zConstraint.importImage = data.imageImportExportCode;
-            $scope.zConstraint.chequeImage = data.imageCancelledCheque;
+            $scope.panImage = {};
+            $scope.vatImage = {};
+            $scope.cstImage = {};
+            $scope.registerImage = {};
+            $scope.chequeImage = {};
+            $scope.importImage = {};
+
+            $scope.panImage.Image = data.imageOfPanNo;
+            $scope.vatImage.Image = data.imageOfVatTinNo;
+            $scope.cstImage.Image = data.imageOfCstTinNo;
+            $scope.registerImage.Image = data.imageOfregistrationNo;
+            $scope.importImage.Image = data.imageImportExportCode;
+            $scope.chequeImage.Image = data.imageCancelledCheque;
+            $scope.panImage.Name = 'Pan_' + data.userStringId;
+            $scope.vatImage.Name = 'VAT_' + data.userStringId;
+            $scope.cstImage.Name = 'CST_' + data.userStringId;
+            $scope.registerImage.Name = 'Registration_' + data.userStringId;
+            $scope.importImage.Name = 'Import_Export_' + data.userStringId;
+            $scope.chequeImage.Name = 'Cancelled_Cheque_' + data.userStringId;
 
             console.log($scope.zConstraint);  
             var zip = new JSZip();  
             var files = [];
 
-            files.push($scope.zConstraint.panImage);  
-            files.push($scope.zConstraint.importImage);  
-            files.push($scope.zConstraint.vatImage);  
-            files.push($scope.zConstraint.cstImage);  
-            files.push($scope.zConstraint.registerImage);  
-            files.push($scope.zConstraint.chequeImage);
-            // console.log("inside zip", $scope.zConstraint);  
+            files.push($scope.panImage);  
+            files.push($scope.importImage);  
+            files.push($scope.vatImage);  
+            files.push($scope.cstImage);  
+            files.push($scope.registerImage);  
+            files.push($scope.chequeImage);
+            // console.log("inside zip", $scope.zConstraint);
             var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
 
-            async.each(files, function (value, callback) {   
+            async.each(files, function (values, callback) {   
 
-                if (value) {
-                    var extension = value.split(".").pop();   
+                if (values.Image) {
+                    var value = values.Image;
+                    var extension = value.split(".").pop();
                     extension = extension.toLowerCase();   
                     if (extension == "jpeg") {    
                         extension = "jpg";   
                     }   
                     var i = value.indexOf(".");   
                     i--;   
-                    var name = value.slice(0, i);  
+                    var name = values.Name;
 
                     getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
                         img.file(name + "." + extension, imageData, {
@@ -4084,8 +4397,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 } else {
                     callback();
                 }
-
-
             }, function (err, data) {
                 zip.generateAsync({    
                     type: "blob",
@@ -4093,7 +4404,6 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                     saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
                 });
             }); 
-
         }
 
         var senddata = {}
@@ -4299,42 +4609,46 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
 
 
         //getBase64FromImageUrl("http:/ / 104.155 .129 .33: 1337 / upload / readFile ? file = 58e23 b4c333019376409a782.png ");
-
-
         $scope.zipCreate = function (data) {
-            console.log(data);
             $scope.zConstraint = {};
             $scope.zConstraint.userName = data.firstName + '_' + data.lastName;
             $scope.zConstraint.userStringId = data.userStringId;
 
-            $scope.zConstraint.panImage = data.imageOfPanNo;
-            $scope.zConstraint.vatImage = data.imageOfVatTinNo;
-            $scope.zConstraint.cstImage = data.imageOfCstTinNo;
-            $scope.zConstraint.registerImage = data.imageOfregistrationNo;
+            $scope.panImage = {};
+            $scope.vatImage = {};
+            $scope.cstImage = {};
+            $scope.registerImage = {};
 
-            console.log($scope.zConstraint);  
+            $scope.panImage.Image = data.imageOfPanNo;
+            $scope.vatImage.Image = data.imageOfVatTinNo;
+            $scope.cstImage.Image = data.imageOfCstTinNo;
+            $scope.registerImage.Image = data.imageOfregistrationNo;
+            $scope.panImage.Name = 'Pan_' + data.userStringId;
+            $scope.vatImage.Name = 'VAT_' + data.userStringId;
+            $scope.cstImage.Name = 'CST_' + data.userStringId;
+            $scope.registerImage.Name = 'Registration_' + data.userStringId;
+
             var zip = new JSZip();  
             var files = [];
 
-            files.push($scope.zConstraint.panImage);  
-            files.push($scope.zConstraint.vatImage);  
-            files.push($scope.zConstraint.cstImage);  
-            files.push($scope.zConstraint.registerImage);  
-            // console.log("inside zip", $scope.zConstraint);  
+            files.push($scope.panImage);  
+            files.push($scope.vatImage);  
+            files.push($scope.cstImage);  
+            files.push($scope.registerImage);  
+            // console.log("inside zip", $scope.zConstraint);
             var img = zip.folder($scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId);  
+            async.each(files, function (values, callback) {   
 
-            async.each(files, function (value, callback) {   
-                // console.log(value);
-
-                if (value) {
-                    var extension = value.split(".").pop();   
+                if (values.Image) {
+                    var value = values.Image;
+                    var extension = value.split(".").pop();
                     extension = extension.toLowerCase();   
                     if (extension == "jpeg") {    
                         extension = "jpg";   
                     }   
                     var i = value.indexOf(".");   
                     i--;   
-                    var name = value.slice(0, i);  
+                    var name = values.Name;
 
                     getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
                         img.file(name + "." + extension, imageData, {
@@ -4346,28 +4660,13 @@ angular.module('phonecatControllers', ['templateservicemod', 'ui.select', 'toast
                 } else {
                     callback();
                 }
-                // var extension = value.split(".").pop();   
-                // extension = extension.toLowerCase();   
-                // if (extension == "jpeg") {    
-                //     extension = "jpg";   
-                // }   
-                // var i = value.indexOf(".");   
-                // i--;   
-                // var name = value.slice(0, i);  
-
-                // getBase64FromImageUrl(adminURL + "upload/readFile?file=" + value, function (imageData) {
-                //     img.file(name + "." + extension, imageData);  
-                //     callback();
-                // }); 
-
             }, function (err, data) {
                 zip.generateAsync({    
-                    type: "Blob"   
+                    type: "blob",
                 }).then(function (content) {     // see FileSaver.js
                     saveAs(content, $scope.zConstraint.userName + "-" + $scope.zConstraint.userStringId + ".zip");
                 });
             }); 
-
         }
 
         $scope.acceptBuyer = function (buyerdata) {

@@ -13,7 +13,10 @@ templateservicemod.service('TemplateService', function () {
   };
 
   this.decimalExact2 = /^(?:(\d)|(0[0-9]|1[0-5]))(\.\d{2})$/;
-  // this.decimalExact2 = /^(0[1-9]|1[0-5])(\.\d{2})$/;
+  this.onlyDigits = /^[0-9]*$/;
+  this.forPanCard = /(^([a-zA-Z]{5})([0-9]{4})([a-zA-Z]{1})$)/;
+  this.forTelephone = /((0\d{10})|((?:\+)91\d{10}))/;
+  this.forPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{7,}$/;
   this.changecontent = function (page) {
     this.init();
     var data = this;

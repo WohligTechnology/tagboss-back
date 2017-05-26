@@ -52,6 +52,16 @@ firstapp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $lo
       templateUrl: "views/template.html",
       controller: 'OrdersCtrl'
     })
+    .state('editBuyerProfile', {
+      url: "/editBuyerProfile/:id",
+      templateUrl: "views/template.html",
+      controller: 'editBuyerProfileCtrl'
+    })
+    .state('editSellerProfile', {
+      url: "/editSellerProfile/:id",
+      templateUrl: "views/template.html",
+      controller: 'editSellerProfileCtrl'
+    })
     .state('categories', {
       url: "/categories",
       templateUrl: "views/template.html",
@@ -511,6 +521,16 @@ firstapp.filter('serverimage', function () {
     }
   }
 });
+firstapp.filter('downloadFile', function () {
+  return function (filename) {
+    if (filename && filename !== null) {
+      return adminURL + "api/download/" + filename;
+    } else {
+      return undefined;
+    }
+  }
+});
+
 
 firstapp.directive('onlyDecimal', function () {
   return {

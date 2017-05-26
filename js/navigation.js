@@ -488,11 +488,28 @@ var navigationservice = angular.module('navigationservice', [])
         }).success(callback);
       },
 
+      getState: function (callback) {
+        $http({
+          url: adminURL + 'state/getAll',
+          method: 'POST',
+          withCredentials: true,
+          data: {}
+        }).success(callback);
+      },
 
       updateSeller: function (sdata, callback) {
         var data = sdata;
         return $http({
           url: adminURL + "user/updateSeller",
+          method: "POST",
+          data: data
+        }).success(callback);
+      },
+
+      editUser: function (sdata, callback) {
+        var data = sdata;
+        return $http({
+          url: adminURL + "user/save",
           method: "POST",
           data: data
         }).success(callback);
